@@ -1,0 +1,30 @@
+=== NPCs for Hint Giver consideration ===
+Tavi (Daila) - "Mmmph... Mmmm. (...)"
+Purple Guy (Madra) - "I'm glad my partner and (...)"
+One of the Mikasalla animals
+Old Woman (Garoh) - "He's worked so hard... (...)"
+Hydros (Lemuria) - "Do not listen to Conservato. (...)"
+
+
+SUGGESTION:
+Pick a maximum of 6 NPCs, one per continent/region
+
+Indra:		Master Poi 		"If you wish to practice,"
+Osenia:		Maha			"Take care in your"
+Gondowan:	Akafubu			"I just can't quite grasp the"
+East Sea:	King Hydros		"Do not listen to Conservato."
+Atteka:		Corn Seller		"I guess the people of Contigo" | "It must be so exciting to"
+Hesperia:	Moapa			(Mind Read dialogue)
+
+
+Indra requires Whirlwind						-> ALWAYS Balance against Whirlwind
+Osenia requires Reveal							-> Balance against Reveal			OR	Report on Air's Rock
+Gondowan requires Lash, Pound, Scoop			-> Balance against Black Crystal	OR	Report on Magma Rock
+East Sea requires Grind							-> Balance against Grind			OR	Report on Aqua Rock
+Atteka requires Grind							-> ALWAYS Report on Jupiter Lighthouse
+Hesperia requires Grind, Whirlwind, Mind Read	-> Balance against Mind Read		OR	Report on Mars Lighthouse
+
+
+"There are X important items in Y"
+
+"X awaits in Y"

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="/css/common.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css">
+
+    <script src="/js/randomise.js"></script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/img/favicon.webp">
+    <title>GS2 Randomiser 2</title>
+</head>
+
+<body>
+    <main class="container-fluid">
+        <div class="row mt-3 mx-lg-5">
+            <div class="col-12 mx-lg-3 mb-2">
+                <img class="logo" src="/img/gstla-logo.webp">
+                <span class="logo-text">Randomiser</span>
+            </div>
+
+            <div class="col-12 mb-4 px-lg-5">
+                <div class="card mt-4">
+                    <div class="card-body">
+                        <p class="mb-0"><b>Seed:</b> <span id="span-seed"></span></p>
+                        <p><b>Settings:</b> <span id="span-settings"></span></p>
+
+                        <div class="row">
+                            <div class="col-12 mb-4">
+                                <div class="d-block float-end me-lg-5">
+                                    <button class="btn btn-primary" disabled>
+                                        <div class="spinner-border spinner-border-sm me-2"></div>Randomising...
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

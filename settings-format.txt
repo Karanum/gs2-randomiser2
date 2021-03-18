@@ -1,0 +1,61 @@
+inp-item-shuffle	2b	AA .. .. ..
+inp-omit			2b	.. AA .. ..
+inp-gs1-items		1b	.. .. A. ..
+inp-show-items		1b	.. .. .A ..
+inp-no-learning		1b	.. .. .. A.
+
+inp-equip-shuffle	1b	B. .. .. ..
+inp-equip-cost		1b	.B .. .. ..
+inp-equip-stats		1b	.. B. .. ..
+inp-equip-sort		1b	.. .B .. ..
+inp-equip-unleash	1b	.. .. B. ..
+inp-equip-effect	1b	.. .. .B ..
+inp-equip-curse		1b	.. .. .. B.
+
+inp-djinn-shuffle	1b	C. .. .. ..
+inp-djinn-stats		1b	.C .. .. ..
+inp-djinn-power		1b	.. C. .. ..
+inp-djinn-aoe		1b	.. .C .. ..
+inp-djinn-scale		1b	.. .. C. ..
+inp-summon-cost		1b	.. .. .C ..
+inp-summon-power	1b	.. .. .. C.
+inp-summon-sort		1b	.. .. .. .C
+
+inp-class-psynergy	3b	EE E. .. ..
+inp-class-levels	2b	.. .E E. ..
+inp-class-stats		1b	.. .. .. .A
+
+inp-psynergy-power	1b	.. .. .. .B
+inp-psynergy-cost	1b	.. .. D. ..
+inp-psynergy-aoe	1b	.. .. .D ..
+inp-enemypsy-power	1b	.. .. .. D.
+inp-enemypsy-aoe	1b	.. .. .. .D
+
+inp-char-stats		2b	DD .. .. ..
+inp-char-element	2b	.. DD .. ..
+
+
+inp-skips-basic		1b	.. F. .. ..
+inp-skips-adv		1b	.. .F .. ..
+inp-skips-maze		1b	.. .. F. ..
+inp-ship			2b	FF .. .. ..
+inp-boss-logic		1b	.. .. .F ..	<- NEW
+
+inp-door-shuffle	1b	<- REMOVED
+
+
+inp-start-heal		1b	.. .. .G ..
+inp-start-revive	1b	.. .. .. G.
+inp-start-reveal	1b	.. .. .. .G
+inp-free-avoid		1b	.. .. .. F.
+inp-free-retreat	1b	.. .. .. .F
+
+inp-qol-cutscenes	1b	.. .. .E ..
+inp-qol-tickets		1b	.. .. .. E.
+inp-qol-fastship	1b	.. .. .. .E
+inp-qol-hardmode	1b	<- REMOVED
+inp-music-shuffle	1b	<- REMOVED
+
+inp-scale-exp		4b	HH HH .. ..
+inp-scale-coins		4b	.. .. HH HH
+inp-start-levels	3b	GG G. .. ..

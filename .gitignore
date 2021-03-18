@@ -1,0 +1,9 @@
+# .gitignore
+node_modules/
+output_cache/
+
+*.pem
+*.crt
+*.key
+
+*.gba

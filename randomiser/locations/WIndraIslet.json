@@ -1,0 +1,24 @@
+{
+    "Access": [
+        [
+            "Ship"
+        ]
+    ],
+    "Treasure": [
+        {
+            "Addr": "0xaa1",
+            "Reqs": [
+                [
+                    "Mind Read",
+                    "Milk"
+                ]
+            ]
+        },
+        {
+            "Addr": "0xf5a",
+            "Reqs": []
+        }
+    ],
+    "Djinn": [],
+    "Special": []
+}

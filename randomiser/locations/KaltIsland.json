@@ -1,0 +1,20 @@
+{
+    "Access": [
+        [
+            "Ship",
+            "Grindstone"
+        ]
+    ],
+    "Treasure": [],
+    "Djinn": [
+        {
+            "Addr": "0x52",
+            "Reqs": [
+                [
+                    "Lash Pebble"
+                ]
+            ]
+        }
+    ],
+    "Special": []
+}

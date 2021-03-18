@@ -1,0 +1,105 @@
+@font-face {
+    font-family: Taranis;
+    src: url(font/Taranis.ttf);
+}
+
+:root {
+    --bs-primary: #f1ce4e !important;
+}
+
+.bi-question-circle-fill:before {
+    font-size: 0.75rem !important;
+    vertical-align: 0.25rem !important;
+    color: #5d3a0291 !important;
+}
+
+.logo-text {
+    vertical-align: -25%;
+    font-family: Taranis;
+    font-size: 4vw;
+    margin-left: 2%;
+
+    color: #fcdb21;
+    text-shadow: -.03rem -.03rem 0.01rem #f3f0b7, .03rem .03rem 0.01rem #17140c, 
+            -.03rem .03rem 0.01rem #d28c25, .03rem -.03rem 0.01rem #b99f3c, 0 0 .3rem #000;
+}
+
+.logo {
+    width: 35%;
+    margin-left: 10%;
+}
+
+body {
+    background-color: #f3dba4 !important;
+    color: #5d3a02 !important;
+}
+
+.card {
+    border: .5px solid rgba(137, 102, 4, .35) !important;
+}
+
+.card-body {
+    background-color: #faf4d7 !important;
+}
+
+.card-header {
+    background-color: #f6d355 !important;
+}
+
+.card-body .card-header {
+    background-color: #fae18a !important;
+}
+
+.input-group-text {
+    background-color: #ebe3c3 !important;
+    border-color: #d3cbab !important;
+    color: #5d3a02 !important;
+}
+
+.form-select, .form-control, .form-check-input {
+    border-color: #d3cbab !important;
+    color: #5d3a02 !important;
+}
+
+.form-select:focus, .form-control:focus, .form-check-input:focus {
+    box-shadow: 0 0 0 .25rem #e9b02e40 !important;
+    border-color: #d3cbab !important;
+}
+
+.form-check-input:not(:checked) {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23d3cbab'/%3e%3c/svg%3e") !important;
+}
+
+.btn-primary, .btn-primary:focus, .btn-outline-primary:hover, .btn-outline-primary:active {
+    background-color: #f1ce4e !important;
+    border-color: #efc739 !important;
+    color: #5d3a02 !important;
+}
+
+.btn-primary:hover, .btn-primary:active {
+    background-color: #caab3a !important;
+    border-color: #caab3a !important;
+    color: #5d3a02 !important;
+}
+
+.btn-outline-primary {
+    border-color: #cea203 !important;
+    color: #977601 !important;
+}
+
+.btn-outline-primary:active:focus, .btn-primary:active:focus, .btn-outline-primary:focus, .btn-primary:focus {
+    box-shadow: 0 0 0 .25rem #e9b02e40 !important;
+}
+
+option {
+    color: #553603 !important;
+}
+
+.form-check-input:checked {
+    background-color: #e5be33 !important;
+    border-color: #e5be33 !important;
+}
+
+.spinner-border-sm {
+    margin-bottom: 2px;
+}

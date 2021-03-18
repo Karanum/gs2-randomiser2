@@ -1,0 +1,40 @@
+TODO:
+- Check logs for key item randomisation			                    DONE
+- Test all item randomisation (both closed-chest and open-chest)	DONE (more thorough?)
+- Implement ship unlock settings				                    DONE
+- Create the UPS patch from the randomised ROM		                DONE
+- Finish front-end patching and saving
+- Implement spoiler log creation and sending
+
+- Load class data into the randomiser
+- Implement utility Psynergy removal from classes
+- Implement Psynergy and learn level randomisation in classes
+- Implement class stat shuffling
+
+- Load Psynergy data into the randomiser
+- Implement Psynergy stat shuffling, etc.
+- Implement starting Psynergy settings
+- Implement 0 PP Psynergy settings	
+
+- Load Djinni data into the randomiser
+- Implement Djinn randomisation and stat shuffling, etc.
+- Implement summon stat shuffling, etc.
+
+- Load item data into the randomiser
+- Implement equipment loading and stat shuffling, etc.
+
+- Load character data into the randomiser
+- Implement character stat and element shuffling
+- Implement starting levels
+
+- Load enemy data into the randomiser
+- Implement exp/coin scaling
+- Implement enemy ability changes
+
+- Implement equipment and summon sorting
+- Implement Mimic sorting so you don't die instantly
+
+- Find a better way to categorise glitch/skip logic
+- Implement setting for removal of boss logic
+- Add hint system
+- Patch out Trial Road inventory snapshotting

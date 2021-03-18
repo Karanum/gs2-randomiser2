@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="/css/common.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css">
+
+    <script src="/js/generate.js"></script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/img/favicon.webp">
+    <title>GS2 Randomiser 2</title>
+</head>
+
+<body>
+    <main class="container-fluid">
+        <div class="row mt-3 mx-lg-5">
+            <div class="col-12 mx-lg-3 mb-2">
+                <img class="logo" src="/img/gstla-logo.webp">
+                <span class="logo-text">Randomiser</span>
+            </div>
+
+            <div class="col-12 mb-4 px-lg-5">
+                <div class="card mt-4">
+                    <div class="card-body">
+                        <div class="row ms-1 me-3">
+                            <div class="col-12 col-xl-5 col-xxl-6 my-1">
+                                <div class="form-check form-switch mt-2">
+                                    <input class="form-check-input" type="checkbox" id="inp-spoiler" checked>
+                                    <label class="form-check-label">Generate spoiler log</label>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-7 col-xl-3 my-1">
+                                <div class="input-group">
+                                    <span class="input-group-text">Seed</span>
+                                    <input type="text" class="form-control" id="inp-seed">
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-5 col-xl-4 col-xxl-3 d-block my-1">
+                                <button class="btn btn-outline-primary" id="btn-seed">Random Seed</button>
+                                <button class="btn btn-primary ms-2" id="btn-submit">Randomise</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 mb-3 px-lg-5">
+                <div class="card">
+                    <h4 class="card-header">Randomiser Settings</h4>
+                    <div class="card-body">
+                        <div class="card">
+                            <h5 class="card-header">Presets</h5>
+                            <div class="card-body"> 
+                                <div class="row">
+                                    <div class="col-12 col-lg-6">
+                                        <div class="input-group mb-3">
+                                            <label class="input-group-text">Preset</label>
+                                            <select class="form-select" id="inp-preset">
+                                                <option value='0' selected>Easy</option>
+                                                <option value='1'>Intermediate</option>
+                                                <option value='2'>Hard</option>
+                                                <option value='3'>Vanilla</option>
+                                                <option value='4'>Open Mode</option>
+                                                <option value='5'>Easy w/ Glitches</option>
+                                                <option value='6'>Intermediate w/ Glitches</option>
+                                                <option value='7'>Hard w/ Glitches</option>
+                                                <option value='8'>Chaos</option>
+                                            </select>
+                                        </div>
+
+                                        <button class="btn btn-primary mb-2" id="btn-preset">Apply Preset</button>
+                                    </div>
+
+                                    <div class="col-12 col-lg-6">
+                                        <p class="mt-1" id="p-preset">Key Items and Djinn shuffled, starting with healing Psynergy and Revive.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card mt-3">
+                            <h5 class="card-header">Randomisation</h5>
+                            <div class="card-body"> 
+                                <div class="row">
+                                    <div class="col-12 col-lg-6">
+                                        <div class="input-group mb-3">
+                                            <label class="input-group-text">Item Shuffle</label>
+                                            <select class="form-select" id="inp-item-shuffle">
+                                                <option value='0'>Vanilla</option>
+                                                <option value='1' selected>Key Items Only</option>
+                                                <option value='2'>All Chest/Tablet Items</option>
+                                                <option value='3'>All Items</option>
+                                            </select>
+                                        </div>
+                                    </div> 
+
+                                    <div class="col-12 col-lg-6">
+                                        <div class="input-group mb-3">
+                                            <label class="input-group-text">Omit Locations</label>
+                                            <select class="form-select" id="inp-omit">
+                                                <option value='0'>No omission</option>
+                                                <option value='1'>Omit Anemos Inner Sanctum</option>
+                                                <option value='2' selected>Omit superbosses + Inner Sanctum</option>
+                                            </select>
+                                        </div>
+                                    </div> 
+
+                                    <div class="col-12">
+                                        <div class="form-check form-switch mb-2">
+                                            <input class="form-check-input" type="checkbox" id="inp-gs1-items">
+                                            <label class="form-check-label">Add Elven Shirt and Cleric's Ring</label>
+                                        </div>
+                                        <div class="form-check form-switch mb-2">
+                                            <input class="form-check-input" type="checkbox" id="inp-show-items" checked>
+                                            <label class="form-check-label">Show items outside chest <span class="tooltip-container" id="tooltip-1"><i class="bi bi-question-circle-fill"></i></span></label>                            
+                                        </div>
+                                        <div class="form-check form-switch mb-3">
+                                            <input class="form-check-input" type="checkbox" id="inp-no-learning" checked>
+                                            <label class="form-check-label">Utility Psynergy from items only <span class="tooltip-container" id="tooltip-2"><i class="bi bi-question-circle-fill"></i></span></label>
+                                        </div>
+                                    </div>
+
+                                    <hr class="mt-1 mb-3">
+
+                                    <div class="col-12 col-lg-6">
+                                        <div class="form-check form-switch mb-2">
+                                            <input class="form-check-input" type="checkbox" id="inp-equip-shuffle">
+                                            <label class="form-check-label">Randomize equipment compatibility</label>
+                                        </div>
+                                        <div class="form-check form-switch mb-2">
+                                            <input class="form-check-input" type="checkbox" id="inp-equip-cost">
+                                            <label class="form-check-label">Adjust equipment prices</label>
+                                        </div>
+                                        <div class="form-check form-switch mb-2">
+                                            <input class="form-check-input" type="checkbox" id="inp-equip-stats">
+                                            <label class="form-check-label">Adjust equipment stats</label>
+                                        </div>
+                                        <div class="form-check form-switch mb-3">
+                                            <input class="form-check-input" type="checkbox" id="inp-equip-sort" checked>
+                                            <label class="form-check-label">Bias equipment by stats <span class="tooltip-container" id="tooltip-3"><i class="bi bi-question-circle-fill"></i></span></label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 col-lg-6">
+                                        <div class="form-check form-switch mb-2">
+                                            <input class="form-check-input" type="checkbox" id="inp-equip-unleash">
+                                            <label class="form-check-label">Shuffle unleashes</label>
+                                        </div>
+                                        <div class="form-check form-switch mb-2">
+                                            <input class="form-check-input" type="checkbox" id="inp-equip-effect">
+                                            <label class="form-check-label">Shuffle armour effects</label>
+                                        </div>
+                                        <div class="form-check form-switch mb-3">
+                                            <input class="form-check-input" type="checkbox" id="inp-equip-curse">
+                                            <label class="form-check-label">Randomise curses</label>
+                                        </div>
+                                    </div>
+
+                                    <hr class="mt-1 mb-3">
+
+                                    <div class="col-12 col-lg-6">
+                                        <div class="form-check form-switch mb-2">
+                                            <input class="form-check-input" type="checkbox" id="inp-djinn-shuffle" checked>
+                                            <label class="form-check-label">Shuffle Djinn</label>
+                                        </div>
+                                        <div class="form-check form-switch mb-2">
+                                            <input class="form-check-input" type="checkbox" id="inp-djinn-stats">
+                                            <label class="form-check-label">Shuffle Djinni stat boosts</label>
+                                        </div>
+                                        <div class="form-check form-switch mb-2">
+                                            <input class="form-check-input" type="checkbox" id="inp-djinn-power">
+                                            <label class="form-check-label">Adjust Djinni attack power</label>
+                                        </div>
+                                        <div class="form-check form-switch mb-2">
+                                            <input class="form-check-input" type="checkbox" id="inp-djinn-aoe">
+                                            <label class="form-check-label">Randomise Djinni attack AoE</label>
+                                        </div>
+                                        <div class="form-check form-switch mb-3">
+                                            <input class="form-check-input" type="checkbox" id="inp-djinn-scale" checked>
+                                            <label class="form-check-label">Scale Djinni battle difficulty <span class="tooltip-container" id="tooltip-4"><i class="bi bi-question-circle-fill"></i></span></label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 col-lg-6">
+                                        <div class="form-check form-switch mb-2">
+                                            <input class="form-check-input" type="checkbox" id="inp-summon-cost">
+                                            <label class="form-check-label">Randomise summon costs</label>
+                                        </div>
+                                        <div class="form-check form-switch mb-2">
+                                            <input class="form-check-input" type="checkbox" id="inp-summon-power">
+                                            <label class="form-check-label">Adjust summon power</label>
+                                        </div>
+                                        <div class="form-check form-switch mb-3">
+                                            <input class="form-check-input" type="checkbox" id="inp-summon-sort" checked>
+                                            <label class="form-check-label">Bias summon tablets by cost <span class="tooltip-container" id="tooltip-5"><i class="bi bi-question-circle-fill"></i></span></label>
+                                        </div>
+                                    </div>
+
+                                    <hr class="mt-1 mb-3">
+
+                                    <div class="col-12 col-lg-6">
+                                        <div class="input-group mb-3">
+                                            <label class="input-group-text">Class Psynergy</label>
+                                            <select class="form-select" id="inp-class-psynergy">
+                                                <option value='0' selected>Vanilla</option>
+                                                <option value='1'>Randomise by class</option>
+                                                <option value='2'>Randomise by Psynergy group</option>
+                                                <option value='3'>Randomise by Psynergy element</option>
+                                                <option value='4'>Fully randomised</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 col-lg-6">
+                                        <div class="input-group mb-3">
+                                            <label class="input-group-text">Psynergy Levels</label>
+                                            <select class="form-select" id="inp-class-levels">
+                                                <option value='0' selected>Vanilla</option>
+                                                <option value='1'>Shuffle learning levels</option>
+                                                <option value='2'>Randomise learning levels</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 col-lg-6">
+                                        <div class="form-check form-switch mb-3">
+                                            <input class="form-check-input" type="checkbox" id="inp-class-stats">
+                                            <label class="form-check-label">Shuffle class stat boosts</label>
+                                        </div>
+                                    </div>
+
+                                    <hr class="mt-1 mb-3">
+
+                                    <div class="col-12 col-lg-6">
+                                        <div class="form-check form-switch mb-2">
+                                            <input class="form-check-input" type="checkbox" id="inp-psynergy-power">
+                                            <label class="form-check-label">Adjust Psynergy power</label>
+                                        </div>
+                                        <div class="form-check form-switch mb-2">
+                                            <input class="form-check-input" type="checkbox" id="inp-psynergy-cost">
+                                            <label class="form-check-label">Adjust Psynergy PP cost</label>
+                                        </div>
+                                        <div class="form-check form-switch mb-3">
+                                            <input class="form-check-input" type="checkbox" id="inp-psynergy-aoe">
+                                            <label class="form-check-label">Randomise Psynergy AoE</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 col-lg-6">
+                                        <div class="form-check form-switch mb-2">
+                                            <input class="form-check-input" type="checkbox" id="inp-enemypsy-power">
+                                            <label class="form-check-label">Adjust enemy Psynergy power</label>
+                                        </div>
+                                        <div class="form-check form-switch mb-3">
+                                            <input class="form-check-input" type="checkbox" id="inp-enemypsy-aoe">
+                                            <label class="form-check-label">Randomise enemy Psynergy AoE</label>
+                                        </div>
+                                    </div>
+
+                                    <hr class="mt-1 mb-3">
+
+                                    <div class="col-12 col-lg-6">
+                                        <div class="input-group mb-3">
+                                            <label class="input-group-text">Character Stats</label>
+                                            <select class="form-select" id="inp-char-stats">
+                                                <option value='0' selected>Vanilla</option>
+                                                <option value='1'>Shuffle character stats</option>
+                                                <option value='2'>Adjust character stats</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 col-lg-6">
+                                        <div class="input-group mb-3">
+                                            <label class="input-group-text">Character Elements</label>
+                                            <select class="form-select" id="inp-char-element">
+                                                <option value='0' selected>Vanilla</option>
+                                                <option value='1'>Shuffle character elements</option>
+                                                <option value='2'>Randomise character elements</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card mt-3">
+                            <h5 class="card-header">Logic Settings</h5>
+                            <div class="card-body">  
+                                <div class="row">
+                                    <div class="col-12 col-lg-6">
+                                        <div class="form-check form-switch mb-2">
+                                            <input class="form-check-input" type="checkbox" id="inp-skips-basic">
+                                            <label class="form-check-label">Require basic glitches/skips <span class="tooltip-container" id="tooltip-6"><i class="bi bi-question-circle-fill"></i></span></label>
+                                        </div>
+                                        <div class="form-check form-switch mb-2">
+                                            <input class="form-check-input" type="checkbox" id="inp-skips-adv">
+                                            <label class="form-check-label">Require advanced glitches/skips <span class="tooltip-container" id="tooltip-7"><i class="bi bi-question-circle-fill"></i></span></label>
+                                        </div>
+                                        <div class="form-check form-switch mb-3">
+                                            <input class="form-check-input" type="checkbox" id="inp-skips-maze">
+                                            <label class="form-check-label">Require Gaia Rock maze w/o Growth</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 col-lg-6">
+                                        <div class="input-group mb-3">
+                                            <label class="input-group-text">Lemurian Ship</label>
+                                            <select class="form-select" id="inp-ship">
+                                                <option value='0' selected>Vanilla</option>
+                                                <option value='1'>Ship door unlocked</option>
+                                                <option value='2'>Available from start</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-check form-switch mb-3">
+                                            <input class="form-check-input" type="checkbox" id="inp-boss-logic">
+                                            <label class="form-check-label">Disable boss logic <span class="tooltip-container" id="tooltip-8"><i class="bi bi-question-circle-fill"></i></span></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card mt-3">
+                            <h5 class="card-header">Quality of Life</h5>
+                            <div class="card-body">  
+                                <div class="row">
+                                    <div class="col-12 col-lg-6">
+                                        <div class="form-check form-switch mb-2">
+                                            <input class="form-check-input" type="checkbox" id="inp-start-heal" checked>
+                                            <label class="form-check-label">Start with healing Psynergy <span class="tooltip-container" id="tooltip-9"><i class="bi bi-question-circle-fill"></i></span></label>
+                                        </div>
+                                        <div class="form-check form-switch mb-2">
+                                            <input class="form-check-input" type="checkbox" id="inp-start-revive" checked>
+                                            <label class="form-check-label">Start with Revive</label>
+                                        </div>
+                                        <div class="form-check form-switch mb-3">
+                                            <input class="form-check-input" type="checkbox" id="inp-start-reveal">
+                                            <label class="form-check-label">Start with Reveal</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 col-lg-6">
+                                        <div class="form-check form-switch mb-2">
+                                            <input class="form-check-input" type="checkbox" id="inp-free-avoid" checked>
+                                            <label class="form-check-label">Avoid costs 0 PP</label>
+                                        </div>
+                                        <div class="form-check form-switch mb-2">
+                                            <input class="form-check-input" type="checkbox" id="inp-free-retreat" checked>
+                                            <label class="form-check-label">Retreat costs 0 PP <span class="tooltip-container" id="tooltip-10"><i class="bi bi-question-circle-fill"></i></span></label>
+                                        </div>
+                                    </div>
+
+                                    <hr class="mt-1 mb-3">
+
+                                    <div class="col-12 col-lg-6">
+                                        <div class="form-check form-switch mb-2">
+                                            <input class="form-check-input" type="checkbox" id="inp-qol-cutscenes" checked>
+                                            <label class="form-check-label">Speed up cutscenes</label>
+                                        </div>
+                                        <div class="form-check form-switch mb-2">
+                                            <input class="form-check-input" type="checkbox" id="inp-qol-tickets" checked>
+                                            <label class="form-check-label">Disable Game Tickets from shops</label>
+                                        </div>
+                                        <div class="form-check form-switch mb-3">
+                                            <input class="form-check-input" type="checkbox" id="inp-qol-fastship" checked>
+                                            <label class="form-check-label">Faster overworld ship movement</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 col-lg-6">
+                                        <div class="form-check form-switch mb-2">
+                                            <input class="form-check-input" type="checkbox" id="inp-qol-hints">
+                                            <label class="form-check-label">Add item hints</label>
+                                        </div>
+                                    </div>
+
+                                    <hr class="mt-1 mb-3">
+
+                                    <div class="col-12 col-lg-6">
+                                        <div class="input-group mb-3">
+                                            <label class="input-group-text">Scale Exp</label>
+                                            <input type="number" class="form-control" min="1" max="15" value="1" id="inp-scale-exp">
+                                        </div>
+                                        <div class="input-group mb-3">
+                                            <label class="input-group-text">Scale Coins</label>
+                                            <input type="number" class="form-control" min="1" max="15" value="1" id="inp-scale-coins">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 col-lg-6">
+                                        <div class="input-group mb-3">
+                                            <label class="input-group-text">Starting Levels&nbsp;<span class="tooltip-container" id="tooltip-11"><i class="bi bi-question-circle-fill"></i></span></label>
+                                            <select class="form-select" id="inp-start-levels">
+                                                <option value='0' checked>Normal levels (5+)</option>
+                                                <option value='1'>Elevated levels (10+)</option>
+                                                <option value='2'>Piers levels (18+)</option>
+                                                <option value='3'>Reunion levels (28)</option>
+                                                <option value='4'>High levels (40)</option>
+                                                <option value='5'>Stupid levels (99)</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+        </div>
+    </main>
+</body>
+</html>
