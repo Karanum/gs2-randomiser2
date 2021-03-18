@@ -1,6 +1,8 @@
 # Golden Sun: The Lost Age Randomiser 2
 Rework of the original GS:TLA randomiser, now in a handy web-based format
 
+Special thanks to MarvinXLII, who created the original randomiser, and Teawater and Salanewt, who have thoroughly documented the game itself.
+
 ## Requirements
 NodeJS is required to run this application, with v12.x or above being recommended. In addition, NPM is used to install dependencies.
 
