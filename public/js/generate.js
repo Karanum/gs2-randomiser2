@@ -142,28 +142,6 @@ $(document).ready(() => {
         $("#inp-scale-coins").val(val);
     });
 
-    /*
-    Leaving this here as reference for "downloading" files in local memory
-
-    $("#btn-submit").on('click', () => {
-        var files = $("#inp-rom")[0].files;
-        if (files.length == 0) return;
-
-        var reader = new FileReader();
-        
-        reader.onload = ((e) => {
-            var rom = new Uint8Array(e.target.result);
-            rom[0] = rom[0] + 0x01;
-
-            var blob = new Blob([rom], {type: 'application/octet-stream'});
-            $("#btn-save").attr('href', URL.createObjectURL(blob));
-            $("#btn-save").attr('download', "patched.gba");
-        });
-
-        reader.readAsArrayBuffer(files[0]);
-    });
-    */
-
     $("#inp-preset").on('change', () => {
         var val = $("#inp-preset").val();
         $("#p-preset").html(getPresetTooltip(val));

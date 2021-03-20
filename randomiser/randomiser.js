@@ -17,7 +17,8 @@ const cutsceneSkipFlags = [0xf22, 0x890, 0x891, 0x892, 0x893, 0x894, 0x895, 0x89
 var upsCutsceneSkip;
 var upsDjinnScaling;
 
-var rom = new Uint8Array(fs.readFileSync("./randomiser/rom/gs2.gba"));
+var vanillaRom = new Uint8Array(fs.readFileSync("./randomiser/rom/gs2.gba"));
+var rom = Uint8Array.from(vanillaRom);
 
 function initialise() {
     var timing = Date.now();
@@ -142,7 +143,7 @@ function randomise(seed, rawSettings) {
     fs.writeFileSync('./randomiser/debug/output.log', data);
     // =================================*/
 
-    var patch = ups.createPatch(rom, target);
+    var patch = ups.createPatch(vanillaRom, target);
     return patch;
 }
 
