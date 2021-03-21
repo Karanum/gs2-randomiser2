@@ -1,6 +1,7 @@
 # .gitignore
 node_modules/
 output_cache/
+debug/
 
 *.pem
 *.crt

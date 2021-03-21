@@ -3,12 +3,12 @@ TODO:
 - Test all item randomisation (both closed-chest and open-chest)	DONE (more thorough?)
 - Implement ship unlock settings				                    DONE
 - Create the UPS patch from the randomised ROM		                DONE
-- Finish front-end patching and saving
+- Finish front-end patching and saving                              DONE
 - Implement spoiler log creation and sending
 
-- Load class data into the randomiser
-- Implement utility Psynergy removal from classes
-- Implement Psynergy and learn level randomisation in classes
+- Load class data into the randomiser                               DONE
+- Implement utility Psynergy removal from classes                   DONE
+- Implement Psynergy and learn level randomisation in classes       IN PROGRESS
 - Implement class stat shuffling
 
 - Load Psynergy data into the randomiser

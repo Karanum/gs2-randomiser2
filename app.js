@@ -3,7 +3,7 @@ const fs = require('fs');
 const app = express();
 const port = 3000;
 
-const version = "0_1";
+const versionSuffix = "0_1";
 
 console.log("Starting...");
 const randomiser = require('./randomiser/randomiser.js');
@@ -32,7 +32,7 @@ app.get('/randomise_ajax', (req, res) => {
 
     var seed = req.query.seed;
     var settings = req.query.settings;
-    var filename = `./output_cache/${seed}_${settings}_${version}.ups`;
+    var filename = `./output_cache/${seed}-${settings}-${versionSuffix}.ups`;
 
     fs.readFile(filename, (err, data) => {
         if (!err) {

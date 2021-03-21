@@ -1,11 +1,12 @@
 const fs = require("fs");
 const mersenne = require('../modules/mersenne.js');
+
 const ups = require('./ups.js');
 const locations = require('./locations.js');
 const textutil = require('./textutil.js');
-const itemLocations = require('./item_locations.js');
+const itemLocations = require('./game_data/item_locations.js');
+const classData = require('./game_data/classes.js');
 const settingsParser = require('./settings.js');
-
 const itemRandomiser = require('./item_randomiser.js');
 
 const cutsceneSkipFlags = [0xf22, 0x890, 0x891, 0x892, 0x893, 0x894, 0x895, 0x896, 0x848, 0x86c, 0x86d, 0x86e, 0x86f,
@@ -14,39 +15,36 @@ const cutsceneSkipFlags = [0xf22, 0x890, 0x891, 0x892, 0x893, 0x894, 0x895, 0x89
         0x8f6, 0x8fc, 0x8fe, 0x910, 0x911, 0x913, 0x980, 0x981, 0x961, 0x964, 0x965, 0x966, 0x968, 0x962, 0x969,
         0x96a, 0xa8c, 0x88f, 0x8f0, 0x9b1, 0xa78, 0x90c, 0xa2e, 0x9c0, 0x9c1, 0x9c2];
 
-var upsCutsceneSkip;
-var upsDjinnScaling;
+var upsCutsceneSkip, upsDjinnScaling, upsAvoid, upsTeleport, upsRandomiser;
 
 var vanillaRom = new Uint8Array(fs.readFileSync("./randomiser/rom/gs2.gba"));
 var rom = Uint8Array.from(vanillaRom);
 
-function initialise() {
+function doTiming(msg, callback) {
     var timing = Date.now();
-    process.stdout.write("Loading UPS patches... ");
-    const upsAvoid = fs.readFileSync("./randomiser/ups/avoid.ups");
-    const upsTeleport = fs.readFileSync("./randomiser/ups/teleport.ups");
-    const upsRandomiser = fs.readFileSync("./randomiser/ups/randomiser_general.ups");
-
-    upsCutsceneSkip = fs.readFileSync("./randomiser/ups/cutscene_skip.ups");
-    upsDjinnScaling = fs.readFileSync("./randomiser/ups/djinn_scaling.ups");
+    process.stdout.write(msg + ' ');
+    callback();
     console.log(Date.now() - timing + "ms");
+}
 
-    timing = Date.now();
-    process.stdout.write("Applying innate UPS patches... ");
-    rom = ups.applyPatch(rom, upsAvoid);
-    rom = ups.applyPatch(rom, upsTeleport);
-    rom = ups.applyPatch(rom, upsRandomiser);
-    console.log(Date.now() - timing + "ms");
+function initialise() {
+    doTiming("Loading UPS patches...", () => {
+        upsAvoid = fs.readFileSync("./randomiser/ups/avoid.ups");
+        upsTeleport = fs.readFileSync("./randomiser/ups/teleport.ups");
+        upsRandomiser = fs.readFileSync("./randomiser/ups/randomiser_general.ups");
+        upsCutsceneSkip = fs.readFileSync("./randomiser/ups/cutscene_skip.ups");
+        upsDjinnScaling = fs.readFileSync("./randomiser/ups/djinn_scaling.ups");
+    });
 
-    timing = Date.now();
-    process.stdout.write("Decoding text data... ");
-    textutil.initialise(rom);
-    console.log(Date.now() - timing + "ms");
+    doTiming("Applying innate UPS patches...", () => {
+        rom = ups.applyPatch(rom, upsAvoid);
+        rom = ups.applyPatch(rom, upsTeleport);
+        rom = ups.applyPatch(rom, upsRandomiser);
+    })
 
-    timing = Date.now();
-    process.stdout.write("Loading item location data... ");
-    itemLocations.initialise(rom, textutil);
-    console.log(Date.now() - timing + "ms");
+    doTiming("Decoding text data...", () => textutil.initialise(rom));
+    doTiming("Loading item location data...", () => itemLocations.initialise(rom, textutil));
+    doTiming("Loading class data...", () => classData.initialise(rom, textutil));
 }
 
 function applyGameTicketPatch(target) {
@@ -68,15 +66,19 @@ function writeStoryFlags(target, flags) {
 }
 
 function randomise(seed, rawSettings) {
+    console.log("Performing randomisation: seed " + seed + ", settings " + rawSettings);
+
     var target = rom.slice(0);
     var prng = mersenne(seed);
+    var defaultFlags = [0xf22, 0x873];
 
     var settings = settingsParser.parse(rawSettings);
     var itemLocClone = itemLocations.clone();
+    var classClone = classData.clone();
+
     itemLocations.prepItemLocations(itemLocClone, settings);
 
-    var defaultFlags = [0xf22, 0x873];
-
+    if (settings['no-learning']) classData.removeUtilityPsynergy(classClone);
     if (settings['djinn-scale']) target = ups.applyPatch(target, upsDjinnScaling);
 
     if (settings['qol-fastship']) applyShipSpeedPatch(target);
@@ -94,9 +96,6 @@ function randomise(seed, rawSettings) {
     }
 
     writeStoryFlags(target, defaultFlags);
-
-    textutil.writeLine(6152, "Karanum says hi.\x02");
-    target = textutil.writeToRom(target);
 
     var spheres = [];
     if (settings['item-shuffle'] > 0) {
@@ -120,9 +119,19 @@ function randomise(seed, rawSettings) {
         spheres = randomiser.getSpheres();
     }
 
-    itemLocations.writeToRom(itemLocClone, target, settings['show-items']);
+    classData.randomisePsynergy(classClone, settings['class-psynergy'], prng);
 
-    /* ========== Spoiler Log ==========
+    itemLocations.writeToRom(itemLocClone, target, settings['show-items']);
+    classData.writeToRom(classClone, target);
+
+    /*
+    NOTE: TextUtil doesn't have a proper instance yet, so changing any line changes it globally
+
+    textutil.writeLine(6152, "Karanum says hi.\x02");
+    target = textutil.writeToRom(target);
+    */
+
+    /* ========== Spoiler Log ========== 
     var data = "";
     for (var i = 0; i < spheres.length; ++i) {
         if (data.length > 0) data += '\n';
@@ -132,7 +141,7 @@ function randomise(seed, rawSettings) {
             data += flag + ": " + item['vanillaName'] + " => " + item['name'] + "\n";
         });
     }
-    data += "\n=== All Items ===";
+    data += "\n=== All Items ===\n";
 
     for (var flag in itemLocClone) {
         if (!itemLocClone.hasOwnProperty(flag)) continue;
@@ -140,7 +149,7 @@ function randomise(seed, rawSettings) {
         if (item['locked']) continue;
         data += flag + ": " + item['vanillaName'] + " => " + item['name'] + "\n"; 
     }
-    fs.writeFileSync('./randomiser/debug/output.log', data);
+    fs.writeFileSync('./debug/output.log', data);
     // =================================*/
 
     var patch = ups.createPatch(vanillaRom, target);

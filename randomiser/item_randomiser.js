@@ -1,5 +1,5 @@
 const locations = require('./locations.js');
-const itemLocations = require('./item_locations.js');
+const itemLocations = require('./game_data/item_locations.js');
 
 class ItemRandomiser {
     constructor(prng, instLocations, settings) {
