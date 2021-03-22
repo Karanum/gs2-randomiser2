@@ -1,0 +1,536 @@
+[
+    {
+        "type": "group",
+        "name": "Quake",
+        "psy": [3, 4, 5],
+        "levels": [[2, 4, 14]]
+    },
+    {
+        "type": "group",
+        "name": "Spire",
+        "psy": [6, 7, 8],
+        "levels": [[6, 20, 42], [7, 20, 42]]
+    },
+    {
+        "type": "group",
+        "name": "Gaia",
+        "psy": [9, 10, 11],
+        "levels": [[6, 24, 54], [7, 24, 54]]
+    },
+    {
+        "type": "group",
+        "name": "Growth",
+        "psy": [12, 13, 14],
+        "levels": [[1, 12, 28], [3, 12, 29]]
+    },
+    {
+        "type": "group",
+        "name": "Thorn",
+        "psy": [15, 16, 17],
+        "levels": [[4, 14, 36], [4, 17, 36]]
+    },
+    {
+        "type": "group",
+        "name": "Frost",
+        "psy": [24, 25, 26],
+        "levels": [[1, 8, 24], [2, 8, 24]]
+    },
+    {
+        "type": "group",
+        "name": "Ice",
+        "psy": [27, 28, 29],
+        "levels": [[4, 17, 42]]
+    },
+    {
+        "type": "group",
+        "name": "Prism",
+        "psy": [30, 31, 32],
+        "levels": [[6, 20, 52], [6, 22, 52]]
+    },
+    {
+        "type": "group",
+        "name": "Douse",
+        "psy": [33, 34, 35],
+        "levels": [[1, 12, 30], [2, 12, 30]]
+    },
+    {
+        "type": "group",
+        "name": "Froth",
+        "psy": [36, 37, 38],
+        "levels": [[2, 14, 40]]
+    },
+    {
+        "type": "group",
+        "name": "Cool",
+        "psy": [39, 40, 41],
+        "levels": [[4, 21, 48]]
+    },
+    {
+        "type": "group",
+        "name": "Flare",
+        "psy": [45, 46, 47],
+        "levels": [[1, 6, 18]]
+    },
+    {
+        "type": "group",
+        "name": "Fire",
+        "psy": [48, 49, 50],
+        "levels": [[4, 14, 36]]
+    },
+    {
+        "type": "group",
+        "name": "Volcano",
+        "psy": [51, 52, 53],
+        "levels": [[8, 22, 48], [8, 24, 48]]
+    },
+    {
+        "type": "group",
+        "name": "Blast",
+        "psy": [54, 55, 56],
+        "levels": [[2, 10, 27], [2, 10, 28]]
+    },
+    {
+        "type": "group",
+        "name": "Nova",
+        "psy": [57, 58, 59],
+        "levels": [[6, 16, 40]]
+    },
+    {
+        "type": "group",
+        "name": "Fume",
+        "psy": [60, 61, 62],
+        "levels": [[5, 26, 47]]
+    },
+    {
+        "type": "group",
+        "name": "Beam",
+        "psy": [63, 64, 65],
+        "levels": [[7, 21, 41]]
+    },
+    {
+        "type": "group",
+        "name": "Bolt",
+        "psy": [66, 67, 68],
+        "levels": [[1, 6, 22], [2, 6, 22]]
+    },
+    {
+        "type": "group",
+        "name": "Ray",
+        "psy": [69, 70, 71],
+        "levels": [[4, 14, 36]]
+    },
+    {
+        "type": "group",
+        "name": "Plasma",
+        "psy": [72, 73, 74],
+        "levels": [[8, 26, 46], [8, 26, 50], [9, 26, 50]]
+    },
+    {
+        "type": "group",
+        "name": "Slash",
+        "psy": [75, 76, 77],
+        "levels": [[1, 10, 30]]
+    },
+    {
+        "type": "group",
+        "name": "Whirlwind",
+        "psy": [78, 79, 80],
+        "levels": [[1, 18, 44]]
+    },
+    {
+        "type": "group",
+        "name": "Aura",
+        "psy": [87, 88, 89],
+        "levels": [[9, 16, 33]]
+    },
+    {
+        "type": "group",
+        "name": "Cure",
+        "psy": [90, 91, 92],
+        "levels": [[1, 10, 26], [3, 10, 26]]
+    },
+    {
+        "type": "group",
+        "name": "Ply",
+        "psy": [93, 94, 95],
+        "levels": [[1, 16, 34], [2, 17, 35]]
+    },
+    {
+        "type": "group",
+        "name": "Wish",
+        "psy": [96, 97, 98],
+        "levels": [[8, 22, 46], [9, 24, 46], [12, 24, 46]]
+    },
+    {
+        "type": "group",
+        "name": "Cure Poison",
+        "psy": [99],
+        "levels": [[1], [5]]
+    },
+    {
+        "type": "group",
+        "name": "Restore",
+        "psy": [100],
+        "levels": [[13]]
+    },
+    {
+        "type": "group",
+        "name": "Revive",
+        "psy": [101],
+        "levels": [[17], [19]]
+    },
+    {
+        "type": "group",
+        "name": "Impact",
+        "psy": [102, 103],
+        "levels": [[1, 21], [5, 21], [6, 22]]
+    },
+    {
+        "type": "group",
+        "name": "Dull",
+        "psy": [104, 105],
+        "levels": [[11, 37]]
+    },
+    {
+        "type": "group",
+        "name": "Guard",
+        "psy": [106, 107],
+        "levels": [[3, 15]]
+    },
+    {
+        "type": "group",
+        "name": "Impair",
+        "psy": [108, 109],
+        "levels": [[9, 23], [9, 26], [10, 23]]
+    },
+    {
+        "type": "group",
+        "name": "Ward",
+        "psy": [110, 111],
+        "levels": [[6, 22], [6, 24], [7, 23], [9, 31]]
+    },
+    {
+        "type": "group",
+        "name": "Weaken",
+        "psy": [112, 113],
+        "levels": [[9, 25]]
+    },
+    {
+        "type": "group",
+        "name": "Delude",
+        "psy": [116],
+        "levels": [[1]]
+    },
+    {
+        "type": "group",
+        "name": "Sleep",
+        "psy": [120],
+        "levels": [[12], [14]]
+    },
+    {
+        "type": "group",
+        "name": "Bind",
+        "psy": [121],
+        "levels": [[17], [18]]
+    },
+    {
+        "type": "group",
+        "name": "Haunt",
+        "psy": [122],
+        "levels": [[17]]
+    },
+    {
+        "type": "group",
+        "name": "Curse",
+        "psy": [123],
+        "levels": [[20], [24]]
+    },
+    {
+        "type": "group",
+        "name": "Condemn",
+        "psy": [124],
+        "levels": [[29]]
+    },
+    {
+        "type": "group",
+        "name": "Drain",
+        "psy": [125],
+        "levels": [[31], [33]]
+    },
+    {
+        "type": "group",
+        "name": "Psy Drain",
+        "psy": [126],
+        "levels": [[36], [39], [41]]
+    },
+    {
+        "type": "group",
+        "name": "Break",
+        "psy": [127],
+        "levels": [[30], [34]]
+    },
+    {
+        "type": "sequence",
+        "name": "Dragon Cloud",
+        "psy": [160, 205],
+        "levels": [12]
+    },
+    {
+        "type": "sequence",
+        "name": "Demon Night",
+        "psy": [161, 206],
+        "levels": [18]
+    },
+    {
+        "type": "sequence",
+        "name": "Helm Splitter",
+        "psy": [162, 207],
+        "levels": [33]
+    },
+    {
+        "type": "group",
+        "name": "Quick Strike",
+        "psy": [163],
+        "levels": [[40]]
+    },
+    {
+        "type": "group",
+        "name": "Rockfall",
+        "psy": [164, 165, 166],
+        "levels": [[6, 24, 54]]
+    },
+    {
+        "type": "group",
+        "name": "Lava Shower",
+        "psy": [167, 168, 169],
+        "levels": [[8, 22, 48]]
+    },
+    {
+        "type": "group",
+        "name": "Demon Spear",
+        "psy": [170, 171],
+        "levels": [[7, 21]]
+    },
+    {
+        "type": "group",
+        "name": "Guardian",
+        "psy": [172, 173],
+        "levels": [[3, 15]]
+    },
+    {
+        "type": "group",
+        "name": "Magic Shell",
+        "psy": [174, 175],
+        "levels": [[10, 27]]
+    },
+    {
+        "type": "sequence",
+        "name": "Death Plunge",
+        "psy": [176, 204],
+        "levels": [12]
+    },
+    {
+        "type": "group",
+        "name": "Shuriken",
+        "psy": [177],
+        "levels": [[21]]
+    },
+    {
+        "type": "group",
+        "name": "Annihilation",
+        "psy": [178],
+        "levels": [[31]]
+    },
+    {
+        "type": "group",
+        "name": "Punji",
+        "psy": [179, 180, 181],
+        "levels": [[4, 15, 36]]
+    },
+    {
+        "type": "group",
+        "name": "Fire Bomb",
+        "psy": [182, 183, 184],
+        "levels": [[6, 16, 40]]
+    },
+    {
+        "type": "group",
+        "name": "Gale",
+        "psy": [185, 186, 187],
+        "levels": [[1, 18, 44]]
+    },
+    {
+        "type": "group",
+        "name": "Thunderclap",
+        "psy": [188, 189, 190],
+        "levels": [[8, 26, 50]]
+    },
+    {
+        "type": "group",
+        "name": "Mist",
+        "psy": [191],
+        "levels": [[7]]
+    },
+    {
+        "type": "sequence",
+        "name": "Ragnarok",
+        "psy": [192, 198],
+        "levels": [13]
+    },
+    {
+        "type": "sequence",
+        "name": "Cutting Edge",
+        "psy": [193, 200],
+        "levels": [11]
+    },
+    {
+        "type": "sequence",
+        "name": "Heat Wave",
+        "psy": [194, 199],
+        "levels": [12]
+    },
+    {
+        "type": "sequence",
+        "name": "Astral Blast",
+        "psy": [195, 201],
+        "levels": [12]
+    },
+    {
+        "type": "sequence",
+        "name": "Planet Diver",
+        "psy": [196, 202],
+        "levels": [13]
+    },
+    {
+        "type": "sequence",
+        "name": "Diamond Dust",
+        "psy": [197, 203],
+        "levels": [12]
+    },
+    {
+        "type": "group",
+        "name": "Sabre Dance",
+        "psy": [584],
+        "levels": [[10]]
+    },
+    {
+        "type": "group",
+        "name": "Backstab",
+        "psy": [585],
+        "levels": [[29]]
+    },
+    {
+        "type": "group",
+        "name": "Fire Breath",
+        "psy": [586],
+        "levels": [[22]]
+    },
+    {
+        "type": "group",
+        "name": "Juggle",
+        "psy": [587, 588, 589],
+        "levels": [[5, 17, 37]]
+    },
+    {
+        "type": "group",
+        "name": "Flame Card",
+        "psy": [590, 591, 592, 593],
+        "levels": [[13, 25, 33, 46]]
+    },
+    {
+        "type": "group",
+        "name": "Baffle Card",
+        "psy": [594, 595, 596, 597],
+        "levels": [[3, 8, 15, 27]]
+    },
+    {
+        "type": "group",
+        "name": "Whiplash",
+        "psy": [599],
+        "levels": [[10]]
+    },
+    {
+        "type": "sequence",
+        "name": "Wild Wolf",
+        "psy": [600, 604, 610, 618],
+        "levels": [1]
+    },
+    {
+        "type": "sequence",
+        "name": "Emu",
+        "psy": [601, 605, 611, 619],
+        "levels": [20]
+    },
+    {
+        "type": "sequence",
+        "name": "Roc",
+        "psy": [602, 606, 612, 620],
+        "levels": [45]
+    },
+    {
+        "type": "sequence",
+        "name": "Salamander",
+        "psy": [603, 607, 613, 621],
+        "levels": [10]
+    },
+    {
+        "type": "sequence",
+        "name": "Wyvern",
+        "psy": [608, 614, 622],
+        "levels": [32]
+    },
+    {
+        "type": "sequence",
+        "name": "Pixie",
+        "psy": [609, 615, 623],
+        "levels": [7]
+    },
+    {
+        "type": "sequence",
+        "name": "Elder Wood",
+        "psy": [616, 625],
+        "levels": [15]
+    },
+    {
+        "type": "sequence",
+        "name": "Lich",
+        "psy": [617, 627],
+        "levels": [28]
+    },
+    {
+        "type": "group",
+        "name": "Succubus",
+        "psy": [624],
+        "levels": [[24]]
+    },
+    {
+        "type": "group",
+        "name": "Manticore",
+        "psy": [626],
+        "levels": [[38]]
+    },
+    {
+        "type": "group",
+        "name": "Call Zombie",
+        "psy": [629, 630, 631],
+        "levels": [[1, 26, 47]]
+    },
+    {
+        "type": "group",
+        "name": "Raging Heat",
+        "psy": [632, 633, 634],
+        "levels": [[9, 22, 53]]
+    },
+    {
+        "type": "group",
+        "name": "Poison Flow",
+        "psy": [635],
+        "levels": [[33]]
+    },
+    {
+        "type": "group",
+        "name": "Fire Puppet",
+        "psy": [636],
+        "levels": [[20]]
+    }
+]

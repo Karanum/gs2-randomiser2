@@ -1,9 +1,15 @@
+const fs = require('fs');
+
 const textStart = 2915;
 const textEnd = 3158;
 const addrOffset = 0xc15f4;
 const addrInterval = 0x348;
 
+const weightFallout = 0.33;
+const psyDecayChance = 0.15;
+
 const utilPsynergy = [12, 24, 33, 78, 185];
+var psynergyGroups;
 
 var classData = [];
 
@@ -51,6 +57,8 @@ function initialise(rom, textutil) {
         }
         loadClassData(rom, id++, classLine);
     }
+
+    psynergyGroups = require('./psynergyLines.json');
 }
 
 function writeToRom(instance, rom) {
@@ -69,6 +77,36 @@ function writeToRom(instance, rom) {
             }
         }
     });
+}
+
+function clearPsynergyData(classLine) {
+    for (var i = 0; i < classLine.classes.length; ++i) {
+        classLine.psynergy[i] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        classLine.levels[i] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    }
+}
+
+function insertPsynergyGroup(prng, classLine, index, psynergy, levels, decay) {
+    for (var i = classLine.classes.length - 1; i >= 0; --i) {
+        for (var j = 0; j < psynergy.length; ++j) {
+            classLine.psynergy[i][index + j] = psynergy[j];
+            classLine.levels[i][index + j] = levels[j];
+        }
+        if (decay && prng.random() <= psyDecayChance)
+            break;
+    }
+}
+
+function insertPsynergySequence(prng, classLine, index, psynergy, level) {
+    var seqStep = psynergy.length - 1;
+    for (var i = classLine.classes.length - 1; i >= 0; --i) {
+        classLine.psynergy[i][index] = psynergy[seqStep];
+        classLine.levels[i][index] = level;
+        if (i == 0) continue;
+
+        var decayChance = seqStep / i;
+        if (prng.random() <= decayChance) --seqStep;
+    }
 }
 
 function shufflePsynergyByClass(instance, prng) {
@@ -107,8 +145,53 @@ function shufflePsynergyByClass(instance, prng) {
     });
 }
 
-function shufflePsynergyByLine(instance, prng) {
+function shufflePsynergyByGroup(instance, prng) {
+    var weights = [];
+    var totalWeight = 0;
+    psynergyGroups.forEach(() => {
+        weights.push(1);
+        ++totalWeight;
+    });
 
+    instance.forEach((classLine) => {
+        var selectedGroups = [];
+        var psyNum = 0;
+        while (true) {
+            var selectedGroup;
+            while (selectedGroup == undefined || selectedGroups.includes(selectedGroup)) {
+                var rand = prng.random() * totalWeight;
+                for (var i = 0; i < psynergyGroups.length && rand > 0; ++i) {
+                    selectedGroup = i;
+                    rand -= weights[i];
+                }
+            }
+
+            var group = psynergyGroups[selectedGroup];
+            psyNum += (group.type == "sequence") ? 1 : group.psy.length;
+            if (psyNum > 16) break;
+
+            var oldWeight = weights[selectedGroup];
+            weights[selectedGroup] *= weightFallout;
+            totalWeight -= (oldWeight - weights[selectedGroup]);
+
+            selectedGroups.push(selectedGroup);
+        }
+
+        psyNum = 0;
+        clearPsynergyData(classLine);
+        selectedGroups.forEach((index) => {
+            var group = psynergyGroups[index];
+            var levels = group.levels[Math.floor(prng.random() * group.levels.length)];;
+
+            if (group.type == "sequence") {
+                insertPsynergySequence(prng, classLine, psyNum, group.psy, levels);
+                ++psyNum;
+            } else {
+                insertPsynergyGroup(prng, classLine, psyNum, group.psy, levels, psyNum >= 8);
+                psyNum += group.psy.length;
+            }
+        });
+    });
 }
 
 function shufflePsynergyByElement(instance, prng) {
@@ -122,7 +205,7 @@ function shufflePsynergy(instance, prng) {
 function randomisePsynergy(instance, mode, prng) {
     switch(mode) {
         case 1: return shufflePsynergyByClass(instance, prng);
-        case 2: return shufflePsynergyByLine(instance, prng);
+        case 2: return shufflePsynergyByGroup(instance, prng);
         case 3: return shufflePsynergyByElement(instance, prng);
         case 4: return shufflePsynergy(instance, prng);
     }
