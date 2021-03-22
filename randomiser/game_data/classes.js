@@ -2,7 +2,7 @@ const fs = require('fs');
 
 const textStart = 2915;
 const textEnd = 3158;
-const addrOffset = 0xc15f4;
+const addrOffset = 0xC15F4;
 const addrInterval = 0x348;
 
 const weightFallout = 0.33;

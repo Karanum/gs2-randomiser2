@@ -6,6 +6,7 @@ const locations = require('./locations.js');
 const textutil = require('./textutil.js');
 const itemLocations = require('./game_data/item_locations.js');
 const classData = require('./game_data/classes.js');
+const abilityData = require('./game_data/abilities.js');
 const settingsParser = require('./settings.js');
 const itemRandomiser = require('./item_randomiser.js');
 
@@ -45,6 +46,7 @@ function initialise() {
     doTiming("Decoding text data...", () => textutil.initialise(rom));
     doTiming("Loading item location data...", () => itemLocations.initialise(rom, textutil));
     doTiming("Loading class data...", () => classData.initialise(rom, textutil));
+    doTiming("Loading ability data...", () => abilityData.initialise(rom, textutil));
 }
 
 function applyGameTicketPatch(target) {
@@ -75,12 +77,17 @@ function randomise(seed, rawSettings) {
     var settings = settingsParser.parse(rawSettings);
     var itemLocClone = itemLocations.clone();
     var classClone = classData.clone();
+    var abilityClone = abilityData.clone();
 
     itemLocations.prepItemLocations(itemLocClone, settings);
 
-    if (settings['no-learning']) classData.removeUtilityPsynergy(classClone);
-    if (settings['djinn-scale']) target = ups.applyPatch(target, upsDjinnScaling);
+    if (settings['free-avoid']) abilityClone[150].cost = 0;
+    if (settings['free-retreat']) {
+        abilityClone[149].cost = 0;
+        abilityClone[156].cost = 0;
+    }
 
+    if (settings['djinn-scale']) target = ups.applyPatch(target, upsDjinnScaling);
     if (settings['qol-fastship']) applyShipSpeedPatch(target);
     if (settings['qol-tickets']) applyGameTicketPatch(target);
     if (settings['qol-cutscenes']) {
@@ -121,15 +128,19 @@ function randomise(seed, rawSettings) {
 
     classData.randomisePsynergy(classClone, settings['class-psynergy'], prng);
 
+    if (settings['no-learning']) classData.removeUtilityPsynergy(classClone);
+
     itemLocations.writeToRom(itemLocClone, target, settings['show-items']);
     classData.writeToRom(classClone, target);
+    abilityData.writeToRom(abilityClone, target);
 
     /*
     NOTE: TextUtil doesn't have a proper instance yet, so changing any line changes it globally
-
-    textutil.writeLine(6152, "Karanum says hi.\x02");
-    target = textutil.writeToRom(target);
     */
+
+    textutil.writeLine(379, "This a-maize-ing item restores 100 HP");
+    textutil.writeLine(1504, "Starburst");
+    target = textutil.writeToRom(target);
 
     /* ========== Spoiler Log ========== 
     var data = "";

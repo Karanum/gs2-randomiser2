@@ -11,10 +11,10 @@ TODO:
 - Implement Psynergy and learn level randomisation in classes       IN PROGRESS
 - Implement class stat shuffling
 
-- Load Psynergy data into the randomiser
+- Load Psynergy data into the randomiser                            DONE
 - Implement Psynergy stat shuffling, etc.
 - Implement starting Psynergy settings
-- Implement 0 PP Psynergy settings	
+- Implement 0 PP Psynergy settings	                                DONE
 
 - Load Djinni data into the randomiser
 - Implement Djinn randomisation and stat shuffling, etc.
