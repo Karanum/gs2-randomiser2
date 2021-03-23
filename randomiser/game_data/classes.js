@@ -302,6 +302,22 @@ function shufflePsynergy(instance, prng) {
     });
 }
 
+function adjustLevels(instance, prng) {
+    instance.forEach((classLine) => {
+        for (var i = 0; i < 16; ++i) {
+            var level = classLine.levels[classLine.levels.length - 1][i];
+            if (level == 0) continue;
+
+            var diff = Math.round(level * (prng.random() - 0.5));
+            diff = Math.min(15, Math.max(-15, diff));
+            for (var j = 0; j < classLine.classes.length; ++j) {
+                if (classLine.levels[j][i] == 0) continue;
+                classLine.levels[j][i] += diff;
+            }
+        }
+    });
+}
+
 function randomisePsynergy(instance, mode, prng) {
     switch(mode) {
         case 1: return shufflePsynergyByClass(instance, prng);
@@ -313,6 +329,20 @@ function randomisePsynergy(instance, mode, prng) {
 
 function randomiseLevels(instance, mode, prng) {
     if (mode == 0) return;
+    if (mode == 1) return adjustLevels(instance, prng);
+
+    instance.forEach((classLine) => {
+        for (var i = 0; i < 16; ++i) {
+            var level = classLine.levels[classLine.levels.length - 1][i];
+            if (level == 0) continue;
+
+            level = Math.floor(prng.random() * 50) + 1;
+            for (var j = 0; j < classLine.classes.length; ++j) {
+                if (classLine.levels[j][i] == 0) continue;
+                classLine.levels[j][i] = level;
+            }
+        }
+    });
 }
 
 function removeUtilityPsynergy(instance) {
