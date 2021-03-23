@@ -13,7 +13,7 @@ TODO:
 
 - Load Psynergy data into the randomiser                            DONE
 - Implement Psynergy stat shuffling, etc.
-- Implement starting Psynergy settings
+- Implement starting Psynergy settings                              DONE
 - Implement 0 PP Psynergy settings	                                DONE
 
 - Load Djinni data into the randomiser

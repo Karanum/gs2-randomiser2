@@ -131,6 +131,8 @@ function randomise(seed, rawSettings) {
     if (settings['class-stats']) classData.randomiseStats(classClone, prng);
     if (settings['no-learning']) classData.removeUtilityPsynergy(classClone);
 
+    abilityData.setStartingPsynergy(target, settings, prng);
+
     itemLocations.writeToRom(itemLocClone, target, settings['show-items']);
     classData.writeToRom(classClone, target);
     abilityData.writeToRom(abilityClone, target);

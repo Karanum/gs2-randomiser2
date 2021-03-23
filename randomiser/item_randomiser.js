@@ -8,6 +8,21 @@ class ItemRandomiser {
         this.settings = settings;
     }
 
+    fixedFill(item, slot) {
+        if (item['isKeyItem'])
+            this.flagSet.push(item['vanillaName']);
+
+        this.instItemLocations[slot].forEach((t) => {
+            t['eventType'] = item['eventType'];
+            t['contents'] = item['vanillaContents'];
+            t['name'] = item['vanillaName'];
+            t['isKeyItem'] = item['isKeyItem'];
+        });
+
+        delete this.slotWeights[slot];
+        delete this.availableItems['0x' + item['id'].toString(16)];
+    }
+
     weightedFill(item) {
         if (item['isKeyItem'])
             this.flagSet.push(item['vanillaName']);
@@ -108,7 +123,10 @@ class ItemRandomiser {
     shuffleItems(instItemLocations) {
         this.instItemLocations = instItemLocations;
         var biasEarly = ['0x84a', '0x878', '0x105', '0x106', '0x88c', '0x9ba', '0x3', '0x8ff'];
-        if (this.settings['item-shuffle'] == 1) biasEarly = biasEarly.concat(['0x918', '0x8d4', '0xf67']);
+        if (this.settings['item-shuffle'] == 1) {
+            biasEarly = biasEarly.concat(['0x918', '0xf67']);
+            if (!this.settings['start-reveal']) biasEarly.push('0x8d4');
+        }
 
         this.availableItems = itemLocations.getUnlockedItems(instItemLocations);
         this.slotWeights = {};
@@ -119,6 +137,11 @@ class ItemRandomiser {
 
         this.flagSet = this.getInitialFlagSet();
         this.updateAccessibleItems();
+
+        if (this.settings['start-reveal']) {
+            this.fixedFill(this.availableItems['0x8d4'], '0x1');
+            this.updateAccessibleItems();
+        }
 
         while (biasEarly.length > 0) {
             var i = Math.floor(this.prng.random() * biasEarly.length);

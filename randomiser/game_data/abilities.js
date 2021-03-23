@@ -71,4 +71,16 @@ function getAbilityElement(id) {
     return abilityData[id].element;
 }
 
-module.exports = {initialise, clone, writeToRom, getAbilityElement};
+function setStartingPsynergy(rom, settings, prng) {
+    var psynergy = [];
+    if (settings['start-heal']) 
+        psynergy = psynergy.concat([Math.floor(prng.random() * 3) + 4, 0, Math.floor(prng.random() * 4) * 3 + 0x57, 0x0E]);
+    if (settings['start-revive'])
+        psynergy = psynergy.concat([Math.floor(prng.random() * 3) + 4, 0, 0x65, 0x0E]);
+
+    psynergy.forEach((byte, i) => {
+        rom[0xFA0130 + i] = byte;
+    });
+}
+
+module.exports = {initialise, clone, writeToRom, getAbilityElement, setStartingPsynergy};
