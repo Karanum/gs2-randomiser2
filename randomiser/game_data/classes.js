@@ -259,7 +259,47 @@ function shufflePsynergyByElement(instance, prng) {
 }
 
 function shufflePsynergy(instance, prng) {
+    var weights = [];
+    var totalWeight = 0;
+    psynergyList.forEach(() => {
+        weights.push(1);
+        ++totalWeight;
+    });
 
+    instance.forEach((classLine) => {
+        var psynergyMap = {};
+        var selectedPsy = [];
+        for (var i = 0; i < classLine.classes.length; ++i) {
+            for (var j = 0; j < 16; ++j) {
+                var psynergy = classLine.psynergy[i][j];
+                if (psynergy == 0) continue;
+
+                if (psynergyMap.hasOwnProperty(psynergy)) {
+                    var targetPsy = psynergyMap[psynergy];
+                    classLine.psynergy[i][j] = targetPsy[0];
+                    classLine.levels[i][j] = targetPsy[1];
+                    continue;
+                }
+
+                var index, targetPsy;
+                while (true) {
+                    index = weightedPicker.pickIndex(prng, weights, totalWeight);
+                    targetPsy = psynergyList[index];
+                    if (!selectedPsy.includes(targetPsy[0])) break;
+                }
+                var targetLevel = targetPsy[1][Math.floor(prng.random() * targetPsy[1].length)];
+                psynergyMap[psynergy] = [targetPsy[0], targetLevel];
+                selectedPsy.push(targetPsy[0]);
+
+                var oldWeight = weights[index];
+                weights[index] *= weightFallout;
+                totalWeight -= (oldWeight - weights[index]);
+
+                classLine.psynergy[i][j] = targetPsy[0];
+                classLine.levels[i][j] = targetLevel;
+            }
+        }
+    });
 }
 
 function randomisePsynergy(instance, mode, prng) {
@@ -271,7 +311,7 @@ function randomisePsynergy(instance, mode, prng) {
     }
 }
 
-function randomiseLevels(instance, mode) {
+function randomiseLevels(instance, mode, prng) {
     if (mode == 0) return;
 }
 
