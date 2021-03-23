@@ -126,6 +126,12 @@ function randomise(seed, rawSettings) {
         spheres = randomiser.getSpheres();
     }
 
+    if (settings['psynergy-power']) abilityData.adjustAbilityPower(abilityClone, "Psynergy", prng);
+    if (settings['psynergy-cost']) abilityData.adjustPsynergyCost(abilityClone, prng);
+    if (settings['psynergy-aoe']) abilityData.randomiseAbilityRange(abilityClone, "Psynergy", prng);
+    if (settings['enemypsy-power']) abilityData.adjustAbilityPower(abilityClone, "Enemy", prng);
+    if (settings['enemypsy-aoe']) abilityData.randomiseAbilityRange(abilityClone, "Enemy", prng);
+
     classData.randomisePsynergy(classClone, settings['class-psynergy'], prng);
     classData.randomiseLevels(classClone, settings['class-levels'], prng);
     if (settings['class-stats']) classData.randomiseStats(classClone, prng);

@@ -12,7 +12,7 @@ TODO:
 - Implement class stat shuffling                                    DONE
 
 - Load Psynergy data into the randomiser                            DONE
-- Implement Psynergy stat shuffling, etc.
+- Implement Psynergy stat shuffling, etc.                           DONE
 - Implement starting Psynergy settings                              DONE
 - Implement 0 PP Psynergy settings	                                DONE
 

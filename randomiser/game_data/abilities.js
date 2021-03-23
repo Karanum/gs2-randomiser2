@@ -83,4 +83,32 @@ function setStartingPsynergy(rom, settings, prng) {
     });
 }
 
-module.exports = {initialise, clone, writeToRom, getAbilityElement, setStartingPsynergy};
+function adjustAbilityPower(instance, type, prng) {
+    for (var i in instance) {
+        if (!instance.hasOwnProperty(i)) continue;
+        if (instance[i].type != type || instance[i].power == 0) continue;
+        instance[i].power *= (prng.random() * 0.4 + 0.8);
+        instance[i].power = Math.round(instance[i].power);
+    }
+}
+
+function adjustPsynergyCost(instance, prng) {
+    for (var i in instance) {
+        if (!instance.hasOwnProperty(i)) continue;
+        if (instance[i].type != "Psynergy" || instance[i].cost == 0) continue;
+        instance[i].cost *= (prng.random() * 0.8 + 0.6);
+        instance[i].cost = Math.round(instance[i].cost);
+    }
+}
+
+function randomiseAbilityRange(instance, type, prng) {
+    for (var i in instance) {
+        if (!instance.hasOwnProperty(i)) continue;
+        if (instance[i].type != type || (type == "Psynergy" && instance[i].damageType == 9)) continue;
+        instance[i].range = Math.floor(prng.random() * 5);
+        if (instance[i].range == 0) instance[i] = 255;
+    }
+}
+
+module.exports = {initialise, clone, writeToRom, getAbilityElement, setStartingPsynergy,
+                adjustAbilityPower, adjustPsynergyCost, randomiseAbilityRange};
