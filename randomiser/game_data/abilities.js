@@ -63,4 +63,12 @@ function writeToRom(instance, rom) {
     }
 }
 
-module.exports = {initialise, clone, writeToRom};
+function getAbilityElement(id) {
+    if (!abilityData.hasOwnProperty(id)) return undefined;
+    if (id == 600 || id == 604) return 0;
+    if (id == 602) return 3;
+
+    return abilityData[id].element;
+}
+
+module.exports = {initialise, clone, writeToRom, getAbilityElement};

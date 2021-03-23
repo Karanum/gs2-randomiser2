@@ -1,4 +1,6 @@
 const fs = require('fs');
+const abilityData = require('./abilities.js');
+const weightedPicker = require('./../../modules/weightedPicker.js');
 
 const textStart = 2915;
 const textEnd = 3158;
@@ -9,7 +11,9 @@ const weightFallout = 0.33;
 const psyDecayChance = 0.15;
 
 const utilPsynergy = [12, 24, 33, 78, 185];
-var psynergyGroups;
+var psynergyGroups = [];
+var psynergyElements = [[], [], [], []];
+var psynergyList = [];
 
 var classData = [];
 
@@ -59,6 +63,21 @@ function initialise(rom, textutil) {
     }
 
     psynergyGroups = require('./psynergyLines.json');
+    psynergyGroups.forEach((group) => {
+        for (var i = 0; i < group.psy.length; ++i) {
+            var id = group.psy[i];
+            var levels = [];
+            if (group.type == "sequence") {
+                levels.push(group.levels[0] + (30 * i));
+            } else {
+                group.levels.forEach((levelSet) => levels.push(levelSet[i]));
+            }
+            var elem = abilityData.getAbilityElement(id);
+
+            psynergyElements[elem].push([id, levels]);
+            psynergyList.push([id, levels]);
+        }
+    });
 }
 
 function writeToRom(instance, rom) {
@@ -159,11 +178,7 @@ function shufflePsynergyByGroup(instance, prng) {
         while (true) {
             var selectedGroup;
             while (selectedGroup == undefined || selectedGroups.includes(selectedGroup)) {
-                var rand = prng.random() * totalWeight;
-                for (var i = 0; i < psynergyGroups.length && rand > 0; ++i) {
-                    selectedGroup = i;
-                    rand -= weights[i];
-                }
+                selectedGroup = weightedPicker.pickIndex(prng, weights, totalWeight);
             }
 
             var group = psynergyGroups[selectedGroup];
@@ -195,7 +210,52 @@ function shufflePsynergyByGroup(instance, prng) {
 }
 
 function shufflePsynergyByElement(instance, prng) {
+    var weights = [[], [], [], []];
+    var totalWeights = [0, 0, 0, 0];
+    for (var i = 0; i < psynergyElements.length; ++i) {
+        psynergyElements[i].forEach((psy) => {
+            weights[i].push(1);
+            ++totalWeights[i];
+        });
+    }
 
+    instance.forEach((classLine) => {
+        var psynergyMap = {};
+        var selectedPsy = [];
+        for (var i = 0; i < classLine.classes.length; ++i) {
+            for (var j = 0; j < 16; ++j) {
+                var psynergy = classLine.psynergy[i][j];
+                if (psynergy == 0) continue;
+
+                if (psynergyMap.hasOwnProperty(psynergy)) {
+                    var targetPsy = psynergyMap[psynergy];
+                    classLine.psynergy[i][j] = targetPsy[0];
+                    classLine.levels[i][j] = targetPsy[1];
+                    continue;
+                }
+
+                var element = abilityData.getAbilityElement(psynergy);
+                if (element > 3) continue;
+
+                var index, targetPsy;
+                while (true) {
+                    index = weightedPicker.pickIndex(prng, weights[element], totalWeights[element]);
+                    targetPsy = psynergyElements[element][index];
+                    if (!selectedPsy.includes(targetPsy[0])) break;
+                }
+                var targetLevel = targetPsy[1][Math.floor(prng.random() * targetPsy[1].length)];
+                psynergyMap[psynergy] = [targetPsy[0], targetLevel];
+                selectedPsy.push(targetPsy[0]);
+
+                var oldWeight = weights[element][index];
+                weights[element][index] *= weightFallout;
+                totalWeights[element] -= (oldWeight - weights[element][index]);
+
+                classLine.psynergy[i][j] = targetPsy[0];
+                classLine.levels[i][j] = targetLevel;
+            }
+        }
+    });
 }
 
 function shufflePsynergy(instance, prng) {

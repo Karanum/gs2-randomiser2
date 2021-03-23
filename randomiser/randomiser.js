@@ -45,8 +45,8 @@ function initialise() {
 
     doTiming("Decoding text data...", () => textutil.initialise(rom));
     doTiming("Loading item location data...", () => itemLocations.initialise(rom, textutil));
-    doTiming("Loading class data...", () => classData.initialise(rom, textutil));
     doTiming("Loading ability data...", () => abilityData.initialise(rom, textutil));
+    doTiming("Loading class data...", () => classData.initialise(rom, textutil));
 }
 
 function applyGameTicketPatch(target) {
