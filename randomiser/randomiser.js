@@ -128,7 +128,7 @@ function randomise(seed, rawSettings) {
 
     classData.randomisePsynergy(classClone, settings['class-psynergy'], prng);
     classData.randomiseLevels(classClone, settings['class-levels'], prng);
-
+    if (settings['class-stats']) classData.randomiseStats(classClone, prng);
     if (settings['no-learning']) classData.removeUtilityPsynergy(classClone);
 
     itemLocations.writeToRom(itemLocClone, target, settings['show-items']);

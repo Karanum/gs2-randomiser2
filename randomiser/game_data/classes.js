@@ -345,6 +345,43 @@ function randomiseLevels(instance, mode, prng) {
     });
 }
 
+function insertIntoSortedArray(arr, n) {
+    for (var i = 0; i < arr.length; ++i) {
+        if (n < arr[i]) {
+            arr.splice(i, 0, n);
+            return;
+        }
+    }
+    arr.push(n);
+}
+
+function getRandomStat(prng, elemValue) {
+    return prng.random() * Math.floor(6 + 0.5 * elemValue) + Math.round(7.9 + 0.25 * elemValue);
+}
+
+function randomiseStats(instance, prng) {
+    instance.forEach((classLine) => {
+        var statBlock = [];
+        for (var i = 0; i < 6; ++i) {
+            var statLine = [];
+            for (var j = 0; j < classLine.classes.length; ++j) {
+                var elemValue = 0;
+                classLine.elements[j].forEach((elem) => elemValue += elem);
+                elemValue = Math.min(9, Math.max(0, elemValue - 5));
+
+                var stat = Math.max(getRandomStat(prng, elemValue), getRandomStat(prng, elemValue));
+                insertIntoSortedArray(statLine, Math.floor(stat));
+            }
+            statBlock.push(statLine);
+        }
+
+        for (var i = 0; i < classLine.classes.length; ++i) {
+            classLine.stats[i] = [statBlock[0][i], statBlock[1][i], statBlock[2][i],
+                statBlock[3][i], statBlock[4][i], statBlock[5][i]];
+        }
+    });
+}
+
 function removeUtilityPsynergy(instance) {
     instance.forEach((classLine) => {
         for (var i = 0; i < classLine.classes.length; ++i) {
@@ -360,4 +397,4 @@ function removeUtilityPsynergy(instance) {
     });
 }
 
-module.exports = {initialise, writeToRom, clone, removeUtilityPsynergy, randomisePsynergy, randomiseLevels};
+module.exports = {initialise, writeToRom, clone, removeUtilityPsynergy, randomisePsynergy, randomiseLevels, randomiseStats};

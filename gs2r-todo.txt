@@ -8,8 +8,8 @@ TODO:
 
 - Load class data into the randomiser                               DONE
 - Implement utility Psynergy removal from classes                   DONE
-- Implement Psynergy and learn level randomisation in classes       IN PROGRESS
-- Implement class stat shuffling
+- Implement Psynergy and learn level randomisation in classes       DONE
+- Implement class stat shuffling                                    DONE
 
 - Load Psynergy data into the randomiser                            DONE
 - Implement Psynergy stat shuffling, etc.
