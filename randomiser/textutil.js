@@ -223,4 +223,8 @@ function initialise(rom) {
     makeCompressionDict(nodes);
 }
 
-module.exports = {initialise, readLine, readLinePretty, writeLine, writeToRom};
+function clone() {
+    return JSON.parse(JSON.stringify(lines));
+}
+
+module.exports = {initialise, clone, readLine, readLinePretty, writeLine, writeToRom};

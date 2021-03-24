@@ -7,6 +7,7 @@ const textutil = require('./textutil.js');
 const itemLocations = require('./game_data/item_locations.js');
 const classData = require('./game_data/classes.js');
 const abilityData = require('./game_data/abilities.js');
+const djinnData = require('./game_data/djinn.js');
 const settingsParser = require('./settings.js');
 const itemRandomiser = require('./item_randomiser.js');
 
@@ -47,6 +48,7 @@ function initialise() {
     doTiming("Loading item location data...", () => itemLocations.initialise(rom, textutil));
     doTiming("Loading ability data...", () => abilityData.initialise(rom, textutil));
     doTiming("Loading class data...", () => classData.initialise(rom, textutil));
+    doTiming("Loading Djinn data...", () => djinnData.initialise(rom, textutil));
 }
 
 function applyGameTicketPatch(target) {
@@ -78,6 +80,7 @@ function randomise(seed, rawSettings) {
     var itemLocClone = itemLocations.clone();
     var classClone = classData.clone();
     var abilityClone = abilityData.clone();
+    var djinnClone = djinnData.clone();
 
     itemLocations.prepItemLocations(itemLocClone, settings);
 
@@ -137,11 +140,15 @@ function randomise(seed, rawSettings) {
     if (settings['class-stats']) classData.randomiseStats(classClone, prng);
     if (settings['no-learning']) classData.removeUtilityPsynergy(classClone);
 
+    if (settings['djinn-shuffle']) djinnData.shuffleDjinn(djinnClone, prng);
+    if (settings['djinn-stats']) djinnData.shuffleStats(djinnClone, prng);
+
     abilityData.setStartingPsynergy(target, settings, prng);
 
     itemLocations.writeToRom(itemLocClone, target, settings['show-items']);
     classData.writeToRom(classClone, target);
     abilityData.writeToRom(abilityClone, target);
+    djinnData.writeToRom(djinnClone, target);
 
     /*
     NOTE: TextUtil doesn't have a proper instance yet, so changing any line changes it globally

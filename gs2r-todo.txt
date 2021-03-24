@@ -16,8 +16,9 @@ TODO:
 - Implement starting Psynergy settings                              DONE
 - Implement 0 PP Psynergy settings	                                DONE
 
-- Load Djinni data into the randomiser
-- Implement Djinn randomisation and stat shuffling, etc.
+- Load Djinni data into the randomiser                              DONE
+- Implement Djinn randomisation and stat shuffling                  DONE
+- Implement Djinn power and aoe shuffling, etc.
 - Implement summon stat shuffling, etc.
 
 - Load item data into the randomiser
