@@ -8,6 +8,7 @@ const itemLocations = require('./game_data/item_locations.js');
 const classData = require('./game_data/classes.js');
 const abilityData = require('./game_data/abilities.js');
 const djinnData = require('./game_data/djinn.js');
+const summonData = require('./game_data/summons.js');
 const settingsParser = require('./settings.js');
 const itemRandomiser = require('./item_randomiser.js');
 
@@ -49,6 +50,7 @@ function initialise() {
     doTiming("Loading ability data...", () => abilityData.initialise(rom, textutil));
     doTiming("Loading class data...", () => classData.initialise(rom, textutil));
     doTiming("Loading Djinn data...", () => djinnData.initialise(rom, textutil));
+    doTiming("Loading summon data...", () => summonData.initialise(rom));
 }
 
 function applyGameTicketPatch(target) {
@@ -81,6 +83,7 @@ function randomise(seed, rawSettings) {
     var classClone = classData.clone();
     var abilityClone = abilityData.clone();
     var djinnClone = djinnData.clone();
+    var summonClone = summonData.clone();
 
     itemLocations.prepItemLocations(itemLocClone, settings);
 
@@ -142,6 +145,10 @@ function randomise(seed, rawSettings) {
 
     if (settings['djinn-shuffle']) djinnData.shuffleDjinn(djinnClone, prng);
     if (settings['djinn-stats']) djinnData.shuffleStats(djinnClone, prng);
+    if (settings['djinn-power']) abilityData.adjustAbilityPower(abilityClone, "Djinn", prng);
+    if (settings['djinn-aoe']) abilityData.randomiseAbilityRange(abilityClone, "Djinn", prng);
+    if (settings['summon-power']) abilityData.adjustAbilityPower(abilityClone, "Summon", prng);
+    if (settings['summon-cost']) summonData.randomiseCost(summonClone, abilityClone, prng);
 
     abilityData.setStartingPsynergy(target, settings, prng);
 
@@ -149,6 +156,7 @@ function randomise(seed, rawSettings) {
     classData.writeToRom(classClone, target);
     abilityData.writeToRom(abilityClone, target);
     djinnData.writeToRom(djinnClone, target);
+    summonData.writeToRom(summonClone, target);
 
     /*
     NOTE: TextUtil doesn't have a proper instance yet, so changing any line changes it globally
