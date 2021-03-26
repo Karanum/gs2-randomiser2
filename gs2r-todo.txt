@@ -24,9 +24,9 @@ TODO:
 - Load item data into the randomiser                                DONE
 - Implement equipment loading and stat shuffling, etc.              DONE
 
-- Load character data into the randomiser
-- Implement character stat and element shuffling
-- Implement starting levels
+- Load character data into the randomiser                           DONE
+- Implement character stat and element shuffling                    DONE
+- Implement starting levels                                         DONE
 
 - Load enemy data into the randomiser
 - Implement exp/coin scaling
