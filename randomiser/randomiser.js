@@ -10,6 +10,7 @@ const abilityData = require('./game_data/abilities.js');
 const djinnData = require('./game_data/djinn.js');
 const summonData = require('./game_data/summons.js');
 const itemData = require('./game_data/items.js');
+const characterData = require('./game_data/characters.js');
 const settingsParser = require('./settings.js');
 const itemRandomiser = require('./item_randomiser.js');
 
@@ -53,6 +54,7 @@ function initialise() {
     doTiming("Loading Djinn data...", () => djinnData.initialise(rom, textutil));
     doTiming("Loading summon data...", () => summonData.initialise(rom));
     doTiming("Loading item data...", () => itemData.initialise(rom, textutil));
+    doTiming("Loading character data...", () => characterData.initialise(rom));
 
     textutil.writeLine(379, "This a-maize-ing item restores 100 HP");
     textutil.writeLine(1504, "Starburst");
@@ -90,6 +92,7 @@ function randomise(seed, rawSettings) {
     var djinnClone = djinnData.clone();
     var summonClone = summonData.clone();
     var itemClone = itemData.clone();
+    var characterClone = characterData.clone();
 
     itemLocations.prepItemLocations(itemLocClone, settings);
 
@@ -163,6 +166,11 @@ function randomise(seed, rawSettings) {
     if (settings['equip-effect']) itemData.shuffleArmourEffects(itemClone, prng);
     if (settings['equip-curse']) itemData.shuffleCurses(itemClone, prng);
 
+    if (settings['char-stats'] == 1) characterData.shuffleStats(characterClone, prng);
+    if (settings['char-stats'] == 2) characterData.adjustStats(characterClone, prng);
+    if (settings['char-element'] == 1) characterData.shuffleElements(characterClone, prng, true);
+    if (settings['char-element'] == 2) characterData.shuffleElements(characterClone, prng, false);
+
     abilityData.setStartingPsynergy(target, settings, prng);
 
     itemLocations.writeToRom(itemLocClone, target, settings['show-items']);
@@ -171,6 +179,7 @@ function randomise(seed, rawSettings) {
     djinnData.writeToRom(djinnClone, target);
     summonData.writeToRom(summonClone, target);
     itemData.writeToRom(itemClone, target, textutil);
+    characterData.writeToRom(characterClone, target);
 
     /*
     NOTE: TextUtil doesn't have a proper instance yet, so changing any line changes it globally
