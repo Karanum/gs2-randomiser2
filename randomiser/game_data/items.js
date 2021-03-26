@@ -5,13 +5,19 @@ const addrOffset = 0xB2364;
 
 var itemData = [];
 
+function isArmour(type) {
+    if (type <= 1 || type >= 10) return false;
+    if (type == 6 || type == 7) return false;
+    return true;
+}
+
 function loadItemData(rom, id, name, desc) {
     var addr = addrOffset + 44 * id;
     var cost = rom[addr] + (rom[addr + 1] << 8);
     var itemType = rom[addr + 2];
     var flags = rom[addr + 3];
     var equipCompat = rom[addr + 4];
-    var attack = rom[addr + 8] + (rom[addr + 9] << 8);
+    var attack = rom[addr + 8];
     var defense = rom[addr + 10];
     var unleashRate = rom[addr + 11];
     var useType = rom[addr + 12];
@@ -51,8 +57,7 @@ function writeToRom(instance, rom) {
         rom[addr + 2] = item.itemType;
         rom[addr + 3] = item.flags;
         rom[addr + 4] = item.equipCompat;
-        rom[addr + 8] = (item.attack & 0xFF);
-        rom[addr + 9] = (item.attack >> 8);
+        rom[addr + 8] = item.attack;
         rom[addr + 10] = item.defense;
         rom[addr + 11] = item.unleashRate;
         rom[addr + 12] = item.useType;
@@ -78,9 +83,31 @@ function randomiseCompatibility(instance, prng) {
 function adjustEquipPrices(instance, prng) {
     instance.forEach((item) => {
         if (item.cost == 0 || item.equipCompat == 0) return;
-        var cost = Math.round(item.cost * (prng.random() * 0.8 + 0.6));
+        var cost = Math.round(item.cost * (prng.random() * 0.4 + 0.8));
         item.cost = Math.min(0xFFFF, cost);
     });
 }
 
-module.exports = {initialise, clone, writeToRom, randomiseCompatibility, adjustEquipPrices};
+function adjustStats(instance, prng) {
+    instance.forEach((item) => {
+        if (item.itemType == 1) {
+            if (item.attack == 0) return;
+            
+            var attackChange = Math.round(item.attack * (prng.random() - 0.5));
+            var vanillaAttack = item.attack;
+            item.attack = Math.max(1, Math.min(255, item.attack + attackChange));
+            item.cost = Math.round(item.cost * (1 + ((item.attack / vanillaAttack) - 1) / 1.5));
+        } else if (isArmour(item.itemType)) {
+            if (item.attack > 0)
+                item.attack = Math.floor(prng.random() * 19 + 2);
+            if (item.defense == 0) return;
+
+            var defenseChange = Math.round(item.defense * (prng.random() - 0.5));
+            var vanillaDefense = item.defense;
+            item.defense = Math.max(1, Math.min(60, item.defense + defenseChange));
+            item.cost = Math.round(item.cost * (1 + ((item.defense / vanillaDefense) - 1) / 1.5));
+        }
+    });
+}
+
+module.exports = {initialise, clone, writeToRom, randomiseCompatibility, adjustEquipPrices, adjustStats};

@@ -53,6 +53,9 @@ function initialise() {
     doTiming("Loading Djinn data...", () => djinnData.initialise(rom, textutil));
     doTiming("Loading summon data...", () => summonData.initialise(rom));
     doTiming("Loading item data...", () => itemData.initialise(rom, textutil));
+
+    textutil.writeLine(379, "This a-maize-ing item restores 100 HP");
+    textutil.writeLine(1504, "Starburst");
 }
 
 function applyGameTicketPatch(target) {
@@ -154,6 +157,7 @@ function randomise(seed, rawSettings) {
     if (settings['summon-cost']) summonData.randomiseCost(summonClone, abilityClone, prng);
 
     if (settings['equip-shuffle']) itemData.randomiseCompatibility(itemClone, prng);
+    if (settings['equip-stats']) itemData.adjustStats(itemClone, prng);
     if (settings['equip-cost']) itemData.adjustEquipPrices(itemClone, prng);
 
     abilityData.setStartingPsynergy(target, settings, prng);
@@ -168,9 +172,6 @@ function randomise(seed, rawSettings) {
     /*
     NOTE: TextUtil doesn't have a proper instance yet, so changing any line changes it globally
     */
-
-    textutil.writeLine(379, "This a-maize-ing item restores 100 HP");
-    textutil.writeLine(1504, "Starburst");
     target = textutil.writeToRom(target);
 
     /* ========== Spoiler Log ========== 
