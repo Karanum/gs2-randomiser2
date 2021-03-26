@@ -21,8 +21,8 @@ TODO:
 - Implement Djinn power and aoe shuffling, etc.                     DONE
 - Implement summon stat shuffling, etc.                             DONE
 
-- Load item data into the randomiser
-- Implement equipment loading and stat shuffling, etc.
+- Load item data into the randomiser                                DONE
+- Implement equipment loading and stat shuffling, etc.              IN PROGRESS
 
 - Load character data into the randomiser
 - Implement character stat and element shuffling

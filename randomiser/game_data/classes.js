@@ -62,7 +62,7 @@ function initialise(rom, textutil) {
         loadClassData(rom, id++, classLine);
     }
 
-    psynergyGroups = require('./psynergyLines.json');
+    psynergyGroups = require('./json/psynergyLines.json');
     psynergyGroups.forEach((group) => {
         for (var i = 0; i < group.psy.length; ++i) {
             var id = group.psy[i];
