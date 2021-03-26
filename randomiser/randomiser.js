@@ -159,6 +159,9 @@ function randomise(seed, rawSettings) {
     if (settings['equip-shuffle']) itemData.randomiseCompatibility(itemClone, prng);
     if (settings['equip-stats']) itemData.adjustStats(itemClone, prng);
     if (settings['equip-cost']) itemData.adjustEquipPrices(itemClone, prng);
+    if (settings['equip-unleash']) itemData.shuffleWeaponEffects(itemClone, prng);
+    if (settings['equip-effect']) itemData.shuffleArmourEffects(itemClone, prng);
+    if (settings['equip-curse']) itemData.shuffleCurses(itemClone, prng);
 
     abilityData.setStartingPsynergy(target, settings, prng);
 
@@ -167,7 +170,7 @@ function randomise(seed, rawSettings) {
     abilityData.writeToRom(abilityClone, target);
     djinnData.writeToRom(djinnClone, target);
     summonData.writeToRom(summonClone, target);
-    itemData.writeToRom(itemClone, target);
+    itemData.writeToRom(itemClone, target, textutil);
 
     /*
     NOTE: TextUtil doesn't have a proper instance yet, so changing any line changes it globally

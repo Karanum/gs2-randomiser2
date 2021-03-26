@@ -29,7 +29,11 @@ function loadItemData(rom, id, name, desc) {
         equipEffects.push([rom[addr + 24 + 4 * i], rom[addr + 25 + 4 * i]]);
     }
 
-    if (desc.startsWith("Cursed")) desc = desc.substring(7);
+    if (id == 171) desc = "Circlet: Use to delude enemies";
+    if (id == 344) desc = "Clothes: Boosts Attack & Criticals";
+    if (id == 365) desc = "Gloves: Boosts Attack & Criticals";
+    if (desc.endsWith("Raises Evade")) desc = desc.split(':')[0] + ": Boosts Criticals";
+
     itemData.push({id: id, name: name, desc: desc, addr: addr, cost: cost, itemType: itemType,
         flags: flags, equipCompat: equipCompat, attack: attack, defense: defense, unleashRate: unleashRate,
         useType: useType, unleashId: unleashId, useEffect: useEffect, equipEffects: equipEffects});
@@ -49,7 +53,7 @@ function clone() {
     return JSON.parse(JSON.stringify(itemData));
 }
 
-function writeToRom(instance, rom) {
+function writeToRom(instance, rom, textutil) {
     instance.forEach((item) => {
         var addr = item.addr;
         rom[addr] = (item.cost & 0xFF);
@@ -70,6 +74,8 @@ function writeToRom(instance, rom) {
             rom[addr + 24 + 4 * i] = effect[0];
             rom[addr + 25 + 4 * i] = effect[1];
         });
+
+        textutil.writeLine(descOffset + item.id, item.desc);
     });
 }
 
@@ -110,4 +116,78 @@ function adjustStats(instance, prng) {
     });
 }
 
-module.exports = {initialise, clone, writeToRom, randomiseCompatibility, adjustEquipPrices, adjustStats};
+function shuffleWeaponEffects(instance, prng) {
+    var eligible = [];
+    var propertyList = [];
+
+    instance.forEach((item) => {
+        if (item.itemType != 1) return;
+        eligible.push(item);
+        propertyList.push([item.unleashId, item.unleashRate, item.useType, item.element,
+                        item.useEffect, item.equipEffects, item.desc.split(': ')[1]]);
+        item.desc = item.desc.split(': ')[0];
+    });
+
+    eligible.forEach((item) => {
+        var rand = Math.floor(prng.random() * propertyList.length);
+        var properties = propertyList.splice(rand, 1)[0];
+        item.unleashId = properties[0];
+        item.unleashRate = properties[1];
+        item.useType = properties[2];
+        item.element = properties[3];
+        item.useEffect = properties[4];
+        item.equipEffects = properties[5];
+
+        var desc = properties[6];
+        if (desc != undefined && desc != "Needs to be reforged")
+            item.desc += ": " + desc;
+    });
+}
+
+function shuffleArmourEffects(instance, prng) {
+    var eligible = [];
+    var propertyList = [];
+
+    instance.forEach((item) => {
+        if (!isArmour(item.itemType)) return;
+        eligible.push(item);
+        propertyList.push([item.useType, item.useEffect, item.equipEffects, item.desc.split(': ')[1]]);
+        item.desc = item.desc.split(': ')[0];
+    });
+
+    eligible.forEach((item) => {
+        var rand = Math.floor(prng.random() * propertyList.length);
+        var properties = propertyList.splice(rand, 1)[0];
+        item.useType = properties[0];
+        item.useEffect = properties[1];
+        item.equipEffects = properties[2];
+
+        var desc = properties[3];
+        if (desc != undefined)
+            item.desc += ": " + desc;
+    });
+}
+
+function shuffleCurses(instance, prng) {
+    var numCurses = Math.round(prng.random() * 10 + 10);
+    var eligible = [];
+
+    instance.forEach((item) => {
+        if (item.itemType != 1 && !isArmour(item.itemType)) return;
+        eligible.push(item);
+
+        if (item.flags & 0x1) item.flags &= 0xFC;
+        if (item.desc.startsWith("Cursed")) item.desc = item.desc.substring(7);
+    });
+
+    for (var i = 0; i < numCurses; ++i) {
+        var rand = Math.floor(prng.random() * eligible.length);
+        var item = eligible.splice(rand, 1)[0];
+
+        item.flags |= 0x3;
+        item.desc = "Cursed " + item.desc;
+    }
+}
+
+module.exports = {initialise, clone, writeToRom, randomiseCompatibility, adjustEquipPrices, adjustStats,
+                shuffleWeaponEffects, shuffleArmourEffects, shuffleCurses};
