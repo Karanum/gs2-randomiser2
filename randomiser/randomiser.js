@@ -175,8 +175,11 @@ function randomise(seed, rawSettings) {
     if (settings['char-stats'] == 2) characterData.adjustStats(characterClone, prng);
     if (settings['char-element'] == 1) characterData.shuffleElements(characterClone, prng, true);
     if (settings['char-element'] == 2) characterData.shuffleElements(characterClone, prng, false);
+
+    if (settings['djinn-scale']) enemyData.sortDjinn(enemyClone);
     
     characterData.adjustStartingLevels(characterClone, settings['start-levels']);
+    enemyData.scaleBattleRewards(enemyClone, settings['scale-coins'], settings['scale-exp']);
     abilityData.setStartingPsynergy(target, settings, prng);
 
     itemLocations.writeToRom(itemLocClone, target, settings['show-items']);

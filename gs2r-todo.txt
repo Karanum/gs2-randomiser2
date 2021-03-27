@@ -29,8 +29,8 @@ TODO:
 - Implement starting levels                                         DONE
 
 - Load enemy data into the randomiser                               DONE
-- Implement exp/coin scaling
-- Implement enemy ability changes
+- Implement exp/coin scaling                                        DONE
+- Implement enemy ability changes                                   DONE
 
 - Implement equipment and summon sorting
 - Implement Mimic sorting so you don't die instantly

@@ -2,6 +2,16 @@ const textStart = 1068;
 const textEnd = 1446;
 const addrOffset = 0xB9E8B;
 
+const bosses = ["Chestbeater", "King Scorpion", "Sea Fighter", "Briggs", "Aqua Hydra",
+    "Serpent", "Avimander", "Poseidon", "Moapa", "Knight", "Agatio", "Karst", "Flame Dragon",
+    "Doom Dragon", "Star Magician", "Refresh Ball", "Thunder Ball", "Anger Ball", "Guardian Ball",
+    "Valukar", "Sentinel", "Dullahan"];
+
+const djinnIds = [
+    [2, 4, 5, 6, 7, 8, 9, 10, 12, 13, 14], [19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29],
+    [32, 33, 35, 38, 39, 42, 43], [48, 49, 51, 52, 53, 54, 55, 56, 57, 58]
+];
+
 var enemyData = {};
 
 function loadFullEnemyData(rom, enemy) {
@@ -59,7 +69,7 @@ function initialise(rom, textutil) {
 }
 
 function clone() {
-    JSON.parse(JSON.stringify(enemyData));
+    return JSON.parse(JSON.stringify(enemyData));
 }
 
 function writeUint16(rom, addr, value) {
@@ -107,4 +117,48 @@ function writeToRom(instance, rom) {
     }
 }
 
-module.exports = {initialise, clone, writeToRom};
+function insertIntoSortedArray(arr, n) {
+    for (var i = 0; i < arr.length; ++i) {
+        if (n.hp < arr[i].hp) {
+            arr.splice(i, 0, n);
+            return;
+        }
+    }
+    arr.push(n);
+}
+
+function _sortDjinn(instance, name, setId, idOffset, spliceInfo) {
+    var enemySet = instance[name];
+    var addrList = [], sorted = [];
+    djinnIds[setId].forEach((id) => {
+        addrList.push(enemySet[id - idOffset].addr);
+        insertIntoSortedArray(sorted, enemySet[id - idOffset]);
+    });
+    spliceInfo.forEach((splice) => sorted.splice(splice[0], splice[1]));
+
+    instance[name] = [];
+    sorted.forEach((djinni, i) => {
+        djinni.addr = addrList[i];
+        instance[name].push(djinni);
+    });
+}
+
+function sortDjinn(instance) {
+    _sortDjinn(instance, "Venus Djinni", 0, 1, [[1, 3]]);
+    _sortDjinn(instance, "Mercury Djinni", 1, 15, [[0, 4]]);
+    _sortDjinn(instance, "Mars Djinni", 2, 30, [[12, 1], [0, 6]]);
+    _sortDjinn(instance, "Jupiter Djinni", 3, 44, [[0, 5]]);
+}
+
+function scaleBattleRewards(instance, coinScale, expScale) {
+    var bossExpScale = 1 + (expScale - 1) / 2;
+    for (var name in instance) {
+        if (!instance.hasOwnProperty(name)) continue;
+        instance[name].forEach((enemy) => {
+            enemy.coins = Math.min(0xFFFF, enemy.coins * coinScale);
+            enemy.exp = Math.min(0xFFFF, Math.round(enemy.exp * (bosses.includes(name) ? bossExpScale : expScale)));
+        });
+    }
+}
+
+module.exports = {initialise, clone, writeToRom, sortDjinn, scaleBattleRewards};
