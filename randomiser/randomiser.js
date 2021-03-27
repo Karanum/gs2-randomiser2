@@ -6,6 +6,7 @@ const locations = require('./locations.js');
 const textutil = require('./textutil.js');
 const settingsParser = require('./settings.js');
 const itemRandomiser = require('./item_randomiser.js');
+const spoilerLog = require('./spoiler_log.js');
 
 const itemLocations = require('./game_data/item_locations.js');
 const classData = require('./game_data/classes.js');
@@ -81,7 +82,7 @@ function writeStoryFlags(target, flags) {
     });
 }
 
-function randomise(seed, rawSettings) {
+function randomise(seed, rawSettings, spoilerFilePath) {
     console.log("Performing randomisation: seed " + seed + ", settings " + rawSettings);
 
     var target = rom.slice(0);
@@ -193,29 +194,8 @@ function randomise(seed, rawSettings) {
 
     textutil.writeToRom(textClone, target);
 
-    /* ========== Spoiler Log ========== 
-    var data = "";
-    for (var i = 0; i < spheres.length; ++i) {
-        if (data.length > 0) data += '\n';
-        data += "=== Sphere " + i + " ===\n";
-        spheres[i].forEach((flag) => {
-            var item = itemLocClone[flag][0];
-            data += flag + ": " + item['vanillaName'] + " => " + item['name'] + "\n";
-        });
-    }
-    data += "\n=== All Items ===\n";
-
-    for (var flag in itemLocClone) {
-        if (!itemLocClone.hasOwnProperty(flag)) continue;
-        var item = itemLocClone[flag][0];
-        if (item['locked']) continue;
-        data += flag + ": " + item['vanillaName'] + " => " + item['name'] + "\n"; 
-    }
-    fs.writeFileSync('./debug/output.log', data);
-    // =================================*/
-
-    var patch = ups.createPatch(vanillaRom, target);
-    return patch;
+    spoilerLog.generate(spoilerFilePath, spheres, itemLocClone, djinnClone);
+    return ups.createPatch(vanillaRom, target);
 }
 
 initialise();

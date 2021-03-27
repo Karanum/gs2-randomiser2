@@ -32,14 +32,14 @@ app.get('/randomise_ajax', (req, res) => {
 
     var seed = req.query.seed;
     var settings = req.query.settings;
-    var filename = `./output_cache/${seed}-${settings}-${versionSuffix}.ups`;
+    var filename = `./output_cache/${seed}-${settings}-${versionSuffix}`;
 
-    fs.readFile(filename, (err, data) => {
+    fs.readFile(filename + ".ups", (err, data) => {
         if (!err) {
             res.send(data);
         } else {
-            var patch = randomiser.randomise(seed, parseSettings(settings));
-            fs.writeFile(filename, patch, (err) => { 
+            var patch = randomiser.randomise(seed, parseSettings(settings), filename + ".log");
+            fs.writeFile(filename + ".ups", patch, (err) => { 
                 if (err) console.log(err); 
             });
             res.send(Buffer.from(patch));

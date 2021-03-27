@@ -1,3 +1,5 @@
+const locations = require('./../locations.js');
+
 const addrFrom = 0xF2204;
 const addrUntil = 0xF2E98;
 const specialLocOffset = 0xFA00A0;
@@ -223,6 +225,7 @@ function initialise(rom, textutil) {
     });
 
     overridePsynergyItems();
+    locations.markLocationMapNames(treasureMap);
 }
 
 function fixEventType(treasure, vanillaType) {

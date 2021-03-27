@@ -179,6 +179,14 @@ function getAccessibleItems(instance, progressFlags) {
     return slots;
 }
 
+function markLocationMapNames(itemLocations) {
+    globalTreasure.forEach((treasure) => {
+        itemLocations[treasure.Addr].forEach((loc) => {
+            loc['mapName'] = treasure.Origin;
+        });
+    });
+}
+
 initialise();
 
-module.exports = {clone, getAccessibleItems};
+module.exports = {clone, getAccessibleItems, markLocationMapNames};
