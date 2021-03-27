@@ -189,7 +189,7 @@ function initialise(rom, textutil) {
                 default:
                     var item = treasure['vanillaContents'];
                     if (item < 0x8000) {
-                        treasure['vanillaName'] = textutil.readLinePretty(item + itemNameOffset);
+                        treasure['vanillaName'] = textutil.readLinePretty(undefined, item + itemNameOffset);
                         if (keyItems.includes(treasure['id'])) {
                             treasure['isKeyItem'] = true;
                         } else if(treasure['eventType'] < 0x80 || treasure['eventType'] == 0x85 

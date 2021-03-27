@@ -56,7 +56,7 @@ function initialise(rom, textutil) {
     while (line <= textEnd) {
         var classLine = [];
         for (var i = 0; i < 10 && line <= textEnd; ++i) {
-            var name = textutil.readLinePretty(line++);
+            var name = textutil.readLinePretty(undefined, line++);
             if (name != "?") classLine.push(name);
         }
         loadClassData(rom, id++, classLine);

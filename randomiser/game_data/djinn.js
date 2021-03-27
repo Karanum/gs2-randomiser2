@@ -10,7 +10,7 @@ function initialise(rom, textutil) {
         if (djinniId >= 18) continue;
 
         var element = Math.floor(i / 20);
-        var name = textutil.readLinePretty(textOffset + i);
+        var name = textutil.readLinePretty(undefined, textOffset + i);
         var addr = addrOffset + 36 * element + 2 * djinniId;
 
         var statAddr = statAddrOffset + 240 * element + 12 * djinniId;

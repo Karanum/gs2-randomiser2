@@ -1,3 +1,5 @@
+const textutil = require('./../textutil.js');
+
 const nameOffset = 607;
 const descOffset = 146;
 const numItems = 461;
@@ -39,12 +41,12 @@ function loadItemData(rom, id, name, desc) {
         useType: useType, unleashId: unleashId, useEffect: useEffect, equipEffects: equipEffects});
 }
 
-function initialise(rom, textutil) {
+function initialise(rom) {
     for (var i = 0; i < numItems; ++i) {
-        var name = textutil.readLinePretty(nameOffset + i);
+        var name = textutil.readLinePretty(undefined, nameOffset + i);
         if (name == '?') continue;
         
-        var desc = textutil.readLinePretty(descOffset + i);
+        var desc = textutil.readLinePretty(undefined, descOffset + i);
         loadItemData(rom, i, name, desc);
     }
 }
@@ -53,7 +55,7 @@ function clone() {
     return JSON.parse(JSON.stringify(itemData));
 }
 
-function writeToRom(instance, rom, textutil) {
+function writeToRom(instance, rom, textInstance) {
     instance.forEach((item) => {
         var addr = item.addr;
         rom[addr] = (item.cost & 0xFF);
@@ -75,7 +77,7 @@ function writeToRom(instance, rom, textutil) {
             rom[addr + 25 + 4 * i] = effect[1];
         });
 
-        textutil.writeLine(descOffset + item.id, item.desc);
+        textutil.writeLine(textInstance, descOffset + item.id, item.desc);
     });
 }
 

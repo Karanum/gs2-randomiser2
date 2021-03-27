@@ -4,6 +4,9 @@ const mersenne = require('../modules/mersenne.js');
 const ups = require('./ups.js');
 const locations = require('./locations.js');
 const textutil = require('./textutil.js');
+const settingsParser = require('./settings.js');
+const itemRandomiser = require('./item_randomiser.js');
+
 const itemLocations = require('./game_data/item_locations.js');
 const classData = require('./game_data/classes.js');
 const abilityData = require('./game_data/abilities.js');
@@ -11,8 +14,7 @@ const djinnData = require('./game_data/djinn.js');
 const summonData = require('./game_data/summons.js');
 const itemData = require('./game_data/items.js');
 const characterData = require('./game_data/characters.js');
-const settingsParser = require('./settings.js');
-const itemRandomiser = require('./item_randomiser.js');
+const enemyData = require('./game_data/enemies.js');
 
 const cutsceneSkipFlags = [0xf22, 0x890, 0x891, 0x892, 0x893, 0x894, 0x895, 0x896, 0x848, 0x86c, 0x86d, 0x86e, 0x86f,
         0x916, 0x844, 0x863, 0x864, 0x865, 0x867, 0x872, 0x873, 0x84b, 0x91b, 0x91c, 0x91d, 0x8b2, 0x8b3, 0x8b4,
@@ -53,11 +55,12 @@ function initialise() {
     doTiming("Loading class data...", () => classData.initialise(rom, textutil));
     doTiming("Loading Djinn data...", () => djinnData.initialise(rom, textutil));
     doTiming("Loading summon data...", () => summonData.initialise(rom));
-    doTiming("Loading item data...", () => itemData.initialise(rom, textutil));
+    doTiming("Loading item data...", () => itemData.initialise(rom));
     doTiming("Loading character data...", () => characterData.initialise(rom));
+    doTiming("Loading enemy data...", () => enemyData.initialise(rom, textutil));
 
-    textutil.writeLine(379, "This a-maize-ing item restores 100 HP");
-    textutil.writeLine(1504, "Starburst");
+    textutil.writeLine(undefined, 379, "This a-maize-ing item restores 100 HP");
+    textutil.writeLine(undefined, 1504, "Starburst");
 }
 
 function applyGameTicketPatch(target) {
@@ -84,8 +87,9 @@ function randomise(seed, rawSettings) {
     var target = rom.slice(0);
     var prng = mersenne(seed);
     var defaultFlags = [0xf22, 0x873];
-
     var settings = settingsParser.parse(rawSettings);
+
+    var textClone = textutil.clone();
     var itemLocClone = itemLocations.clone();
     var classClone = classData.clone();
     var abilityClone = abilityData.clone();
@@ -93,6 +97,7 @@ function randomise(seed, rawSettings) {
     var summonClone = summonData.clone();
     var itemClone = itemData.clone();
     var characterClone = characterData.clone();
+    var enemyClone = enemyData.clone();
 
     itemLocations.prepItemLocations(itemLocClone, settings);
 
@@ -179,13 +184,11 @@ function randomise(seed, rawSettings) {
     abilityData.writeToRom(abilityClone, target);
     djinnData.writeToRom(djinnClone, target);
     summonData.writeToRom(summonClone, target);
-    itemData.writeToRom(itemClone, target, textutil);
+    itemData.writeToRom(itemClone, target, textClone);
     characterData.writeToRom(characterClone, target);
+    enemyData.writeToRom(enemyClone, target);
 
-    /*
-    NOTE: TextUtil doesn't have a proper instance yet, so changing any line changes it globally
-    */
-    target = textutil.writeToRom(target);
+    textutil.writeToRom(textClone, target);
 
     /* ========== Spoiler Log ========== 
     var data = "";

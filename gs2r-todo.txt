@@ -28,7 +28,7 @@ TODO:
 - Implement character stat and element shuffling                    DONE
 - Implement starting levels                                         DONE
 
-- Load enemy data into the randomiser
+- Load enemy data into the randomiser                               DONE
 - Implement exp/coin scaling
 - Implement enemy ability changes
 

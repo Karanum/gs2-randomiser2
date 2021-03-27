@@ -35,7 +35,7 @@ function initialise(rom, textutil) {
     var line = textStart;
     while (line <= textEnd) {
         var id = line - textStart;
-        var name = textutil.readLinePretty(line++);
+        var name = textutil.readLinePretty(undefined, line++);
         if (name != "?") {
             if (id == 57) name = "Starburst";
             loadAbility(rom, id, name);

@@ -1,5 +1,3 @@
-var initialState = true;
-
 const fs = require('fs');
 
 const forestAddr = 0x5F914;
@@ -141,21 +139,23 @@ function makeCompressionDict(nodes) {
     });
 }
 
-function readLine(index) {
-    return lines[index].slice(0);
+function readLine(instance, index) {
+    if (instance == undefined) instance = lines;
+    return instance[index].slice(0);
 }
 
-function readLinePretty(index) {
-    var line = readLine(index);
+function readLinePretty(instance, index) {
+    var line = readLine(instance, index);
     return line.replace(/[^a-zA-Z0-9?:;,\\&\\'\\-\\(\\) ]/gi, '');
 }
 
-function writeLine(index, line) {
+function writeLine(instance, index, line) {
+    if (instance == undefined) instance = lines;
     if (!line.startsWith('\0'))
         line = '\0' + line;
     if (!line.endsWith('\0'))
         line = line + '\0';
-    lines[index] = line;
+    instance[index] = line;
 }
 
 function writeUint32(rom, addr, value) {
@@ -165,7 +165,7 @@ function writeUint32(rom, addr, value) {
     }
 }
 
-function writeToRom(rom) {
+function writeToRom(instance, rom) {
     var lineLengths = [];
     var compressedData = [];
     for (var i = 0; i <= (entries >> 8); ++i) {
@@ -173,7 +173,7 @@ function writeToRom(rom) {
         compressedData.push([]);
     }
 
-    lines.forEach((line, i) => {
+    instance.forEach((line, i) => {
         var bytes = compressLine(line);
         compressedData[i >> 8] = compressedData[i >> 8].concat(bytes);
 
@@ -209,9 +209,6 @@ function writeToRom(rom) {
 }
 
 function initialise(rom) {
-    if (!initialState) return;
-    initialState = false;
-
     var nodes = readTreeData(rom);
     var textPointers = getTextPointers(rom);
 
