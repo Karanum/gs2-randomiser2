@@ -127,7 +127,9 @@ $(document).ready(() => {
     });
 
     $("#btn-submit").on('click', () => {
-        window.location.href = `/randomise.html?settings=${getSettingsString()}&seed=${$("#inp-seed").val()}`;
+        var seed = $("#inp-seed").val();
+        var log = $("#inp-spoiler").prop('checked') ? 1 : 0;
+        window.location.href = `/randomise.html?settings=${getSettingsString()}&seed=${seed}&spoiler=${log}`;
     });
 
     $("#inp-scale-exp").on('change', () => {

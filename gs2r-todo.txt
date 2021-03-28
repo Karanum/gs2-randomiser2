@@ -4,7 +4,7 @@ TODO:
 - Implement ship unlock settings				                    DONE
 - Create the UPS patch from the randomised ROM		                DONE
 - Finish front-end patching and saving                              DONE
-- Implement spoiler log creation and sending
+- Implement spoiler log creation and sending                        IN PROGRESS
 
 - Load class data into the randomiser                               DONE
 - Implement utility Psynergy removal from classes                   DONE

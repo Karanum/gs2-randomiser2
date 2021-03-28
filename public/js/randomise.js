@@ -1,6 +1,23 @@
 var romData, upsData, logData;
 
-function setupAjaxRequest(seed, settings) {
+function setupLogAjaxRequest(seed, settings) {
+    var req = new XMLHttpRequest();
+    req.open('GET', `/spoiler_ajax?seed=${seed}&settings=${settings}`, true);
+    req.setRequestHeader('X-Requested-With', "XMLHttpRequest");
+
+    req.onload = (e) => {
+        logData = req.response;
+
+        var blob = new Blob([logData], { type: 'plain/text' });
+        $("#btn-log").attr('href', URL.createObjectURL(blob));
+        $("#btn-log").attr('download', `spoiler_${seed}.log`);
+        $("#btn-log").prop('disabled', false);
+    };
+
+    req.send();
+}
+
+function setupAjaxRequest(seed, settings, log) {
     var req = new XMLHttpRequest();
     req.open('GET', `/randomise_ajax?seed=${seed}&settings=${settings}`, true);
     req.setRequestHeader('X-Requested-With', "XMLHttpRequest");
@@ -19,6 +36,7 @@ function setupAjaxRequest(seed, settings) {
             $("#btn-patch").prop('disabled', false);
             romTooltip.dispose();
         }
+        if (log) setupLogAjaxRequest(seed, settings);
     };
 
     req.send();
@@ -28,6 +46,7 @@ $(document).ready(() => {
     var params = new URLSearchParams(window.location.search);
     var seed = params.get('seed');
     var settings = params.get('settings');
+    var spoiler = Number(params.get('spoiler')) || false;
 
     if (seed == undefined || settings == undefined) {
         console.error("URL query parameters are incomplete, please go to the previous page and try again.");
@@ -35,9 +54,12 @@ $(document).ready(() => {
         return;
     }
 
+    if (!spoiler)
+        $("#btn-log").addClass('d-none');
+
     var romTooltip = new bootstrap.Tooltip($("#btn-patch").parent()[0], {animation: false});
 
-    setupAjaxRequest(seed, settings);
+    setupAjaxRequest(seed, settings, spoiler);
 
     $("#btn-patch").on('click', () => {
         if (!romData || !upsData) return;

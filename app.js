@@ -45,7 +45,24 @@ app.get('/randomise_ajax', (req, res) => {
             res.send(Buffer.from(patch));
         }
     });
-    
+});
+
+app.get('/spoiler_ajax', (req, res) => {
+    if (!req.xhr) return res.redirect('/');
+    res.type('application/octet-stream');
+
+    var seed = req.query.seed;
+    var settings = req.query.settings;
+    var filename = `./output_cache/${seed}-${settings}-${versionSuffix}`;
+
+    fs.readFile(filename + ".log", (err, data) => {
+        if (err) {
+            res.type('application/json');
+            res.send({error: "Spoiler log not found"});
+        } else {
+            res.send(data);
+        }
+    });
 });
 
 app.use(express.static('public'));
