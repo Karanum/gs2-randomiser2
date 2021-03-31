@@ -1,5 +1,6 @@
 const fs = require("fs");
 const mersenne = require('../modules/mersenne.js');
+//const decompr = require('../modules/decompression.js');
 
 const ups = require('./ups.js');
 const locations = require('./locations.js');
@@ -62,6 +63,9 @@ function initialise() {
 
     textutil.writeLine(undefined, 379, "This a-maize-ing item restores 100 HP");
     textutil.writeLine(undefined, 1504, "Starburst");
+
+    //var decomprData = decompr.decompress(rom, 0xAB03AC, 0);
+    //fs.writeFileSync('./debug/decompr.txt', Buffer.from(decomprData));
 }
 
 function applyGameTicketPatch(target) {
