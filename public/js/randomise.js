@@ -54,8 +54,15 @@ $(document).ready(() => {
         return;
     }
 
-    if (!spoiler)
-        $("#btn-log").addClass('d-none');
+    if (!spoiler) {
+        $("#btn-log, #div-log").addClass('d-none');
+    } else {
+        $("#card-toggle").on('show.bs.collapse', () => {
+            $("#caret-log").addClass("rot-180");
+        }).on('hide.bs.collapse', () => {
+            $("#caret-log").removeClass("rot-180");
+        });
+    }
 
     var romTooltip = new bootstrap.Tooltip($("#btn-patch").parent()[0], {animation: false});
 

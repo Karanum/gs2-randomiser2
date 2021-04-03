@@ -21,8 +21,9 @@
     <main class="container-fluid">
         <div class="row mt-3 mx-lg-5">
             <div class="col-12 mx-lg-3 mb-2">
-                <img class="logo" src="/img/gstla-logo.webp">
-                <span class="logo-text">Randomiser</span>
+                <center>
+                    <a href="/"><img class="logo" src="/img/gstlar-logo.webp"></a>
+                </center>
             </div>
 
             <div class="col-12 mb-4 px-lg-5">
@@ -66,12 +67,19 @@
                             </div>
                         </div>
 
-                        <hr>
-                        <div class="col-12 px-5 py-3">
-                            <div class="card">
-                                <h5 class="card-header"><i class="bi bi-caret-down-fill me-2"></i> Spoiler log</h5>
-                                <div class="card-body">
-                                    In-page spoiler log viewing is not yet implemented. Please download the spoiler log using the above button.
+                        <div id="div-log">
+                            <hr>
+                            <div class="col-12 px-5 py-3">
+                                <div class="card">
+                                    <h5 class="card-header" data-bs-toggle="collapse" data-bs-target="#card-toggle">
+                                        <i class="bi bi-caret-down-fill me-2 rot-base" id="caret-log"></i> 
+                                        Spoiler log
+                                    </h5>
+                                    <div class="collapse" id="card-toggle">
+                                        <div class="card-body">
+                                            In-page spoiler log viewing is not yet implemented. Please download the spoiler log using the above button.
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
