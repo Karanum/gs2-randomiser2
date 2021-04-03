@@ -169,9 +169,6 @@ $(document).ready(() => {
     $("#tooltip-11").attr('title', "Only increases the starting level of characters that start off lower.");
 
     var tooltipHolders = $(".tooltip-container");
-    tooltipHolders.each((i) => {
-        new bootstrap.Tooltip(tooltipHolders[i], {animation: false});
-        // Animations are disabled to avoid a bug in Bootstrap@5.0.0-beta2 that makes tooltips blink out of existence
-    });
+    tooltipHolders.each((i) => new bootstrap.Tooltip(tooltipHolders[i]));
 
 });

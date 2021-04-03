@@ -64,7 +64,7 @@ $(document).ready(() => {
         });
     }
 
-    var romTooltip = new bootstrap.Tooltip($("#btn-patch").parent()[0], {animation: false});
+    var romTooltip = new bootstrap.Tooltip($("#btn-patch").parent()[0]);
 
     setupAjaxRequest(seed, settings, spoiler);
 
