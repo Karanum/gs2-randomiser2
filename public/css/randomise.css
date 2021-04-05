@@ -8,7 +8,9 @@
 }
 
 #card-log {
-    overflow-x: scroll;
+    overflow-x: auto;
+    overflow-y: auto;
+    max-height: 80vh;
 }
 
 #card-log > .nav {

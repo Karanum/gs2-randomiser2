@@ -52,8 +52,8 @@ function prepSpoilerLog() {
         .append('<li class="nav-item"><a class="nav-link" data-bs-target="#tab-angara">Angara/Tundaria</a></li>')
         .append('<li class="nav-item"><a class="nav-link" data-bs-target="#tab-eastsea">Eastern Sea</a></li>')
         .append('<li class="nav-item"><a class="nav-link" data-bs-target="#tab-westsea">Western Sea</a></li>')
-        .append('<li class="nav-item"><a class="nav-link" data-bs-target="#tab-prox">N. Reaches</a></li>');
-        //.append('<li class="nav-item"><a class="nav-link" data-bs-target="#tab-search">Search</a></li>');
+        .append('<li class="nav-item"><a class="nav-link" data-bs-target="#tab-prox">N. Reaches</a></li>')
+        .append('<li class="nav-item"><a class="nav-link" data-bs-target="#tab-search">Search</a></li>');
     $(".nav-link").attr('data-bs-toggle', 'tab');
     $(".tab-content").append('<div class="tab-pane fade show active" id="tab-spheres"></div>')
         .append('<div class="tab-pane fade" id="tab-indra"></div>')
@@ -62,10 +62,15 @@ function prepSpoilerLog() {
         .append('<div class="tab-pane fade" id="tab-angara"></div>')
         .append('<div class="tab-pane fade" id="tab-eastsea"></div>')
         .append('<div class="tab-pane fade" id="tab-westsea"></div>')
-        .append('<div class="tab-pane fade" id="tab-prox"></div>');
-        //.append('<div class="tab-pane fade" id="tab-search"></div>');
+        .append('<div class="tab-pane fade" id="tab-prox"></div>')
+        .append('<div class="tab-pane fade" id="tab-search"></div>');
+    $("#tab-search").append('<div class="my-3"><input type="text" class="form-control" id="inp-search" placeholder="Search..."/></div>');
     $(".tab-pane").append('<table class="table table-striped"><thead></thead><tbody></tbody></table>');
     $("thead").append('<tr><th scope="col">Location</th><th scope="col">Vanilla</th><th scope="col">Randomised</th></tr>');
+
+    $("#inp-search").on('input', (e) => {
+        searchSpoilerLog(e.target.value);
+    });
 }
 
 $(document).ready(() => {

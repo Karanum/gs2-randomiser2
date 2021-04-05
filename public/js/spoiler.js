@@ -68,6 +68,7 @@ var zones = {
     "#tab-westsea": [],
     "#tab-prox": []
 };
+var allItems = [];
 
 function insertSorted(arr, n) {
     for (var i = 0; i < arr.length; ++i) {
@@ -137,8 +138,22 @@ function parseAllItemsEntry(line) {
         } else {
             insertSorted(zones[locations[loc]], [loc, item1, item2]);
         }
-        //targetElem.find("tbody").append(`<tr><td>${loc}</td><td>${item1}</td><td>${item2}</td></tr>`);
+        insertSorted(allItems, [loc, item1, item2, (loc + '::' + item1 + '::' + item2).toLowerCase()]);
     }
+}
+
+function searchSpoilerLog(query) {
+    var table = $("#tab-search tbody").html('');
+
+    if (query == '') return;
+    var splitQuery = query.toLowerCase().split(' ');
+
+    allItems.forEach((e) => {
+        for (var i = 0; i < splitQuery.length; ++i) {
+            if (!e[3].includes(splitQuery[i])) return;
+        }
+        table.append(`<tr><td>${e[0]}</td><td>${e[1]}</td><td>${e[2]}</td></tr>`);
+    });
 }
 
 $(document).ready(() => {
