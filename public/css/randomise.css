@@ -1,0 +1,35 @@
+
+.rot-base::before {
+    transition: all 0.35s; 
+}
+
+.rot-180::before {
+    transform: rotate(180deg);
+}
+
+#card-log {
+    overflow-x: scroll;
+}
+
+#card-log > .nav {
+    border-bottom-width: 0 !important;
+}
+
+#card-log .nav-link {
+    white-space: nowrap !important;
+    border-bottom: 1px solid #dee2e6;
+}
+
+@media (max-width: 768px) {
+    #card-log > .nav {
+        flex-wrap: nowrap !important;
+    }
+}
+
+tr, td {
+    border-style: none !important;
+}
+
+.table-active {
+    border-top: 1px solid #000 !important;
+}

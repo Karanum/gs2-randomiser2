@@ -103,11 +103,3 @@ option {
 .spinner-border-sm {
     margin-bottom: 2px;
 }
-
-.rot-base::before {
-    transition: all 0.35s; 
-}
-
-.rot-180::before {
-    transform: rotate(180deg);
-}

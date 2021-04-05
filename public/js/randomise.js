@@ -12,6 +12,8 @@ function setupLogAjaxRequest(seed, settings) {
         $("#btn-log").attr('href', URL.createObjectURL(blob));
         $("#btn-log").attr('download', `spoiler_${seed}.log`);
         $("#btn-log").prop('disabled', false);
+
+        showSpoilerLog(logData);
     };
 
     req.send();
@@ -42,6 +44,30 @@ function setupAjaxRequest(seed, settings, log) {
     req.send();
 }
 
+function prepSpoilerLog() {
+    $(".nav-tabs").append('<li class="nav-item"><a class="nav-link active" data-bs-target="#tab-spheres">Progression</a></li>')
+        .append('<li class="nav-item"><a class="nav-link" data-bs-target="#tab-indra">Indra</a></li>')
+        .append('<li class="nav-item"><a class="nav-link" data-bs-target="#tab-osenia">Osenia</a></li>')
+        .append('<li class="nav-item"><a class="nav-link" data-bs-target="#tab-gondowan">Gondowan</a></li>')
+        .append('<li class="nav-item"><a class="nav-link" data-bs-target="#tab-angara">Angara/Tundaria</a></li>')
+        .append('<li class="nav-item"><a class="nav-link" data-bs-target="#tab-eastsea">Eastern Sea</a></li>')
+        .append('<li class="nav-item"><a class="nav-link" data-bs-target="#tab-westsea">Western Sea</a></li>')
+        .append('<li class="nav-item"><a class="nav-link" data-bs-target="#tab-prox">N. Reaches</a></li>');
+        //.append('<li class="nav-item"><a class="nav-link" data-bs-target="#tab-search">Search</a></li>');
+    $(".nav-link").attr('data-bs-toggle', 'tab');
+    $(".tab-content").append('<div class="tab-pane fade show active" id="tab-spheres"></div>')
+        .append('<div class="tab-pane fade" id="tab-indra"></div>')
+        .append('<div class="tab-pane fade" id="tab-osenia"></div>')
+        .append('<div class="tab-pane fade" id="tab-gondowan"></div>')
+        .append('<div class="tab-pane fade" id="tab-angara"></div>')
+        .append('<div class="tab-pane fade" id="tab-eastsea"></div>')
+        .append('<div class="tab-pane fade" id="tab-westsea"></div>')
+        .append('<div class="tab-pane fade" id="tab-prox"></div>');
+        //.append('<div class="tab-pane fade" id="tab-search"></div>');
+    $(".tab-pane").append('<table class="table table-striped"><thead></thead><tbody></tbody></table>');
+    $("thead").append('<tr><th scope="col">Location</th><th scope="col">Vanilla</th><th scope="col">Randomised</th></tr>');
+}
+
 $(document).ready(() => {
     var params = new URLSearchParams(window.location.search);
     var seed = params.get('seed');
@@ -62,6 +88,7 @@ $(document).ready(() => {
         }).on('hide.bs.collapse', () => {
             $("#caret-log").removeClass("rot-180");
         });
+        prepSpoilerLog();
     }
 
     var romTooltip = new bootstrap.Tooltip($("#btn-patch").parent()[0]);

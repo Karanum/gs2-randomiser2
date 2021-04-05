@@ -5,7 +5,7 @@ function generate(filepath, spheres, itemLocs, djinn) {
     
     fileStream.write("========== Spheres ==========\n");
     for (var i = 0; i < spheres.length; ++i) {
-        fileStream.write("Sphere: " + i + ":\n");
+        fileStream.write("Sphere " + i + ":\n");
         spheres[i].forEach((flag) => {
             var item = itemLocs[flag][0];
             var mapName = item['mapName'] || "???";
