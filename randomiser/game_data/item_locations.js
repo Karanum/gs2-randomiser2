@@ -39,7 +39,7 @@ const specialLocations = [
     [0x9BA, 0x84, 177, "Sand"],
     [0x9FA, 0x84, 233, "Blaze"],
     [0x90B, 0x84, 205, "Eclipse"],
-    [0x945, 0x83, 207, "Center Prong"],
+    [0x945, 0x80, 207, "Center Prong"],
     [0x1, 0x80, 9, "Shaman's Rod"],
     [0x2, 0x84, 9, "Mind Read"],
     [0x3, 0x84, 9, "Whirlwind"],
@@ -220,8 +220,12 @@ function initialise(rom, textutil) {
         treasure['vanillaName'] = entry[3];
         if (entry[0] == 0x90B) treasure['isSummon'] = true;
         
-        var flag = "0x" + entry[0].toString(16);            
-        treasureMap[flag] = [treasure];
+        var flag = "0x" + entry[0].toString(16);   
+        if (treasureMap.hasOwnProperty(flag)) {
+            treasureMap[flag].splice(0, 0, treasure);
+        } else {
+            treasureMap[flag] = [treasure];
+        }
     });
 
     overridePsynergyItems();

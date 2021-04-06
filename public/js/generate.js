@@ -45,14 +45,14 @@ function getPresetTooltip(val) {
 
 function getPreset(val) {
     switch (Number(val)) {
-        case 0: return [102, 16, 137, 0, 7, 7, 6, 17];
-        case 1: return [175, 156, 201, 80, 79, 7, 0, 17];
-        case 2: return [159, 255, 239, 170, 151, 7, 0, 17];
+        case 0: return [102, 16, 137, 0, 7, 3, 6, 17];
+        case 1: return [175, 156, 201, 80, 79, 3, 0, 17];
+        case 2: return [159, 255, 239, 170, 151, 3, 0, 17];
         case 3: return [0, 0, 0, 0, 0, 0, 0, 17];
-        case 4: return [159, 172, 200, 144, 79, 135, 64, 17];
-        case 5: return [102, 16, 137, 0, 7, 38, 6, 17];
-        case 6: return [175, 156, 201, 80, 79, 38, 0, 17];
-        case 7: return [159, 255, 239, 170, 151, 54, 0, 17];
+        case 4: return [159, 172, 200, 144, 79, 131, 64, 17];
+        case 5: return [102, 16, 137, 0, 7, 34, 6, 17];
+        case 6: return [175, 156, 201, 80, 79, 34, 0, 17];
+        case 7: return [159, 255, 239, 170, 151, 50, 0, 17];
         case 8: return [207, 255, 255, 175, 151, 186, 64, 17];
     }
     return undefined;
