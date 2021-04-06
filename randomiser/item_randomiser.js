@@ -123,6 +123,7 @@ class ItemRandomiser {
 
     getInitialFlagSet() {
         var set = [];
+        if (this.settings['boss-logic']) set.push('NoBossLogic');
         if (this.settings['ship'] == 1) set.push('ShipOpen');
         if (this.settings['ship'] == 2) set.push('Ship');
         if (this.settings['skips-basic']) set.push('SkipBasic');

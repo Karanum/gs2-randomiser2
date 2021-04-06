@@ -132,9 +132,10 @@ function isAccessible(location, progressFlags) {
     location.Reqs.forEach((reqList) => {
         var accessible = true;
         reqList.forEach((req) => {
-            if (!progressFlags.includes(req)) {
+            if (req.startsWith("AnyDjinn_") && location.Type == "Boss" && progressFlags.includes("NoBossLogic"))
+                return;
+            if (!progressFlags.includes(req))
                 accessible = false;
-            }
         });
         if (accessible) {
             result = true;

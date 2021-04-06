@@ -32,11 +32,11 @@ TODO:
 - Implement exp/coin scaling                                        DONE
 - Implement enemy ability changes                                   DONE
 
-- Implement equipment and summon sorting                            IN PROGRESS
+- Implement equipment and summon sorting                            DONE
 - Implement Mimic sorting so you don't die instantly
 
 - Find a better way to categorise glitch/skip logic
-- Implement setting for removal of boss logic
+- Implement setting for removal of boss logic                       DONE
 - Add hint system
 - Patch out Trial Road inventory snapshotting
 - Implement auto-run setting
