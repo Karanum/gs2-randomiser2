@@ -138,7 +138,7 @@ function parseAllItemsEntry(line) {
         } else {
             insertSorted(zones[locations[loc]], [loc, item1, item2]);
         }
-        insertSorted(allItems, [loc, item1, item2, (loc + '::' + item1 + '::' + item2).toLowerCase()]);
+        insertSorted(allItems, [loc, item1, item2, (':' + loc + '::' + item1 + '::' + item2 + ':').toLowerCase()]);
     }
 }
 

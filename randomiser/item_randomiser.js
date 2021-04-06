@@ -8,6 +8,9 @@ const armourIds = [340, 383, 358, 394, 333, 384, 370, 343, 378, 334, 349, 371, 3
 const armourNames = ["Full Metal Vest", "Nurse's Cap", "Fujin Shield", "Clarity Circlet", "Ixion Mail", "Thorn Crown",
     "Bone Armlet", "Festival Coat", "Viking Helm", "Phantasmal Mail", "Muni Robe", "Jester's Armlet",
     "Spirit Gloves", "Erinyes Tunic", "Iris Robe", "Valkyrie Mail", "Alastor's Hood"];
+const summonIds = [3856, 3857, 3858, 3859, 3860, 3861, 3862, 3863, 3864, 3865, 3866, 3867, 3868];
+const summonNames = ["Zagan", "Megaera", "Flora", "Moloch", "Ulysses", "Haures", "Eclipse", "Coatlicue", 
+    "Daedalus", "Azul", "Catastrophe", "Charon", "Iris"];
 
 class ItemRandomiser {
     constructor(prng, instLocations, settings) {
@@ -236,6 +239,26 @@ class ItemRandomiser {
     sortSummons() {
         var spheres = this.getSpheres(true);
         var slots = [];
+
+        spheres.forEach((sphere) => {
+            slots.push([]);
+            sphere.forEach((slot) => {
+                var item = this.instItemLocations[slot][0];
+                if (summonIds.includes(item['contents']))
+                    slots[slots.length - 1].push(slot);
+            });
+        });
+
+        var count = 0;
+        slots.forEach((sphere) => {
+            while (sphere.length > 0) {
+                var rand = Math.floor(this.prng.random() * sphere.length);
+                var item = this.instItemLocations[sphere.splice(rand, 1)[0]][0];
+                item['locked'] = false;
+                item['contents'] = summonIds[count];
+                item['name'] = summonNames[count++];
+            }
+        });
     }
 
     getSpheres(allItems = false) {
