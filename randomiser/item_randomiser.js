@@ -1,6 +1,14 @@
 const locations = require('./locations.js');
 const itemLocations = require('./game_data/item_locations.js');
 
+const weaponIds = [301, 287, 290, 279, 309, 300, 291, 311, 283, 281, 319, 292, 26, 7, 10];
+const weaponNames = ["Themis' Axe", "Pirate's Sword", "Hypnos' Sword", "Storm Brand", "Blow Mace", "Disk Axe", "Mist Sabre",
+    "Thanatos Mace", "Cloud Brand", "Lightning Sword", "Meditation Rod", "Phaeton's Blade", "Masamune", "Fire Brand", "Sol Blade"];
+const armourIds = [340, 383, 358, 394, 333, 384, 370, 343, 378, 334, 349, 371, 366, 344, 351, 336, 388];
+const armourNames = ["Full Metal Vest", "Nurse's Cap", "Fujin Shield", "Clarity Circlet", "Ixion Mail", "Thorn Crown",
+    "Bone Armlet", "Festival Coat", "Viking Helm", "Phantasmal Mail", "Muni Robe", "Jester's Armlet",
+    "Spirit Gloves", "Erinyes Tunic", "Iris Robe", "Valkyrie Mail", "Alastor's Hood"];
+
 class ItemRandomiser {
     constructor(prng, instLocations, settings) {
         this.prng = prng;
@@ -184,7 +192,53 @@ class ItemRandomiser {
         }
     }
 
-    getSpheres() {
+    sortEquipment() {
+        var spheres = this.getSpheres(true);
+        var weaponSlots = [];
+        var armourSlots = [];
+
+        spheres.forEach((sphere) => {
+            weaponSlots.push([]);
+            armourSlots.push([]);
+            sphere.forEach((slot) => {
+                var item = this.instItemLocations[slot][0];
+                if (item['eventType'] == 0x81) return;
+                if (weaponIds.includes(item['contents'])) {
+                    weaponSlots[weaponSlots.length - 1].push(slot);
+                }
+                if (armourIds.includes(item['contents'])) {
+                    armourSlots[armourSlots.length - 1].push(slot);
+                }
+            });
+        });
+
+        var weaponCount = 0, armourCount = 0;
+        weaponSlots.forEach((sphere) => {
+            while (sphere.length > 0) {
+                var rand = Math.floor(this.prng.random() * sphere.length);
+                var item = this.instItemLocations[sphere.splice(rand, 1)[0]][0];
+                item['locked'] = false;
+                item['contents'] = weaponIds[weaponCount];
+                item['name'] = weaponNames[weaponCount++];
+            }
+        });
+        armourSlots.forEach((sphere) => {
+            while (sphere.length > 0) {
+                var rand = Math.floor(this.prng.random() * sphere.length);
+                var item = this.instItemLocations[sphere.splice(rand, 1)[0]][0];
+                item['locked'] = false;
+                item['contents'] = armourIds[armourCount];
+                item['name'] = armourNames[armourCount++];
+            }
+        });
+    }
+
+    sortSummons() {
+        var spheres = this.getSpheres(true);
+        var slots = [];
+    }
+
+    getSpheres(allItems = false) {
         if (this.instItemLocations == undefined) return;
         var spheres = [];
         var flagSet = this.getInitialFlagSet();
@@ -196,7 +250,7 @@ class ItemRandomiser {
             var sphere = [];
             accessibleItems.forEach((slot) => {
                 if (checkedItems.includes(slot)) return;
-                if (this.instItemLocations[slot][0]['isKeyItem']) {
+                if (allItems || this.instItemLocations[slot][0]['isKeyItem']) {
                     sphere.push(slot);
                     checkedItems.push(slot);
                     flagSet.push(this.instItemLocations[slot][0]['name']);

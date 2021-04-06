@@ -1,10 +1,10 @@
 TODO:
 - Check logs for key item randomisation			                    DONE
-- Test all item randomisation (both closed-chest and open-chest)	DONE (more thorough?)
+- Test all item randomisation (both closed-chest and open-chest)	DONE
 - Implement ship unlock settings				                    DONE
 - Create the UPS patch from the randomised ROM		                DONE
 - Finish front-end patching and saving                              DONE
-- Implement spoiler log creation and sending                        IN PROGRESS
+- Implement spoiler log creation and sending                        DONE
 
 - Load class data into the randomiser                               DONE
 - Implement utility Psynergy removal from classes                   DONE
@@ -32,7 +32,7 @@ TODO:
 - Implement exp/coin scaling                                        DONE
 - Implement enemy ability changes                                   DONE
 
-- Implement equipment and summon sorting
+- Implement equipment and summon sorting                            IN PROGRESS
 - Implement Mimic sorting so you don't die instantly
 
 - Find a better way to categorise glitch/skip logic

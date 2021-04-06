@@ -129,9 +129,8 @@ function randomise(seed, rawSettings, spoilerFilePath) {
 
     writeStoryFlags(target, defaultFlags);
 
-    var spheres = [];
+    var randomiser = new itemRandomiser.ItemRandomiser(prng, locations.clone(), settings);
     if (settings['item-shuffle'] > 0) {
-        var randomiser = new itemRandomiser.ItemRandomiser(prng, locations.clone(), settings);
         var attempts = 0;
         var success = false;
         while (attempts < 10 && !success) {
@@ -148,8 +147,10 @@ function randomise(seed, rawSettings, spoilerFilePath) {
             console.log("  > Settings: " + rawSettings);
             return;
         }
-        spheres = randomiser.getSpheres();
     }
+    if (settings['equip-sort']) randomiser.sortEquipment();
+    if (settings['summon-sort']) randomiser.sortSummons();
+    var spheres = randomiser.getSpheres();
 
     if (settings['psynergy-power']) abilityData.adjustAbilityPower(abilityClone, "Psynergy", prng);
     if (settings['psynergy-cost']) abilityData.adjustPsynergyCost(abilityClone, prng);

@@ -35,3 +35,7 @@ tr, td {
 .table-active {
     border-top: 1px solid #000 !important;
 }
+
+table {
+    font-size: smaller;
+}
