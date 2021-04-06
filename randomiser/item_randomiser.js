@@ -262,6 +262,18 @@ class ItemRandomiser {
         });
     }
 
+    sortMimics() {
+        var spheres = this.getSpheres(true);
+        var count = 0;
+        spheres.forEach((sphere) => {
+            sphere.forEach((slot) => {
+                var item = this.instItemLocations[slot][0];
+                if (item['name'] == "Mimic")
+                    item['contents'] = count++;
+            });
+        });
+    }
+
     getSpheres(allItems = false) {
         if (this.instItemLocations == undefined) return;
         var spheres = [];

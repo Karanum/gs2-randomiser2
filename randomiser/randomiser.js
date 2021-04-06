@@ -150,6 +150,7 @@ function randomise(seed, rawSettings, spoilerFilePath) {
     }
     if (settings['equip-sort']) randomiser.sortEquipment();
     if (settings['summon-sort']) randomiser.sortSummons();
+    if (!settings['boss-logic']) randomiser.sortMimics();
     var spheres = randomiser.getSpheres();
 
     if (settings['psynergy-power']) abilityData.adjustAbilityPower(abilityClone, "Psynergy", prng);
