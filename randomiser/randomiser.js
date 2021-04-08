@@ -8,6 +8,7 @@ const textutil = require('./textutil.js');
 const settingsParser = require('./settings.js');
 const itemRandomiser = require('./item_randomiser.js');
 const spoilerLog = require('./spoiler_log.js');
+const hintSystem = require('./hint_system.js');
 
 const itemLocations = require('./game_data/item_locations.js');
 const classData = require('./game_data/classes.js');
@@ -184,6 +185,9 @@ function randomise(seed, rawSettings, spoilerFilePath) {
     if (settings['char-element'] == 2) characterData.shuffleElements(characterClone, prng, false);
 
     if (settings['djinn-scale']) enemyData.sortDjinn(enemyClone);
+
+    // Don't forget to implement the setting check
+    hintSystem.writeHints(prng, textClone, spheres, itemLocClone);
     
     characterData.adjustStartingLevels(characterClone, settings['start-levels']);
     enemyData.scaleBattleRewards(enemyClone, settings['scale-coins'], settings['scale-exp']);
