@@ -65,6 +65,10 @@ function initialise() {
     textutil.writeLine(undefined, 379, "This a-maize-ing item restores 100 HP");
     textutil.writeLine(undefined, 1504, "Starburst");
 
+    // Trial Road inventory snapshotting fix
+    rom[0xB10A4] = 0x8C;
+    rom[0xB10A5] = 0xE0;
+
     //var decomprData = decompr.decompress(rom, 0xAB03AC, 0);
     //fs.writeFileSync('./debug/decompr.txt', Buffer.from(decomprData));
 }
