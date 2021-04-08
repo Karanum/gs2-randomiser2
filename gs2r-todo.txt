@@ -38,5 +38,5 @@ TODO:
 - Find a better way to categorise glitch/skip logic
 - Implement setting for removal of boss logic                       DONE
 - Add hint system                                                   IN PROGRESS
-- Patch out Trial Road inventory snapshotting
+- Patch out Trial Road inventory snapshotting                       DONE (requires more testing)
 - Implement auto-run setting

@@ -1,16 +1,64 @@
 const textutil = require ('./textutil.js');
 
-const itemHints = {
-
-};
-
 const multiHints = {
     "Alhafra": "in a port city struck\x03by disaster",
     "Cliffs": "on the cliffs that\x03divide the land",
     "Eastern Sea": "on an island in\x03the Eastern Sea",
     "Gabomba": "within the bowels\x03of a revered statue",
+    "Key": "A key item",
+    "Prong": "Part of some\x03oversized fork",
     "Settlement": "within a small\x03settlement of little note",
+    "Summon": "A powerful ally brought\x03forth by elemental energy",
     "Western Sea": "on an island in\x03the Western Sea"
+};
+
+const itemHints = {
+    "Aquarius Stone": "The azure stone that\x03leads the chosen one",
+    "Black Crystal": "The orb that controls\x03the vessels of the ancients",
+    "Blaze": "The power to manipulate\x03the raging flames",
+    "Burst Brooch": "The power to break that\x03whichs blocks the way",
+    "Carry Stone": "The power that both\x03lifts and moves",
+    "Catch Beads": "The power to obtain that\x03which is just out of reach",
+    "Cyclone Chip": "The power to clear the\x03obscuring undergrowth",
+    "Dancing Idol": "A doll that never\x03ceases to move",
+    "Douse Drop": "The power to cloud the sky\x03and nourish the soil",
+    "Frost Jewel": "The power to create\x03great spires of ice",
+    "Grindstone": "The power to turn even\x03the hardest rock to dust",
+    "Growth": "The power to promote\x03the growth of plants",
+    "Healing Mushroom": "A fungus with\x03medicinal properties",
+    "Hover Jade": "The power to walk\x03upon nothing but air",
+    "Lash Pebble": "The power to connect\x03with coiling rope",
+    "Laughing Fungus": "Something \x09\x04extremely\x07 important",
+    "Lifting Gem": "The power to raise\x03boulders aloft",
+    "Li'l Turtle": "A friend for\x03a lonesome fellow",
+    "Magma Ball": "A very spicy meatball",
+    "Mars Star": "The only one of four gems\x03that was not stolen",
+    "Milk": "A prime source of calcium",
+    "Mind Read": "The power to unlock\x03the secrets of the mind",
+    "Mysterious Card": "A card containing\x03a font of knowledge",
+    "Orb of Force": "The power to strike\x03with the power of Ki",
+    "Parch": "The power to drain\x03bodies of water",
+    "Pound Cube": "The power to strike\x03the ground with force",
+    "Pretty Stone": "A gleaming stone\x03admired by friend and fowl",
+    "Red Cloth": "Some vibrant fabric\x03of maddening colour",
+    "Reveal": "The power to pierce\x03the veil of the unseen",
+    "Sand": "The power to become one\x03with the earth beneath",
+    "Scoop Gem": "The power to uncover what\x03is hidden at your feet",
+    "Sea God's Tear": "A beautiful jewel that\x03holds a divine sadness",
+    "Shaman's Rod": "The staff sought by\x03a frail young man",
+    "Teleport Lapis": "The power to cross\x03great distances at will",
+    "Tomegathericon": "A book containing\x03a font of knowledge",
+    "Trainer's Whip": "A tool containing\x03a font of knowledge",
+    "Tremor Bit": "The power to\x03shake and quake",
+    "Trident": "An oversized fork that\x03has been repaired",
+    "Whirlwind": "The power to summon forth\x03powerful gusts of wind",
+
+    "Blue Key": multiHints["Key"], "Red Key": multiHints["Key"], "Ruin Key": multiHints["Key"],
+    "Center Prong": multiHints["Prong"], "Left Prong": multiHints["Prong"], "Right Prong": multiHints["Prong"],
+    "Azul": multiHints["Summon"], "Catastrophe": multiHints["Summon"], "Charon": multiHints["Summon"], "Coatlicue": multiHints["Summon"],
+    "Daedalus": multiHints["Summon"], "Eclipse": multiHints["Summon"], "Flora": multiHints["Summon"], "Haures": multiHints["Summon"],
+    "Iris": multiHints["Summon"], "Megaera": multiHints["Summon"], "Moloch": multiHints["Summon"], "Ulysses": multiHints["Summon"],
+    "Zagan": multiHints["Summon"]
 };
 
 const mapHints = {
