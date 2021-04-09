@@ -82,6 +82,12 @@ function applyShipSpeedPatch(target) {
     target[0x285A4] = 0xF0;
 }
 
+function applyAutoRunPatch(target) {
+    target[0x26361] = 0xD1;
+    target[0x270A5] = 0xD1;
+    target[0x279DD] = 0xD1;
+}
+
 function writeStoryFlags(target, flags) {
     var addr = 0xF4280;
     flags.forEach((flag) => {
@@ -120,6 +126,7 @@ function randomise(seed, rawSettings, spoilerFilePath) {
     if (settings['djinn-scale']) target = ups.applyPatch(target, upsDjinnScaling);
     if (settings['qol-fastship']) applyShipSpeedPatch(target);
     if (settings['qol-tickets']) applyGameTicketPatch(target);
+    if (settings['qol-autorun']) applyAutoRunPatch(target);
     if (settings['qol-cutscenes']) {
         target = ups.applyPatch(target, upsCutsceneSkip);
         defaultFlags = cutsceneSkipFlags;
@@ -190,8 +197,7 @@ function randomise(seed, rawSettings, spoilerFilePath) {
 
     if (settings['djinn-scale']) enemyData.sortDjinn(enemyClone);
 
-    // Don't forget to implement the setting check
-    hintSystem.writeHints(prng, textClone, spheres, itemLocClone);
+    if (settings['qol-hints']) hintSystem.writeHints(prng, textClone, spheres, itemLocClone);
     
     characterData.adjustStartingLevels(characterClone, settings['start-levels']);
     enemyData.scaleBattleRewards(enemyClone, settings['scale-coins'], settings['scale-exp']);

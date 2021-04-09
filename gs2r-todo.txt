@@ -39,4 +39,4 @@ TODO:
 - Implement setting for removal of boss logic                       DONE
 - Add hint system                                                   IN PROGRESS
 - Patch out Trial Road inventory snapshotting                       DONE (requires more testing)
-- Implement auto-run setting
+- Implement auto-run setting                                        DONE

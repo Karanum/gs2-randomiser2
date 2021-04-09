@@ -45,15 +45,15 @@ function getPresetTooltip(val) {
 
 function getPreset(val) {
     switch (Number(val)) {
-        case 0: return [102, 16, 137, 0, 7, 3, 6, 17];
-        case 1: return [175, 156, 201, 80, 79, 3, 0, 17];
-        case 2: return [159, 255, 239, 170, 151, 3, 0, 17];
+        case 0: return [102, 16, 137, 0, 7, 3, 14, 17];
+        case 1: return [175, 156, 201, 80, 79, 3, 8, 17];
+        case 2: return [159, 255, 239, 170, 151, 3, 8, 17];
         case 3: return [0, 0, 0, 0, 0, 0, 0, 17];
-        case 4: return [159, 172, 200, 144, 79, 131, 64, 17];
-        case 5: return [102, 16, 137, 0, 7, 34, 6, 17];
-        case 6: return [175, 156, 201, 80, 79, 34, 0, 17];
-        case 7: return [159, 255, 239, 170, 151, 50, 0, 17];
-        case 8: return [207, 255, 255, 175, 151, 186, 64, 17];
+        case 4: return [159, 172, 200, 144, 79, 131, 72, 17];
+        case 5: return [102, 16, 137, 0, 7, 34, 14, 17];
+        case 6: return [175, 156, 201, 80, 79, 34, 8, 17];
+        case 7: return [159, 255, 239, 170, 151, 50, 8, 17];
+        case 8: return [207, 255, 255, 175, 151, 186, 72, 17];
     }
     return undefined;
 }
@@ -77,7 +77,8 @@ function applySettings(arr) {
         'class-levels', 2), 'class-psynergy', 3);
     loadValue(loadCheckedState(arr[5], ['free-retreat', 'free-avoid', 'boss-logic',
         'skips-maze', 'skips-adv', 'skips-basic']), 'ship', 2);
-    loadValue(loadEmptyBit(loadCheckedState(arr[6], ['start-reveal', 'start-revive', 'start-heal', 'qol-hints'])), 'start-levels', 3);
+    loadValue(loadCheckedState(arr[6], ['start-reveal', 'start-revive', 'start-heal', 'qol-hints', 'qol-autorun']),
+        'start-levels', 3);
     loadValue(loadValue(arr[7], 'scale-coins', 4), 'scale-exp', 4);
 }
 
@@ -96,8 +97,8 @@ function getSettingsArray() {
         ['qol-cutscenes', 'qol-tickets', 'qol-fastship']);
     arr[5] = appendCheckedState(appendValue(0, 'ship', 2),
         ['skips-basic', 'skips-adv', 'skips-maze', 'boss-logic', 'free-avoid', 'free-retreat']);
-    arr[6] = appendCheckedState(appendEmptyBit(appendValue(0, 'start-levels', 3)),
-        ['qol-hints', 'start-heal', 'start-revive', 'start-reveal']);
+    arr[6] = appendCheckedState(appendValue(0, 'start-levels', 3),
+        ['qol-autorun', 'qol-hints', 'start-heal', 'start-revive', 'start-reveal']);
     arr[7] = appendValue(appendValue(0, 'scale-exp', 4), 'scale-coins', 4);
 
     return arr;

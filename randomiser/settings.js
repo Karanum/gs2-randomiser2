@@ -47,6 +47,8 @@ function parse(settings) {
         'free-retreat': settings[5] & 0b1,
 
         'start-levels': settings[6] >> 5,
+        'qol-autorun': (settings[6] >> 4) & 0b1,
+        'qol-hints': (settings[6] >> 3) & 0b1,
         'start-heal': (settings[6] >> 2) & 0b1,
         'start-revive': (settings[6] >> 1) & 0b1,
         'start-reveal': settings[6] & 0b1,
