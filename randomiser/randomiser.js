@@ -120,7 +120,7 @@ function randomise(seed, rawSettings, spoilerFilePath) {
     itemLocations.prepItemLocations(itemLocClone, settings);
 
     if (settings['free-avoid']) abilityClone[150].cost = 0;
-    if (settings['free-retreat']) {
+    if (settings['free-retreat'] && !(settings['skips-basic'] || settings['skips-oob-easy'] || settings['skips-oob-hard'])) {
         abilityClone[149].cost = 0;
         abilityClone[156].cost = 0;
     }

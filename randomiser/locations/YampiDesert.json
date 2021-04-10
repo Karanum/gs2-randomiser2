@@ -106,7 +106,7 @@
             "Type": "Flag",
             "Reqs": [
                 [
-                    "SkipBasic"
+                    "SkipOobEasy"
                 ],
                 [
                     "Scoop Gem"

@@ -1,7 +1,6 @@
 const addrOffset = 0xC0F9C;
 
 const elementSets = [[54, 3, 1, 2], [1, 2, 54, 3], [2, 1, 3, 54], [3, 54, 2, 1]];
-const levelPresets = [5, 10, 18, 28, 40, 99];
 
 var characterData = [];
 
@@ -102,8 +101,8 @@ function shuffleElements(instance, prng, unique) {
     });
 }
 
-function adjustStartingLevels(instance, preset) {
-    var newLevel = levelPresets[preset];
+function adjustStartingLevels(instance, level) {
+    var newLevel = Math.max(Math.min(level, 99), 5);
     instance.forEach((char) => {
         char.level = Math.max(char.level, newLevel);
     });

@@ -35,7 +35,7 @@ TODO:
 - Implement equipment and summon sorting                            DONE
 - Implement Mimic sorting so you don't die instantly                DONE
 
-- Find a better way to categorise glitch/skip logic                 IN PROGRESS
+- Find a better way to categorise glitch/skip logic                 DONE
 - Implement setting for removal of boss logic                       DONE
 - Add hint system                                                   DONE
 - Patch out Trial Road inventory snapshotting                       DONE

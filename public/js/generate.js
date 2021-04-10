@@ -45,21 +45,21 @@ function getPresetTooltip(val) {
 
 function getPreset(val) {
     switch (Number(val)) {
-        case 0: return [102, 16, 137, 0, 7, 3, 14, 17];
-        case 1: return [175, 156, 201, 80, 79, 3, 8, 17];
-        case 2: return [159, 255, 239, 170, 151, 3, 8, 17];
-        case 3: return [0, 0, 0, 0, 0, 0, 0, 17];
-        case 4: return [159, 172, 200, 144, 79, 131, 72, 17];
-        case 5: return [102, 16, 137, 0, 7, 34, 14, 17];
-        case 6: return [175, 156, 201, 80, 79, 34, 8, 17];
-        case 7: return [159, 255, 239, 170, 151, 50, 8, 17];
-        case 8: return [207, 255, 255, 175, 151, 186, 72, 17];
+        case 0: return [102, 16, 137, 0, 7, 3, 14, 17, 5];
+        case 1: return [175, 156, 201, 80, 79, 3, 8, 17, 5];
+        case 2: return [159, 255, 239, 170, 151, 3, 8, 17, 5];
+        case 3: return [0, 0, 0, 0, 0, 0, 0, 17, 5];
+        case 4: return [159, 172, 200, 144, 79, 131, 8, 17, 18];
+        case 5: return [102, 16, 137, 0, 7, 34, 14, 17, 5];
+        case 6: return [175, 156, 201, 80, 79, 50, 8, 17, 5];
+        case 7: return [159, 255, 239, 170, 151, 50, 40, 17, 5];
+        case 8: return [207, 255, 255, 175, 151, 190, 40, 17, 5];
     }
     return undefined;
 }
 
 function applySettings(arr) {
-    if (arr.length != 8) {
+    if (arr.length != 9) {
         console.error("Settings array is not the correct length.");
         return;
     }
@@ -76,14 +76,14 @@ function applySettings(arr) {
     loadValue(loadValue(loadCheckedState(arr[4], ['qol-fastship', 'qol-tickets', 'qol-cutscenes']),
         'class-levels', 2), 'class-psynergy', 3);
     loadValue(loadCheckedState(arr[5], ['free-retreat', 'free-avoid', 'boss-logic',
-        'skips-maze', 'skips-adv', 'skips-basic']), 'ship', 2);
-    loadValue(loadCheckedState(arr[6], ['start-reveal', 'start-revive', 'start-heal', 'qol-hints', 'qol-autorun']),
-        'start-levels', 3);
+        'skips-maze', 'skips-oob-easy', 'skips-basic']), 'ship', 2);
+    loadCheckedState(arr[6], ['start-reveal', 'start-revive', 'start-heal', 'qol-hints', 'qol-autorun', 'skips-oob-hard']);
     loadValue(loadValue(arr[7], 'scale-coins', 4), 'scale-exp', 4);
+    loadValue(arr[8], 'start-levels', 8);
 }
 
 function getSettingsArray() {
-    var arr = new Uint8Array(8);
+    var arr = new Uint8Array(9);
 
     arr[0] = appendCheckedState(appendValue(appendValue(0, 'item-shuffle', 2), 'omit', 2),
         ['gs1-items', 'show-items', 'no-learning', 'class-stats']);
@@ -96,10 +96,11 @@ function getSettingsArray() {
     arr[4] = appendCheckedState(appendValue(appendValue(0, 'class-psynergy', 3), 'class-levels', 2),
         ['qol-cutscenes', 'qol-tickets', 'qol-fastship']);
     arr[5] = appendCheckedState(appendValue(0, 'ship', 2),
-        ['skips-basic', 'skips-adv', 'skips-maze', 'boss-logic', 'free-avoid', 'free-retreat']);
-    arr[6] = appendCheckedState(appendValue(0, 'start-levels', 3),
-        ['qol-autorun', 'qol-hints', 'start-heal', 'start-revive', 'start-reveal']);
+        ['skips-basic', 'skips-oob-easy', 'skips-maze', 'boss-logic', 'free-avoid', 'free-retreat']);
+    arr[6] = appendCheckedState(appendEmptyBit(0, 2), ['skips-oob-hard', 'qol-autorun', 
+        'qol-hints', 'start-heal', 'start-revive', 'start-reveal']);
     arr[7] = appendValue(appendValue(0, 'scale-exp', 4), 'scale-coins', 4);
+    arr[8] = appendValue(0, 'start-levels', 8);
 
     return arr;
 }
@@ -145,6 +146,12 @@ $(document).ready(() => {
         $("#inp-scale-coins").val(val);
     });
 
+    $("#inp-start-levels").on('change', () => {
+        var val = $("#inp-start-levels").val();
+        val = Math.max(Math.min(val, 99), 5);
+        $("#inp-start-levels").val(val);
+    });
+
     $("#inp-preset").on('change', () => {
         var val = $("#inp-preset").val();
         $("#p-preset").html(getPresetTooltip(val));
@@ -162,14 +169,16 @@ $(document).ready(() => {
     $("#tooltip-3").attr('title', "Makes it more likely to find weaker equipment early on.");
     $("#tooltip-4").attr('title', "Adjusts Djinni battle difficulty based on number of owned Djinn.");
     $("#tooltip-5").attr('title', "Makes it more likely to find summons with less Djinn cost early on.");
-    $("#tooltip-6").attr('title', "Move clips and basic door warps (mostly from NoS&Q) may be required. Disables 0 PP Retreat setting.");
-    $("#tooltip-7").attr('title', "Advanced retreat glitches may be required. Disables 0 PP Retreat setting.");
+    $("#tooltip-6").attr('title', "Basic skips and retreat door warps may be required. Disables 0 PP Retreat setting.");
+    $("#tooltip-7").attr('title', "Simple OOB skips may be required. Disables 0 PP Retreat setting.");
     $("#tooltip-8").attr('title', "Removes logical Djinn requirements, so you may need to fight bosses early.");
     $("#tooltip-9").attr('title', "Ensures that Cure, Ply, Aura, or Wish is learned from the start.");
     $("#tooltip-10").attr('title', "Note: this prevents the use of Retreat glitches.");
     $("#tooltip-11").attr('title', "Only increases the starting level of characters that start off lower.");
+    $("#tooltip-12").attr('title', "OOB skips with tight or complex movement may be required. Disables 0 PP Retreat setting.");
 
     var tooltipHolders = $(".tooltip-container");
     tooltipHolders.each((i) => new bootstrap.Tooltip(tooltipHolders[i]));
 
+    applySettings(getPreset(0));
 });

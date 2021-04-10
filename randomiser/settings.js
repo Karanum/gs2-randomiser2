@@ -40,13 +40,13 @@ function parse(settings) {
 
         'ship': settings[5] >> 6,
         'skips-basic': (settings[5] >> 5) & 0b1,
-        'skips-adv': (settings[5] >> 4) & 0b1,
+        'skips-oob-easy': (settings[5] >> 4) & 0b1,
         'skips-maze': (settings[5] >> 3) & 0b1,
         'boss-logic': (settings[5] >> 2) & 0b1,
         'free-avoid': (settings[5] >> 1) & 0b1,
         'free-retreat': settings[5] & 0b1,
 
-        'start-levels': settings[6] >> 5,
+        'skips-oob-hard': (settings[6] >> 5) & 0b1,
         'qol-autorun': (settings[6] >> 4) & 0b1,
         'qol-hints': (settings[6] >> 3) & 0b1,
         'start-heal': (settings[6] >> 2) & 0b1,
@@ -54,7 +54,9 @@ function parse(settings) {
         'start-reveal': settings[6] & 0b1,
 
         'scale-exp': settings[7] >> 4,
-        'scale-coins': settings[7] & 0b1111
+        'scale-coins': settings[7] & 0b1111,
+
+        'start-levels': settings[8]
     };
 }
 

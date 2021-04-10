@@ -127,7 +127,8 @@ class ItemRandomiser {
         if (this.settings['ship'] == 1) set.push('ShipOpen');
         if (this.settings['ship'] == 2) set.push('Ship');
         if (this.settings['skips-basic']) set.push('SkipBasic');
-        if (this.settings['skips-adv']) set.push('SkipAdv');
+        if (this.settings['skips-oob-easy']) set.push('SkipOobEasy');
+        if (this.settings['skips-oob-hard']) set.push('SkipOobHard');
         if (this.settings['skips-maze']) set.push('SkipMaze');
         return set;
     }

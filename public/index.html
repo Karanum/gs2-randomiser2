@@ -300,8 +300,12 @@
                                             <label class="form-check-label">Require basic glitches/skips <span class="tooltip-container" id="tooltip-6"><i class="bi bi-question-circle-fill"></i></span></label>
                                         </div>
                                         <div class="form-check form-switch mb-2">
-                                            <input class="form-check-input" type="checkbox" id="inp-skips-adv">
-                                            <label class="form-check-label">Require advanced glitches/skips <span class="tooltip-container" id="tooltip-7"><i class="bi bi-question-circle-fill"></i></span></label>
+                                            <input class="form-check-input" type="checkbox" id="inp-skips-oob-easy">
+                                            <label class="form-check-label">Require easy OOB skips <span class="tooltip-container" id="tooltip-7"><i class="bi bi-question-circle-fill"></i></span></label>
+                                        </div>
+                                        <div class="form-check form-switch mb-2">
+                                            <input class="form-check-input" type="checkbox" id="inp-skips-oob-hard">
+                                            <label class="form-check-label">Require hard OOB skips <span class="tooltip-container" id="tooltip-12"><i class="bi bi-question-circle-fill"></i></span></label>
                                         </div>
                                         <div class="form-check form-switch mb-3">
                                             <input class="form-check-input" type="checkbox" id="inp-skips-maze">
@@ -401,14 +405,7 @@
                                     <div class="col-12 col-lg-6">
                                         <div class="input-group mb-3">
                                             <label class="input-group-text">Starting Levels&nbsp;<span class="tooltip-container" id="tooltip-11"><i class="bi bi-question-circle-fill"></i></span></label>
-                                            <select class="form-select" id="inp-start-levels">
-                                                <option value='0' checked>Normal levels (5+)</option>
-                                                <option value='1'>Elevated levels (10+)</option>
-                                                <option value='2'>Piers levels (18+)</option>
-                                                <option value='3'>Reunion levels (28)</option>
-                                                <option value='4'>High levels (40)</option>
-                                                <option value='5'>Stupid levels (99)</option>
-                                            </select>
+                                            <input type="number" class="form-control" min="5" max="99" value="5" id="inp-start-levels">
                                         </div>
                                     </div>
                                 </div>

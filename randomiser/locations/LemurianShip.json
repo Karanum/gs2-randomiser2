@@ -52,7 +52,7 @@
                 ],
                 [
                     "ShipRevisit",
-                    "SkipAdv"
+                    "SkipOobHard"
                 ]
             ]
         },
@@ -79,7 +79,7 @@
                 ],
                 [
                     "AnyDjinn_10",
-                    "SkipAdv"
+                    "SkipOobHard"
                 ]
             ]
         },
