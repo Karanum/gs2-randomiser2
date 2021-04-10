@@ -6,6 +6,7 @@ const multiHints = {
     "Eastern Sea": "on an island in\x03the Eastern Sea",
     "Gabomba": "within the bowels\x03of a revered statue",
     "Key": "A key item",
+    "Madra": "in the town of\x03repeated misfortune",
     "Prong": "Part of some\x03oversized fork",
     "Settlement": "within a small\x03settlement of little note",
     "Summon": "A powerful ally brought\x03forth by elemental energy",
@@ -14,14 +15,14 @@ const multiHints = {
 
 const itemHints = {
     "Aquarius Stone": "The azure stone that\x03leads the chosen one",
-    "Black Crystal": "The orb that controls\x03the vessels of the ancients",
+    "Black Crystal": "The orb that controls the\x03vessels of the ancients",
     "Blaze": "The power to manipulate\x03the raging flames",
-    "Burst Brooch": "The power to break that\x03whichs blocks the way",
+    "Burst Brooch": "The power to break that\x03which blocks the way",
     "Carry Stone": "The power that both\x03lifts and moves",
     "Catch Beads": "The power to obtain that\x03which is just out of reach",
     "Cyclone Chip": "The power to clear the\x03obscuring undergrowth",
     "Dancing Idol": "A doll that never\x03ceases to move",
-    "Douse Drop": "The power to cloud the sky\x03and nourish the soil",
+    "Douse Drop": "The power to cloud the\x03sky and nourish the soil",
     "Frost Jewel": "The power to create\x03great spires of ice",
     "Grindstone": "The power to turn even\x03the hardest rock to dust",
     "Growth": "The power to promote\x03the growth of plants",
@@ -63,7 +64,7 @@ const itemHints = {
 
 const mapHints = {
     "Air's Rock": "at a sacred place of\x03abundant Jupiter energy",
-    "Anemos Inner Sanctum": "deep inside the\x03moonlit ruins",
+    "Anemos Inner Sanctum": "deep inside\x03the moonlit ruins",
     "Angara Cavern": "inside a cave in\x03northern Angara",
     "Ankohl Ruins": "inside the tower\x03of the forgemasters",
     "Apojii Islands": "in a paradise at\x03the edge of the world",
@@ -77,38 +78,37 @@ const mapHints = {
     "Gaia Rock": "at a sacred place of\x03abundant Venus energy",
     "Garoh": "in the town where\x03not just the wind howls",
     "Indra Cavern": "inside a cave on\x03the continent of Indra",
-    "Islet Cave": "",
-    "Izumo": "",
+    "Islet Cave": "inside the cave where\x03only turtles tread",
+    "Izumo": "in the town where\x03sacrifices are made",
     "Jupiter Lighthouse": "within the mighty\x03seal of Jupiter",
-    "Kandorean Temple": "",
-    "Kibombo": "",
-    "Kibombo Mountains": "",
-    "Lemuria": "",
-    "Lemurian Ship": "",
-    "Loho": "",
-    "Madra": "",
-    "Madra Catacombs": "",
+    "Kandorean Temple": "at the temple where\x03enlightenment is sought",
+    "Kibombo": "in the town where\x03a great statue is revered",
+    "Kibombo Mountains": "atop the heavily\x03guarded ridge",
+    "Lemuria": "in the land of\x03the regressed ancients",
+    "Lemurian Ship": "within the seafaring\x03vessel of the ancients",
+    "Loho": "in the town of\x03the diminutive miners",
     "Magma Rock": "at a sacred place of\x03abundant Mars energy",
     "Mars Lighthouse": "within the mighty\x03seal of Mars",
-    "Mikasalla": "",
-    "Naribwe": "",
-    "Osenia Cavern": "",
+    "Mikasalla": "in the town where...\x03a chicken finds a ladder",
+    "Naribwe": "in the town where\x03fortunes are foretold",
+    "Osenia Cavern": "inside a cave on\x03the continent of Osenia",
     "Overworld": "somewhere beneath\x03the ocean waves",
-    "Prox": "",
-    "Shrine of the Sea God": "",
-    "Shaman Village": "",
-    "Taopo Swamp": "",
-    "Treasure Isle": "",
-    "Tundaria Tower": "",
-    "Yallam": "",
-    "Yampi Desert": "",
-    "Yampi Desert Cave": "",
+    "Prox": "in the frigid town at\x03the edge of the world",
+    "Shrine of the Sea God": "in the shrine\x03overlooking the ocean",
+    "Shaman Village": "in the town where two\x03great champions fought",
+    "Taopo Swamp": "deep within the\x03starlit marshes",
+    "Treasure Isle": "on a distant\x03island of great riches",
+    "Tundaria Tower": "inside an emotionally\x03distant tower",
+    "Yallam": "in the town\x03where the sun shines",
+    "Yampi Desert": "within a great\x03expanse of sand",
+    "Yampi Desert Cave": "within a cave\x03beneath the desert sands",
 
     "Alhafra": multiHints["Alhafra"], "Alhafran Cave": multiHints["Alhafra"], "Gondowan Cliffs": multiHints["Cliffs"], 
     "Osenia Cliffs": multiHints["Cliffs"], "E Tundaria Islet": multiHints["Eastern Sea"], "N Osenia Islet": multiHints["Eastern Sea"], 
     "SE Angara Islet": multiHints["Eastern Sea"], "Sea of Time Islet": multiHints["Eastern Sea"], "W Indra Islet": multiHints["Eastern Sea"],
     "Gabomba Catacombs": multiHints["Gabomba"], "Gabomba Statue": multiHints["Gabomba"], "Gondowan Settlement": multiHints["Settlement"], 
     "Hesperia Settlement": multiHints["Settlement"], "Kalt Island": multiHints["Western Sea"], "SW Atteka Islet": multiHints["Western Sea"],
+    "Madra": multiHints["Madra"], "Madra Catacombs": multiHints["Madra"]
 };
 
 function getKeyItemCount(itemLocs, mapName) {
@@ -160,9 +160,9 @@ function getHintIndra(prng, type, spheres, itemLocs) {
     } else {
         var item = itemLocs["0x8c7"][0];
         if (item['isKeyItem']) {
-            return "The top of the Sea God's tower\x03holds a treasure of importance.\x02";
+            return "The top of the Sea God's\x03tower holds a treasure\x03of importance.\x02";
         } else {
-            return "The top of the Sea God's tower\x03does not have anything of value.\x02";
+            return "The top of the Sea God's\x03tower does not have\x03anything of value.\x02";
         }
     }
 }
@@ -178,9 +178,9 @@ function getHintOsenia(prng, type, spheres, itemLocs) {
     } else {
         var item = itemLocs["0x8d4"][0];
         if (item['isKeyItem']) {
-            return "The room that guards the unseen\x03holds a treasure of great importance.\x02";
+            return "The room that guards the\x03unseen holds a treasure\x03of great importance.\x02";
         } else {
-            return "The room that guards the unseen\x03does not have anything of value.\x02";
+            return "The room that guards the\x03unseen does not have\x03anything of value.\x02";
         };
     }
 }
@@ -197,9 +197,9 @@ function getHintGondowan(prng, type, spheres, itemLocs) {
     } else {
         var item = itemLocs["0xf93"][0];
         if (item['isKeyItem']) {
-            return "The depths of our great statue\x03hold a treasure of great importance.\x02";
+            return "The depths of our great\x03statue hold a treasure\x03of great importance.\x02";
         } else {
-            return "The depths of our great statue\x03do not have anything of value.\x02";
+            return "The depths of our great\x03statue do not have\x03anything of value.\x02";
         };
     }
 }
@@ -215,9 +215,9 @@ function getHintLemuria(prng, type, spheres, itemLocs) {
     } else {
         var item = itemLocs["0x978"][0];
         if (item['isKeyItem']) {
-            return "The mistress of the great forge\x03holds a treasure of great importance.\x02";
+            return "The mistress of the great\x03forge holds a treasure\x03of great importance.\x02";
         } else {
-            return "The mistress of the great forge\x03does not have anything of value.\x02";
+            return "The mistress of the great\x03forge does not have\x03anything of value.\x02";
         };
     }
 }
@@ -233,9 +233,9 @@ function getHintAtteka(prng, type, spheres, itemLocs) {
     } else {
         var item = itemLocs["0x17"][0];
         if (item['isKeyItem']) {
-            return "The flooded southern cave\x03holds a treasure of great importance.\x02";
+            return "The flooded southern cave\x03holds a treasure of\x03great importance.\x02";
         } else {
-            return "The flooded southern cave\x03does not have anything of value.\x02";
+            return "The flooded southern cave\x03does not have anything\x03of value.\x02";
         };
     }
 }
@@ -251,9 +251,9 @@ function getHintProx(prng, type, spheres, itemLocs) {
     } else {
         var item = itemLocs["0xa3a"][0];
         if (item['isKeyItem']) {
-            return "The missing warriors of Prox\x03hold a treasure of great importance.\x02";
+            return "The missing warriors of\x03Prox hold a treasure\x03of great importance.\x02";
         } else {
-            return "The missing warriors of Prox\x03do not have anything of value.\x02";
+            return "The missing warriors of\x03Prox do not have\x03anything of value.\x02";
         };
     }
 }
