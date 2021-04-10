@@ -39,9 +39,7 @@ inp-skips-basic		1b	.. F. .. ..
 inp-skips-adv		1b	.. .F .. ..
 inp-skips-maze		1b	.. .. F. ..
 inp-ship			2b	FF .. .. ..
-inp-boss-logic		1b	.. .. .F ..	<- NEW
-
-inp-door-shuffle	1b	<- REMOVED
+inp-boss-logic		1b	.. .. .F ..
 
 
 inp-start-heal		1b	.. .. .G ..
@@ -53,8 +51,8 @@ inp-free-retreat	1b	.. .. .. .F
 inp-qol-cutscenes	1b	.. .. .E ..
 inp-qol-tickets		1b	.. .. .. E.
 inp-qol-fastship	1b	.. .. .. .E
-inp-qol-hardmode	1b	<- REMOVED
-inp-music-shuffle	1b	<- REMOVED
+inp-qol-autorun     1b  .. .G .. ..
+inp-qol-hints       1b  .. .. G. ..
 
 inp-scale-exp		4b	HH HH .. ..
 inp-scale-coins		4b	.. .. HH HH

@@ -3,7 +3,7 @@ const fs = require('fs');
 const app = express();
 const port = 3000;
 
-const versionSuffix = "0_1";
+const versionSuffix = "1_0beta";
 
 console.log("Starting...");
 const randomiser = require('./randomiser/randomiser.js');
