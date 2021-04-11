@@ -54,7 +54,12 @@
         },
         {
             "Addr": "0xe03",
-            "Reqs": []
+            "Reqs": [
+                "Boss_FlameDragons",
+                "Mars Star",
+                "Cyclone Chip",
+                "Hover Jade"
+            ]
         },
         {
             "Addr": "0xe78",
@@ -67,12 +72,7 @@
         {
             "Addr": "0xffd",
             "Reqs": [
-                [
-                    "Boss_FlameDragons",
-                    "Mars Star",
-                    "Cyclone Chip",
-                    "Hover Jade"
-                ]
+                []
             ]
         },
         {
