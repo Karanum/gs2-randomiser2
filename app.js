@@ -32,6 +32,11 @@ app.get('/randomise_ajax', (req, res) => {
 
     var seed = req.query.seed;
     var settings = req.query.settings;
+    if (isNaN(Number(seed)) || !settings.match(/^[a-f0-9]+$/i)) {
+        res.status(403);
+        return res.send();
+    }
+
     var filename = `./output_cache/${seed}-${settings}-${versionSuffix}`;
 
     fs.readFile(filename + ".ups", (err, data) => {
@@ -53,6 +58,11 @@ app.get('/spoiler_ajax', (req, res) => {
 
     var seed = req.query.seed;
     var settings = req.query.settings;
+    if (isNaN(Number(seed)) || !settings.match(/^[a-f0-9]+$/i)) {
+        res.status(403);
+        return res.send();
+    }
+
     var filename = `./output_cache/${seed}-${settings}-${versionSuffix}`;
 
     fs.readFile(filename + ".log", (err, data) => {
