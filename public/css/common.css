@@ -29,6 +29,10 @@
     width: 45%;
 }
 
+.nav-logo {
+    width: 100px;
+}
+
 body {
     background-color: #f3dba4 !important;
     color: #5d3a02 !important;

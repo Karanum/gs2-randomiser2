@@ -40,3 +40,8 @@ TODO:
 - Add hint system                                                   DONE
 - Patch out Trial Road inventory snapshotting                       DONE
 - Implement auto-run setting                                        DONE
+
+- Create info pages                                                 IN PROGRESS
+- Implement cookies to remember randomisation settings
+- Final CSS tweaks
+- Add support for HTTPS protocol
