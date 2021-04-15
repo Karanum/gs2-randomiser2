@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="/css/common.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/img/favicon.webp">
+    <title>GS2 Randomiser</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg sticky-top navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/"><img class="nav-logo" src="/img/gstlar-logo.webp"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navContent">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navContent">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="/">Generate Seed</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Help</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/help.html">Settings Info</a></li>
+                            <li><a class="dropdown-item" href="/tips.html">Useful Tips</a></li>
+                            <li><a class="dropdown-item" href="/versions.html">Version History</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="navbar-nav ms-auto">
+                    <a class="nav-link float-end" href="https://discord.com/invite/QWwxrmN"><i class="bi bi-discord"></i> Discord</a>
+                    <a class="nav-link float-end" href="https://github.com/Karanum/gs2-randomiser2"><i class="bi bi-github"></i> GitHub</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container-fluid">
+        <div class="row mt-3 mx-lg-5">
+            <div class="col-12 mx-lg-3 mb-2">
+                <center>
+                    <a href="/"><img class="logo" src="/img/gstlar-logo.webp"></a>
+                </center>
+            </div>
+
+            <div class="col-12 mb-4 px-lg-5">
+                <div class="card mt-4">
+                    <h4 class="card-header">Settings</h4>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col mx-lg-2">
+                                <h5>Item Shuffle</h5>
+                                <p class="ms-3 ms-lg-4">
+                                    <b>Vanilla</b> &mdash; Items are not randomised<br>
+                                    <b>Key Items Only</b> &mdash; Important items, psynergy and summon tablets are randomised<br>
+                                    <b>All Chest/Tablet Items</b> &mdash; All items except hidden items are randomised<br>
+                                    <b>All Items</b> &mdash; All items are randomised
+                                </p>
+
+                                <hr>
+                                <h5>Class Psynergy</h5>
+                                <p class="ms-3 ms-lg-4">
+                                    <b>Vanilla</b> &mdash; Psynergy is not randomised<br>
+                                    <b>By classline</b> &mdash; Learned Psynergy is shuffled by classlines (e.g. Squire will have Brute Psynergy)<br>
+                                    <b>By Psynergy group</b> &mdash; Learned Psynergy is shuffled by Psynergy groups (e.g. if a class learns Spire, it will also learn Clay Spire)<br>
+                                    <b>By Psynergy element</b> &mdash; Learned Psynergy is freely shuffled with another Psynergy of the same element<br>
+                                    <b>Randomise fully</b> &mdash; Learned Psynergy is freely shuffled without restrictions
+                                </p>
+
+                                <hr>
+                                <h5>Lemurian Ship</h5>
+                                <p class="ms-3 ms-lg-4">
+                                    <b>Vanilla</b> &mdash; The ship is unlocked as usual, by clearing Gabomba and using the Black Crystal to open the door<br>
+                                    <b>Ship door unlocked</b> &mdash; The door of the ship is unlocked, bypassing the need for Gabomba and the Black Crystal<br>
+                                    <b>Available from start</b> &mdash; The ship is available immediately (Lemuria or Atteka Inlet need to be reached to enter the ship)
+                                </p>
+
+                                <hr>
+                                <h5>Adjusting / Scaling</h5>
+                                <p class="ms-3 ms-lg-4">
+                                    Settings that adjust or scale a value will multiply the vanilla value by a random modifier. Below is a list of the modifiers for each value.
+                                </p>
+                                <p class="ms-3 ms-lg-4">
+                                    <b>Equipment stats</b> &mdash; Between 50% and 150%, also scales prices slightly<br>
+                                    <b>Equipment prices</b> &mdash; Between 80% and 120%<br>
+                                    <b>Djinni attack power</b> &mdash; Between 80% and 120%<br>
+                                    <b>Summon power</b> &mdash; Between 80% and 120%<br>
+                                    <b>Psynergy levels</b> &mdash; Between 50% and 150%, can learn Psynergy out of order (e.g. Pure Ply before Ply Well)<br>
+                                    <b>Psynergy power</b> &mdash; Between 80% and 120%<br>
+                                    <b>Psynergy cost</b> &mdash; Between 60% and 140%<br>
+                                    <b>Character stats</b> &mdash; Between 50% and 150% at level 1, between 75% and 125% at level 99
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mt-4">
+                    <h4 class="card-header">Skips and Glitches</h4>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col mx-lg-2">
+                                <h5><a>Basic glitches/skips</a></h5>
+                                <p class="ms-3 ms-lg-4">
+                                    These skips are in logic through the "Require basic glitches/skips" setting:
+                                    <ul>
+                                        <li>Kibombo sanctum warp</li>
+                                        <li>Tundaria Tower move pillar wiggle (skips Pound)</li>
+                                        <li>Shaman Village retreat warps for Aroma</li>
+                                        <li>Mars Lighthouse dumb (flamethrower) skips</li>
+                                        <li>Mars Lighthouse Venus wing skip</li>
+                                    </ul>
+                                </p>
+
+                                <hr>
+                                <h5><a>Easy OOB skips</a></h5>
+                                <p class="ms-3 ms-lg-4">
+                                    These skips are in logic through the "Require easy OOB skips" setting:
+                                    <ul>
+                                        <li>Shrine of the Sea God OOB</li>
+                                        <li>Reverse Yampi Desert</li>
+                                    </ul>
+                                </p>
+
+                                <hr>
+                                <h5><a>Hard OOB skips</a></h5>
+                                <p class="ms-3 ms-lg-4">
+                                    These skips are in logic through the "Require hard OOB skips" setting:
+                                    <ul>
+                                        <li>Gondowan Cliffs OOB</li>
+                                        <li>Lemurian Ship OOB (both to Aqua Hydra and the lower floor)</li>
+                                    </ul>
+                                </p>
+
+                                <hr>
+                                <h5><a>Gaia Rock maze</a></h5>
+                                <p class="ms-3 ms-lg-4">
+                                    The maze in Gaia Rock interior is one of the puzzles that is randomised based on Felix's name.
+                                    The "Gaia Rock maze w/o Growth" setting assumes that you know the maze solution for whatever you name Felix as.
+                                    This means the 2 chests, as well as Serpent, are in logic without requiring Growth to pass through the maze.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mt-4">
+                    <h4 class="card-header">Boss Logic</h4>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12 mx-lg-2">
+                                <p class="ms-1">
+                                    The randomiser will not require you to fight bosses while severely underpowered.
+                                    This means that each boss has a certain Djinn requirement before being in logic.
+                                    (Note that this considers the amount of Djinn in logic, not the amount of Djinn in
+                                    the player's possession.)
+                                </p>
+                                <p class="ms-1">
+                                    The Djinn requirements for bosses to be in logic can be disabled with the "Disable boss logic" setting.
+                                    Serpent will still require at least 3 lights to be turned on, regardless of this setting.
+                                </p>
+                            </div>
+                            <div class="col-12 col-lg-5 mx-lg-2">
+                                <p class="ms-3 ms-lg-4">
+                                    <b>Chestbeaters</b> &mdash; 0<br>
+                                    <b>King Scorpion</b> &mdash; 3<br>
+                                    <b>Briggs</b> &mdash; 6<br>
+                                    <b>Aqua Hydra</b> &mdash; 10<br>
+                                    <b>Serpent</b> &mdash; 16 (4 lights) / 24 (3 lights)<br>
+                                    <b>Avimander</b> &mdash; 20<br>
+                                    <b>Poseidon</b> &mdash; 24<br>
+                                </p>
+                            </div>
+                            <div class="col-12 col-lg-5 mx-lg-2">
+                                <p class="ms-3 ms-lg-4">
+                                    <b>Moapa</b> &mdash; 28<br>
+                                    <b>Flame Dragons</b> &mdash; 48<br>
+                                    <b>Doom Dragon</b> &mdash; 56<br>
+                                    <b>Star Magician</b> &mdash; 64<br>
+                                    <b>Sentinel</b> &mdash; 64<br>
+                                    <b>Valukar</b> &mdash; 64<br>
+                                    <b>Dullahan</b> &mdash; 72<br>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mt-4">
+                    <h4 class="card-header">Item Hints</h4>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col mx-lg-2">
+                                <p class="ms-1">
+                                    The randomiser has a hint system where certain NPCs give hints about the locations of key items
+                                    or the number of key items in certain dungeons. The chances of the different hint types are as follows:
+                                    <ul>
+                                        <li>50% &ndash; Random key item location</li>
+                                        <li>25% &ndash; Number of key items in dungeon</li>
+                                        <li>25% &ndash; Whether a location has a key item or not</li>
+                                    </ul>
+                                </p>
+                                <p class="ms-1">
+                                    Below is a table of the different hint NPCs and the locations they will give hints for.
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <td><b>Region</b></td>
+                                                <td><b>NPC</b></td>
+                                                <td><b>Dungeon</b></td>
+                                                <td><b>Single location</b></td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Indra</td>
+                                                <td>Master Poi</td>
+                                                <td>Gaia Rock</td>
+                                                <td>Shrine of the Sea God &ndash; Prong</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Osenia</td>
+                                                <td>Master Maha</td>
+                                                <td>Air's Rock</td>
+                                                <td>Air's Rock &ndash; Reveal tablet</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Gondowan</td>
+                                                <td>Akafubu</td>
+                                                <td>Magma Rock</td>
+                                                <td>Gabomba Catacombs &ndash; Tomegathericon</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Eastern Sea</td>
+                                                <td>King Hydros</td>
+                                                <td>Aqua Rock</td>
+                                                <td>Champa &ndash; Trident</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Western Sea</td>
+                                                <td>Corn Seller</td>
+                                                <td>Jupiter Lighthouse</td>
+                                                <td>Atteka Cave &ndash; Coatlicue tablet</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Northern Reaches</td>
+                                                <td>Prox Elder</td>
+                                                <td>Mars Lighthouse</td>
+                                                <td>Mars Lighthouse &ndash; Mars Star</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

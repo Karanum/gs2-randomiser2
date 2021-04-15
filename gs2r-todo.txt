@@ -43,5 +43,6 @@ TODO:
 
 - Create info pages                                                 IN PROGRESS
 - Implement cookies to remember randomisation settings
+- Ensure everything is responsive and mobile-friendly
 - Final CSS tweaks
 - Add support for HTTPS protocol
