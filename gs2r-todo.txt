@@ -41,7 +41,7 @@ TODO:
 - Patch out Trial Road inventory snapshotting                       DONE
 - Implement auto-run setting                                        DONE
 
-- Create info pages                                                 IN PROGRESS
+- Create info pages                                                 DONE
 - Implement cookies to remember randomisation settings
 - Ensure everything is responsive and mobile-friendly
 - Final CSS tweaks
