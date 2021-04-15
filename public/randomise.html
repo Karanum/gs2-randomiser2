@@ -57,11 +57,11 @@
             <div class="col-12 mb-4 px-lg-5">
                 <div class="card mt-4">
                     <div class="card-body">
-                        <div class="row px-5 my-2" id="div-rom">
+                        <div class="row px-lg-5 my-2" id="div-rom">
                             <div class="col-12 my-3">
                                 <div class="card">
                                     <h5 class="card-header">Select ROM file</h5>
-                                    <div class="card-body py-3 px-5">
+                                    <div class="card-body py-3 px-lg-5">
                                         <input type="file" class="form-control" id="inp-rom">
                                         <p class="ms-2 mt-1 mb-0 text-danger d-none" id="err-rom"></p>
                                     </div>
@@ -69,12 +69,8 @@
                             </div>
                         </div>
 
-                        <center class="mb-3 d-none">
-                            
-                        </center>
-
-                        <div class="row px-5 mt-2 mb-4" id="div-result">
-                            <div class="col-12">
+                        <div class="row px-lg-5 mt-2 mb-4" id="div-result">
+                            <div class="col-12 col-lg-6 mb-1">
                                 <div class="d-block">
                                     <span class="d-inline-block" tabindex="0" data-bs-toggle="tooltip" title="Load a ROM file first">
                                         <button class="btn btn-primary me-3" id="btn-patch" disabled>
@@ -84,6 +80,10 @@
                                     <a type="button" class="btn btn-primary" id="btn-ups" disabled>
                                         Download UPS file
                                     </a>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-6 mb-1">
+                                <div class="d-block">
                                     <div class="ms-3 d-inline-block" id="div-spinner">
                                         <div class="spinner-border spinner-border-sm me-2"></div>
                                         Randomising...
@@ -97,7 +97,7 @@
 
                         <div id="div-log">
                             <hr>
-                            <div class="col-12 px-5 py-3">
+                            <div class="col-12 px-lg-5 py-3">
                                 <div class="card">
                                     <h5 class="card-header" data-bs-toggle="collapse" data-bs-target="#card-toggle">
                                         <i class="bi bi-caret-down-fill me-2 rot-base" id="caret-log"></i> 
