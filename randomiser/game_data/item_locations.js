@@ -275,8 +275,8 @@ function applyShowItemsSetting(treasure) {
 function writeToRom(instance, target, showItems) {
     for (var flag in instance) {
         if (!instance.hasOwnProperty(flag)) continue;
-        instance[flag].forEach((t) => {
-            var vanillaEventType = treasureMap[flag][0]['eventType'];
+        instance[flag].forEach((t, i) => {
+            var vanillaEventType = treasureMap[flag][i]['eventType'];
 
             fixEventType(t, vanillaEventType);
             if (showItems) applyShowItemsSetting(t);
