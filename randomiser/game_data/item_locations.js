@@ -280,6 +280,10 @@ function writeToRom(instance, target, showItems) {
 
             fixEventType(t, vanillaEventType);
             if (showItems) applyShowItemsSetting(t);
+            if ((t['eventType'] < 0x80 || t['eventType'] == 0x83) && t['contents'] == 0) {
+                t['contents'] = 228;
+                t['name'] = "Game Ticket";
+            }
 
             var addr = t['addr'];
             var eventType = t['eventType'];
