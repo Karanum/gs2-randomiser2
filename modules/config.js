@@ -3,8 +3,7 @@ const defaultValues = {
     "use-https": false,
     "ssl-key": "",
     "ssl-cert": "",
-    "http-port": 3000,
-    "https-port": 3001
+    "port": 3000
 };
 
 var config;
