@@ -1,7 +1,10 @@
 const express = require('express');
 const fs = require('fs');
+const http = require('http');
+const https = require('https');
 const config = require('./modules/config.js');
 const app = express();
+const redirect = express();
 const port = config.get("http-port");
 
 const versionSuffix = "1_0beta";
@@ -78,6 +81,24 @@ app.get('/spoiler_ajax', (req, res) => {
 
 app.use(express.static('public'));
 
-app.listen(port, () => {
-    console.log("Server listening on port " + port);
+redirect.get('*', (req, res) => {
+    res.redirect('https://' + req.headers.host + req.url);
 });
+
+if (config.get("use-https")) {
+    var key = fs.readFileSync('./' + config.get("ssl-key"), 'utf8');
+    var cert = fs.readFileSync('./' + config.get("ssl-cert"), 'utf8');
+
+    var server = https.createServer({key: key, cert: cert}, app);
+    var httpsPort = config.get("https-port");
+    server.listen(httpsPort);
+    console.log("Server listening on port " + httpsPort);
+
+    redirect.listen(port, () => {
+        console.log("Redirect server listening on port " + port);
+    });
+} else {
+    app.listen(port, () => {
+        console.log("Server listening on port " + port);
+    });
+}
