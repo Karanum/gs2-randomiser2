@@ -42,7 +42,7 @@ TODO:
 - Implement auto-run setting                                        DONE
 
 - Create info pages                                                 DONE
-- Implement cookies to remember randomisation settings
+- Implement cookies to remember randomisation settings              DONE
 - Ensure everything is responsive and mobile-friendly               DONE
-- Final CSS tweaks
+- Final CSS tweaks                                                  
 - Add support for HTTPS protocol

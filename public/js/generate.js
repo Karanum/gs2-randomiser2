@@ -28,6 +28,25 @@ function loadEmptyBit(num, shift = 1) {
     return (num >> shift);
 }
 
+function saveCachedSetting(elem) {
+    if (elem.type == "checkbox") {
+        localStorage.setItem(elem.id, elem.checked);
+    } else {
+        localStorage.setItem(elem.id, elem.value);
+    }
+}
+
+function loadCachedSetting(elem) {
+    var val = localStorage.getItem(elem.id);
+    if (val == null) return;
+
+    if (elem.type == "checkbox") {
+        $(elem).prop('checked', (val == "true"));
+    } else {
+        $(elem).val(val);
+    }
+}
+
 function getPresetTooltip(val) {
     switch (Number(val)) {
         case 0: return "Key Items and Djinn shuffled, starting with healing Psynergy and Revive.";
@@ -160,9 +179,11 @@ $(document).ready(() => {
     $("#btn-preset").on('click', () => {
         var val = $("#inp-preset").val();
         var preset = getPreset(val);
-        if (preset != undefined)
+        if (preset != undefined) {
             applySettings(preset);
-    })
+            $(".cache-setting").each((_, elem) => saveCachedSetting(elem));
+        }
+    });
 
     $("#tooltip-1").attr('title', "Chest and tablet sprites are replaced by the icon of the item inside.");
     $("#tooltip-2").attr('title', "Prevents utility Psynergy (Growth, Frost, etc.) from being learned by classes.");
@@ -180,5 +201,9 @@ $(document).ready(() => {
     var tooltipHolders = $(".tooltip-container");
     tooltipHolders.each((i) => new bootstrap.Tooltip(tooltipHolders[i]));
 
-    applySettings(getPreset(0));
+    var val = $("#inp-preset").val();
+    $("#p-preset").html(getPresetTooltip(val));
+
+    $(".cache-setting").each((_, elem) => loadCachedSetting(elem))
+        .on('change', (e) => saveCachedSetting(e.target));
 });
