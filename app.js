@@ -1,7 +1,8 @@
 const express = require('express');
 const fs = require('fs');
+const config = require('./modules/config.js');
 const app = express();
-const port = 3000;
+const port = config.get("http-port");
 
 const versionSuffix = "1_0beta";
 

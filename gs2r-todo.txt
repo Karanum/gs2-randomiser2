@@ -45,4 +45,4 @@ TODO:
 - Implement cookies to remember randomisation settings              DONE
 - Ensure everything is responsive and mobile-friendly               DONE
 - Final CSS tweaks                                                  
-- Add support for HTTPS protocol
+- Add support for HTTPS protocol                                    IN PROGRESS

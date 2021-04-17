@@ -3,6 +3,8 @@ node_modules/
 output_cache/
 debug/
 
+config.json
+
 *.pem
 *.crt
 *.key

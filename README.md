@@ -15,4 +15,6 @@ NodeJS is required to run this application, with v12.x or above being recommende
 Navigate to this directory with the terminal/shell of your choice and run `npm install` to install dependencies.
 Next, acquire an unmodified ROM file of Golden Sun: The Lost Age and add this to the `randomiser/rom` directory and follow the instructions in the `readme.txt` file there.
 
-The application can then be run with `node app.js`. The application will be running on port 3000.
+The application can then be run with `node app.js`. The application will be running on port 3000 by default.
+
+After running the application for the first time, the file `config.json` will be generated in this directory. This can be used to change the default port, as well as configure HTTPS for the server which allows it to accept secure connections.
