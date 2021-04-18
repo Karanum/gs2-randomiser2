@@ -81,8 +81,8 @@ app.get('/spoiler_ajax', (req, res) => {
 app.use(express.static('public'));
 
 if (config.get("use-https")) {
-    var key = fs.readFileSync('./' + config.get("ssl-key"), 'utf8');
-    var cert = fs.readFileSync('./' + config.get("ssl-cert"), 'utf8');
+    var key = fs.readFileSync(config.get("ssl-key"), 'utf8');
+    var cert = fs.readFileSync(config.get("ssl-cert"), 'utf8');
 
     var server = https.createServer({key: key, cert: cert}, app);
     server.listen(port);
