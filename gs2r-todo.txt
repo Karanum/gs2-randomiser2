@@ -44,5 +44,5 @@ TODO:
 - Create info pages                                                 DONE
 - Implement cookies to remember randomisation settings              DONE
 - Ensure everything is responsive and mobile-friendly               DONE
-- Final CSS tweaks                                                  
-- Add support for HTTPS protocol                                    IN PROGRESS
+- Final CSS tweaks                                                  DONE
+- Add support for HTTPS protocol                                    DONE (requires testing)
