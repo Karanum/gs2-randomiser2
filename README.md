@@ -4,9 +4,7 @@ Rework of the original GS:TLA randomiser, now in a handy web-based format
 Special thanks to MarvinXLII, who created the original randomiser, and Teawater and Salanewt, who have thoroughly documented the game itself.
 
 ## Info for Players
-**IMPORTANT, please read before asking questions!**
-
-The randomiser is not yet ready for normal use. By following the instructions down below it is possible to run the randomiser and generate a playable ROM. However, many features are still missing and/or incomplete. If you are looking for the full experience, please wait until the official release.
+If you're just looking to play the randomiser, you can find it over at https://gs2randomiser.com. You can report bugs and request features in the Issue Tracker: https://github.com/Karanum/gs2-randomiser2/issues. Other than that, this place is mainly for development purposes so you shouldn't have to worry about it.
 
 ## Requirements
 NodeJS is required to run this application, with v12.x or above being recommended. In addition, NPM is used to install dependencies.
