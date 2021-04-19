@@ -26,7 +26,7 @@ const itemHints = {
     "Frost Jewel": "The power to create\x03great spires of ice",
     "Grindstone": "The power to turn even\x03the hardest rock to dust",
     "Growth": "The power to promote\x03the growth of plants",
-    "Healing Mushroom": "A fungus with\x03medicinal properties",
+    "Healing Fungus": "A fungus with\x03medicinal properties",
     "Hover Jade": "The power to walk\x03upon nothing but air",
     "Lash Pebble": "The power to connect\x03with coiling rope",
     "Laughing Fungus": "Something \x09\x04extremely\x07 important",

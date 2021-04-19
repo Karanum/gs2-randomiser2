@@ -135,12 +135,7 @@ $(document).ready(() => {
             var fingerprint = data[1128] + (data[1129] << 8) + (data[1130] << 16) + (data[1131] << 24);
             if (fingerprint != 0x801319d && fingerprint != 0x8f9ee50) {
                 $("#err-rom").removeClass('d-none');
-                if (fingerprint == 0x8f9ee50) {
-                    $("#err-rom").html("MegaROMs fingerprint found. Please note that this version of the ROM may result in issues.");
-                } else {
-                    $("#err-rom").html("The selected ROM appears to be invalid. Please select another ROM file.");
-                    return;
-                }
+                $("#err-rom").html("The selected ROM appears to be invalid. Please select another ROM file.");
             }
             romData = data;
 
