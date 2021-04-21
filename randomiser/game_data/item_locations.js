@@ -258,18 +258,28 @@ function fixEventType(treasure, vanillaType) {
     treasure['eventType'] = type;
 }
 
-function applyShowItemsSetting(treasure) {
-   if (treasure['eventType'] == 0x80 || treasure['eventType'] == 0x84) {
-       treasure['eventType'] = 0x83;
-       if (treasure['contents'] == 0) {
-           treasure['contents'] = 228;
-           treasure['name'] = "Game Ticket";
-       }
-   } else if (treasure['eventType'] == 0x81) {
-       treasure['eventType'] = 0x83;
-       treasure['contents'] = 228;
-       treasure['name'] = "Game Ticket";
-   }
+function applyShowItemsSetting(treasure, setting) {
+    if (setting) {
+        if (treasure['eventType'] == 0x80 || treasure['eventType'] == 0x84) {
+            treasure['eventType'] = 0x83;
+            if (treasure['contents'] == 0) {
+                treasure['contents'] = 228;
+                treasure['name'] = "Game Ticket";
+            }
+        } else if (treasure['eventType'] == 0x81) {
+            treasure['eventType'] = 0x83;
+            treasure['contents'] = 228;
+            treasure['name'] = "Game Ticket";
+        }
+    } else {
+        if (treasure['eventType'] == 0x80 || treasure['eventType'] == 0x84) {
+            if (treasure['contents'] >= 0xE00 && treasure['contents'] <= 0xFFF) {
+                treasure['eventType'] = 0x84;
+            } else {
+                treasure['eventType'] = 0x80;
+            }
+        }
+    }
 }
 
 function writeToRom(instance, target, showItems) {
@@ -279,7 +289,7 @@ function writeToRom(instance, target, showItems) {
             var vanillaEventType = treasureMap[flag][i]['eventType'];
 
             fixEventType(t, vanillaEventType);
-            if (showItems) applyShowItemsSetting(t);
+            applyShowItemsSetting(t, showItems);
             if ((t['eventType'] < 0x80 || t['eventType'] == 0x83) && t['contents'] == 0) {
                 t['contents'] = 228;
                 t['name'] = "Game Ticket";
