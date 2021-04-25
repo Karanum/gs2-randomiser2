@@ -129,12 +129,16 @@ function insertIntoSortedArray(arr, n) {
 
 function _sortDjinn(instance, name, setId, idOffset, spliceInfo) {
     var enemySet = instance[name];
-    var addrList = [], sorted = [];
-    djinnIds[setId].forEach((id) => {
-        addrList.push(enemySet[id - idOffset].addr);
-        insertIntoSortedArray(sorted, enemySet[id - idOffset]);
+    var sorted = [];
+    enemySet.forEach((djinni) => {
+        insertIntoSortedArray(sorted, djinni);
     });
     spliceInfo.forEach((splice) => sorted.splice(splice[0], splice[1]));
+
+    var addrList = [];
+    djinnIds[setId].forEach((id) => {
+        addrList.push(enemySet[id - idOffset].addr);
+    });
 
     instance[name] = [];
     sorted.forEach((djinni, i) => {
