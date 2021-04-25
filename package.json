@@ -1,6 +1,6 @@
 {
   "name": "gs2r2",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Golden Sun TLA Randomiser2",
   "main": "app.js",
   "scripts": {
