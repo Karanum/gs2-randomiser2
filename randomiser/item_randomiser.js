@@ -223,19 +223,23 @@ class ItemRandomiser {
         weaponSlots.forEach((sphere) => {
             while (sphere.length > 0) {
                 var rand = Math.floor(this.prng.random() * sphere.length);
-                var item = this.instItemLocations[sphere.splice(rand, 1)[0]][0];
-                item['locked'] = false;
-                item['contents'] = weaponIds[weaponCount];
-                item['name'] = weaponNames[weaponCount++];
+                var itemLoc = this.instItemLocations[sphere.splice(rand, 1)[0]];
+                itemLoc.forEach((item) => {
+                    item['locked'] = false;
+                    item['contents'] = weaponIds[weaponCount];
+                    item['name'] = weaponNames[weaponCount++];
+                });
             }
         });
         armourSlots.forEach((sphere) => {
             while (sphere.length > 0) {
                 var rand = Math.floor(this.prng.random() * sphere.length);
-                var item = this.instItemLocations[sphere.splice(rand, 1)[0]][0];
-                item['locked'] = false;
-                item['contents'] = armourIds[armourCount];
-                item['name'] = armourNames[armourCount++];
+                var itemLoc = this.instItemLocations[sphere.splice(rand, 1)[0]];
+                itemLoc.forEach((item) => {
+                    item['locked'] = false;
+                    item['contents'] = armourIds[armourCount];
+                    item['name'] = armourNames[armourCount++];
+                });
             }
         });
     }
@@ -257,10 +261,12 @@ class ItemRandomiser {
         slots.forEach((sphere) => {
             while (sphere.length > 0) {
                 var rand = Math.floor(this.prng.random() * sphere.length);
-                var item = this.instItemLocations[sphere.splice(rand, 1)[0]][0];
-                item['locked'] = false;
-                item['contents'] = summonIds[count];
-                item['name'] = summonNames[count++];
+                var itemLoc = this.instItemLocations[sphere.splice(rand, 1)[0]];
+                itemLoc.forEach((item) => {
+                    item['locked'] = false;
+                    item['contents'] = summonIds[count];
+                    item['name'] = summonNames[count++];
+                });
             }
         });
     }
@@ -270,9 +276,10 @@ class ItemRandomiser {
         var count = 0;
         spheres.forEach((sphere) => {
             sphere.forEach((slot) => {
-                var item = this.instItemLocations[slot][0];
-                if (item['name'] == "Mimic")
-                    item['contents'] = count++;
+                var itemLoc = this.instItemLocations[slot];
+                if (itemLoc[0]['name'] == "Mimic") {
+                    itemLoc.forEach((item) => { item['contents'] = count++ });
+                }
             });
         });
     }
