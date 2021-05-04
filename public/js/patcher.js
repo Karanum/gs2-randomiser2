@@ -1,13 +1,13 @@
 // JavaScript UPS patcher by Snootiful
 
 class UPSPatcher {
-    /** @type {Uint8Array} */ #source;
+    /** @type {Uint8Array} */ source;
 
     /**
      * @param {Uint8Array} source Source ROM
      */
     constructor(source) {
-        this.#source = source;
+        this.source = source;
     }
 
     /**
@@ -33,7 +33,7 @@ class UPSPatcher {
         patchLength = patch.length;
 
         if (targetRom === null || targetRom === undefined)
-            target = this.#source;
+            target = this.source;
         else if (targetRom instanceof Uint8Array)
             target = targetRom;
         else
@@ -44,11 +44,9 @@ class UPSPatcher {
         patchOffset = 4;
 
         let offsetA, offsetB;
-        [sourceLength, offsetA] = this.#decode(patch, patchOffset);
-        [targetLength, offsetB] = this.#decode(patch, patchOffset + offsetA);
+        [sourceLength, offsetA] = this.decode(patch, patchOffset);
+        [targetLength, offsetB] = this.decode(patch, patchOffset + offsetA);
         patchOffset += offsetA + offsetB;
-        console.log(sourceLength);
-        console.log(targetLength);
 
         if (targetLength > sourceLength) {
             let oldTarget = target;
@@ -57,13 +55,13 @@ class UPSPatcher {
         }
 
         while (patchOffset < patchLength - 12) {
-            let [length, newOffset] = this.#decode(patch, patchOffset);
+            let [length, newOffset] = this.decode(patch, patchOffset);
             patchOffset += newOffset;
             sourceOffset += length;
             targetOffset += length;
             while (true) {
-                let patchXOR = this.#readByte(patch, patchOffset++);
-                this.#writeByte(patchXOR ^ this.#readByte(this.#source, sourceOffset++), target, targetOffset++);
+                let patchXOR = this.readByte(patch, patchOffset++);
+                this.writeByte(patchXOR ^ this.readByte(this.source, sourceOffset++), target, targetOffset++);
                 if (patchXOR === 0)
                     break;
             }
@@ -78,7 +76,7 @@ class UPSPatcher {
      * @param {Uint8Array} to The Uint8Array to write to
      * @param {number} offset Index of the Uint8Array to write to
      */
-    #writeByte(byte, to, offset) {
+    writeByte(byte, to, offset) {
         if (offset < to.length)
             to[offset] = byte;
     }
@@ -89,12 +87,12 @@ class UPSPatcher {
      * @param {number} dataOffset
      * @returns {[number, number]} 
      */
-    #decode(data, dataOffset) {
+    decode(data, dataOffset) {
         let [offset, shift] = [0, 1];
 
         let newDataOffset = dataOffset;
         while (true) {
-            let byte = this.#readByte(data, newDataOffset++);
+            let byte = this.readByte(data, newDataOffset++);
             offset += (byte & 127) * shift;
             if (byte & 128)
                 break;
@@ -114,7 +112,7 @@ class UPSPatcher {
      * @param {number} offset Index of the Uint8Array to read from
      * @returns {Byte}
      */
-    #readByte(from, offset) {
+    readByte(from, offset) {
         return (offset < from.length) ? from[offset] : 0;
     }
 }
