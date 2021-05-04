@@ -57,7 +57,11 @@
         },
         {
             "Addr": "0xfca",
-            "Reqs": []
+            "Reqs": [
+                [
+                    "Shaman's Rod"
+                ]
+            ]
         },
         {
             "Addr": "0xfcb",
