@@ -6,7 +6,7 @@ const config = require('./modules/config.js');
 const app = express();
 const port = config.get("port");
 
-const versionSuffix = "1_0_2beta";
+const versionSuffix = "1_0_3beta";
 
 console.log("Starting...");
 const randomiser = require('./randomiser/randomiser.js');
