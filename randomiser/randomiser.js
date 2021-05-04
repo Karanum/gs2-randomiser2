@@ -161,6 +161,8 @@ function randomise(seed, rawSettings, spoilerFilePath) {
             console.log("  > Settings: " + rawSettings);
             return;
         }
+    } else {
+        randomiser.shuffleItems(itemLocClone);
     }
     if (settings['equip-sort']) randomiser.sortEquipment();
     if (settings['summon-sort']) randomiser.sortSummons();

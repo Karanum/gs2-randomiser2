@@ -135,6 +135,8 @@ class ItemRandomiser {
 
     shuffleItems(instItemLocations) {
         this.instItemLocations = instItemLocations;
+        if (this.settings['item-shuffle'] == 0) return;
+
         var biasEarly = ['0x84a', '0x878', '0x105', '0x106', '0x88c', '0x9ba', '0x3', '0x8ff'];
         if (this.settings['item-shuffle'] == 1) {
             biasEarly = biasEarly.concat(['0x918', '0xf67']);
