@@ -227,8 +227,9 @@ class ItemRandomiser {
                 itemLoc.forEach((item) => {
                     item['locked'] = false;
                     item['contents'] = weaponIds[weaponCount];
-                    item['name'] = weaponNames[weaponCount++];
+                    item['name'] = weaponNames[weaponCount];
                 });
+                ++weaponCount;
             }
         });
         armourSlots.forEach((sphere) => {
@@ -238,8 +239,9 @@ class ItemRandomiser {
                 itemLoc.forEach((item) => {
                     item['locked'] = false;
                     item['contents'] = armourIds[armourCount];
-                    item['name'] = armourNames[armourCount++];
+                    item['name'] = armourNames[armourCount];
                 });
+                ++armourCount;
             }
         });
     }
@@ -265,8 +267,9 @@ class ItemRandomiser {
                 itemLoc.forEach((item) => {
                     item['locked'] = false;
                     item['contents'] = summonIds[count];
-                    item['name'] = summonNames[count++];
+                    item['name'] = summonNames[count];
                 });
+                ++count;
             }
         });
     }
@@ -278,7 +281,8 @@ class ItemRandomiser {
             sphere.forEach((slot) => {
                 var itemLoc = this.instItemLocations[slot];
                 if (itemLoc[0]['name'] == "Mimic") {
-                    itemLoc.forEach((item) => { item['contents'] = count++ });
+                    itemLoc.forEach((item) => { item['contents'] = count });
+                    ++count;
                 }
             });
         });
@@ -300,6 +304,8 @@ class ItemRandomiser {
                     sphere.push(slot);
                     checkedItems.push(slot);
                     flagSet.push(this.instItemLocations[slot][0]['name']);
+                    if (!this.instItemLocations[slot][0]['name'])
+                        console.log(this.instItemLocations[slot]);
                 }
             });
 
