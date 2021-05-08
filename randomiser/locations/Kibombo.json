@@ -21,7 +21,7 @@
                     "Piers"
                 ]
             ],
-            "Restriction": "no-summon"
+            "Restriction": ["no-summon"]
         },
         {
             "Addr": "0x106",
@@ -30,7 +30,7 @@
                     "Piers"
                 ]
             ],
-            "Restriction": "no-summon"
+            "Restriction": ["no-summon"]
         },
         {
             "Addr": "0xf4e",

@@ -11,6 +11,10 @@
                 [
                     "Boss_Serpent"
                 ]
+            ],
+            "Restriction": [
+                "no-mimic",
+                "no-empty"
             ]
         },
         {
@@ -44,6 +48,10 @@
                     "Whirlwind",
                     "Reveal"
                 ]
+            ],
+            "Restriction": [
+                "no-mimic",
+                "no-empty"
             ]
         },
         {

@@ -3,7 +3,11 @@
     "Treasure": [
         {
             "Addr": "0x878",
-            "Reqs": []
+            "Reqs": [],
+            "Restriction": [
+                "no-mimic",
+                "no-empty"
+            ]
         },
         {
             "Addr": "0xf07",

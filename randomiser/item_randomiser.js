@@ -67,27 +67,37 @@ class ItemRandomiser {
         delete this.availableItems['0x' + item['id'].toString(16)];
     }
 
-    isSlotCompatible(slot, item) {
-        if (item['isSummon']) {
-            var loc;
-            this.instLocations[0].forEach((i) => {
-                if (i.Addr == slot) {
-                    loc = i;
-                    return;
-                }
-            });
-            if (loc['Restriction'] == 'no-summon' && this.settings['item-shuffle'] > 1) return false;
+    hasRestriction(restriction, location) {
+        var loc;
+        for (var i = 0; i < this.instLocations[0].length; ++i) {
+            loc = this.instLocations[0][i];
+            if (loc.Addr == location.id) break;
         }
+        if (!loc.hasOwnProperty("Restriction")) return false;
+        if (loc['Restriction'] === restriction) return true;
+        return loc['Restriction'].includes(restriction);
+    }
 
+    isSlotCompatible(slot, item) {
         var slotItem = this.instItemLocations[slot][0];
         var isMimic = item['eventType'] == 0x81;
         var isEmpty = item['vanillaContents'] == 0;
         var isMoney = item['vanillaContents'] > 0x8000;
 
-        if (isMimic && slotItem['eventType'] != 0x80 && slotItem['eventType'] != 0x84) return false;
-        if (isEmpty && slotItem['eventType'] != 0x80 && slotItem['eventType'] != 0x84) return false;
+        if (item['isSummon']) {
+            if (this.hasRestriction('no-summon', slotItem) && this.settings['item-shuffle'] > 1) return false;
+        }
+
+        if (isMimic || isEmpty) {
+            if (slotItem['eventType'] != 0x80 && slotItem['eventType'] != 0x84) return false;
+            if (!this.settings['show-items']) {
+                if (isMimic && this.hasRestriction('no-mimic', slotItem)) return false;
+                if (isEmpty && this.hasRestriction('no-empty', slotItem)) return false;
+            }
+        }
+
         if (isMoney && slotItem['addr'] > 0xFA0000) return false;
-        if ((isMimic || isEmpty || isMoney) && (slot < 0x10 || (slot & 0xF00) == 0x100)) return false;
+        if ((isMimic || isEmpty || isMoney) && (slotItem['id'] < 0x10 || (slotItem['id'] & 0xF00) == 0x100)) return false;
         return true;
     }
 

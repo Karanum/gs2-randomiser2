@@ -4,22 +4,22 @@
         {
             "Addr": "0x1",
             "Reqs": [],
-            "Restriction": "no-summon"
+            "Restriction": ["no-summon"]
         },
         {
             "Addr": "0x2",
             "Reqs": [],
-            "Restriction": "no-summon"
+            "Restriction": ["no-summon"]
         },
         {
             "Addr": "0x3",
             "Reqs": [],
-            "Restriction": "no-summon"
+            "Restriction": ["no-summon"]
         },
         {
             "Addr": "0x4",
             "Reqs": [],
-            "Restriction": "no-summon"
+            "Restriction": ["no-summon"]
         }
     ],
     "Djinn": [],

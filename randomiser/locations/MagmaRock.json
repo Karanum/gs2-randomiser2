@@ -14,6 +14,10 @@
                     "Whirlwind",
                     "Blaze"
                 ]
+            ],
+            "Restriction": [
+                "no-empty",
+                "no-mimic"
             ]
         },
         {
@@ -23,6 +27,10 @@
                     "MagmaInterior",
                     "Whirlwind"
                 ]
+            ],
+            "Restriction": [
+                "no-empty",
+                "no-mimic"
             ]
         },
         {

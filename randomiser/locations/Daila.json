@@ -7,6 +7,10 @@
                 [
                     "Frost Jewel"
                 ]
+            ],
+            "Restriction": [
+                "no-empty",
+                "no-mimic"
             ]
         },
         {

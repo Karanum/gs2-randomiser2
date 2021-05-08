@@ -64,6 +64,9 @@
                     "Boss_AquaHydra",
                     "Parch"
                 ]
+            ],
+            "Restriction": [
+                "no-mimic"
             ]
         }
     ],

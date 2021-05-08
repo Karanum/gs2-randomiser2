@@ -13,6 +13,10 @@
                     "Sand",
                     "Red Cloth"
                 ]
+            ],
+            "Restriction": [
+                "no-empty",
+                "no-mimic"
             ]
         },
         {

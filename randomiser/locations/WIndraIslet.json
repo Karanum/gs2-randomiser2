@@ -12,6 +12,10 @@
                     "Mind Read",
                     "Milk"
                 ]
+            ],
+            "Restriction": [
+                "no-empty",
+                "no-mimic"
             ]
         },
         {

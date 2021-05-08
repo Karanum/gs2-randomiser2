@@ -7,6 +7,10 @@
                 [
                     "Boss_KingScorpion"
                 ]
+            ],
+            "Restriction": [
+                "no-empty",
+                "no-mimic"
             ]
         },
         {

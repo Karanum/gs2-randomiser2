@@ -12,6 +12,10 @@
                 [
                     "GabombaCleared"
                 ]
+            ],
+            "Restriction": [
+                "no-empty",
+                "no-mimic"
             ]
         },
         {

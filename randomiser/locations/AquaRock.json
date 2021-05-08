@@ -18,6 +18,10 @@
                     "Parch",
                     "Aquarius Stone"
                 ]
+            ],
+            "Restriction": [
+                "no-empty",
+                "no-mimic"
             ]
         },
         {
