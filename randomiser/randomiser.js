@@ -64,12 +64,16 @@ function initialise() {
     doTiming("Loading character data...", () => characterData.initialise(rom));
     doTiming("Loading enemy data...", () => enemyData.initialise(rom, textutil));
 
-    textutil.writeLine(undefined, 379, "This a-maize-ing item restores 100 HP");
     textutil.writeLine(undefined, 1504, "Starburst");
 
     // Trial Road inventory snapshotting fix
     rom[0xB10A4] = 0x8C;
     rom[0xB10A5] = 0xE0;
+
+    // Change critical boost display
+    textutil.writeLine(undefined, 4226, "Crit Rate");
+    rom[0xFBA18] = 0x9E;
+    rom[0xFBA19] = 0xBA;
 
     /*
     var decomprData = decompr.decompress(rom, 0xAB03AC, 0); // Data entry 664
