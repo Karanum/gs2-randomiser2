@@ -71,8 +71,14 @@ function initialise() {
     rom[0xB10A4] = 0x8C;
     rom[0xB10A5] = 0xE0;
 
-    //var decomprData = decompr.decompress(rom, 0xAB03AC, 0);
-    //fs.writeFileSync('./debug/decompr.txt', Buffer.from(decomprData));
+    /*
+    var decomprData = decompr.decompress(rom, 0xAB03AC, 0); // Data entry 664
+    fs.writeFileSync('./debug/decompr.txt', Buffer.from(decomprData));
+    var comprData = decompr.compressC0(decomprData);
+    fs.writeFileSync('./debug/compr.txt', Buffer.from(comprData));
+    var decompr2Data = decompr.decompress(comprData, 0, 0);
+    fs.writeFileSync('./debug/decompr2.txt', Buffer.from(decompr2Data));
+    */
 }
 
 function applyGameTicketPatch(target) {
@@ -164,6 +170,7 @@ function randomise(seed, rawSettings, spoilerFilePath) {
     } else {
         randomiser.shuffleItems(itemLocClone);
     }
+
     if (settings['equip-sort']) randomiser.sortEquipment();
     if (settings['summon-sort']) randomiser.sortSummons();
     if (!settings['boss-logic']) randomiser.sortMimics();
