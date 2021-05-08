@@ -214,7 +214,7 @@ function randomise(seed, rawSettings, spoilerFilePath) {
     enemyData.scaleBattleRewards(enemyClone, settings['scale-coins'], settings['scale-exp']);
     abilityData.setStartingPsynergy(target, settings, prng);
 
-    itemLocations.writeToRom(itemLocClone, target, settings['show-items']);
+    itemLocations.writeToRom(itemLocClone, prng, target, settings['show-items']);
     classData.writeToRom(classClone, target);
     abilityData.writeToRom(abilityClone, target);
     djinnData.writeToRom(djinnClone, target);

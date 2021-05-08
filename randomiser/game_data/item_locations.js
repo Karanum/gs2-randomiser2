@@ -52,6 +52,15 @@ const specialLocations = [
     [0x106, 0x80, 111, "Frost Jewel"]
 ];
 
+const replacePool = [
+    [180, "Herb"], [181, "Nut"], [182, "Vial"], [187, "Antidote"], [188, "Elixir"], [228, "Game Ticket"], 
+    [229, "Lucky Medal"], [238, "Oil Drop"], [239, "Weasel's Claw"], [240, "Bramble Seed"], [241, "Crystal Powder"]
+];
+const mimicPool = [
+    [228, "Game Ticket"], [229, "Lucky Medal"], [194, "Hard Nut"], [183, "Potion"], [228, "Game Ticket"],
+    [191, "Power Bread"], [186, "Psy Crystal"], [193, "Apple"], [192, "Cookie"]
+];
+
 var treasureMap = {};
 
 function loadTreasure(rom, mapId, addr) {
@@ -258,18 +267,27 @@ function fixEventType(treasure, vanillaType) {
     treasure['eventType'] = type;
 }
 
-function applyShowItemsSetting(treasure, setting) {
+function replaceMimic(treasure) {
+    var mimicId = treasure['contents'];
+    treasure['eventType'] = 0x83;
+    treasure['contents'] = mimicPool[mimicId][0];
+    treasure['name'] = mimicPool[mimicId][1] + " (Mimic)";
+}
+
+function replaceEmptyChest(prng, treasure) {
+    var random = Math.floor(prng.random() * replacePool.length);
+    treasure['eventType'] = 0x83;
+    treasure['contents'] = replacePool[random][0];
+    treasure['name'] = replacePool[random][1] + " (empty)";
+}
+
+function applyShowItemsSetting(prng, treasure, setting) {
     if (setting) {
         if (treasure['eventType'] == 0x80 || treasure['eventType'] == 0x84) {
             treasure['eventType'] = 0x83;
-            if (treasure['contents'] == 0) {
-                treasure['contents'] = 228;
-                treasure['name'] = "Game Ticket";
-            }
+            if (treasure['contents'] == 0) replaceEmptyChest(prng, treasure);
         } else if (treasure['eventType'] == 0x81) {
-            treasure['eventType'] = 0x83;
-            treasure['contents'] = 228;
-            treasure['name'] = "Game Ticket";
+            replaceMimic(treasure);
         }
     } else {
         if (treasure['eventType'] == 0x80 || treasure['eventType'] == 0x84) {
@@ -282,14 +300,14 @@ function applyShowItemsSetting(treasure, setting) {
     }
 }
 
-function writeToRom(instance, target, showItems) {
+function writeToRom(instance, prng, target, showItems) {
     for (var flag in instance) {
         if (!instance.hasOwnProperty(flag)) continue;
         instance[flag].forEach((t, i) => {
             var vanillaEventType = treasureMap[flag][i]['eventType'];
 
             fixEventType(t, vanillaEventType);
-            applyShowItemsSetting(t, showItems);
+            applyShowItemsSetting(prng, t, showItems);
             if ((t['eventType'] < 0x80 || t['eventType'] == 0x83) && t['contents'] == 0) {
                 t['contents'] = 228;
                 t['name'] = "Game Ticket";
