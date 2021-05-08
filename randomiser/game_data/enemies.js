@@ -152,6 +152,24 @@ function sortDjinn(instance) {
     _sortDjinn(instance, "Mercury Djinni", 1, 15, [[0, 4]]);
     _sortDjinn(instance, "Mars Djinni", 2, 30, [[12, 1], [0, 6]]);
     _sortDjinn(instance, "Jupiter Djinni", 3, 44, [[0, 5]]);
+    fixDjinnMovesets(instance);
+}
+
+function fixDjinnMovesets(instance) {
+    instance["Venus Djinni"].forEach((djinni) => {
+        if (djinni.hp == 255)
+            djinni.attacks = [4, 6, 9, 12, 15, 498, 1, 1];
+    });
+
+    instance["Mercury Djinni"].forEach((djinni) => {
+        if (djinni.hp == 217 || djinni.hp == 290)
+            djinni.attacks = [1, 30, 24, 33, 36, 498, 1, 1];
+    });
+
+    instance["Jupiter Djinni"].forEach((djinni) => {
+        if (djinni.hp == 191 || djinni.hp == 243)
+            djinni.attacks = [78, 69, 66, 72, 75, 498, 1, 1];
+    });
 }
 
 function scaleBattleRewards(instance, coinScale, expScale) {
