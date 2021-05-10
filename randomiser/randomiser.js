@@ -72,7 +72,7 @@ function initialise() {
 
     // Change critical boost display
     textutil.writeLine(undefined, 4226, "Crit Rate");
-    rom[0xFBA18] = 0x9E;
+    rom[0xFBA18] = 0x2C;
     rom[0xFBA19] = 0xBA;
 
     /*
