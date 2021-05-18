@@ -2,13 +2,6 @@ const locations = require('./locations.js');
 const itemLocations = require('./game_data/item_locations.js');
 const itemData = require('./game_data/items.js');
 
-const weaponIds = [301, 287, 290, 279, 309, 300, 291, 311, 283, 281, 319, 292, 26, 7, 10];
-const weaponNames = ["Themis' Axe", "Pirate's Sword", "Hypnos' Sword", "Storm Brand", "Blow Mace", "Disk Axe", "Mist Sabre",
-    "Thanatos Mace", "Cloud Brand", "Lightning Sword", "Meditation Rod", "Phaeton's Blade", "Masamune", "Fire Brand", "Sol Blade"];
-const armourIds = [340, 383, 358, 394, 333, 384, 370, 343, 378, 334, 349, 371, 366, 344, 351, 336, 388];
-const armourNames = ["Full Metal Vest", "Nurse's Cap", "Fujin Shield", "Clarity Circlet", "Ixion Mail", "Thorn Crown",
-    "Bone Armlet", "Festival Coat", "Viking Helm", "Phantasmal Mail", "Muni Robe", "Jester's Armlet",
-    "Spirit Gloves", "Erinyes Tunic", "Iris Robe", "Valkyrie Mail", "Alastor's Hood"];
 const summonIds = [3856, 3857, 3858, 3859, 3860, 3861, 3862, 3863, 3864, 3865, 3866, 3867, 3868];
 const summonNames = ["Zagan", "Megaera", "Flora", "Moloch", "Ulysses", "Haures", "Eclipse", "Coatlicue", 
     "Daedalus", "Azul", "Catastrophe", "Charon", "Iris"];
@@ -260,53 +253,6 @@ class ItemRandomiser {
                     item['locked'] = false;
                     item['contents'] = armour[armourCount];
                     item['name'] = instItems[armour[armourCount]].name;
-                });
-                ++armourCount;
-            }
-        });
-    }
-
-    sortEquipment_old(instItems) {
-        var spheres = this.getSpheres(true);
-        var weaponSlots = [];
-        var armourSlots = [];
-
-        spheres.forEach((sphere) => {
-            weaponSlots.push([]);
-            armourSlots.push([]);
-            sphere.forEach((slot) => {
-                var item = this.instItemLocations[slot][0];
-                if (item['eventType'] == 0x81) return;
-                if (weaponIds.includes(item['contents'])) {
-                    weaponSlots[weaponSlots.length - 1].push(slot);
-                }
-                if (armourIds.includes(item['contents'])) {
-                    armourSlots[armourSlots.length - 1].push(slot);
-                }
-            });
-        });
-
-        var weaponCount = 0, armourCount = 0;
-        weaponSlots.forEach((sphere) => {
-            while (sphere.length > 0) {
-                var rand = Math.floor(this.prng.random() * sphere.length);
-                var itemLoc = this.instItemLocations[sphere.splice(rand, 1)[0]];
-                itemLoc.forEach((item) => {
-                    item['locked'] = false;
-                    item['contents'] = weaponIds[weaponCount];
-                    item['name'] = weaponNames[weaponCount];
-                });
-                ++weaponCount;
-            }
-        });
-        armourSlots.forEach((sphere) => {
-            while (sphere.length > 0) {
-                var rand = Math.floor(this.prng.random() * sphere.length);
-                var itemLoc = this.instItemLocations[sphere.splice(rand, 1)[0]];
-                itemLoc.forEach((item) => {
-                    item['locked'] = false;
-                    item['contents'] = armourIds[armourCount];
-                    item['name'] = armourNames[armourCount];
                 });
                 ++armourCount;
             }
