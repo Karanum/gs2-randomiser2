@@ -175,11 +175,6 @@ function randomise(seed, rawSettings, spoilerFilePath) {
         randomiser.shuffleItems(itemLocClone);
     }
 
-    if (settings['equip-sort']) randomiser.sortEquipment();
-    if (settings['summon-sort']) randomiser.sortSummons();
-    if (!settings['boss-logic']) randomiser.sortMimics();
-    var spheres = randomiser.getSpheres();
-
     if (settings['psynergy-power']) abilityData.adjustAbilityPower(abilityClone, "Psynergy", prng);
     if (settings['psynergy-cost']) abilityData.adjustPsynergyCost(abilityClone, prng);
     if (settings['psynergy-aoe']) abilityData.randomiseAbilityRange(abilityClone, "Psynergy", prng);
@@ -211,6 +206,11 @@ function randomise(seed, rawSettings, spoilerFilePath) {
     if (settings['char-element'] == 2) characterData.shuffleElements(characterClone, prng, false);
 
     if (settings['djinn-scale']) enemyData.sortDjinn(enemyClone);
+
+    if (settings['equip-sort']) randomiser.sortEquipment(itemClone);
+    if (settings['summon-sort']) randomiser.sortSummons();
+    if (!settings['boss-logic']) randomiser.sortMimics();
+    var spheres = randomiser.getSpheres();
 
     if (settings['qol-hints']) hintSystem.writeHints(prng, textClone, spheres, itemLocClone);
     

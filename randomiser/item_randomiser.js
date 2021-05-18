@@ -1,5 +1,6 @@
 const locations = require('./locations.js');
 const itemLocations = require('./game_data/item_locations.js');
+const itemData = require('./game_data/items.js');
 
 const weaponIds = [301, 287, 290, 279, 309, 300, 291, 311, 283, 281, 319, 292, 26, 7, 10];
 const weaponNames = ["Themis' Axe", "Pirate's Sword", "Hypnos' Sword", "Storm Brand", "Blow Mace", "Disk Axe", "Mist Sabre",
@@ -209,7 +210,63 @@ class ItemRandomiser {
         }
     }
 
-    sortEquipment() {
+    sortEquipment(instItems) {
+        var spheres = this.getSpheres(true);
+        var weaponSlots = [];
+        var armourSlots = [];
+        var weapons = [];
+        var armour = [];
+
+        spheres.forEach((sphere) => {
+            weaponSlots.push([]);
+            armourSlots.push([]);
+            sphere.forEach((slot) => {
+                var item = this.instItemLocations[slot][0];
+                if (item['eventType'] == 0x81) return;
+
+                var data = instItems[item.contents];
+                if (!data || data.name.startsWith("Rusty ") || data.name == "Shaman's Rod") return;
+                if (data.itemType == 1) {
+                    weaponSlots[weaponSlots.length - 1].push(slot);
+                    weapons.push(item.contents);
+                } else if (data.itemType >= 2 && data.itemType <= 4) {
+                    armourSlots[armourSlots.length - 1].push(slot);
+                    armour.push(item.contents);
+                }
+            });
+        });
+
+        weapons = itemData.sortWeaponArray(instItems, weapons);
+        armour = itemData.sortArmourArray(instItems, armour);
+
+        var weaponCount = 0, armourCount = 0;
+        weaponSlots.forEach((sphere) => {
+            while (sphere.length > 0) {
+                var rand = Math.floor(this.prng.random() * sphere.length);
+                var itemLoc = this.instItemLocations[sphere.splice(rand, 1)[0]];
+                itemLoc.forEach((item) => {
+                    item['locked'] = false;
+                    item['contents'] = weapons[weaponCount];
+                    item['name'] = instItems[weapons[weaponCount]].name;
+                });
+                ++weaponCount;
+            }
+        });
+        armourSlots.forEach((sphere) => {
+            while (sphere.length > 0) {
+                var rand = Math.floor(this.prng.random() * sphere.length);
+                var itemLoc = this.instItemLocations[sphere.splice(rand, 1)[0]];
+                itemLoc.forEach((item) => {
+                    item['locked'] = false;
+                    item['contents'] = armour[armourCount];
+                    item['name'] = instItems[armour[armourCount]].name;
+                });
+                ++armourCount;
+            }
+        });
+    }
+
+    sortEquipment_old(instItems) {
         var spheres = this.getSpheres(true);
         var weaponSlots = [];
         var armourSlots = [];
