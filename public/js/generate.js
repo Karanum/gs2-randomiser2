@@ -58,6 +58,7 @@ function getPresetTooltip(val) {
         case 6: return "The same as Intermediate, but with basic skips required.";
         case 7: return "The same as Hard, but with all skips required.";
         case 8: return "Everything is turned on. Good luck.";
+        case 9: return "The official GS:TLA Randomiser race preset. Check our Discord for more information.";
     }
     return "?"
 }
@@ -73,6 +74,7 @@ function getPreset(val) {
         case 6: return [175, 156, 201, 80, 79, 50, 8, 17, 5];
         case 7: return [159, 255, 239, 170, 151, 50, 40, 17, 5];
         case 8: return [207, 255, 255, 175, 151, 190, 40, 17, 5];
+        case 9: return [159, 175, 238, 152, 79, 130, 24, 49, 18];
     }
     return undefined;
 }
