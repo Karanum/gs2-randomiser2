@@ -117,6 +117,45 @@ function prepItemLocations(locations, settings) {
         });
     }
 
+    if (settings['dummy-items']) {
+        locations['0xfb0'].forEach((t) => {
+            t['vanillaContents'] = 401;
+            t['vanillaName'] = "Casual Shirt";
+        });
+        locations['0xfb2'].forEach((t) => {
+            t['vanillaContents'] = 411;
+            t['vanillaName'] = "Aroma Ring";
+        });
+        locations['0xfb4'].forEach((t) => {
+            t['vanillaContents'] = 407;
+            t['vanillaName'] = "Ninja Sandals";
+        });
+        locations['0xfcf'].forEach((t) => {
+            t['vanillaContents'] = 399;
+            t['vanillaName'] = "Herbed Shirt";
+        });
+        locations['0xfd0'].forEach((t) => {
+            t['vanillaContents'] = 405;
+            t['vanillaName'] = "Knight's Greave";
+        });
+        locations['0xfd1'].forEach((t) => {
+            t['vanillaContents'] = 412;
+            t['vanillaName'] = "Rainbow Ring";
+        });
+        locations['0xfd4'].forEach((t) => {
+            t['vanillaContents'] = 398;
+            t['vanillaName'] = "Divine Camisole";
+        });
+        locations['0xfd5'].forEach((t) => {
+            t['vanillaContents'] = 406;
+            t['vanillaName'] = "Silver Greave";
+        });
+        locations['0xfd7'].forEach((t) => {
+            t['vanillaContents'] = 413;
+            t['vanillaName'] = "Soul Ring";
+        });
+    }
+
     for (var flag in locations) {
         if (!locations.hasOwnProperty(flag)) continue;
 
