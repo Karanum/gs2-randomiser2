@@ -88,7 +88,7 @@ function randomiseCompatibility(instance, prng) {
         if (!instance.hasOwnProperty(id)) continue;
         var item = instance[id];
 
-        if (item.itemType == 0 || item.itemType >= 5) return;
+        if (item.itemType == 0 || item.itemType >= 5) continue;
         item.equipCompat = (Math.floor(prng.random() * 15 + 1) << 4) + Math.floor(prng.random() * 15 + 1);
     }
 }
@@ -98,7 +98,7 @@ function adjustEquipPrices(instance, prng) {
         if (!instance.hasOwnProperty(id)) continue;
         var item = instance[id];
 
-        if (item.cost == 0 || item.equipCompat == 0) return;
+        if (item.cost == 0 || item.equipCompat == 0) continue;
         var cost = Math.round(item.cost * (prng.random() * 0.4 + 0.8));
         item.cost = Math.min(0xFFFF, cost);
     }
@@ -110,7 +110,7 @@ function adjustStats(instance, prng) {
         var item = instance[id];
 
         if (item.itemType == 1) {
-            if (item.attack == 0) return;
+            if (item.attack == 0) continue;
             
             var attackChange = Math.round(item.attack * (prng.random() - 0.5));
             var vanillaAttack = item.attack;
@@ -119,7 +119,7 @@ function adjustStats(instance, prng) {
         } else if (isArmour(item.itemType)) {
             if (item.attack > 0)
                 item.attack = Math.floor(prng.random() * 19 + 2);
-            if (item.defense == 0) return;
+            if (item.defense == 0) continue;
 
             var defenseChange = Math.round(item.defense * (prng.random() - 0.5));
             var vanillaDefense = item.defense;
@@ -137,7 +137,7 @@ function shuffleWeaponEffects(instance, prng) {
         if (!instance.hasOwnProperty(id)) continue;
         var item = instance[id];
     
-        if (item.itemType != 1) return;
+        if (item.itemType != 1) continue;
         eligible.push(item);
         propertyList.push([item.unleashId, item.unleashRate, item.useType, item.element,
                         item.useEffect, item.equipEffects, item.desc.split(': ')[1]]);
@@ -168,7 +168,7 @@ function shuffleArmourEffects(instance, prng) {
         if (!instance.hasOwnProperty(id)) continue;
         var item = instance[id];
 
-        if (!isArmour(item.itemType)) return;
+        if (!isArmour(item.itemType)) continue;
         eligible.push(item);
         propertyList.push([item.useType, item.useEffect, item.equipEffects, item.attack, item.desc.split(': ')[1]]);
         item.desc = item.desc.split(': ')[0];
@@ -196,7 +196,7 @@ function shuffleCurses(instance, prng) {
         if (!instance.hasOwnProperty(id)) continue;
         var item = instance[id];
 
-        if (item.itemType != 1 && !isArmour(item.itemType)) return;
+        if (item.itemType != 1 && !isArmour(item.itemType)) continue;
         eligible.push(item);
 
         if (item.flags & 0x1) item.flags &= 0xFC;
@@ -208,7 +208,7 @@ function shuffleCurses(instance, prng) {
         var item = eligible.splice(rand, 1)[0];
 
         item.flags |= 0x3;
-        item.desc = ((item.desc.length > 30) ? "C. " : "Cursed ") + item.desc;
+        item.desc = ((item.desc.length > 30) ? "Cr " : "Cursed ") + item.desc;
     }
 }
 
