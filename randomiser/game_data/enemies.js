@@ -66,6 +66,13 @@ function initialise(rom, textutil) {
     enemyData["Mercury Djinni"].forEach((djinni) => loadFullEnemyData(rom, djinni));
     enemyData["Mars Djinni"].forEach((djinni) => loadFullEnemyData(rom, djinni));
     enemyData["Jupiter Djinni"].forEach((djinni) => loadFullEnemyData(rom, djinni));
+
+    var phoenixLine = [enemyData["Phoenix"][0], enemyData["Fire Bird"][0], enemyData["Wonder Bird"][0]];
+    phoenixLine.forEach((phoenix) => {
+        loadFullEnemyData(rom, phoenix);
+        phoenix.drop = 229;
+        phoenix.dropRate = 1;
+    });
 }
 
 function clone() {
