@@ -361,23 +361,33 @@ function getRandomStat(prng, elemValue) {
 
 function randomiseStats(instance, prng) {
     instance.forEach((classLine) => {
-        var statBlock = [];
-        for (var i = 0; i < 6; ++i) {
-            var statLine = [];
-            for (var j = 0; j < classLine.classes.length; ++j) {
-                var elemValue = 0;
-                classLine.elements[j].forEach((elem) => elemValue += elem);
-                elemValue = Math.min(9, Math.max(0, elemValue - 5));
+        var minElemValue = 0;
+        var maxElemValue = 0;
+        var luck = classLine.stats[0][5];
 
-                var stat = Math.max(getRandomStat(prng, elemValue), getRandomStat(prng, elemValue));
-                insertIntoSortedArray(statLine, Math.floor(stat));
-            }
-            statBlock.push(statLine);
+        classLine.elements[0].forEach((elem) => minElemValue += elem);
+        classLine.elements[classLine.elements.length - 1].forEach((elem) => maxElemValue += elem);
+        if (minElemValue == 0) {
+            minElemValue = 2;
         }
 
-        for (var i = 0; i < classLine.classes.length; ++i) {
-            classLine.stats[i] = [statBlock[0][i], statBlock[1][i], statBlock[2][i],
-                statBlock[3][i], statBlock[4][i], statBlock[5][i]];
+        for (var i = 0; i < 6; ++i) {
+            var minStat = getRandomStat(prng, minElemValue);
+            var maxStat = Math.max(getRandomStat(prng, maxElemValue), getRandomStat(prng, maxElemValue));
+            if (minStat > maxStat) {
+                var s = minStat;
+                minStat = maxStat;
+                maxStat = s;
+            }
+            if (i == 5) {
+                minStat = (luck + minStat) / 2;
+                maxStat = (luck + minStat + (maxStat - minStat) / 2) / 2;
+            }
+            
+            var step = (maxStat - minStat) / classLine.classes.length;
+            for (var j = 0; j < classLine.classes.length; ++j) {
+                classLine.stats[j][i] = Math.floor(minStat + j * step);
+            }
         }
     });
 }
