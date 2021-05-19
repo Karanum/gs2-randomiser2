@@ -170,7 +170,14 @@ function shuffleArmourEffects(instance, prng) {
 
         if (!isArmour(item.itemType)) continue;
         eligible.push(item);
-        propertyList.push([item.useType, item.useEffect, item.equipEffects, item.attack, item.desc.split(': ')[1]]);
+
+        var defMod = 0;
+        if (item.itemType >= 5) {
+            defMod = item.defense;
+            item.defense = 0;
+        }
+
+        propertyList.push([item.useType, item.useEffect, item.equipEffects, item.attack, defMod, item.desc.split(': ')[1]]);
         item.desc = item.desc.split(': ')[0];
     }
 
@@ -181,8 +188,9 @@ function shuffleArmourEffects(instance, prng) {
         item.useEffect = properties[1];
         item.equipEffects = properties[2];
         item.attack = properties[3];
+        item.defense += properties[4];
 
-        var desc = properties[4];
+        var desc = properties[5];
         if (desc != undefined)
             item.desc += ": " + desc;
     });
