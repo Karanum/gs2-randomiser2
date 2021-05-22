@@ -16,6 +16,7 @@ const abilityData = require('./game_data/abilities.js');
 const djinnData = require('./game_data/djinn.js');
 const summonData = require('./game_data/summons.js');
 const itemData = require('./game_data/items.js');
+const shopData = require('./game_data/shops.js');
 const characterData = require('./game_data/characters.js');
 const enemyData = require('./game_data/enemies.js');
 
@@ -61,6 +62,7 @@ function initialise() {
     doTiming("Loading Djinn data...", () => djinnData.initialise(rom, textutil));
     doTiming("Loading summon data...", () => summonData.initialise(rom));
     doTiming("Loading item data...", () => itemData.initialise(rom));
+    doTiming("Loading shop data...", () => shopData.initialise(rom));
     doTiming("Loading character data...", () => characterData.initialise(rom));
     doTiming("Loading enemy data...", () => enemyData.initialise(rom, textutil));
 
@@ -124,6 +126,7 @@ function randomise(seed, rawSettings, spoilerFilePath) {
     var djinnClone = djinnData.clone();
     var summonClone = summonData.clone();
     var itemClone = itemData.clone();
+    var shopClone = shopData.clone();
     var characterClone = characterData.clone();
     var enemyClone = enemyData.clone();
 
@@ -224,6 +227,7 @@ function randomise(seed, rawSettings, spoilerFilePath) {
     djinnData.writeToRom(djinnClone, target);
     summonData.writeToRom(summonClone, target);
     itemData.writeToRom(itemClone, target, textClone);
+    shopData.writeToRom(shopClone, target);
     characterData.writeToRom(characterClone, target);
     enemyData.writeToRom(enemyClone, target);
 

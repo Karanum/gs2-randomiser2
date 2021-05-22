@@ -1,6 +1,7 @@
 inp-item-shuffle	2b	AA .. .. ..
 inp-omit			2b	.. AA .. ..
 inp-gs1-items		1b	.. .. A. ..
+inp-dummy-items     1b  .G .. .. ..
 inp-show-items		1b	.. .. .A ..
 inp-no-learning		1b	.. .. .. A.
 
