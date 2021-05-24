@@ -1,4 +1,5 @@
 const addrOffset = 0x10C3F2;
+const itemData = require('./items.js');
 
 var shopData = [];
 
@@ -38,4 +39,32 @@ function clone() {
     return JSON.parse(JSON.stringify(shopData));
 }
 
-module.exports = {initialise, writeToRom, clone};
+function getAllEquipmentArtifacts(instance, instItems) {
+    var equipment = [];
+    instance.forEach((shop) => {
+        shop.artifacts.forEach((item) => {
+            if (item == 0) return;
+
+            var data = instItems[item];
+            if (data.itemType == 1 || itemData.isArmour(data.itemType))
+                equipment.push(item);
+        });
+    });
+    return equipment;
+}
+
+function shuffleEquipmentArtifacts(instance, instItems, prng, equipment) {
+    instance.forEach((shop) => {
+        for (var i = 0; i < shop.artifacts.length; ++i) {
+            if (shop.artifacts[i] == 0) continue;
+
+            var data = instItems[shop.artifacts[i]];
+            if (data.itemType == 1 || itemData.isArmour(data.itemType)) {
+                var rand = Math.floor(prng.random() * equipment.length);
+                shop.artifacts[i] = equipment.splice(rand, 1)[0];
+            }
+        }
+    });
+}
+
+module.exports = {initialise, writeToRom, clone, getAllEquipmentArtifacts, shuffleEquipmentArtifacts};

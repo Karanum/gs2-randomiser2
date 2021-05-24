@@ -1,4 +1,5 @@
 const addrOffset = 0x10CC34;
+const itemData = require('./items.js');
 
 const forgeData = {};
 
@@ -34,4 +35,31 @@ function writeToRom(instance, rom) {
     }
 }
 
-module.exports = {initialise, clone, writeToRom};
+function getAllEquipment(instance, instItems) {
+    var equipment = [];
+    for (var item in instance) {
+        if (!instance.hasOwnProperty(item)) continue;
+        var results = instance[item].results;
+        for (var i = 0; i < results.length; ++i) {
+            if (results[i] == 0) continue;
+            var data = instItems[results[i]];
+            if (data.itemType == 1 || itemData.isArmour(data.itemType))
+                equipment.push(results[i]);
+        }
+    }
+    return equipment;
+}
+
+function shuffleEquipment(instance, prng, equipment) {
+    for (var item in instance) {
+        if (!instance.hasOwnProperty(item)) continue;
+        var results = instance[item].results;
+        for (var i = 0; i < results.length; ++i) {
+            if (results[i] == 0) continue;
+            var rand = Math.floor(prng.random() * equipment.length);
+            results[i] = equipment.splice(rand, 1)[0];
+        }
+    }
+}
+
+module.exports = {initialise, clone, writeToRom, getAllEquipment, shuffleEquipment};

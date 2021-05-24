@@ -213,6 +213,8 @@ function randomise(seed, rawSettings, spoilerFilePath) {
 
     if (settings['djinn-scale']) enemyData.sortDjinn(enemyClone);
 
+    if (settings['adv-equip']) randomiser.shuffleEquipmentAdvanced(prng, itemClone, shopClone, forgeClone);
+
     if (settings['equip-sort']) randomiser.sortEquipment(itemClone);
     if (settings['summon-sort']) randomiser.sortSummons();
     if (!settings['boss-logic']) randomiser.sortMimics();

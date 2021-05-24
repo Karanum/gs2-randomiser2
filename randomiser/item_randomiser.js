@@ -1,6 +1,8 @@
 const locations = require('./locations.js');
 const itemLocations = require('./game_data/item_locations.js');
 const itemData = require('./game_data/items.js');
+const shopData = require('./game_data/shops.js');
+const forgeData = require('./game_data/forgeables.js');
 
 const summonIds = [3856, 3857, 3858, 3859, 3860, 3861, 3862, 3863, 3864, 3865, 3866, 3867, 3868];
 const summonNames = ["Zagan", "Megaera", "Flora", "Moloch", "Ulysses", "Haures", "Eclipse", "Coatlicue", 
@@ -201,6 +203,41 @@ class ItemRandomiser {
             this.randomFill(this.availableItems[flag]);
             this.updateAccessibleItems();
         }
+    }
+
+    shuffleEquipmentAdvanced(prng, instItems, instShops, instForge) {
+        var equipmentSlots = [];
+        var equipment = [];
+
+        for (var slot in this.instItemLocations) {
+            if (!this.instItemLocations.hasOwnProperty(slot)) continue;
+
+            var item = this.instItemLocations[slot][0];
+            if (item['eventType'] == 0x81) continue;
+
+            var data = instItems[item.contents];
+            if (!data || data.name.startsWith("Rusty ") || data.name == "Shaman's Rod") continue;
+            if (data.itemType == 1 || itemData.isArmour(data.itemType)) {
+                equipmentSlots.push(slot);
+                equipment.push(item.contents);
+            }
+        }
+
+        equipment = equipment.concat(forgeData.getAllEquipment(instForge, instItems))
+            .concat(shopData.getAllEquipmentArtifacts(instShops, instItems));
+
+        equipmentSlots.forEach((slot) => {
+            var rand = Math.floor(prng.random() * equipment.length);
+            var item = equipment.splice(rand, 1)[0];
+            this.instItemLocations[slot].forEach((loc) => {
+                loc['locked'] = false;
+                loc['contents'] = item;
+                loc['name'] = instItems[item].name;
+            });
+        });
+
+        forgeData.shuffleEquipment(instForge, prng, equipment);
+        shopData.shuffleEquipmentArtifacts(instShops, instItems, prng, equipment);
     }
 
     sortEquipment(instItems) {
