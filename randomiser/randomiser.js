@@ -239,7 +239,8 @@ function randomise(seed, rawSettings, spoilerFilePath) {
 
     textutil.writeToRom(textClone, target);
 
-    spoilerLog.generate(spoilerFilePath, spheres, itemLocClone, djinnClone);
+    spoilerLog.generate(spoilerFilePath, settings, spheres, itemLocClone, djinnClone, characterClone,
+        classClone, shopClone, forgeClone, itemClone);
     return ups.createPatch(vanillaRom, target);
 }
 

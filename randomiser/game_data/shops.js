@@ -67,4 +67,14 @@ function shuffleEquipmentArtifacts(instance, instItems, prng, equipment) {
     });
 }
 
-module.exports = {initialise, writeToRom, clone, getAllEquipmentArtifacts, shuffleEquipmentArtifacts};
+function hasEquipmentArtifact(artifacts, instItems) {
+    for (var i = 0; i < artifacts.length; ++i) {
+        if (artifacts[i] == 0) continue;
+        var data = instItems[artifacts[i]];
+        if (data.itemType == 1 || itemData.isArmour(data.itemType))
+            return true;
+    }
+    return false;
+}
+
+module.exports = {initialise, writeToRom, clone, getAllEquipmentArtifacts, shuffleEquipmentArtifacts, hasEquipmentArtifact};
