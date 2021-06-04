@@ -9,6 +9,7 @@ const settingsParser = require('./settings.js');
 const itemRandomiser = require('./item_randomiser.js');
 const spoilerLog = require('./spoiler_log.js');
 const hintSystem = require('./hint_system.js');
+const credits = require('./credits.js');
 
 const itemLocations = require('./game_data/item_locations.js');
 const classData = require('./game_data/classes.js');
@@ -46,15 +47,14 @@ function initialise() {
         upsRandomiser = fs.readFileSync("./randomiser/ups/randomiser_general.ups");
         upsCutsceneSkip = fs.readFileSync("./randomiser/ups/cutscene_skip.ups");
         upsDjinnScaling = fs.readFileSync("./randomiser/ups/djinn_scaling.ups");
-        upsCredits = fs.readFileSync("./randomiser/ups/credits.ups");
     });
 
     doTiming("Applying innate UPS patches...", () => {
         rom = ups.applyPatch(rom, upsAvoid);
         rom = ups.applyPatch(rom, upsTeleport);
         rom = ups.applyPatch(rom, upsRandomiser);
-        rom = ups.applyPatch(rom, upsCredits);
-    })
+    });
+    credits.writeToRom(rom);
 
     doTiming("Decoding text data...", () => textutil.initialise(rom));
     doTiming("Loading item location data...", () => itemLocations.initialise(rom, textutil));
