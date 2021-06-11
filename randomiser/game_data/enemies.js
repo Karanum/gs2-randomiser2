@@ -14,20 +14,30 @@ const djinnIds = [
 
 var enemyData = {};
 
-function loadFullEnemyData(rom, enemy) {
+function loadBasicEnemyData(rom, enemy) {
     var addr = enemy.addr;
-    enemy.full = true;
-
-    enemy.level = rom[addr];
+    enemy.full = false;
     enemy.hp = rom[addr + 1] + (rom[addr + 2] << 8);
     enemy.pp = rom[addr + 3] + (rom[addr + 4] << 8);
     enemy.attack = rom[addr + 5] + (rom[addr + 6] << 8);
     enemy.defense = rom[addr + 7] + (rom[addr + 8] << 8);
     enemy.agility = rom[addr + 9] + (rom[addr + 10] << 8);
     enemy.luck = rom[addr + 11];
-    enemy.turnCount = rom[addr + 12];
     enemy.hpRegen = rom[addr + 13];
     enemy.ppRegen = rom[addr + 14];
+
+    enemy.coins = rom[addr + 51] + (rom[addr + 52] << 8);
+    enemy.drop = rom[addr + 53] + (rom[addr + 54] << 8);
+    enemy.dropRate = rom[addr + 55];
+    enemy.exp = rom[addr + 57] + (rom[addr + 58] << 8);
+}
+
+function loadFullEnemyData(rom, enemy) {
+    var addr = enemy.addr;
+    enemy.full = true;
+
+    enemy.level = rom[addr];
+    enemy.turnCount = rom[addr + 12];
 
     enemy.items = [], enemy.attacks = [], enemy.unknowns = [];
     for (var i = 0; i < 4; ++i) {
@@ -39,12 +49,9 @@ function loadFullEnemyData(rom, enemy) {
         enemy.attacks.push(rom[addr + 33 + 4 * i] + (rom[addr + 34 + 4 * i] << 8));
         enemy.unknowns.push(rom[addr + 47 + i]);
     }
-
     enemy.attackEffect = rom[addr + 28];
     enemy.attackPattern = rom[addr + 29];
     enemy.attackFlags = rom[addr + 30];
-    enemy.drop = rom[addr + 53] + (rom[addr + 54] << 8);
-    enemy.dropRate = rom[addr + 55];
 }
 
 function initialise(rom, textutil) {
@@ -54,12 +61,11 @@ function initialise(rom, textutil) {
         if (name == '?') continue;
 
         var addr = addrOffset + 76 * (line - textStart - 1);
-        var coins = rom[addr + 51] + (rom[addr + 52] << 8);
-        var exp = rom[addr + 57] + (rom[addr + 58] << 8);
-
+        var data = {name: name, id: (line - textStart), addr: addr};
+        loadBasicEnemyData(rom, data);
         if (!enemyData.hasOwnProperty(name))
             enemyData[name] = [];
-        enemyData[name].push({full: false, id: (line - textStart), addr: addr, coins: coins, exp: exp});
+        enemyData[name].push(data);
     }
 
     enemyData["Venus Djinni"].forEach((djinni) => loadFullEnemyData(rom, djinni));
@@ -69,7 +75,6 @@ function initialise(rom, textutil) {
 
     var phoenixLine = [enemyData["Phoenix"][0], enemyData["Fire Bird"][0], enemyData["Wonder Bird"][0]];
     phoenixLine.forEach((phoenix) => {
-        loadFullEnemyData(rom, phoenix);
         phoenix.drop = 229;
         phoenix.dropRate = 1;
     });
@@ -84,16 +89,11 @@ function writeUint16(rom, addr, value) {
     rom[addr + 1] = (value >> 8);
 }
 
-function writeFullEnemyData(rom, enemy) {
+function writeEnemyData(rom, enemy) {
     var addr = enemy.addr;
-    rom[addr] = enemy.level;
     rom[addr + 11] = enemy.luck;
-    rom[addr + 12] = enemy.turnCount;
     rom[addr + 13] = enemy.hpRegen;
     rom[addr + 14] = enemy.ppRegen;
-    rom[addr + 28] = enemy.attackEffect;
-    rom[addr + 29] = enemy.attackPattern;
-    rom[addr + 30] = enemy.attackFlags;
     rom[addr + 55] = enemy.dropRate;
 
     writeUint16(rom, addr + 1, enemy.hp);
@@ -101,14 +101,24 @@ function writeFullEnemyData(rom, enemy) {
     writeUint16(rom, addr + 5, enemy.attack);
     writeUint16(rom, addr + 7, enemy.defense);
     writeUint16(rom, addr + 9, enemy.agility);
+    writeUint16(rom, addr + 51, enemy.coins);
     writeUint16(rom, addr + 53, enemy.drop);
+    writeUint16(rom, addr + 57, enemy.exp);
 
-    for (var i = 0; i < 4; ++i) {
-        writeUint16(rom, addr + 15 + 2 * i, enemy.items[i][0]);
-        writeUint16(rom, addr + 31 + 4 * i, enemy.attacks[2 * i]);
-        writeUint16(rom, addr + 33 + 4 * i, enemy.attacks[2 * i + 1]);
-        rom[addr + 23 + i] = enemy.items[i][1];
-        rom[addr + 47 + i] = enemy.unknowns[i];
+    if(enemy.full) {
+        rom[addr] = enemy.level;
+        rom[addr + 12] = enemy.turnCount;
+        rom[addr + 28] = enemy.attackEffect;
+        rom[addr + 29] = enemy.attackPattern;
+        rom[addr + 30] = enemy.attackFlags;
+
+        for (var i = 0; i < 4; ++i) {
+            writeUint16(rom, addr + 15 + 2 * i, enemy.items[i][0]);
+            writeUint16(rom, addr + 31 + 4 * i, enemy.attacks[2 * i]);
+            writeUint16(rom, addr + 33 + 4 * i, enemy.attacks[2 * i + 1]);
+            rom[addr + 23 + i] = enemy.items[i][1];
+            rom[addr + 47 + i] = enemy.unknowns[i];
+        }
     }
 }
 
@@ -116,10 +126,7 @@ function writeToRom(instance, rom) {
     for (var enemyName in instance) {
         if (!instance.hasOwnProperty(enemyName)) continue;
         instance[enemyName].forEach((enemy) => {
-            var addr = enemy.addr;
-            writeUint16(rom, addr + 51, enemy.coins);
-            writeUint16(rom, addr + 57, enemy.exp);
-            if (enemy.full) writeFullEnemyData(rom, enemy);
+            writeEnemyData(rom, enemy);
         });
     }
 }

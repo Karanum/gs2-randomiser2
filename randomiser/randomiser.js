@@ -21,6 +21,7 @@ const shopData = require('./game_data/shops.js');
 const forgeData = require('./game_data/forgeables.js');
 const characterData = require('./game_data/characters.js');
 const enemyData = require('./game_data/enemies.js');
+const elementData = require('./game_data/elem_tables.js');
 
 const cutsceneSkipFlags = [0xf22, 0x890, 0x891, 0x892, 0x893, 0x894, 0x895, 0x896, 0x848, 0x86c, 0x86d, 0x86e, 0x86f,
         0x916, 0x844, 0x863, 0x864, 0x865, 0x867, 0x872, 0x873, 0x84b, 0x91b, 0x91c, 0x91d, 0x8b2, 0x8b3, 0x8b4,
@@ -67,6 +68,7 @@ function initialise() {
     doTiming("Loading forgeable data...", () => forgeData.initialise(rom));
     doTiming("Loading character data...", () => characterData.initialise(rom));
     doTiming("Loading enemy data...", () => enemyData.initialise(rom, textutil));
+    doTiming("Loading elemental tables...", () => elementData.initialise(rom));
 
     textutil.writeLine(undefined, 1504, "Starburst");
 
