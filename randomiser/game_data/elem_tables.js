@@ -64,4 +64,4 @@ function randomiseResistances(prng, instance) {
     });
 }
 
-module.exports = {initialise, clone, writeToRom};
+module.exports = {initialise, clone, writeToRom, shuffleResistances, randomiseResistances};

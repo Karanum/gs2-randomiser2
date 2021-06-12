@@ -134,6 +134,7 @@ function randomise(seed, rawSettings, spoilerFilePath) {
     var forgeClone = forgeData.clone();
     var characterClone = characterData.clone();
     var enemyClone = enemyData.clone();
+    var elementClone = elementData.clone();
 
     itemLocations.prepItemLocations(itemLocClone, settings);
 
@@ -214,6 +215,8 @@ function randomise(seed, rawSettings, spoilerFilePath) {
     if (settings['char-element'] == 2) characterData.shuffleElements(characterClone, prng, false);
 
     if (settings['djinn-scale']) enemyData.sortDjinn(enemyClone);
+    if (settings['enemy-eres'] == 1) elementData.shuffleResistances(elementClone);
+    if (settings['enemy-eres'] == 2) elementData.randomiseResistances(elementClone);
 
     if (settings['adv-equip']) randomiser.shuffleEquipmentAdvanced(prng, itemClone, shopClone, forgeClone);
 
@@ -238,6 +241,7 @@ function randomise(seed, rawSettings, spoilerFilePath) {
     forgeData.writeToRom(forgeClone, target);
     characterData.writeToRom(characterClone, target);
     enemyData.writeToRom(enemyClone, target);
+    elementData.writeToRom(elementClone, target);
 
     textutil.writeToRom(textClone, target);
 
