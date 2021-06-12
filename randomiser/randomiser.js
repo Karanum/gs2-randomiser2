@@ -215,8 +215,8 @@ function randomise(seed, rawSettings, spoilerFilePath) {
     if (settings['char-element'] == 2) characterData.shuffleElements(characterClone, prng, false);
 
     if (settings['djinn-scale']) enemyData.sortDjinn(enemyClone);
-    if (settings['enemy-eres'] == 1) elementData.shuffleResistances(elementClone);
-    if (settings['enemy-eres'] == 2) elementData.randomiseResistances(elementClone);
+    if (settings['enemy-eres'] == 1) elementData.shuffleResistances(elementClone, prng);
+    if (settings['enemy-eres'] == 2) elementData.randomiseResistances(elementClone, prng);
 
     if (settings['adv-equip']) randomiser.shuffleEquipmentAdvanced(prng, itemClone, shopClone, forgeClone);
 

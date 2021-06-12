@@ -36,7 +36,7 @@ function writeToRom(instance, rom) {
     });
 }
 
-function shuffleResistances(prng, instance) {
+function shuffleResistances(instance, prng) {
     instance.forEach((table) => {
         var oldRes = table.elemRes;
         table.elemRes = [];
@@ -46,15 +46,16 @@ function shuffleResistances(prng, instance) {
     });
 }
 
-function randomiseResistances(prng, instance) {
+function randomiseResistances(instance, prng) {
     instance.forEach((table) => {
         var totalRes = 0;
         var newRes = [];
         table.elemRes.forEach((res) => {totalRes += res});
         while (newRes.length < 4) {
             var res = totalRes;
-            if (newRes.length != 4)
-                res = Math.floor(Math.max(totalRes / 4, prng.random() * totalRes * 0.5));
+            if (newRes.length != 3)
+                res = Math.floor(Math.max(totalRes / 3, prng.random() * totalRes * 0.5));
+            res = Math.min(res, 200);
             totalRes -= res;
             newRes.push(res);
         }
