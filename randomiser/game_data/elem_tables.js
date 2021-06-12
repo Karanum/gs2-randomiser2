@@ -46,4 +46,22 @@ function shuffleResistances(prng, instance) {
     });
 }
 
+function randomiseResistances(prng, instance) {
+    instance.forEach((table) => {
+        var totalRes = 0;
+        var newRes = [];
+        table.elemRes.forEach((res) => {totalRes += res});
+        while (newRes.length < 4) {
+            var res = totalRes;
+            if (newRes.length != 4)
+                res = Math.floor(Math.max(totalRes / 4, prng.random() * totalRes * 0.5));
+            totalRes -= res;
+            newRes.push(res);
+        }
+        for (var i = 0; i < 4; ++i) {
+            table.elemRes[i] = newRes.splice(Math.floor(prng.random() * newRes.length), 1)[0];
+        }
+    });
+}
+
 module.exports = {initialise, clone, writeToRom};

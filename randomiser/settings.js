@@ -58,7 +58,9 @@ function parse(settings) {
         'scale-exp': settings[7] >> 4,
         'scale-coins': settings[7] & 0b1111,
 
-        'start-levels': settings[8]
+        'start-levels': settings[8],
+
+        'enemy-eres': settings[9] >> 6
     };
 }
 

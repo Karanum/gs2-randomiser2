@@ -36,6 +36,8 @@ inp-enemypsy-aoe	1b	.. .. .. .D
 inp-char-stats		2b	DD .. .. ..
 inp-char-element	2b	.. DD .. ..
 
+inp-enemy-eres      2b  JJ .. .. ..
+
 
 inp-skips-basic		1b	.. F. .. ..
 inp-skips-oob-easy	1b	.. .F .. ..
