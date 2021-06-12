@@ -121,213 +121,250 @@
                         <div class="card mt-3">
                             <h5 class="card-header">Randomisation</h5>
                             <div class="card-body"> 
-                                <div class="row">
-                                    <div class="col-12 col-lg-6">
-                                        <div class="input-group mb-3">
-                                            <label class="input-group-text">Item Shuffle</label>
-                                            <select class="form-select cache-setting" id="inp-item-shuffle">
-                                                <option value='0'>Vanilla</option>
-                                                <option value='1' selected>Key Items Only</option>
-                                                <option value='2'>All Chest/Tablet Items</option>
-                                                <option value='3'>All Items</option>
-                                            </select>
-                                        </div>
-                                    </div> 
+                                <ul class="nav nav-tabs" id="tabs-randomisation">
+                                    <li class="nav-item">
+                                        <button class="nav-link active" id="tab-items" data-bs-toggle="tab" data-bs-target="#tabdiv-items">Items</button>
+                                    </li>
+                                    <li class="nav-item">
+                                        <button class="nav-link" id="tab-djinn" data-bs-toggle="tab" data-bs-target="#tabdiv-djinn">Djinn/Summons</button>
+                                    </li>
+                                    <li class="nav-item">
+                                        <button class="nav-link" id="tab-psy" data-bs-toggle="tab" data-bs-target="#tabdiv-psy">Psynergy</button>
+                                    </li>
+                                    <li class="nav-item">
+                                        <button class="nav-link" id="tab-stats" data-bs-toggle="tab" data-bs-target="#tabdiv-stats">Stats</button>
+                                    </li>
+                                </ul>
+                                <div class="tab-content mt-4">
+                                    <div class="tab-pane fade show active" id="tabdiv-items">
+                                        <div class="row">
+                                            <div class="col-12 col-lg-6">
+                                                <div class="input-group mb-3">
+                                                    <label class="input-group-text">Item Shuffle</label>
+                                                    <select class="form-select cache-setting" id="inp-item-shuffle">
+                                                        <option value='0'>Vanilla</option>
+                                                        <option value='1' selected>Key Items Only</option>
+                                                        <option value='2'>All Chest/Tablet Items</option>
+                                                        <option value='3'>All Items</option>
+                                                    </select>
+                                                </div>
+                                            </div> 
+        
+                                            <div class="col-12 col-lg-6">
+                                                <div class="input-group mb-3">
+                                                    <label class="input-group-text">Omit Locations</label>
+                                                    <select class="form-select cache-setting" id="inp-omit">
+                                                        <option value='0'>No omission</option>
+                                                        <option value='1'>Omit Anemos Inner Sanctum</option>
+                                                        <option value='2' selected>Omit superbosses + Inner Sanctum</option>
+                                                    </select>
+                                                </div>
+                                            </div> 
+        
+                                            <div class="col-12 col-lg-6">
+                                                <div class="form-check form-switch mb-2">
+                                                    <input class="form-check-input cache-setting" type="checkbox" id="inp-gs1-items">
+                                                    <label class="form-check-label">Add Elven Shirt and Cleric's Ring</label>
+                                                </div>
+                                                <div class="form-check form-switch mb-2">
+                                                    <input class="form-check-input cache-setting" type="checkbox" id="inp-dummy-items">
+                                                    <label class="form-check-label">Add normally unobtainable equipment</label>
+                                                </div>
+                                                <div class="form-check form-switch mb-2">
+                                                    <input class="form-check-input cache-setting" type="checkbox" id="inp-adv-equip">
+                                                    <label class="form-check-label">Shuffle shop artifact and forgeable equipment</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-lg-6">
+                                                <div class="form-check form-switch mb-2">
+                                                    <input class="form-check-input cache-setting" type="checkbox" id="inp-show-items" checked>
+                                                    <label class="form-check-label">Show items outside chest <span class="tooltip-container" id="tooltip-1"><i class="bi bi-question-circle-fill"></i></span></label>                            
+                                                </div>
+                                                <div class="form-check form-switch mb-3">
+                                                    <input class="form-check-input cache-setting" type="checkbox" id="inp-no-learning" checked>
+                                                    <label class="form-check-label">Utility Psynergy from items only <span class="tooltip-container" id="tooltip-2"><i class="bi bi-question-circle-fill"></i></span></label>
+                                                </div>
+                                            </div>
 
-                                    <div class="col-12 col-lg-6">
-                                        <div class="input-group mb-3">
-                                            <label class="input-group-text">Omit Locations</label>
-                                            <select class="form-select cache-setting" id="inp-omit">
-                                                <option value='0'>No omission</option>
-                                                <option value='1'>Omit Anemos Inner Sanctum</option>
-                                                <option value='2' selected>Omit superbosses + Inner Sanctum</option>
-                                            </select>
-                                        </div>
-                                    </div> 
+                                            <hr class="mt-1 mb-3">
 
-                                    <div class="col-12 col-lg-6">
-                                        <div class="form-check form-switch mb-2">
-                                            <input class="form-check-input cache-setting" type="checkbox" id="inp-gs1-items">
-                                            <label class="form-check-label">Add Elven Shirt and Cleric's Ring</label>
-                                        </div>
-                                        <div class="form-check form-switch mb-2">
-                                            <input class="form-check-input cache-setting" type="checkbox" id="inp-dummy-items">
-                                            <label class="form-check-label">Add normally unobtainable equipment</label>
-                                        </div>
-                                        <div class="form-check form-switch mb-2">
-                                            <input class="form-check-input cache-setting" type="checkbox" id="inp-adv-equip">
-                                            <label class="form-check-label">Shuffle shop artifact and forgeable equipment</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-lg-6">
-                                        <div class="form-check form-switch mb-2">
-                                            <input class="form-check-input cache-setting" type="checkbox" id="inp-show-items" checked>
-                                            <label class="form-check-label">Show items outside chest <span class="tooltip-container" id="tooltip-1"><i class="bi bi-question-circle-fill"></i></span></label>                            
-                                        </div>
-                                        <div class="form-check form-switch mb-3">
-                                            <input class="form-check-input cache-setting" type="checkbox" id="inp-no-learning" checked>
-                                            <label class="form-check-label">Utility Psynergy from items only <span class="tooltip-container" id="tooltip-2"><i class="bi bi-question-circle-fill"></i></span></label>
-                                        </div>
-                                    </div>
+                                            <div class="col-12 col-lg-6">
+                                                <div class="form-check form-switch mb-2">
+                                                    <input class="form-check-input cache-setting" type="checkbox" id="inp-equip-shuffle">
+                                                    <label class="form-check-label">Randomise equipment compatibility</label>
+                                                </div>
+                                                <div class="form-check form-switch mb-2">
+                                                    <input class="form-check-input cache-setting" type="checkbox" id="inp-equip-stats">
+                                                    <label class="form-check-label">Randomise equipment stats</label>
+                                                </div>
+                                                <div class="form-check form-switch mb-2">
+                                                    <input class="form-check-input cache-setting" type="checkbox" id="inp-equip-cost">
+                                                    <label class="form-check-label">Adjust equipment prices</label>
+                                                </div>
+                                                <div class="form-check form-switch mb-3">
+                                                    <input class="form-check-input cache-setting" type="checkbox" id="inp-equip-sort" checked>
+                                                    <label class="form-check-label">Bias equipment by stats <span class="tooltip-container" id="tooltip-3"><i class="bi bi-question-circle-fill"></i></span></label>
+                                                </div>
+                                            </div>
 
-                                    <hr class="mt-1 mb-3">
-
-                                    <div class="col-12 col-lg-6">
-                                        <div class="form-check form-switch mb-2">
-                                            <input class="form-check-input cache-setting" type="checkbox" id="inp-equip-shuffle">
-                                            <label class="form-check-label">Randomise equipment compatibility</label>
-                                        </div>
-                                        <div class="form-check form-switch mb-2">
-                                            <input class="form-check-input cache-setting" type="checkbox" id="inp-equip-stats">
-                                            <label class="form-check-label">Randomise equipment stats</label>
-                                        </div>
-                                        <div class="form-check form-switch mb-2">
-                                            <input class="form-check-input cache-setting" type="checkbox" id="inp-equip-cost">
-                                            <label class="form-check-label">Adjust equipment prices</label>
-                                        </div>
-                                        <div class="form-check form-switch mb-3">
-                                            <input class="form-check-input cache-setting" type="checkbox" id="inp-equip-sort" checked>
-                                            <label class="form-check-label">Bias equipment by stats <span class="tooltip-container" id="tooltip-3"><i class="bi bi-question-circle-fill"></i></span></label>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-12 col-lg-6">
-                                        <div class="form-check form-switch mb-2">
-                                            <input class="form-check-input cache-setting" type="checkbox" id="inp-equip-unleash">
-                                            <label class="form-check-label">Shuffle weapon effects</label>
-                                        </div>
-                                        <div class="form-check form-switch mb-2">
-                                            <input class="form-check-input cache-setting" type="checkbox" id="inp-equip-effect">
-                                            <label class="form-check-label">Shuffle armour effects</label>
-                                        </div>
-                                        <div class="form-check form-switch mb-3">
-                                            <input class="form-check-input cache-setting" type="checkbox" id="inp-equip-curse">
-                                            <label class="form-check-label">Randomise curses</label>
-                                        </div>
-                                    </div>
-
-                                    <hr class="mt-1 mb-3">
-
-                                    <div class="col-12 col-lg-6">
-                                        <div class="form-check form-switch mb-2">
-                                            <input class="form-check-input cache-setting" type="checkbox" id="inp-djinn-shuffle" checked>
-                                            <label class="form-check-label">Shuffle Djinn</label>
-                                        </div>
-                                        <div class="form-check form-switch mb-2">
-                                            <input class="form-check-input cache-setting" type="checkbox" id="inp-djinn-stats">
-                                            <label class="form-check-label">Shuffle Djinni stat boosts</label>
-                                        </div>
-                                        <div class="form-check form-switch mb-2">
-                                            <input class="form-check-input cache-setting" type="checkbox" id="inp-djinn-power">
-                                            <label class="form-check-label">Adjust Djinni attack power</label>
-                                        </div>
-                                        <div class="form-check form-switch mb-2">
-                                            <input class="form-check-input cache-setting" type="checkbox" id="inp-djinn-aoe">
-                                            <label class="form-check-label">Randomise Djinni attack AoE</label>
-                                        </div>
-                                        <div class="form-check form-switch mb-3">
-                                            <input class="form-check-input cache-setting" type="checkbox" id="inp-djinn-scale" checked>
-                                            <label class="form-check-label">Scale Djinni battle difficulty <span class="tooltip-container" id="tooltip-4"><i class="bi bi-question-circle-fill"></i></span></label>
+                                            <div class="col-12 col-lg-6">
+                                                <div class="form-check form-switch mb-2">
+                                                    <input class="form-check-input cache-setting" type="checkbox" id="inp-equip-unleash">
+                                                    <label class="form-check-label">Shuffle weapon effects</label>
+                                                </div>
+                                                <div class="form-check form-switch mb-2">
+                                                    <input class="form-check-input cache-setting" type="checkbox" id="inp-equip-effect">
+                                                    <label class="form-check-label">Shuffle armour effects</label>
+                                                </div>
+                                                <div class="form-check form-switch mb-3">
+                                                    <input class="form-check-input cache-setting" type="checkbox" id="inp-equip-curse">
+                                                    <label class="form-check-label">Randomise curses</label>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
 
-                                    <div class="col-12 col-lg-6">
-                                        <div class="form-check form-switch mb-2">
-                                            <input class="form-check-input cache-setting" type="checkbox" id="inp-summon-cost">
-                                            <label class="form-check-label">Randomise summon costs</label>
-                                        </div>
-                                        <div class="form-check form-switch mb-2">
-                                            <input class="form-check-input cache-setting" type="checkbox" id="inp-summon-power">
-                                            <label class="form-check-label">Adjust summon power</label>
-                                        </div>
-                                        <div class="form-check form-switch mb-3">
-                                            <input class="form-check-input cache-setting" type="checkbox" id="inp-summon-sort" checked>
-                                            <label class="form-check-label">Bias summon tablets by cost <span class="tooltip-container" id="tooltip-5"><i class="bi bi-question-circle-fill"></i></span></label>
-                                        </div>
-                                    </div>
-
-                                    <hr class="mt-1 mb-3">
-
-                                    <div class="col-12 col-lg-6">
-                                        <div class="input-group mb-3">
-                                            <label class="input-group-text">Class Psynergy</label>
-                                            <select class="form-select cache-setting" id="inp-class-psynergy">
-                                                <option value='0' selected>Vanilla</option>
-                                                <option value='1'>Randomise by classline</option>
-                                                <option value='2'>Randomise by Psynergy group</option>
-                                                <option value='3'>Randomise by Psynergy element</option>
-                                                <option value='4'>Fully randomised</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-12 col-lg-6">
-                                        <div class="input-group mb-3">
-                                            <label class="input-group-text">Psynergy Levels</label>
-                                            <select class="form-select cache-setting" id="inp-class-levels">
-                                                <option value='0' selected>Vanilla</option>
-                                                <option value='1'>Adjust learning levels</option>
-                                                <option value='2'>Randomise learning levels</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-12 col-lg-6">
-                                        <div class="form-check form-switch mb-3">
-                                            <input class="form-check-input cache-setting" type="checkbox" id="inp-class-stats">
-                                            <label class="form-check-label">Randomise class stat boosts</label>
+                                    <div class="tab-pane fade" id="tabdiv-djinn">
+                                        <div class="row">
+                                            <div class="col-12 col-lg-6">
+                                                <div class="form-check form-switch mb-2">
+                                                    <input class="form-check-input cache-setting" type="checkbox" id="inp-djinn-shuffle" checked>
+                                                    <label class="form-check-label">Shuffle Djinn</label>
+                                                </div>
+                                                <div class="form-check form-switch mb-2">
+                                                    <input class="form-check-input cache-setting" type="checkbox" id="inp-djinn-stats">
+                                                    <label class="form-check-label">Shuffle Djinni stat boosts</label>
+                                                </div>
+                                                <div class="form-check form-switch mb-2">
+                                                    <input class="form-check-input cache-setting" type="checkbox" id="inp-djinn-power">
+                                                    <label class="form-check-label">Adjust Djinni attack power</label>
+                                                </div>
+                                                <div class="form-check form-switch mb-2">
+                                                    <input class="form-check-input cache-setting" type="checkbox" id="inp-djinn-aoe">
+                                                    <label class="form-check-label">Randomise Djinni attack AoE</label>
+                                                </div>
+                                                <div class="form-check form-switch mb-3">
+                                                    <input class="form-check-input cache-setting" type="checkbox" id="inp-djinn-scale" checked>
+                                                    <label class="form-check-label">Scale Djinni battle difficulty <span class="tooltip-container" id="tooltip-4"><i class="bi bi-question-circle-fill"></i></span></label>
+                                                </div>
+                                            </div>
+        
+                                            <div class="col-12 col-lg-6">
+                                                <div class="form-check form-switch mb-2">
+                                                    <input class="form-check-input cache-setting" type="checkbox" id="inp-summon-cost">
+                                                    <label class="form-check-label">Randomise summon costs</label>
+                                                </div>
+                                                <div class="form-check form-switch mb-2">
+                                                    <input class="form-check-input cache-setting" type="checkbox" id="inp-summon-power">
+                                                    <label class="form-check-label">Adjust summon power</label>
+                                                </div>
+                                                <div class="form-check form-switch mb-3">
+                                                    <input class="form-check-input cache-setting" type="checkbox" id="inp-summon-sort" checked>
+                                                    <label class="form-check-label">Bias summon tablets by cost <span class="tooltip-container" id="tooltip-5"><i class="bi bi-question-circle-fill"></i></span></label>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
 
-                                    <hr class="mt-1 mb-3">
+                                    <div class="tab-pane fade" id="tabdiv-psy">
+                                        <div class="row">
+                                            <div class="col-12 col-lg-6">
+                                                <div class="input-group mb-3">
+                                                    <label class="input-group-text">Class Psynergy</label>
+                                                    <select class="form-select cache-setting" id="inp-class-psynergy">
+                                                        <option value='0' selected>Vanilla</option>
+                                                        <option value='1'>Randomise by classline</option>
+                                                        <option value='2'>Randomise by Psynergy group</option>
+                                                        <option value='3'>Randomise by Psynergy element</option>
+                                                        <option value='4'>Fully randomised</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+        
+                                            <div class="col-12 col-lg-6">
+                                                <div class="input-group mb-3">
+                                                    <label class="input-group-text">Psynergy Levels</label>
+                                                    <select class="form-select cache-setting" id="inp-class-levels">
+                                                        <option value='0' selected>Vanilla</option>
+                                                        <option value='1'>Adjust learning levels</option>
+                                                        <option value='2'>Randomise learning levels</option>
+                                                    </select>
+                                                </div>
+                                            </div>
 
-                                    <div class="col-12 col-lg-6">
-                                        <div class="form-check form-switch mb-2">
-                                            <input class="form-check-input cache-setting" type="checkbox" id="inp-psynergy-power">
-                                            <label class="form-check-label">Adjust Psynergy power</label>
-                                        </div>
-                                        <div class="form-check form-switch mb-2">
-                                            <input class="form-check-input cache-setting" type="checkbox" id="inp-psynergy-cost">
-                                            <label class="form-check-label">Adjust Psynergy PP cost</label>
-                                        </div>
-                                        <div class="form-check form-switch mb-3">
-                                            <input class="form-check-input cache-setting" type="checkbox" id="inp-psynergy-aoe">
-                                            <label class="form-check-label">Randomise Psynergy AoE</label>
+                                            <hr class="mt-1 mb-3">
+
+                                            <div class="col-12 col-lg-6">
+                                                <div class="form-check form-switch mb-2">
+                                                    <input class="form-check-input cache-setting" type="checkbox" id="inp-psynergy-power">
+                                                    <label class="form-check-label">Adjust Psynergy power</label>
+                                                </div>
+                                                <div class="form-check form-switch mb-2">
+                                                    <input class="form-check-input cache-setting" type="checkbox" id="inp-psynergy-cost">
+                                                    <label class="form-check-label">Adjust Psynergy PP cost</label>
+                                                </div>
+                                                <div class="form-check form-switch mb-3">
+                                                    <input class="form-check-input cache-setting" type="checkbox" id="inp-psynergy-aoe">
+                                                    <label class="form-check-label">Randomise Psynergy AoE</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-12 col-lg-6">
+                                                <div class="form-check form-switch mb-2">
+                                                    <input class="form-check-input cache-setting" type="checkbox" id="inp-enemypsy-power">
+                                                    <label class="form-check-label">Adjust enemy Psynergy power</label>
+                                                </div>
+                                                <div class="form-check form-switch mb-3">
+                                                    <input class="form-check-input cache-setting" type="checkbox" id="inp-enemypsy-aoe">
+                                                    <label class="form-check-label">Randomise enemy Psynergy AoE</label>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
 
-                                    <div class="col-12 col-lg-6">
-                                        <div class="form-check form-switch mb-2">
-                                            <input class="form-check-input cache-setting" type="checkbox" id="inp-enemypsy-power">
-                                            <label class="form-check-label">Adjust enemy Psynergy power</label>
-                                        </div>
-                                        <div class="form-check form-switch mb-3">
-                                            <input class="form-check-input cache-setting" type="checkbox" id="inp-enemypsy-aoe">
-                                            <label class="form-check-label">Randomise enemy Psynergy AoE</label>
-                                        </div>
-                                    </div>
+                                    <div class="tab-pane fade" id="tabdiv-stats">
+                                        <div class="row">
+                                            <div class="col-12 col-lg-6">
+                                                <div class="input-group mb-3">
+                                                    <label class="input-group-text">Character Stats</label>
+                                                    <select class="form-select cache-setting" id="inp-char-stats">
+                                                        <option value='0' selected>Vanilla</option>
+                                                        <option value='1'>Shuffle character stats</option>
+                                                        <option value='2'>Adjust character stats</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+        
+                                            <div class="col-12 col-lg-6">
+                                                <div class="input-group mb-3">
+                                                    <label class="input-group-text">Character Elements</label>
+                                                    <select class="form-select cache-setting" id="inp-char-element">
+                                                        <option value='0' selected>Vanilla</option>
+                                                        <option value='1'>Shuffle character elements</option>
+                                                        <option value='2'>Randomise character elements</option>
+                                                    </select>
+                                                </div>
+                                            </div>
 
-                                    <hr class="mt-1 mb-3">
+                                            <div class="col-12 col-lg-6">
+                                                <div class="input-group mb-3">
+                                                    <label class="input-group-text">Enemy Stats</label>
+                                                    <select class="form-select cache-setting" id="inp-enemy-eres">
+                                                        <option value='0' selected>Vanilla</option>
+                                                        <option value='1'>Shuffle enemy eRes tables</option>
+                                                        <option value='2'>Randomise enemy eRes tables</option>
+                                                    </select>
+                                                </div>
+                                            </div>
 
-                                    <div class="col-12 col-lg-6">
-                                        <div class="input-group mb-3">
-                                            <label class="input-group-text">Character Stats</label>
-                                            <select class="form-select cache-setting" id="inp-char-stats">
-                                                <option value='0' selected>Vanilla</option>
-                                                <option value='1'>Shuffle character stats</option>
-                                                <option value='2'>Adjust character stats</option>
-                                            </select>
-                                        </div>
-                                    </div>
+                                            <hr class="mt-1 mb-3">
 
-                                    <div class="col-12 col-lg-6">
-                                        <div class="input-group mb-3">
-                                            <label class="input-group-text">Character Elements</label>
-                                            <select class="form-select cache-setting" id="inp-char-element">
-                                                <option value='0' selected>Vanilla</option>
-                                                <option value='1'>Shuffle character elements</option>
-                                                <option value='2'>Randomise character elements</option>
-                                            </select>
+                                            <div class="col-12 col-lg-6">
+                                                <div class="form-check form-switch mb-3">
+                                                    <input class="form-check-input cache-setting" type="checkbox" id="inp-class-stats">
+                                                    <label class="form-check-label">Randomise class stat boosts</label>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

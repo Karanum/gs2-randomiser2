@@ -80,7 +80,7 @@ function getPreset(val) {
 }
 
 function applySettings(arr) {
-    if (arr.length != 9) {
+    if (arr.length != 10) {
         console.error("Settings array is not the correct length.");
         return;
     }
@@ -106,7 +106,7 @@ function applySettings(arr) {
 }
 
 function getSettingsArray() {
-    var arr = new Uint8Array(9);
+    var arr = new Uint8Array(10);
 
     arr[0] = appendCheckedState(appendValue(appendValue(0, 'item-shuffle', 2), 'omit', 2),
         ['gs1-items', 'show-items', 'no-learning', 'class-stats']);

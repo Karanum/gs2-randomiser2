@@ -17,7 +17,7 @@ if (!fs.existsSync('./output_cache/')) {
 }
 
 function parseSettings(str) {
-    var array = new Uint8Array(9);
+    var array = new Uint8Array(10);
     str = str.padEnd(array.length * 2, '0');
 
     for (var i = 0; i < array.length; ++i) {
