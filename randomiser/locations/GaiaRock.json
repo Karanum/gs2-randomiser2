@@ -58,8 +58,7 @@
             "Addr": "0xf75",
             "Reqs": [
                 [
-                    "Whirlwind",
-                    "Reveal"
+                    "Whirlwind"
                 ]
             ]
         },
