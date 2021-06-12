@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html prefix="og: https://ogp.me/ns#">
+<head>
+    <link rel="stylesheet" href="/css/common.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css">
+
+    <meta property="og:title" content="Version History">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://gs2randomiser.com/changelog.html">
+    <meta property="og:image" content="https://gs2randomiser.com/img/gstlar-logo.webp">
+    <meta property="og:site_name" content="Golden Sun: The Lost Age Randomiser">
+
+    <meta charset="UTF-8">
+    <meta name="theme-color" content="#fad860">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/img/favicon.webp">
+    <title>GS2 Randomiser</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg sticky-top navbar-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/"><img class="nav-logo" src="/img/gstlar-logo.webp"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navContent">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navContent">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="/">Generate Seed</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Help</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/help.html">Settings Info</a></li>
+                            <li><a class="dropdown-item" href="/tips.html">Useful Tips</a></li>
+                            <li><a class="dropdown-item" href="/changelog.html">Version History</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="navbar-nav ms-auto">
+                    <a class="nav-link float-end" href="https://discord.com/invite/QWwxrmN"><i class="bi bi-discord"></i> Discord</a>
+                    <a class="nav-link float-end" href="https://github.com/Karanum/gs2-randomiser2"><i class="bi bi-github"></i> GitHub</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container-fluid">
+        <div class="row mt-3 mx-lg-5">
+            <div class="col-12 mx-lg-3 mb-2">
+                <center>
+                    <a href="/"><img class="logo" src="/img/gstlar-logo.webp"></a>
+                </center>
+            </div>
+
+            <div class="col-12 mb-4 px-lg-5">
+                <div class="card mt-4">
+                    <h4 class="card-header">1.1 Versions</h4>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col my-3">
+                                <h3 class="mb-0">v1.1.0</h3> 
+                                <span>(unreleased)</span>
+                                <ul class="mt-3">
+                                    <li>Added advanced equipment shuffling (adds shop artifacts and forge results into the pool)</li>
+                                    <li>Added settings for enemy elemental resistance shuffling and randomisation</li>
+                                    <li>Added a changelog page to the website (this one!)</li>
+                                    <li>Expanded the spoiler log with character stats, class stats, and shop/forge items</li>
+                                    <li>Reworked the randomisation web page so settings are behind tabs and more compact</li>
+                                    <li>Reverted previous randomiser changes to Retreat points, meaning Retreat from interior dungeons works like vanilla again</li>
+                                    <li>Fixed djinn distribution not capping out at 9 Djinn per character</li>
+                                    <li>Fixed a minor logic issue in Gaia Rock</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card mt-4">
+                    <h4 class="card-header">1.0 Versions</h4>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col my-3">
+                                <h3 class="mb-0">v1.0.6-beta</h3> 
+                                <span>May 24th, 2021</span>
+                                <ul class="mt-3">
+                                    <li>Fixed a logic issue with basic skips enabled in Shrine of the Sea God</li>
+                                    <li>Fixed defense boosts on rings, boots and shirts not being shuffled</li>
+                                </ul>
+                            </div>
+
+                            <hr>
+                            <div class="col my-3">
+                                <h3 class="mb-0">v1.0.5-beta</h3> 
+                                <span>May 18th, 2021</span>
+                                <ul class="mt-3">
+                                    <li>Added a setting to include unobtainable equipment (some shirts, boots and rings) in the item pool</li>
+                                    <li>Added a new preset to the website: Official Race Ruleset</li>
+                                    <li>Changed the way class stats are generated so they increase linearly within a class line</li>
+                                    <li>Changed the way equipment is sorted so it takes adjusted stats into consideration</li>
+                                    <li>Made Lucky Medals renewable by having the Phoenix enemy line drop them</li>
+                                </ul>
+                            </div>
+
+                            <hr>
+                            <div class="col my-3">
+                                <h3 class="mb-0">v1.0.4-beta</h3> 
+                                <span>May 8th, 2021</span>
+                                <ul class="mt-3">
+                                    <li>Added more variety to what empty chests can get changed into when items are displayed outside chests (Herbs, Elixirs, etc. instead of everything being Game Tickets)</li>
+                                    <li>In addition, Mimics will now get changed to whatever their loot drop is</li>
+                                    <li>Changed the spoiler log to show if an item was originally a Mimic or an empty chest</li>
+                                    <li>Changed how critical/unleash modifiers are displayed in the item details window so it shows the exact boost</li>
+                                    <li>Fixed Mimics and empty chests appearing in certain locations where they would cause issues</li>
+                                    <li>Fixed attack modifiers from secondary armour effects not being shuffled</li>
+                                    <li>Fixed movesets for some Djinni fights when using Djinni scaling, early-game fights should be better now</li>
+                                    <li>Fixed the Patch ROM button not working in Firefox</li>
+                                </ul>
+                            </div>
+
+                            <hr>
+                            <div class="col my-3">
+                                <h3 class="mb-0">v1.0.3-beta</h3> 
+                                <span>May 4th, 2021</span>
+                                <ul class="mt-3">
+                                    <li>Fixed fatal randomiser crash when trying to sort equipment with a vanilla item shuffle</li>
+                                    <li>Fixed equipment, mimic and summon tablet sorting not working correctly in some locations</li>
+                                    <li>Fixed logic issue where the hidden item in Moapa's basement did not require the Shaman's Rod</li>
+                                </ul>
+                            </div>
+
+                            <hr>
+                            <div class="col my-3">
+                                <h3 class="mb-0">v1.0.2-beta</h3> 
+                                <span>April 25th, 2021</span>
+                                <ul class="mt-3">
+                                    <li>Fixed Djinn scaling being incorrect, causing strange difficulty spikes</li>
+                                </ul>
+                            </div>
+
+                            <hr>
+                            <div class="col my-3">
+                                <h3 class="mb-0">v1.0.1-beta</h3> 
+                                <span>April 21st, 2021</span>
+                                <ul class="mt-3">
+                                    <li>Removed MegaROMs warning as it does not seem to cause issues</li>
+                                    <li>Fixed Healing Fungus hint message not being shown</li>
+                                    <li>Fixed summon tablet locations not being replaced with chests for non-summon, non-Psynergy items</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
