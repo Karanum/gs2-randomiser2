@@ -1,8 +1,8 @@
 const textutil = require ('./textutil.js');
 
 const multiHints = {
-    "Alhafra": "in a port city struck\x03by disaster",
-    "Cliffs": "on the cliffs that\x03divide the land",
+    "Alhafra": "in a port city\x03ruled through schemes",
+    "Cliffs": "on cliffs that\x03divide the land",
     "Eastern Sea": "on an island in\x03the Eastern Sea",
     "Gabomba": "within the bowels\x03of a revered statue",
     "Key": "A key item",
