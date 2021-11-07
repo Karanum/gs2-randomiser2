@@ -37,7 +37,7 @@ function writeToRom(target) {
     target[0x1A0F61] = 0x34;
 
     writeString(target, 0x1A3000, "GS2 RANDOMISER");
-    writeString(target, 0x1A300F, "Version 1.0.6");
+    writeString(target, 0x1A300F, "Version 1.1.1");
     writeString(target, 0x1A3020, "Development");
     writeString(target, 0x1A302C, "Original Randomiser");
     writeString(target, 0x1A3040, "Special Thanks");
