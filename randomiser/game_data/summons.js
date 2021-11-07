@@ -36,21 +36,31 @@ function getPrimaryElementalValue(elemValue, prng) {
 }
 
 function randomiseCost(instance, abilityData, prng) {
+    var elements = [0, 1, 2, 3];
     instance.forEach((summon, i) => {
-        var elemValue = summon.cost[0] + summon.cost[1] + summon.cost[2] + summon.cost[3];
-        var majorElemValue = getPrimaryElementalValue(elemValue, prng);
-        var minorElemValue = elemValue - majorElemValue;
-        var majorElement = Math.floor(prng.random() * 4);
-        var minorElement = majorElement;
-        while (minorElement == majorElement)
-            minorElement = Math.floor(prng.random() * 4);
-
         var cost = [0, 0, 0, 0];
-        cost[majorElement] = majorElemValue;
-        cost[minorElement] = minorElemValue;
+        var elemValue = summon.cost[0] + summon.cost[1] + summon.cost[2] + summon.cost[3];
+        if (elemValue > 1) {
+            var majorElemValue = getPrimaryElementalValue(elemValue, prng);
+            var minorElemValue = elemValue - majorElemValue;
+            var majorElement = Math.floor(prng.random() * 4);
+            var minorElement = majorElement;
+            while (minorElement == majorElement)
+                minorElement = Math.floor(prng.random() * 4);
 
-        summon.cost = cost;
-        abilityData[summonIds[i]].element = majorElement;
+            cost[majorElement] = majorElemValue;
+            cost[minorElement] = minorElemValue;
+
+            summon.cost = cost;
+            abilityData[summonIds[i]].element = majorElement;
+        } else {
+            if (elements.length == 0) return;
+            var element = elements.splice(Math.floor(prng.random() * elements.length), 1)[0];
+
+            cost[element] = 1;
+            summon.cost = cost;
+            abilityData[summonIds[i]].element = element;
+        }
     });
 }
 
