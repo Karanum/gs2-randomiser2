@@ -13,7 +13,7 @@ const shopNames = ["n/a", "Daila Weapon Shop", "Daila Armour Shop", "Daila Item 
     "Contigo Weapon Shop", "Contigo Armour Shop", "Contigo Item Shop", "Shaman General Shop", "Loho General Shop", "Prox General Shop"];
 
 
-function generate(filepath, settings, spheres, itemLocs, djinn, characters, classes, shops, forgeables, itemData) {
+function generate(filepath, settings, spheres, itemLocs, djinn, characters, classes, shops, forgeables, itemData, callback) {
     var fileStream = fs.createWriteStream(filepath);
     
     writeSpheres(fileStream, spheres, itemLocs);
@@ -26,7 +26,7 @@ function generate(filepath, settings, spheres, itemLocs, djinn, characters, clas
     }
     writeAllItems(fileStream, itemLocs);
 
-    fileStream.close();
+    fileStream.close(callback);
 }
 
 function writeSpheres(fileStream, spheres, itemLocs) {

@@ -47,11 +47,12 @@ app.get('/randomise_ajax', (req, res) => {
             res.send(data);
         } else {
             try {
-                var patch = randomiser.randomise(seed, parseSettings(settings), filename + ".log");
-                fs.writeFile(filename + ".ups", patch, (err) => { 
-                    if (err) console.log(err); 
+                randomiser.randomise(seed, parseSettings(settings), filename + ".log", (patch) => {
+                    fs.writeFile(filename + ".ups", patch, (err) => { 
+                        if (err) console.log(err); 
+                    });
+                    res.send(Buffer.from(patch));
                 });
-                res.send(Buffer.from(patch));
             } catch (error) {
                 console.log("=== RANDOMISATION ERROR ===");
                 console.log(`Parameters: settings=${settings}; seed=${seed}`);

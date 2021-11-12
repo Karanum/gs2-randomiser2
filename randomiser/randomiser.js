@@ -115,7 +115,7 @@ function writeStoryFlags(target, flags) {
     });
 }
 
-function randomise(seed, rawSettings, spoilerFilePath) {
+function randomise(seed, rawSettings, spoilerFilePath, callback) {
     console.log("Performing randomisation: seed " + seed + ", settings " + rawSettings);
 
     var target = rom.slice(0);
@@ -246,8 +246,7 @@ function randomise(seed, rawSettings, spoilerFilePath) {
     textutil.writeToRom(textClone, target);
 
     spoilerLog.generate(spoilerFilePath, settings, spheres, itemLocClone, djinnClone, characterClone,
-        classClone, shopClone, forgeClone, itemClone);
-    return ups.createPatch(vanillaRom, target);
+        classClone, shopClone, forgeClone, itemClone, () => {callback(ups.createPatch(vanillaRom, target));});
 }
 
 initialise();
