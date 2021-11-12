@@ -49,7 +49,7 @@ function parse(settings) {
         'adv-equip': settings[6] >> 7,
         'dummy-items': (settings[6] >> 6) & 0b1,
         'skips-oob-hard': (settings[6] >> 5) & 0b1,
-        'qol-autorun': (settings[6] >> 4) & 0b1,
+        /*'qol-autorun': (settings[6] >> 4) & 0b1,*/
         'qol-hints': (settings[6] >> 3) & 0b1,
         'start-heal': (settings[6] >> 2) & 0b1,
         'start-revive': (settings[6] >> 1) & 0b1,

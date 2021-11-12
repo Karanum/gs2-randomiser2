@@ -74,7 +74,7 @@ function getPreset(val) {
         case 6: return [175, 156, 201, 80, 79, 50, 72, 17, 5, 0];
         case 7: return [159, 255, 239, 170, 151, 50, 104, 17, 5, 0];
         case 8: return [207, 255, 255, 175, 151, 190, 232, 17, 5, 0];
-        case 9: return [159, 175, 238, 152, 79, 130, 88, 49, 18, 0];
+        case 9: return [159, 175, 238, 152, 79, 130, 72, 49, 18, 0];
     }
     return undefined;
 }
@@ -98,8 +98,8 @@ function applySettings(arr) {
         'class-levels', 2), 'class-psynergy', 3);
     loadValue(loadCheckedState(arr[5], ['free-retreat', 'free-avoid', 'boss-logic',
         'skips-maze', 'skips-oob-easy', 'skips-basic']), 'ship', 2);
-    loadCheckedState(arr[6], ['start-reveal', 'start-revive', 'start-heal', 
-        'qol-hints', 'qol-autorun', 'skips-oob-hard', 'dummy-items', 'adv-equip']);
+    loadCheckedState(loadEmptyBit(loadCheckedState(arr[6], ['start-reveal', 'start-revive', 'start-heal', 'qol-hints']), 1),
+        ['skips-oob-hard', 'dummy-items', 'adv-equip']);
     loadValue(loadValue(arr[7], 'scale-coins', 4), 'scale-exp', 4);
     loadValue(arr[8], 'start-levels', 8);
     loadValue(loadEmptyBit(arr[9], 6), 'enemy-eres', 2);
@@ -120,8 +120,8 @@ function getSettingsArray() {
         ['qol-cutscenes', 'qol-tickets', 'qol-fastship']);
     arr[5] = appendCheckedState(appendValue(0, 'ship', 2),
         ['skips-basic', 'skips-oob-easy', 'skips-maze', 'boss-logic', 'free-avoid', 'free-retreat']);
-    arr[6] = appendCheckedState(0, ['adv-equip', 'dummy-items', 'skips-oob-hard',
-        'qol-autorun', 'qol-hints', 'start-heal', 'start-revive', 'start-reveal']);
+    arr[6] = appendCheckedState(appendEmptyBit(appendCheckedState(0, ['adv-equip', 'dummy-items', 'skips-oob-hard']), 1),
+        ['qol-hints', 'start-heal', 'start-revive', 'start-reveal']);
     arr[7] = appendValue(appendValue(0, 'scale-exp', 4), 'scale-coins', 4);
     arr[8] = appendValue(0, 'start-levels', 8);
     arr[9] = appendEmptyBit(appendValue(0, 'enemy-eres', 2), 6);

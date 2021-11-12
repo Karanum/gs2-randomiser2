@@ -127,9 +127,9 @@ class UPSPatcher {
      */
 
     enableAutoRunPatch() {
-        this.add(0x26361, [0xD1]);
-        this.add(0x270A5, [0xD1]);
-        this.add(0x279DD, [0xD1]);
+        this.add(0x26361, [0x01]);
+        this.add(0x270A5, [0x01]);
+        this.add(0x279DD, [0x01]);
     }
 
     disableAutoRunPatch() {

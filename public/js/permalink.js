@@ -1,6 +1,25 @@
 var romData, upsData;
 var patcher = new UPSPatcher();
 
+function saveCachedSetting(elem) {
+    if (elem.type == "checkbox") {
+        localStorage.setItem(elem.id, elem.checked);
+    } else {
+        localStorage.setItem(elem.id, elem.value);
+    }
+}
+
+function loadCachedSetting(elem) {
+    var val = localStorage.getItem(elem.id);
+    if (val == null) return;
+
+    if (elem.type == "checkbox") {
+        $(elem).prop('checked', (val == "true"));
+    } else {
+        $(elem).val(val);
+    }
+}
+
 function setupAjaxRequest(id, log) {
     var req = new XMLHttpRequest();
     req.open('GET', `/fetch_perma_ajax?id=${id}`, true);
@@ -60,6 +79,12 @@ $(document).ready(() => {
     $("#btn-patch").on('click', () => {
         if (!romData || !upsData) return;
 
+        if ($("#inp-qol-autorun").prop('checked')) {
+            patcher.enableAutoRunPatch();
+        } else {
+            patcher.disableAutoRunPatch();
+        }
+
         var romCopy = new Uint8Array(romData);
         romCopy = patcher.patchRom();
 
@@ -102,5 +127,11 @@ $(document).ready(() => {
         });
 
         reader.readAsArrayBuffer(files[0]);
+    });
+
+    $(".cache-setting").each((_, elem) => {
+        loadCachedSetting(elem);
+    }).on('change', (e) => {
+        saveCachedSetting(e.target);
     });
 });
