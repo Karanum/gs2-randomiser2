@@ -1,6 +1,8 @@
 # .gitignore
 node_modules/
 output_cache/
+permalinks/
+temp/
 debug/
 
 config.json

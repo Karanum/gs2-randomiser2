@@ -154,8 +154,12 @@ $(document).ready(() => {
 
     $("#btn-submit").on('click', () => {
         var seed = $("#inp-seed").val();
-        var log = $("#inp-spoiler").prop('checked') ? 1 : 0;
-        window.location.href = `/randomise.html?settings=${getSettingsString()}&seed=${seed}&spoiler=${log}`;
+        window.location.href = `/randomise.html?settings=${getSettingsString()}&seed=${seed}`;
+    });
+
+    $("#btn-submit-race").on('click', () => {
+        var seed = $("#inp-seed").val();
+        window.location.href = `/randomise_race.html?settings=${getSettingsString()}&seed=${seed}`;
     });
 
     $("#inp-scale-exp").on('change', () => {

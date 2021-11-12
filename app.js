@@ -3,10 +3,14 @@ const fs = require('fs');
 const http = require('http');
 const https = require('https');
 const config = require('./modules/config.js');
-const app = express();
+
 const port = config.get("port");
+const app = express();
+
+const allowedPermaChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
 const versionSuffix = "1_1_1";
+const versionPretty = "v1.1.1";
 
 console.log("Starting...");
 const randomiser = require('./randomiser/randomiser.js');
@@ -14,6 +18,12 @@ console.log("Randomiser initialised\n");
 
 if (!fs.existsSync('./output_cache/')) {
     fs.mkdirSync('./output_cache/');
+}
+if (!fs.existsSync('./permalinks/')) {
+    fs.mkdirSync('./permalinks/');
+}
+if (!fs.existsSync('./temp/')) {
+    fs.mkdirSync('./temp/');
 }
 
 function parseSettings(str) {
@@ -27,6 +37,19 @@ function parseSettings(str) {
     }
 
     return array;
+}
+
+function generatePermalink() {
+    while (true) {
+        var link = "";
+        while (link.length < 12) {
+            var i = Math.floor(Math.random() * allowedPermaChars.length);
+            link += allowedPermaChars[i];
+        }
+        
+        if (!fs.existsSync(`./permalinks/${link}.meta`))
+            return link;
+    }
 }
 
 app.get('/randomise_ajax', (req, res) => {
@@ -85,6 +108,83 @@ app.get('/spoiler_ajax', (req, res) => {
     });
 });
 
+app.get('/create_perma_ajax', (req, res) => {
+    if (!req.xhr) return res.redirect('/');
+    res.type('application/json');
+
+    var seed = req.query.seed;
+    var settings = req.query.settings;
+    if (isNaN(Number(seed)) || !settings.match(/^[a-f0-9]+$/i)) {
+        res.status(403);
+        return res.send();
+    }
+
+    var permalink = generatePermalink();
+    var logPath = `./temp/${permalink}.log`;
+
+    try {
+        randomiser.randomise(seed, parseSettings(settings), logPath, (patch) => {
+            fs.writeFile(`./permalinks/${permalink}.ups`, patch, (err) => { 
+                if (err) 
+                    console.log(err); 
+                else {
+                    var meta = `seed=${seed}\nsettings=${settings}\nversion=${versionPretty}\ntime=${new Date().getTime()}`;
+                    fs.writeFile(`./permalinks/${permalink}.meta`, meta, (err) => {
+                        if (err) 
+                            console.log(err);
+                        else {
+                            fs.readFile(logPath, (err, data) => {
+                                if (err) {
+                                    console.log(err);
+                                } else {
+                                    res.send(permalink + data);
+                                    fs.unlink(logPath, (err) => {
+                                        if (err) console.log(err)
+                                    });
+                                }
+                            });
+                        }
+                    });
+                }
+            }); 
+        });
+    } catch (error) {
+        console.log("=== RANDOMISATION ERROR ===");
+        console.log(`Parameters: settings=${settings}; seed=${seed}`);
+        console.log(error);
+    }
+});
+
+app.get('/fetch_perma_ajax', (req, res) => {
+    if (!req.xhr) return res.redirect('/');
+    res.type('application/octet-stream');
+
+    fs.readFile(`./permalinks/${req.query.id}.ups`, (err, data) => {
+        if (!err) {
+            res.send(data);
+        }
+    });
+});
+
+app.get('/permalink/:id', (req, res) => {
+    const { id } = req.params;
+    fs.readFile(`./permalinks/${id}.meta`, (err, data) => {
+        if (err) {
+            res.redirect('/');
+        } else {
+            var meta = {};
+            data.toString().split('\n').forEach((line) => {
+                var keyval = line.split('=');
+                meta[keyval[0]] = keyval[1];
+            });
+            res.render('permalink.ejs', {settings: meta.settings, version: meta.version, time: meta.time});
+        }
+    });
+});
+
+app.disable('x-powered-by');
+app.set('view engine', 'ejs');
+app.set('views', './views');
 app.use(express.static('public'));
 
 if (config.get("use-https")) {

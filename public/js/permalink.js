@@ -1,27 +1,8 @@
-var romData, upsData, logData;
+var romData, upsData;
 
-function setupLogAjaxRequest(seed, settings) {
+function setupAjaxRequest(id, log) {
     var req = new XMLHttpRequest();
-    req.open('GET', `/spoiler_ajax?seed=${seed}&settings=${settings}`, true);
-    req.setRequestHeader('X-Requested-With', "XMLHttpRequest");
-
-    req.onload = (e) => {
-        logData = req.response;
-
-        var blob = new Blob([logData], { type: 'plain/text' });
-        $("#btn-log").attr('href', URL.createObjectURL(blob));
-        $("#btn-log").attr('download', `spoiler_${seed}.log`);
-        $("#btn-log").prop('disabled', false);
-
-        showSpoilerLog(logData);
-    };
-
-    req.send();
-}
-
-function setupAjaxRequest(seed, settings, log) {
-    var req = new XMLHttpRequest();
-    req.open('GET', `/randomise_ajax?seed=${seed}&settings=${settings}`, true);
+    req.open('GET', `/fetch_perma_ajax?id=${id}`, true);
     req.setRequestHeader('X-Requested-With', "XMLHttpRequest");
     req.responseType = 'arraybuffer';
 
@@ -30,7 +11,7 @@ function setupAjaxRequest(seed, settings, log) {
 
         var blob = new Blob([upsData], { type: 'application/octet-stream' });
         $("#btn-ups").attr('href', URL.createObjectURL(blob));
-        $("#btn-ups").attr('download', `gs2r_${seed}.ups`);
+        $("#btn-ups").attr('download', `gs2r_${id}.ups`);
         $("#btn-ups").prop('disabled', false);
         $("#div-spinner").addClass("d-none");
 
@@ -38,7 +19,6 @@ function setupAjaxRequest(seed, settings, log) {
             $("#btn-patch").prop('disabled', false);
             romTooltip.dispose();
         }
-        if (log) setupLogAjaxRequest(seed, settings);
     };
 
     req.send();
@@ -74,26 +54,10 @@ function prepSpoilerLog() {
 }
 
 $(document).ready(() => {
-    var params = new URLSearchParams(window.location.search);
-    var seed = params.get('seed');
-    var settings = params.get('settings');
-
-    if (seed == undefined || settings == undefined) {
-        console.error("URL query parameters are incomplete, please go to the previous page and try again.");
-        window.location.href = '/';
-        return;
-    }
-
-    $("#card-toggle").on('show.bs.collapse', () => {
-        $("#caret-log").addClass("rot-180");
-    }).on('hide.bs.collapse', () => {
-        $("#caret-log").removeClass("rot-180");
-    });
-    prepSpoilerLog();
-
     var romTooltip = new bootstrap.Tooltip($("#btn-patch").parent()[0]);
 
-    setupAjaxRequest(seed, settings, true);
+    var id = document.location.pathname.slice(11);
+    setupAjaxRequest(id, true);
 
     $("#btn-patch").on('click', () => {
         if (!romData || !upsData) return;
@@ -106,7 +70,7 @@ $(document).ready(() => {
 
         var downloadAnchor = document.createElement('a');
         downloadAnchor.href = URL.createObjectURL(blob);
-        downloadAnchor.download = `gs2r_${seed}.gba`;
+        downloadAnchor.download = `gs2r_${id}.gba`;
         downloadAnchor.click();
         downloadAnchor.remove();
     });

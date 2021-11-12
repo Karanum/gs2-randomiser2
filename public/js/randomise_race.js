@@ -1,44 +1,29 @@
-var romData, upsData, logData;
-
-function setupLogAjaxRequest(seed, settings) {
+function setupAjaxRequest(seed, settings) {
     var req = new XMLHttpRequest();
-    req.open('GET', `/spoiler_ajax?seed=${seed}&settings=${settings}`, true);
-    req.setRequestHeader('X-Requested-With', "XMLHttpRequest");
-
-    req.onload = (e) => {
-        logData = req.response;
-
-        var blob = new Blob([logData], { type: 'plain/text' });
-        $("#btn-log").attr('href', URL.createObjectURL(blob));
-        $("#btn-log").attr('download', `spoiler_${seed}.log`);
-        $("#btn-log").prop('disabled', false);
-
-        showSpoilerLog(logData);
-    };
-
-    req.send();
-}
-
-function setupAjaxRequest(seed, settings, log) {
-    var req = new XMLHttpRequest();
-    req.open('GET', `/randomise_ajax?seed=${seed}&settings=${settings}`, true);
+    req.open('GET', `/create_perma_ajax?seed=${seed}&settings=${settings}`, true);
     req.setRequestHeader('X-Requested-With', "XMLHttpRequest");
     req.responseType = 'arraybuffer';
 
     req.onload = (e) => {
-        upsData = req.response;
+        response = req.response;
 
-        var blob = new Blob([upsData], { type: 'application/octet-stream' });
-        $("#btn-ups").attr('href', URL.createObjectURL(blob));
-        $("#btn-ups").attr('download', `gs2r_${seed}.ups`);
-        $("#btn-ups").prop('disabled', false);
+        var decoder = new TextDecoder();
+        var linkId = decoder.decode(response.slice(0, 12));
+        var permalink = "https://gs2randomiser.com/permalink/" + linkId;
+        var log = response.slice(12);
+
+        var blob = new Blob([log], { type: 'plain/text' });
+        $("#btn-log").attr('href', URL.createObjectURL(blob));
+        $("#btn-log").attr('download', `spoiler_${linkId}.log`);
+        $("#btn-log").prop('disabled', false);
+
+        $("#span-seed").text(seed);
+        $("#span-link").html(`<a href="${permalink}">${permalink}</a>`);
+
         $("#div-spinner").addClass("d-none");
+        $("#div-info").removeClass("d-none");
 
-        if (romData) {
-            $("#btn-patch").prop('disabled', false);
-            romTooltip.dispose();
-        }
-        if (log) setupLogAjaxRequest(seed, settings);
+        showSpoilerLog(decoder.decode(log));
     };
 
     req.send();
@@ -91,55 +76,5 @@ $(document).ready(() => {
     });
     prepSpoilerLog();
 
-    var romTooltip = new bootstrap.Tooltip($("#btn-patch").parent()[0]);
-
-    setupAjaxRequest(seed, settings, true);
-
-    $("#btn-patch").on('click', () => {
-        if (!romData || !upsData) return;
-
-        var romCopy = new Uint8Array(romData);
-        var patcher = new UPSPatcher(romCopy);
-        romCopy = patcher.patchRom(new Uint8Array(upsData), romCopy);
-
-        var blob = new Blob([romCopy], { type: 'application/octet-stream' });
-
-        var downloadAnchor = document.createElement('a');
-        downloadAnchor.href = URL.createObjectURL(blob);
-        downloadAnchor.download = `gs2r_${seed}.gba`;
-        downloadAnchor.click();
-        downloadAnchor.remove();
-    });
-
-    $("#inp-rom").on('change', () => {
-        var files = $("#inp-rom")[0].files;
-        if (files.length == 0) return;
-
-        var reader = new FileReader();
-
-        reader.onload = ((e) => {
-            $("#err-rom").addClass('d-none');
-
-            var data = new Uint8Array(e.target.result);
-            if (data.length < 0x1000000) {
-                $("#err-rom").removeClass('d-none');
-                $("#err-rom").html("The selected ROM appears to be invalid. Please select another ROM file.");
-                return;
-            }
-
-            var fingerprint = data[1128] + (data[1129] << 8) + (data[1130] << 16) + (data[1131] << 24);
-            if (fingerprint != 0x801319d && fingerprint != 0x8f9ee50) {
-                $("#err-rom").removeClass('d-none');
-                $("#err-rom").html("The selected ROM appears to be invalid. Please select another ROM file.");
-            }
-            romData = data;
-
-            if (upsData) {
-                $("#btn-patch").prop('disabled', false);
-                romTooltip.dispose();
-            }
-        });
-
-        reader.readAsArrayBuffer(files[0]);
-    });
+    setupAjaxRequest(seed, settings);
 });
