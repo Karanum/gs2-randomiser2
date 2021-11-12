@@ -29,6 +29,18 @@ b {
     font-weight: 600 !important;
 }
 
+h1 {
+    font-size: calc(1.375rem + .3vw) !important;
+}
+
+h2 {
+    font-size: calc(1.275rem + .3vw) !important;
+}
+
+h3 {
+    font-size: 1.25rem !important;
+}
+
 .bi-question-circle-fill:before {
     font-size: 0.75rem !important;
     vertical-align: 0.25rem !important;
