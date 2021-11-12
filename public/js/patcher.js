@@ -3,6 +3,7 @@
 class UPSPatcher {
     explAddresses = [];
     explValues = [];
+
     sourceLength = 0;
     targetLength = 0;
 
@@ -40,18 +41,6 @@ class UPSPatcher {
             }
             this.explValues.push(values);
         }
-    }
-
-    /*implodePatch() {
-
-    }*/
-
-    findInsertionIndex(address) {
-        for (let i = 0; i < this.explAddresses.length; ++i) {
-            if (this.explAddresses[i] > address)
-                return i;
-        }
-        return this.explAddresses.length;
     }
 
     add(startAddress, values) {
@@ -97,23 +86,11 @@ class UPSPatcher {
         return target;
     }
 
-    /**
-     * Writes the provided byte to the provided Uint8Array at the provided offset.
-     * @param {Byte} byte Byte to write
-     * @param {Uint8Array} to The Uint8Array to write to
-     * @param {number} offset Index of the Uint8Array to write to
-     */
     writeByte(byte, to, offset) {
         if (offset < to.length)
             to[offset] = byte;
     }
 
-    /**
-     * Decodes an encoded number from the provided data at the provided offset.
-     * @param {Uint8Array} data
-     * @param {number} dataOffset
-     * @returns {[number, number]} 
-     */
     decode(data, dataOffset) {
         let [offset, shift] = [0, 1];
 
@@ -131,18 +108,33 @@ class UPSPatcher {
         return [offset, newDataOffset - dataOffset];
     }
 
-    /**
-     * Safely reads a byte from the provided Uint8Array at the provided offset.
-     * 
-     * When the offset is out of bounds, this function will return 0.
-     * @param {Uint8Array} from The Uint8Array to read from
-     * @param {number} offset Index of the Uint8Array to read from
-     * @returns {Byte}
-     */
     readByte(from, offset) {
         return (offset < from.length) ? from[offset] : 0;
     }
-}
 
-/** @typedef {number} Byte */
-/** @typedef {number} Checksum */
+    findInsertionIndex(address) {
+        for (let i = 0; i < this.explAddresses.length; ++i) {
+            if (this.explAddresses[i] > address)
+                return i;
+        }
+        return this.explAddresses.length;
+    }
+
+    /*
+     * =--------------------------=
+     * Post-randomisation options
+     * =--------------------------=
+     */
+
+    enableAutoRunPatch() {
+        this.add(0x26361, [0xD1]);
+        this.add(0x270A5, [0xD1]);
+        this.add(0x279DD, [0xD1]);
+    }
+
+    disableAutoRunPatch() {
+        this.remove(0x26361);
+        this.remove(0x270A5);
+        this.remove(0x279DD);
+    }
+}

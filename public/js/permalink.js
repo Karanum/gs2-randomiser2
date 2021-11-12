@@ -11,10 +11,6 @@ function setupAjaxRequest(id, log) {
         upsData = req.response;
         patcher.explodePatch(new Uint8Array(upsData));
 
-        var blob = new Blob([upsData], { type: 'application/octet-stream' });
-        $("#btn-ups").attr('href', URL.createObjectURL(blob));
-        $("#btn-ups").attr('download', `gs2r_${id}.ups`);
-        $("#btn-ups").prop('disabled', false);
         $("#div-spinner").addClass("d-none");
 
         if (romData) {
