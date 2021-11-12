@@ -1,4 +1,5 @@
 var romData, upsData, logData;
+var patcher = new UPSPatcher();
 
 function setupLogAjaxRequest(seed, settings) {
     var req = new XMLHttpRequest();
@@ -27,6 +28,7 @@ function setupAjaxRequest(seed, settings, log) {
 
     req.onload = (e) => {
         upsData = req.response;
+        patcher.explodePatch(new Uint8Array(upsData));
 
         var blob = new Blob([upsData], { type: 'application/octet-stream' });
         $("#btn-ups").attr('href', URL.createObjectURL(blob));
@@ -99,8 +101,7 @@ $(document).ready(() => {
         if (!romData || !upsData) return;
 
         var romCopy = new Uint8Array(romData);
-        var patcher = new UPSPatcher(romCopy);
-        romCopy = patcher.patchRom(new Uint8Array(upsData), romCopy);
+        romCopy = patcher.patchRom(romCopy);
 
         var blob = new Blob([romCopy], { type: 'application/octet-stream' });
 

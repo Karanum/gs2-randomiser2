@@ -1,69 +1,96 @@
-// JavaScript UPS patcher by Snootiful
+// JavaScript UPS patcher by Snootiful, edited by Karanum
 
 class UPSPatcher {
-    /** @type {Uint8Array} */ source;
+    explAddresses = [];
+    explValues = [];
+    sourceLength = 0;
+    targetLength = 0;
 
-    /**
-     * @param {Uint8Array} source Source ROM
-     */
-    constructor(source) {
-        this.source = source;
-    }
+    explodePatch(patchFile) {
+        this.explAddresses = [];
+        this.explValues = [];
 
-    /**
-     * Patches the target ROM using the provided patch file.
-     * 
-     * If targetRom is null, the source is used instead.
-     * @param {Uint8Array} patchFile 
-     * @param {Uint8Array | null} targetRom 
-     */
-    patchRom(patchFile, targetRom) {
-        /** @type {number} */     let sourceLength;
-        /** @type {number} */     let sourceOffset;
-        /** @type {Uint8Array} */ let patch;
-        /** @type {number} */     let patchLength;
-        /** @type {number} */     let patchOffset;
-        /** @type {Uint8Array} */ let target;
-        /** @type {number} */     let targetLength;
-        /** @type {number} */     let targetOffset;
+        let patch = patchFile;
+        let patchLength = patch.length;
 
-        if (!(patchFile instanceof Uint8Array))
-            throw `patchFile must be a Uint8Array, was '${patchFile.constructor.name}'`;
-        patch = patchFile;
-        patchLength = patch.length;
+        let targetOffset = 0;
+        let patchOffset = 4;
 
-        if (targetRom === null || targetRom === undefined)
-            target = this.source;
-        else if (targetRom instanceof Uint8Array)
-            target = targetRom;
-        else
-            throw `targetRom must be a Uint8Array or null, was '${targetRom.constructor.name}'`;
-
-        sourceOffset = 0;
-        targetOffset = 0;
-        patchOffset = 4;
-
-        let offsetA, offsetB;
-        [sourceLength, offsetA] = this.decode(patch, patchOffset);
-        [targetLength, offsetB] = this.decode(patch, patchOffset + offsetA);
+        let [sourceLength, offsetA] = this.decode(patch, patchOffset);
+        let [targetLength, offsetB] = this.decode(patch, patchOffset + offsetA);
+        this.sourceLength = sourceLength;
+        this.targetLength = targetLength;
         patchOffset += offsetA + offsetB;
-
-        if (targetLength > sourceLength) {
-            let oldTarget = target;
-            target = new Uint8Array(targetLength);
-            target.set(oldTarget);
-        }
 
         while (patchOffset < patchLength - 12) {
             let [length, newOffset] = this.decode(patch, patchOffset);
             patchOffset += newOffset;
-            sourceOffset += length;
             targetOffset += length;
+            this.explAddresses.push(targetOffset);
+            let values = [];
+
             while (true) {
                 let patchXOR = this.readByte(patch, patchOffset++);
-                this.writeByte(patchXOR ^ this.readByte(this.source, sourceOffset++), target, targetOffset++);
-                if (patchXOR === 0)
+                ++targetOffset;
+                if (patchXOR === 0) {
                     break;
+                }
+                else
+                    values.push(patchXOR);
+            }
+            this.explValues.push(values);
+        }
+    }
+
+    /*implodePatch() {
+
+    }*/
+
+    findInsertionIndex(address) {
+        for (let i = 0; i < this.explAddresses.length; ++i) {
+            if (this.explAddresses[i] > address)
+                return i;
+        }
+        return this.explAddresses.length;
+    }
+
+    add(startAddress, values) {
+        let index = this.findInsertionIndex(startAddress);
+        this.explAddresses.splice(index, 0, startAddress);
+        this.explValues.splice(index, 0, values);
+    }
+
+    remove(address) {
+        for (let i = 0; i < this.explAddresses.length; ++i) {
+            if (this.explAddresses[i] == address) {
+                this.explAddresses.splice(i, 1);
+                this.explValues.splice(i, 1);
+                return;
+            }
+        }
+    }
+
+    patchRom(targetRom) {
+        let source, target;
+        if (targetRom instanceof Uint8Array) {
+            target = targetRom;
+            source = targetRom;
+        }
+        else
+            throw `targetRom must be a Uint8Array or null, was '${targetRom.constructor.name}'`;
+
+        if (this.targetLength > this.sourceLength) {
+            let oldTarget = target;
+            target = new Uint8Array(this.targetLength);
+            target.set(oldTarget);
+        }
+
+        for (let i = 0; i < this.explAddresses.length; ++i) {
+            let addr = this.explAddresses[i];
+            let values = this.explValues[i];
+            for (let j = 0; j < values.length; ++j) {
+                this.writeByte(values[j] ^ this.readByte(source, addr), target, addr);
+                ++addr;
             }
         }
 
