@@ -86,7 +86,7 @@ $(document).ready(() => {
         }
 
         var romCopy = new Uint8Array(romData);
-        romCopy = patcher.patchRom();
+        romCopy = patcher.patchRom(romCopy);
 
         var blob = new Blob([romCopy], { type: 'application/octet-stream' });
 

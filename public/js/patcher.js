@@ -65,8 +65,6 @@ class UPSPatcher {
             target = targetRom;
             source = targetRom;
         }
-        else
-            throw `targetRom must be a Uint8Array or null, was '${targetRom.constructor.name}'`;
 
         if (this.targetLength > this.sourceLength) {
             let oldTarget = target;
