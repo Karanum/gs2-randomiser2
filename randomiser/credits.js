@@ -52,6 +52,8 @@ function writeToRom(target) {
     writeString(target, 0x1A30C6, "gs2randomiser.com");
     writeString(target, 0x1A30D8, "(discord.gg/QWwxrmN)");
     writeString(target, 0x1A30ED, "Aile / FlameUser64");
+    writeString(target, 0x1A3100, "pokemariosun");
+    writeString(target, 0x1A310D, "Cougars");
 
     copyCredits(target, 0x1A20BC, 0x1A3400, 828);
     writePointers(target, 0x1A373C, [
@@ -59,7 +61,7 @@ function writeToRom(target) {
         0x3000, 0x300F, NEWLINE, NEWLINE,
         0x302C, NEWLINE, 0x3057, NEWLINE, NEWLINE,
         0x3020, NEWLINE, 0x304F, NEWLINE, NEWLINE,
-        0x3040, NEWLINE, 0x3057, 0x3062, 0x306B, 0x3074, 0x30ED, NEWLINE,
+        0x3040, NEWLINE, 0x3057, 0x3062, 0x306B, 0x3074, 0x30ED, 0x3100, 0x310D, NEWLINE,
         0x3088, 0x30A1, 0x30D8, NEWLINE, NEWLINE, NEWLINE,
         0x30B9, 0x30C6, NEWLINE
     ]);
