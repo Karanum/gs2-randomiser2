@@ -35,6 +35,11 @@
                 [
                     "Teleport Lapis",
                     "Tremor Bit"
+                ],
+                [
+                    "SkipOobEasy",
+                    "Sand",
+                    "Tremor Bit"
                 ]
             ]
         }
@@ -47,6 +52,11 @@
                 [
                     "AnyDjinn_64",
                     "Teleport Lapis"
+                ],
+                [
+                    "AnyDjinn_64",
+                    "SkipOobEasy",
+                    "Sand"
                 ]
             ]
         }
