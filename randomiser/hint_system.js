@@ -111,6 +111,9 @@ const mapHints = {
     "Madra": multiHints["Madra"], "Madra Catacombs": multiHints["Madra"]
 };
 
+const numToStr = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve",
+    "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen", "twenty"];
+
 function getKeyItemCount(itemLocs, mapName) {
     var count = 0;
     for (var flag in itemLocs) {
@@ -156,7 +159,9 @@ function getHintIndra(prng, type, spheres, itemLocs) {
         return makeItemHint(item) + "\x02";
     } else if (type == 1) {
         var numKeyItems = getKeyItemCount(itemLocs, "Gaia Rock");
-        return "There are " + numKeyItems + " important\x03items in Gaia Rock.\x02";
+        if (numKeyItems == 1)
+            return "There is one important\x03item in Gaia Rock.\x02";
+        return "There are " + numToStr[numKeyItems] + " important\x03items in Gaia Rock.\x02";
     } else {
         var item = itemLocs["0x8c7"][0];
         if (item['isKeyItem']) {
@@ -174,7 +179,9 @@ function getHintOsenia(prng, type, spheres, itemLocs) {
         return makeItemHint(item) + "\x02";
     } else if (type == 1) {
         var numKeyItems = getKeyItemCount(itemLocs, "Air's Rock");
-        return "There are " + numKeyItems + " important\x03items in Air's Rock.\x02";
+        if (numKeyItems == 1)
+            return "There is one important\x03item in Air's Rock.\x02";
+        return "There are " + numToStr[numKeyItems] + " important\x03items in Air's Rock.\x02";
     } else {
         var item = itemLocs["0x8d4"][0];
         if (item['isKeyItem']) {
@@ -193,7 +200,9 @@ function getHintGondowan(prng, type, spheres, itemLocs) {
         return makeItemHint(item) + "\x02";
     } else if (type == 1) {
         var numKeyItems = getKeyItemCount(itemLocs, "Magma Rock");
-        return "There are " + numKeyItems + " important\x03items in Magma Rock.\x02";
+        if (numKeyItems == 1)
+            return "There is one important\x03item in Magma Rock.\x02";
+        return "There are " + numToStr[numKeyItems] + " important\x03items in Magma Rock.\x02";
     } else {
         var item = itemLocs["0xf93"][0];
         if (item['isKeyItem']) {
@@ -211,7 +220,9 @@ function getHintLemuria(prng, type, spheres, itemLocs) {
         return makeItemHint(item) + "\x02";
     } else if (type == 1) {
         var numKeyItems = getKeyItemCount(itemLocs, "Aqua Rock");
-        return "There are " + numKeyItems + " important\x03items in Aqua Rock.\x02";
+        if (numKeyItems == 1)
+            return "There is one important\x03item in Aqua Rock.\x02";
+        return "There are " + numToStr[numKeyItems] + " important\x03items in Aqua Rock.\x02";
     } else {
         var item = itemLocs["0x978"][0];
         if (item['isKeyItem']) {
@@ -229,7 +240,9 @@ function getHintAtteka(prng, type, spheres, itemLocs) {
         return makeItemHint(item) + "\x02";
     } else if (type == 1) {
         var numKeyItems = getKeyItemCount(itemLocs, "Jupiter Lighthouse");
-        return "There are " + numKeyItems + " important\x03items in Jupiter Lighthouse.\x02";
+        if (numKeyItems == 1)
+            return "There is one important\x03item in Jupiter Lighthouse.\x02";
+        return "There are " + numToStr[numKeyItems] + " important\x03items in Jupiter Lighthouse.\x02";
     } else {
         var item = itemLocs["0x17"][0];
         if (item['isKeyItem']) {
@@ -247,7 +260,9 @@ function getHintProx(prng, type, spheres, itemLocs) {
         return makeItemHint(item) + "\x02";
     } else if (type == 1) {
         var numKeyItems = getKeyItemCount(itemLocs, "Mars Lighthouse");
-        return "There are " + numKeyItems + " important\x03items in Mars Lighthouse.\x02";
+        if (numKeyItems == 1)
+            return "There is one important\x03item in Mars Lighthouse.\x02";
+        return "There are " + numToStr[numKeyItems] + " important\x03items in Mars Lighthouse.\x02";
     } else {
         var item = itemLocs["0xa3a"][0];
         if (item['isKeyItem']) {
