@@ -56,7 +56,7 @@ function readTreeData(rom) {
 
 function getTextPointers(rom) {
     var pointers = [];
-    for (var i = 0; i < (entries >> 8); ++i) {
+    for (var i = 0; i <= (entries >> 8); ++i) {
         var addr = textDataAddr + (i * 8);
         var pointer = rom[addr] + (rom[addr + 1] << 8) + (rom[addr + 2] << 16);
         var lenAddr = rom[addr + 4] + (rom[addr + 5] << 8) + (rom[addr + 6] << 16);
