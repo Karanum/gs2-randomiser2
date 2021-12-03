@@ -102,7 +102,7 @@ function applySettings(arr) {
         'skips-oob-hard', 'dummy-items', 'adv-equip']);
     loadValue(loadValue(arr[7], 'scale-coins', 4), 'scale-exp', 4);
     loadCheckedState(loadValue(arr[8], 'start-levels', 7), ['equip-defense']);
-    loadValue(loadValue(loadEmptyBit(arr[9], 4), 'sanc-cost', 2), 'enemy-eres', 2);
+    loadValue(loadValue(loadCheckedState(loadEmptyBit(arr[9], 3), ['curse-disable']), 'sanc-cost', 2), 'enemy-eres', 2);
 }
 
 function getSettingsArray() {
@@ -124,7 +124,8 @@ function getSettingsArray() {
         'qol-hints', 'start-heal', 'start-revive', 'start-reveal']);
     arr[7] = appendValue(appendValue(0, 'scale-exp', 4), 'scale-coins', 4);
     arr[8] = appendValue(appendCheckedState(0, ['equip-defense']), 'start-levels', 7);
-    arr[9] = appendEmptyBit(appendValue(appendValue(0, 'enemy-eres', 2), 'sanc-cost', 2), 4);
+    arr[9] = appendEmptyBit(appendCheckedState(appendValue(appendValue(0, 'enemy-eres', 2), 'sanc-cost', 2), 
+        ['curse-disable']), 3);
 
     return arr;
 }

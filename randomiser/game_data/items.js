@@ -258,6 +258,16 @@ function shuffleCurses(instance, prng) {
     }
 }
 
+function disableCurses(instance) {
+    for (var id in instance) {
+        if (!instance.hasOwnProperty(id)) continue;
+        var item = instance[id];
+
+        if (item.itemType != 1 && !isArmour(item.itemType)) continue;
+        if (item.flags & 0x1) item.flags &= 0xFC;
+    }
+}
+
 function sortWeaponArray(instance, data) {
     var sorted = [];
     data.forEach((id) => {
@@ -299,4 +309,4 @@ function getArmourScore(item) {
 
 module.exports = {initialise, clone, writeToRom, randomiseCompatibility, adjustEquipPrices, adjustStats, 
                 shuffleWeaponStats, shuffleArmourStats, shuffleWeaponEffects, shuffleArmourEffects, 
-                shuffleCurses, isArmour, sortWeaponArray, sortArmourArray};
+                shuffleCurses, disableCurses, isArmour, sortWeaponArray, sortArmourArray};

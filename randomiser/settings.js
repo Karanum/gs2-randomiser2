@@ -62,7 +62,8 @@ function parse(settings) {
         'start-levels': settings[8] & 0b1111111,
 
         'enemy-eres': settings[9] >> 6,
-        'sanc-revive': (settings[9] >> 4) & 0b11
+        'sanc-revive': (settings[9] >> 4) & 0b11,
+        'curse-disable': (settings[9] >> 3) & 0b1
         // 4 bits free
     };
 }
