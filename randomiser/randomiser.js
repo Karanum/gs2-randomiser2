@@ -100,6 +100,24 @@ function applyShipSpeedPatch(target) {
     target[0x285A4] = 0xF0;
 }
 
+function applyCheapRevivePatch(target) {
+    target[0x10A874] = 0x50;
+    target[0x10A875] = 0x00;
+    target[0x10A876] = 0xC0;
+    target[0x10A877] = 0x46;
+    target[0x10A878] = 0xC0;
+    target[0x10A879] = 0x46;
+}
+
+function applyFixedRevivePatch(target) {
+    target[0x10A874] = 0x64;
+    target[0x10A875] = 0x20;
+    target[0x10A876] = 0xC0;
+    target[0x10A877] = 0x46;
+    target[0x10A878] = 0xC0;
+    target[0x10A879] = 0x46;
+}
+
 function writeStoryFlags(target, flags) {
     var addr = 0xF4280;
     flags.forEach((flag) => {
@@ -145,6 +163,8 @@ function randomise(seed, rawSettings, spoilerFilePath, callback) {
         target = ups.applyPatch(target, upsCutsceneSkip);
         defaultFlags = cutsceneSkipFlags;
     }
+    if (settings['sanc-revive'] == 1) applyCheapRevivePatch(target);
+    if (settings['sanc-revive'] == 2) applyFixedRevivePatch(target);
 
     if (settings['ship'] >= 1) {
         defaultFlags.push(0x985);

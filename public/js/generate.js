@@ -102,7 +102,7 @@ function applySettings(arr) {
         ['skips-oob-hard', 'dummy-items', 'adv-equip']);
     loadValue(loadValue(arr[7], 'scale-coins', 4), 'scale-exp', 4);
     loadValue(arr[8], 'start-levels', 8);
-    loadValue(loadEmptyBit(arr[9], 6), 'enemy-eres', 2);
+    loadValue(loadValue(loadEmptyBit(arr[9], 4), 'sanc-cost', 2), 'enemy-eres', 2);
 }
 
 function getSettingsArray() {
@@ -124,7 +124,7 @@ function getSettingsArray() {
         ['qol-hints', 'start-heal', 'start-revive', 'start-reveal']);
     arr[7] = appendValue(appendValue(0, 'scale-exp', 4), 'scale-coins', 4);
     arr[8] = appendValue(0, 'start-levels', 8);
-    arr[9] = appendEmptyBit(appendValue(0, 'enemy-eres', 2), 6);
+    arr[9] = appendEmptyBit(appendValue(appendValue(0, 'enemy-eres', 2), 'sanc-cost', 2), 4);
 
     return arr;
 }
