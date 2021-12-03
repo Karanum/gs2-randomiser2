@@ -129,6 +129,44 @@ function adjustStats(instance, prng) {
     }
 }
 
+function shuffleWeaponStats(instance, prng) {
+    var eligible = [];
+    var attackList = [];
+
+    for (var id in instance) {
+        if (!instance.hasOwnProperty(id)) continue;
+        var item = instance[id];
+
+        if (item.itemType != 1) continue;
+        eligible.push(item);
+        attackList.push(item.attack);
+    }
+
+    eligible.forEach((item) => {
+        var rand = Math.floor(prng.random() * attackList.length);
+        item.attack = attackList.splice(rand, 1)[0];
+    });
+}
+
+function shuffleArmourStats(instance, prng) {
+    var eligible = [];
+    var defenseList = [];
+
+    for (var id in instance) {
+        if (!instance.hasOwnProperty(id)) continue;
+        var item = instance[id];
+
+        if (!isArmour(item.itemType)) continue;
+        eligible.push(item);
+        defenseList.push(item.defense);
+    }
+
+    eligible.forEach((item) => {
+        var rand = Math.floor(prng.random() * defenseList.length);
+        item.defense = defenseList.splice(rand, 1)[0];
+    });
+}
+
 function shuffleWeaponEffects(instance, prng) {
     var eligible = [];
     var propertyList = [];
@@ -259,5 +297,6 @@ function getArmourScore(item) {
     return defense / 10;
 }
 
-module.exports = {initialise, clone, writeToRom, randomiseCompatibility, adjustEquipPrices, adjustStats,
-                shuffleWeaponEffects, shuffleArmourEffects, shuffleCurses, isArmour, sortWeaponArray, sortArmourArray};
+module.exports = {initialise, clone, writeToRom, randomiseCompatibility, adjustEquipPrices, adjustStats, 
+                shuffleWeaponStats, shuffleArmourStats, shuffleWeaponEffects, shuffleArmourEffects, 
+                shuffleCurses, isArmour, sortWeaponArray, sortArmourArray};

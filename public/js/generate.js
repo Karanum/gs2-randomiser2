@@ -98,10 +98,10 @@ function applySettings(arr) {
         'class-levels', 2), 'class-psynergy', 3);
     loadValue(loadCheckedState(arr[5], ['free-retreat', 'free-avoid', 'boss-logic',
         'skips-maze', 'skips-oob-easy', 'skips-basic']), 'ship', 2);
-    loadCheckedState(loadEmptyBit(loadCheckedState(arr[6], ['start-reveal', 'start-revive', 'start-heal', 'qol-hints']), 1),
-        ['skips-oob-hard', 'dummy-items', 'adv-equip']);
+    loadCheckedState(arr[6], ['start-reveal', 'start-revive', 'start-heal', 'qol-hints', 'equip-attack',
+        'skips-oob-hard', 'dummy-items', 'adv-equip']);
     loadValue(loadValue(arr[7], 'scale-coins', 4), 'scale-exp', 4);
-    loadValue(arr[8], 'start-levels', 8);
+    loadCheckedState(loadValue(arr[8], 'start-levels', 7), ['equip-defense']);
     loadValue(loadValue(loadEmptyBit(arr[9], 4), 'sanc-cost', 2), 'enemy-eres', 2);
 }
 
@@ -120,10 +120,10 @@ function getSettingsArray() {
         ['qol-cutscenes', 'qol-tickets', 'qol-fastship']);
     arr[5] = appendCheckedState(appendValue(0, 'ship', 2),
         ['skips-basic', 'skips-oob-easy', 'skips-maze', 'boss-logic', 'free-avoid', 'free-retreat']);
-    arr[6] = appendCheckedState(appendEmptyBit(appendCheckedState(0, ['adv-equip', 'dummy-items', 'skips-oob-hard']), 1),
-        ['qol-hints', 'start-heal', 'start-revive', 'start-reveal']);
+    arr[6] = appendCheckedState(0, ['adv-equip', 'dummy-items', 'skips-oob-hard', 'equip-attack',
+        'qol-hints', 'start-heal', 'start-revive', 'start-reveal']);
     arr[7] = appendValue(appendValue(0, 'scale-exp', 4), 'scale-coins', 4);
-    arr[8] = appendValue(0, 'start-levels', 8);
+    arr[8] = appendValue(appendCheckedState(0, ['equip-defense']), 'start-levels', 7);
     arr[9] = appendEmptyBit(appendValue(appendValue(0, 'enemy-eres', 2), 'sanc-cost', 2), 4);
 
     return arr;

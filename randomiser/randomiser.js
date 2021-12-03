@@ -221,6 +221,8 @@ function randomise(seed, rawSettings, spoilerFilePath, callback) {
     if (settings['equip-unleash']) itemData.shuffleWeaponEffects(itemClone, prng);
     if (settings['equip-effect']) itemData.shuffleArmourEffects(itemClone, prng);
     if (settings['equip-curse']) itemData.shuffleCurses(itemClone, prng);
+    if (settings['equip-attack']) itemData.shuffleWeaponStats(itemClone, prng);
+    if (settings['equip-defense']) itemData.shuffleArmourStats(itemClone, prng);
 
     if (settings['char-stats'] == 1) characterData.shuffleStats(characterClone, prng);
     if (settings['char-stats'] == 2) characterData.adjustStats(characterClone, prng);
