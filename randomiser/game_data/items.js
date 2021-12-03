@@ -265,6 +265,7 @@ function disableCurses(instance) {
 
         if (item.itemType != 1 && !isArmour(item.itemType)) continue;
         if (item.flags & 0x1) item.flags &= 0xFC;
+        if (item.desc.startsWith("Cursed")) item.desc = item.desc.substring(7);
     }
 }
 
