@@ -41,6 +41,10 @@ function doTiming(msg, callback) {
     console.log(Date.now() - timing + "ms");
 }
 
+function writeByteSequence(target, start, bytes) {
+    bytes.forEach((byte) => target[start++] = byte);
+}
+
 function initialise() {
     doTiming("Loading UPS patches...", () => {
         upsAvoid = fs.readFileSync("./randomiser/ups/avoid.ups");
@@ -101,21 +105,11 @@ function applyShipSpeedPatch(target) {
 }
 
 function applyCheapRevivePatch(target) {
-    target[0x10A874] = 0x50;
-    target[0x10A875] = 0x00;
-    target[0x10A876] = 0xC0;
-    target[0x10A877] = 0x46;
-    target[0x10A878] = 0xC0;
-    target[0x10A879] = 0x46;
+    writeByteSequence(target, 0x10A874, [0x50, 0x00, 0xC0, 0x46, 0xC0, 0x46]);
 }
 
 function applyFixedRevivePatch(target) {
-    target[0x10A874] = 0x64;
-    target[0x10A875] = 0x20;
-    target[0x10A876] = 0xC0;
-    target[0x10A877] = 0x46;
-    target[0x10A878] = 0xC0;
-    target[0x10A879] = 0x46;
+    writeByteSequence(target, 0x10A874, [0x64, 0x20, 0xC0, 0x46, 0xC0, 0x46]);
 }
 
 function writeStoryFlags(target, flags) {
@@ -167,7 +161,7 @@ function randomise(seed, rawSettings, spoilerFilePath, callback) {
     if (settings['sanc-revive'] == 2) applyFixedRevivePatch(target);
 
     if (settings['ship'] >= 1) {
-        defaultFlags.push(0x985);
+        defaultFlags = defaultFlags.concat([0x985]);
         if (settings['ship'] == 2) {
             defaultFlags = defaultFlags.concat([0x982, 0x983, 0x8de, 0x907]);
         }
