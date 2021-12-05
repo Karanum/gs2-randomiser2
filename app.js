@@ -9,8 +9,8 @@ const app = express();
 
 const allowedPermaChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
-const versionSuffix = "1_1_2";
-const versionPretty = "v1.1.2";
+const versionSuffix = "1_1_3";
+const versionPretty = "v1.1.3";
 
 console.log("Starting...");
 const randomiser = require('./randomiser/randomiser.js');

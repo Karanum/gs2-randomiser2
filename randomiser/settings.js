@@ -49,7 +49,7 @@ function parse(settings) {
         'adv-equip': settings[6] >> 7,
         'dummy-items': (settings[6] >> 6) & 0b1,
         'skips-oob-hard': (settings[6] >> 5) & 0b1,
-        // 1 bit free at >>4
+        'equip-attack': (settings[6] >> 4) & 0b1,
         'qol-hints': (settings[6] >> 3) & 0b1,
         'start-heal': (settings[6] >> 2) & 0b1,
         'start-revive': (settings[6] >> 1) & 0b1,
@@ -58,11 +58,12 @@ function parse(settings) {
         'scale-exp': settings[7] >> 4,
         'scale-coins': settings[7] & 0b1111,
 
-        'start-levels': settings[8],
-        // 1 bit free
+        'equip-defense': settings[8] >> 7,
+        'start-levels': settings[8] & 0b1111111,
 
         'enemy-eres': settings[9] >> 6,
-        'sanc-revive': (settings[9] >> 4) & 0b11
+        'sanc-revive': (settings[9] >> 4) & 0b11,
+        'curse-disable': (settings[9] >> 3) & 0b1
         // 4 bits free
     };
 }
