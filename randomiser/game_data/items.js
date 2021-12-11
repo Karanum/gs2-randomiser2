@@ -1,4 +1,4 @@
-const textutil = require('./../textutil.js');
+const textutil = require('../game_logic/textutil.js');
 
 const nameOffset = 607;
 const descOffset = 146;

@@ -1,4 +1,4 @@
-const locations = require('./../locations.js');
+const locations = require('../game_logic/locations.js');
 
 const addrFrom = 0xF2204;
 const addrUntil = 0xF2E98;

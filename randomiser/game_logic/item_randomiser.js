@@ -1,8 +1,8 @@
 const locations = require('./locations.js');
-const itemLocations = require('./game_data/item_locations.js');
-const itemData = require('./game_data/items.js');
-const shopData = require('./game_data/shops.js');
-const forgeData = require('./game_data/forgeables.js');
+const itemLocations = require('../game_data/item_locations.js');
+const itemData = require('../game_data/items.js');
+const shopData = require('../game_data/shops.js');
+const forgeData = require('../game_data/forgeables.js');
 
 const summonIds = [3856, 3857, 3858, 3859, 3860, 3861, 3862, 3863, 3864, 3865, 3866, 3867, 3868];
 const summonNames = ["Zagan", "Megaera", "Flora", "Moloch", "Ulysses", "Haures", "Eclipse", "Coatlicue", 

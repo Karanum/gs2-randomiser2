@@ -3,13 +3,13 @@ const mersenne = require('../modules/mersenne.js');
 //const decompr = require('../modules/decompression.js');
 
 const ups = require('./ups.js');
-const locations = require('./locations.js');
-const textutil = require('./textutil.js');
+const locations = require('./game_logic/locations.js');
+const textutil = require('./game_logic/textutil.js');
 const settingsParser = require('./settings.js');
-const itemRandomiser = require('./item_randomiser.js');
+const itemRandomiser = require('./game_logic/item_randomiser.js');
 const spoilerLog = require('./spoiler_log.js');
-const hintSystem = require('./hint_system.js');
-const credits = require('./credits.js');
+const hintSystem = require('./game_logic/hint_system.js');
+const credits = require('./game_logic/credits.js');
 
 const itemLocations = require('./game_data/item_locations.js');
 const classData = require('./game_data/classes.js');
@@ -84,15 +84,6 @@ function initialise() {
     textutil.writeLine(undefined, 4226, "Crit Rate");
     rom[0xFBA18] = 0x2C;
     rom[0xFBA19] = 0xBA;
-
-    /*
-    var decomprData = decompr.decompress(rom, 0xAB03AC, 0); // Data entry 664
-    fs.writeFileSync('./debug/decompr.txt', Buffer.from(decomprData));
-    var comprData = decompr.compressC0(decomprData);
-    fs.writeFileSync('./debug/compr.txt', Buffer.from(comprData));
-    var decompr2Data = decompr.decompress(comprData, 0, 0);
-    fs.writeFileSync('./debug/decompr2.txt', Buffer.from(decompr2Data));
-    */
 }
 
 function applyGameTicketPatch(target) {
