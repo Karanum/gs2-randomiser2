@@ -1,0 +1,23 @@
+{
+    "Access": [
+        [
+            "Ship"
+        ]
+    ],
+    "Treasure": [
+        {
+            "Addr": "0xaa2",
+            "Reqs": [],
+            "Restriction": [
+                "no-empty",
+                "no-mimic"
+            ]
+        },
+        {
+            "Addr": "0xf92",
+            "Reqs": []
+        }
+    ],
+    "Djinn": [],
+    "Special": []
+}

@@ -1,0 +1,22 @@
+{
+    "Access": [
+        [
+            "Ship",
+            "Grindstone"
+        ]
+    ],
+    "Treasure": [],
+    "Djinn": [
+        {
+            "Addr": "0x53",
+            "Reqs": [
+                [
+                    "Whirlwind",
+                    "Lifting Gem",
+                    "Frost Jewel"
+                ]
+            ]
+        }
+    ],
+    "Special": []
+}

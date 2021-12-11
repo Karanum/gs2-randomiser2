@@ -1,0 +1,88 @@
+{
+    "Access": [
+        [
+            "Ship"
+        ],
+        [
+            "GondowanAccess",
+            "Frost Jewel"
+        ],
+        [
+            "GondowanAccess",
+            "Lash Pebble",
+            "Whirlwind"
+        ]
+    ],
+    "Treasure": [
+        {
+            "Addr": "0x105",
+            "Reqs": [
+                [
+                    "Piers"
+                ]
+            ],
+            "Restriction": ["no-summon"]
+        },
+        {
+            "Addr": "0x106",
+            "Reqs": [
+                [
+                    "Piers"
+                ]
+            ],
+            "Restriction": ["no-summon"]
+        },
+        {
+            "Addr": "0xf4e",
+            "Reqs": []
+        },
+        {
+            "Addr": "0xf4f",
+            "Reqs": [
+                [
+                    "GabombaCleared"
+                ]
+            ]
+        },
+        {
+            "Addr": "0xf50",
+            "Reqs": [
+                [
+                    "GabombaCleared"
+                ]
+            ]
+        }
+    ],
+    "Djinn": [
+        {
+            "Addr": "0x4d",
+            "Reqs": [
+                [
+                    "Piers"
+                ]
+            ]
+        },
+        {
+            "Addr": "0x4e",
+            "Reqs": [
+                [
+                    "Piers"
+                ]
+            ]
+        }
+    ],
+    "Special": [
+        {
+            "Name": "Piers",
+            "Type": "Flag",
+            "Reqs": [
+                [
+                    "Lash Pebble"
+                ],
+                [
+                    "SkipBasic"
+                ]
+            ]
+        }
+    ]
+}

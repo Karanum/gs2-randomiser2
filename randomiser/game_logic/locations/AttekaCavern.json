@@ -1,0 +1,19 @@
+{
+    "Access": [
+        [
+            "Reunion"
+        ]
+    ],
+    "Treasure": [
+        {
+            "Addr": "0x17",
+            "Reqs": [
+                [
+                    "Parch"
+                ]
+            ]
+        }
+    ],
+    "Djinn": [],
+    "Special": []
+}
