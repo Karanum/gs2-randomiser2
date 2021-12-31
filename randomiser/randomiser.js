@@ -3,13 +3,15 @@ const mersenne = require('../modules/mersenne.js');
 //const decompr = require('../modules/decompression.js');
 
 const ups = require('./ups.js');
+const settingsParser = require('./settings.js');
+const spoilerLog = require('./spoiler_log.js');
+
 const locations = require('./game_logic/locations.js');
 const textutil = require('./game_logic/textutil.js');
-const settingsParser = require('./settings.js');
 const itemRandomiser = require('./game_logic/item_randomiser.js');
-const spoilerLog = require('./spoiler_log.js');
 const hintSystem = require('./game_logic/hint_system.js');
 const credits = require('./game_logic/credits.js');
+const mapCode = require('./game_logic/map_code.js');
 
 const itemLocations = require('./game_data/item_locations.js');
 const classData = require('./game_data/classes.js');
@@ -73,6 +75,7 @@ function initialise() {
     doTiming("Loading character data...", () => characterData.initialise(rom));
     doTiming("Loading enemy data...", () => enemyData.initialise(rom, textutil));
     doTiming("Loading elemental tables...", () => elementData.initialise(rom));
+    doTiming("Loading map code...", () => mapCode.initialise(rom));
 
     textutil.writeLine(undefined, 1504, "Starburst");
 
