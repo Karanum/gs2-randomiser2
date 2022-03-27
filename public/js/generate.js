@@ -62,19 +62,19 @@ function getPresetTooltip(val) {
 
 function getPreset(val) {
     switch (Number(val)) {
-        case 0: return [102, 16, 137, 0, 7, 3, 14, 17, 5, 7];
-        case 1: return [175, 156, 201, 80, 79, 3, 72, 17, 5, 7];
-        case 2: return [159, 255, 239, 170, 151, 3, 72, 17, 5, 7];
-        case 3: return [0, 0, 0, 0, 0, 0, 0, 17, 5, 0];
-        case 4: return [159, 172, 200, 144, 79, 131, 200, 17, 18, 7];
-        case 5: return [207, 255, 255, 175, 151, 142, 216, 17, 133, 135];
-        case 6: return [159, 175, 238, 152, 79, 130, 72, 49, 18, 7];
+        case 0: return [102, 16, 137, 0, 7, 3, 14, 17, 5, 7, 0];
+        case 1: return [175, 156, 201, 80, 79, 3, 72, 17, 5, 7, 0];
+        case 2: return [159, 255, 239, 170, 151, 3, 72, 17, 5, 7, 0];
+        case 3: return [0, 0, 0, 0, 0, 0, 0, 17, 5, 0, 0];
+        case 4: return [159, 172, 200, 144, 79, 131, 200, 17, 18, 7, 0];
+        case 5: return [207, 255, 255, 175, 151, 142, 216, 17, 133, 135, 0];
+        case 6: return [159, 175, 238, 152, 79, 130, 72, 49, 18, 7, 0];
     }
     return undefined;
 }
 
 function applySettings(arr) {
-    if (arr.length != 10) {
+    if (arr.length != 11) {
         console.error("Settings array is not the correct length.");
         return;
     }
@@ -98,10 +98,11 @@ function applySettings(arr) {
     loadCheckedState(loadValue(arr[8], 'start-levels', 7), ['equip-defense']);
     loadValue(loadValue(loadCheckedState(loadEmptyBit(arr[9], 2), ['patch-avoid', 'curse-disable']), 
         'sanc-cost', 2), 'enemy-eres', 2);
+    loadCheckedState(loadEmptyBit[arr[10], 7], ['hard-mode']);
 }
 
 function getSettingsArray() {
-    var arr = new Uint8Array(10);
+    var arr = new Uint8Array(11);
 
     arr[0] = appendCheckedState(appendValue(appendValue(0, 'item-shuffle', 2), 'omit', 2),
         ['gs1-items', 'show-items', 'no-learning', 'class-stats']);
@@ -121,6 +122,7 @@ function getSettingsArray() {
     arr[8] = appendValue(appendCheckedState(0, ['equip-defense']), 'start-levels', 7);
     arr[9] = appendEmptyBit(appendCheckedState(appendValue(appendValue(0, 'enemy-eres', 2), 'sanc-cost', 2), 
         ['curse-disable', 'patch-avoid']), 2);
+    arr[10] = appendEmptyBit(appendCheckedState(0, ['hard-mode']), 7);
 
     return arr;
 }
@@ -203,6 +205,7 @@ $(document).ready(() => {
     $("#tooltip-11").attr('title', "Only increases the starting level of characters that start off lower.");
     $("#tooltip-12").attr('title', "OOB skips with tight or complex movement may be required. Disables 0 PP Retreat setting.");
     $("#tooltip-13").attr('title', "Use Avoid to turn it on/off. It will negate all encounters regardless of party level.");
+    $("#tooltip-14").attr('title', "Enemies get +50% HP and +25% Attack and Defense.");
 
     var tooltipHolders = $(".tooltip-container");
     tooltipHolders.each((i) => new bootstrap.Tooltip(tooltipHolders[i]));

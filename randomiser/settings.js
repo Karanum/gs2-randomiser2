@@ -66,7 +66,9 @@ function parse(settings) {
         'curse-disable': (settings[9] >> 3) & 0b1,
         'avoid-patch': (settings[9] >> 2) & 0b1,
         'retreat-patch': (settings[9] >> 1) & 0b1,
-        'teleport-patch': settings[9] & 0b1
+        'teleport-patch': settings[9] & 0b1,
+
+        'hard-mode': (settings[10] >> 7) & 0b1
     };
 }
 

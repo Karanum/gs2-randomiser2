@@ -164,6 +164,8 @@ function randomise(seed, rawSettings, spoilerFilePath, callback) {
         }
     }
 
+    if (settings['hard-mode']) defaultFlags = defaultFlags.concat([0x2E]);
+
     writeStoryFlags(target, defaultFlags);
 
     var randomiser = new itemRandomiser.ItemRandomiser(prng, locations.clone(), settings);
