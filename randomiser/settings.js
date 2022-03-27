@@ -63,8 +63,10 @@ function parse(settings) {
 
         'enemy-eres': settings[9] >> 6,
         'sanc-revive': (settings[9] >> 4) & 0b11,
-        'curse-disable': (settings[9] >> 3) & 0b1
-        // 4 bits free
+        'curse-disable': (settings[9] >> 3) & 0b1,
+        'avoid-patch': (settings[9] >> 2) & 0b1,
+        'retreat-patch': (settings[9] >> 1) & 0b1
+        // 1 bit free
     };
 }
 

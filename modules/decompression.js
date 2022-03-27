@@ -1,4 +1,4 @@
-function decompress(src, srcPos, destPos) {
+function decompress(src, srcPos, destPos, suppressLog = false) {
     var dest = [];
     //var start = srcPos;
 
@@ -9,7 +9,7 @@ function decompress(src, srcPos, destPos) {
     var format = src[srcPos++];
     if (format == 0) {
         return decompressC0(src, srcPos, destPos);
-    } else {
+    } else if (!suppressLog) {
         console.log("NOT SUPPORTING C-" + format + " YET");
     }
 }
@@ -129,10 +129,10 @@ function compressC0(src) {
             bitCount += 9;
             ++srcPos;
         } else {
-            console.log("Back-referencing at position " + dest.length + " (" + bitCount + ")");
-            console.log("  > SrcPos = " + srcPos);
-            console.log("  > Offset = " + offset);
-            console.log("  > Length = " + readCount);
+            //console.log("Back-referencing at position " + dest.length + " (" + bitCount + ")");
+            //console.log("  > SrcPos = " + srcPos);
+            //console.log("  > Offset = " + offset);
+            //console.log("  > Length = " + readCount);
 
             if (readCount < 6) {
                 bits += ((1 << (readCount - 1)) - 2) << bitCount;
@@ -158,7 +158,7 @@ function compressC0(src) {
                     pos >>= 1;
                     ++offsetLength;
                 }
-                console.log("  > Offset Length = " + offsetLength);
+                //console.log("  > Offset Length = " + offsetLength);
                 bits += ((offset - 32) << 1) << bitCount;
                 bitCount += (offsetLength + 1);
             }

@@ -38,11 +38,23 @@ function convertBranchLinks(data, restore) {
 function initialise(rom) {
     for (var i = 1609; i < 1723; ++i) {
         var pointer = read24b(rom, 0x680000 + 4 * i);
-        var mapCode = decompr.decompress(rom, pointer, 0);
-        convertBranchLinks(mapCode, false);
+        var mapCode = decompr.decompress(rom, pointer, 0, true);
+        if (!mapCode) continue;
 
+        convertBranchLinks(mapCode, false);
         mapCodeData[i] = mapCode;
     }
+
+    var temp = mapCodeData[1610];
+    temp[0x4b6] = 0x5B;
+    temp[0x4b7] = 0xE0;
+    convertBranchLinks(temp, true);
+    var cmc = new Uint8Array(decompr.compressC0(temp));
+    console.log(cmc.length);
+
+    require('fs').writeFile("./debug/1610.bin", cmc, (err) => { 
+        if (err) console.log(err); 
+    });
 }
 
 function clone() {
