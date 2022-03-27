@@ -54,7 +54,7 @@ function getPresetTooltip(val) {
         case 2: return "All items and Djinn shuffled, with superboss tablets being in the item pool. Everything else except AoEs is also shuffled.";
         case 3: return "As close to vanilla as it gets, minus the innate changes applied by the randomiser.";
         case 4: return "A mix of Intermediate and Hard with the Lemurian Ship unlocked from the start. Starting levels are increased to compensate.";
-        case 5: return "Everything is turned on. Good luck.";
+        case 5: return "Everything is randomised. Possibly very hard and unfair.";
         case 6: return "The official GS:TLA Randomiser race preset. Check our Discord for more information.";
     }
     return "?"
@@ -67,7 +67,7 @@ function getPreset(val) {
         case 2: return [159, 255, 239, 170, 151, 3, 72, 17, 5, 7];
         case 3: return [0, 0, 0, 0, 0, 0, 0, 17, 5, 0];
         case 4: return [159, 172, 200, 144, 79, 131, 200, 17, 18, 7];
-        case 5: return [207, 255, 255, 175, 151, 190, 232, 17, 5, 7];
+        case 5: return [207, 255, 255, 175, 151, 142, 216, 17, 133, 135];
         case 6: return [159, 175, 238, 152, 79, 130, 72, 49, 18, 7];
     }
     return undefined;
