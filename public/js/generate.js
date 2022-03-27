@@ -54,27 +54,21 @@ function getPresetTooltip(val) {
         case 2: return "All items and Djinn shuffled, with superboss tablets being in the item pool. Everything else except AoEs is also shuffled.";
         case 3: return "As close to vanilla as it gets, minus the innate changes applied by the randomiser.";
         case 4: return "A mix of Intermediate and Hard with the Lemurian Ship unlocked from the start. Starting levels are increased to compensate.";
-        case 5: return "The same as Easy, but with basic skips required.";
-        case 6: return "The same as Intermediate, but with basic skips required.";
-        case 7: return "The same as Hard, but with all skips required.";
-        case 8: return "Everything is turned on. Good luck.";
-        case 9: return "The official GS:TLA Randomiser race preset. Check our Discord for more information.";
+        case 5: return "Everything is turned on. Good luck.";
+        case 6: return "The official GS:TLA Randomiser race preset. Check our Discord for more information.";
     }
     return "?"
 }
 
 function getPreset(val) {
     switch (Number(val)) {
-        case 0: return [102, 16, 137, 0, 7, 3, 14, 17, 5, 0];
-        case 1: return [175, 156, 201, 80, 79, 3, 72, 17, 5, 0];
-        case 2: return [159, 255, 239, 170, 151, 3, 72, 17, 5, 0];
+        case 0: return [102, 16, 137, 0, 7, 3, 14, 17, 5, 7];
+        case 1: return [175, 156, 201, 80, 79, 3, 72, 17, 5, 7];
+        case 2: return [159, 255, 239, 170, 151, 3, 72, 17, 5, 7];
         case 3: return [0, 0, 0, 0, 0, 0, 0, 17, 5, 0];
-        case 4: return [159, 172, 200, 144, 79, 131, 200, 17, 18, 0];
-        case 5: return [102, 16, 137, 0, 7, 34, 14, 17, 5, 0];
-        case 6: return [175, 156, 201, 80, 79, 50, 72, 17, 5, 0];
-        case 7: return [159, 255, 239, 170, 151, 50, 104, 17, 5, 0];
-        case 8: return [207, 255, 255, 175, 151, 190, 232, 17, 5, 0];
-        case 9: return [159, 175, 238, 152, 79, 130, 72, 49, 18, 0];
+        case 4: return [159, 172, 200, 144, 79, 131, 200, 17, 18, 7];
+        case 5: return [207, 255, 255, 175, 151, 190, 232, 17, 5, 7];
+        case 6: return [159, 175, 238, 152, 79, 130, 72, 49, 18, 7];
     }
     return undefined;
 }
@@ -102,7 +96,8 @@ function applySettings(arr) {
         'skips-oob-hard', 'dummy-items', 'adv-equip']);
     loadValue(loadValue(arr[7], 'scale-coins', 4), 'scale-exp', 4);
     loadCheckedState(loadValue(arr[8], 'start-levels', 7), ['equip-defense']);
-    loadValue(loadValue(loadCheckedState(loadEmptyBit(arr[9], 3), ['curse-disable']), 'sanc-cost', 2), 'enemy-eres', 2);
+    loadValue(loadValue(loadCheckedState(arr[9], ['patch-teleport', 'patch-retreat', 'patch-avoid', 'curse-disable']), 
+        'sanc-cost', 2), 'enemy-eres', 2);
 }
 
 function getSettingsArray() {
@@ -124,8 +119,8 @@ function getSettingsArray() {
         'qol-hints', 'start-heal', 'start-revive', 'start-reveal']);
     arr[7] = appendValue(appendValue(0, 'scale-exp', 4), 'scale-coins', 4);
     arr[8] = appendValue(appendCheckedState(0, ['equip-defense']), 'start-levels', 7);
-    arr[9] = appendEmptyBit(appendCheckedState(appendValue(appendValue(0, 'enemy-eres', 2), 'sanc-cost', 2), 
-        ['curse-disable']), 3);
+    arr[9] = appendCheckedState(appendValue(appendValue(0, 'enemy-eres', 2), 'sanc-cost', 2), 
+        ['curse-disable', 'patch-avoid', 'patch-retreat', 'patch-teleport']);
 
     return arr;
 }
@@ -207,6 +202,7 @@ $(document).ready(() => {
     $("#tooltip-10").attr('title', "Note: this prevents the use of Retreat glitches.");
     $("#tooltip-11").attr('title', "Only increases the starting level of characters that start off lower.");
     $("#tooltip-12").attr('title', "OOB skips with tight or complex movement may be required. Disables 0 PP Retreat setting.");
+    $("#tooltip-13").attr('title', "Use Avoid to turn it on/off. It will negate all encounters regardless of party level.");
 
     var tooltipHolders = $(".tooltip-container");
     tooltipHolders.each((i) => new bootstrap.Tooltip(tooltipHolders[i]));
