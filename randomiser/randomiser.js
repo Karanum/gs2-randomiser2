@@ -58,7 +58,7 @@ function initialise() {
     });
 
     doTiming("Applying innate UPS patches...", () => {
-        rom = ups.applyPatch(rom, upsAvoid);
+        //rom = ups.applyPatch(rom, upsAvoid);
         rom = ups.applyPatch(rom, upsTeleport);
         rom = ups.applyPatch(rom, upsRandomiser);
         rom = ups.applyPatch(rom, upsPasswordSkip);
@@ -155,6 +155,7 @@ function randomise(seed, rawSettings, spoilerFilePath, callback) {
     }
     if (settings['sanc-revive'] == 1) applyCheapRevivePatch(target);
     if (settings['sanc-revive'] == 2) applyFixedRevivePatch(target);
+    if (settings['avoid-patch']) target = ups.applyPatch(target, upsAvoid);
 
     if (settings['ship'] >= 1) {
         defaultFlags = defaultFlags.concat([0x985]);

@@ -120,7 +120,7 @@ function getSettingsArray() {
     arr[7] = appendValue(appendValue(0, 'scale-exp', 4), 'scale-coins', 4);
     arr[8] = appendValue(appendCheckedState(0, ['equip-defense']), 'start-levels', 7);
     arr[9] = appendEmptyBit(appendCheckedState(appendValue(appendValue(0, 'enemy-eres', 2), 'sanc-cost', 2), 
-        ['curse-disable', 'patch-avoid'], 2));
+        ['curse-disable', 'patch-avoid']), 2);
 
     return arr;
 }
