@@ -12,6 +12,8 @@ const shopNames = ["n/a", "Daila Weapon Shop", "Daila Armour Shop", "Daila Item 
     "Yallam Armour Shop", "Yallam Item Shop", "Apojii General Shop", "Izumo General Shop", "Champa General Shop",
     "Contigo Weapon Shop", "Contigo Armour Shop", "Contigo Item Shop", "Shaman General Shop", "Loho General Shop", "Prox General Shop"];
 
+const emptyChests = ['0xfb0', '0xfb1', '0xfb2', '0xfb3', '0xfb4', '0xfb5', '0xfcf', '0xfd0', '0xfd1', '0xfd4', '0xfd5', '0xfd6', '0xfd7', '0xfd8'];
+
 
 function generate(filepath, settings, spheres, itemLocs, djinn, characters, classes, shops, forgeables, itemData, callback) {
     var fileStream = fs.createWriteStream(filepath);
@@ -36,7 +38,8 @@ function writeSpheres(fileStream, spheres, itemLocs) {
         spheres[i].forEach((flag) => {
             var item = itemLocs[flag][0];
             var mapName = item['mapName'] || "???";
-            fileStream.write("    " + mapName.padEnd(24, ' ') + item.vanillaName + " --> " + item.name + "\n");
+            fileStream.write("    " + mapName.padEnd(24, ' ') + (emptyChests.includes(flag) ? "(empty)" : item.vanillaName)
+                            + " --> " + item.name + "\n");
         });
         fileStream.write("\n");
     }
@@ -182,7 +185,8 @@ function writeAllItems(fileStream, itemLocs) {
         var item = itemLocs[flag][0];
         if (item['locked']) continue;
         var mapName = item['mapName'] || "???";
-        fileStream.write(flag.padEnd(8, ' ') + mapName.padEnd(24, ' ') + item.vanillaName + " --> " + item.name + "\n");
+        fileStream.write(flag.padEnd(8, ' ') + mapName.padEnd(24, ' ') + (emptyChests.includes(flag) ? "(empty)" : item.vanillaName) 
+                        + " --> " + item.name + "\n");
     }
 }
 
