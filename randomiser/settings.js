@@ -68,7 +68,8 @@ function parse(settings) {
         'retreat-patch': (settings[9] >> 1) & 0b1,
         'teleport-patch': settings[9] & 0b1,
 
-        'hard-mode': (settings[10] >> 7) & 0b1
+        'hard-mode': (settings[10] >> 7) & 0b1,
+        'halve-enc': (settings[10] >> 6) & 0b1
     };
 }
 

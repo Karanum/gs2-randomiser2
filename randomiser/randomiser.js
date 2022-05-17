@@ -108,6 +108,10 @@ function applyFixedRevivePatch(target) {
     writeByteSequence(target, 0x10A874, [0x64, 0x20, 0xC0, 0x46, 0xC0, 0x46]);
 }
 
+function applyHalvedRatePatch(target) {
+    target[0xCA0B8] = 0x78;
+}
+
 function writeStoryFlags(target, flags) {
     var addr = 0xF4280;
     flags.forEach((flag) => {
@@ -155,6 +159,7 @@ function randomise(seed, rawSettings, spoilerFilePath, callback) {
     }
     if (settings['sanc-revive'] == 1) applyCheapRevivePatch(target);
     if (settings['sanc-revive'] == 2) applyFixedRevivePatch(target);
+    if (settings['halve-enc']) applyHalvedRatePatch(target);
     if (settings['avoid-patch']) target = ups.applyPatch(target, upsAvoid);
 
     if (settings['ship'] >= 1) {

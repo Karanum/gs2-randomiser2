@@ -98,7 +98,7 @@ function applySettings(arr) {
     loadCheckedState(loadValue(arr[8], 'start-levels', 7), ['equip-defense']);
     loadValue(loadValue(loadCheckedState(loadEmptyBit(arr[9], 2), ['patch-avoid', 'curse-disable']), 
         'sanc-cost', 2), 'enemy-eres', 2);
-    loadCheckedState(loadEmptyBit[arr[10], 7], ['hard-mode']);
+    loadCheckedState(loadEmptyBit[arr[10], 6], ['halve-enc', 'hard-mode']);
 }
 
 function getSettingsArray() {
@@ -122,7 +122,7 @@ function getSettingsArray() {
     arr[8] = appendValue(appendCheckedState(0, ['equip-defense']), 'start-levels', 7);
     arr[9] = appendEmptyBit(appendCheckedState(appendValue(appendValue(0, 'enemy-eres', 2), 'sanc-cost', 2), 
         ['curse-disable', 'patch-avoid']), 2);
-    arr[10] = appendEmptyBit(appendCheckedState(0, ['hard-mode']), 7);
+    arr[10] = appendEmptyBit(appendCheckedState(0, ['hard-mode', 'halve-enc']), 6);
 
     return arr;
 }
