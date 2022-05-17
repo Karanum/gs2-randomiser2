@@ -122,13 +122,25 @@ function prepItemLocations(locations, settings) {
             t['vanillaContents'] = 401;
             t['vanillaName'] = "Casual Shirt";
         });
+        locations['0xfb1'].forEach((t) => {
+            t['vanillaContents'] = 408;
+            t['vanillaName'] = "Golden Boots";
+        });
         locations['0xfb2'].forEach((t) => {
             t['vanillaContents'] = 411;
             t['vanillaName'] = "Aroma Ring";
         });
+        locations['0xfb3'].forEach((t) => {
+            t['vanillaContents'] = 400;
+            t['vanillaName'] = "Golden Shirt";
+        });
         locations['0xfb4'].forEach((t) => {
             t['vanillaContents'] = 407;
             t['vanillaName'] = "Ninja Sandals";
+        });
+        locations['0xfb5'].forEach((t) => {
+            t['vanillaContents'] = 415;
+            t['vanillaName'] = "Golden Ring";
         });
         locations['0xfcf'].forEach((t) => {
             t['vanillaContents'] = 399;
