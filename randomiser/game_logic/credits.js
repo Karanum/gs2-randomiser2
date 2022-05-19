@@ -1,5 +1,7 @@
 const NEWLINE = 0x1A0C;
 
+const nodePackage = require('../../package.json');
+
 function writeString(target, pos, string) {
     for (var i = 0; i < string.length; ++i) {
         target[pos + i] = string.charCodeAt(i);
@@ -37,7 +39,7 @@ function writeToRom(target) {
     target[0x1A0F61] = 0x34;
 
     writeString(target, 0x1A3000, "GS2 RANDOMISER");
-    writeString(target, 0x1A300F, "Version 1.1.2");
+    writeString(target, 0x1A300F, "Version " + nodePackage.version);
     writeString(target, 0x1A3020, "Development");
     writeString(target, 0x1A302C, "Original Randomiser");
     writeString(target, 0x1A3040, "Special Thanks");

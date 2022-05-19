@@ -9,8 +9,8 @@ const app = express();
 
 const allowedPermaChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
-const versionSuffix = "1_1_3";
-const versionPretty = "v1.1.3";
+const nodePackage = require('./package.json');
+const versionSuffix = nodePackage.version.replaceAll('.', '_');
 
 console.log("Starting...");
 const randomiser = require('./randomiser/randomiser.js');
@@ -128,7 +128,7 @@ app.get('/create_perma_ajax', (req, res) => {
                 if (err) 
                     console.log(err); 
                 else {
-                    var meta = `seed=${seed}\nsettings=${settings}\nversion=${versionPretty}\ntime=${new Date().getTime()}`;
+                    var meta = `seed=${seed}\nsettings=${settings}\nversion=v${nodePackage.version}\ntime=${new Date().getTime()}`;
                     fs.writeFile(`./permalinks/${permalink}.meta`, meta, (err) => {
                         if (err) 
                             console.log(err);
@@ -164,6 +164,10 @@ app.get('/fetch_perma_ajax', (req, res) => {
             res.send(data);
         }
     });
+});
+
+app.get(['/', '/index.html'], (_, res) => {
+    res.render('index.ejs', {version: nodePackage.version});
 });
 
 app.get('/permalink/:id', (req, res) => {
