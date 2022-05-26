@@ -61,7 +61,6 @@ function initialise() {
         //rom = ups.applyPatch(rom, upsAvoid);
         rom = ups.applyPatch(rom, upsTeleport);
         rom = ups.applyPatch(rom, upsRandomiser);
-        rom = ups.applyPatch(rom, upsPasswordSkip);
     });
     credits.writeToRom(rom);
 
@@ -154,8 +153,11 @@ function randomise(seed, rawSettings, spoilerFilePath, callback) {
     if (settings['qol-fastship']) applyShipSpeedPatch(target);
     if (settings['qol-tickets']) applyGameTicketPatch(target);
     if (settings['qol-cutscenes']) {
-        target = ups.applyPatch(target, upsCutsceneSkip);
+        target = ups.applyPatch(target, upsPasswordSkip);
         defaultFlags = cutsceneSkipFlags;
+        textutil.applyCutsceneSkipText(textClone);
+    } else {
+        target = ups.applyPatch(target, upsPasswordSkip);
     }
     if (settings['sanc-revive'] == 1) applyCheapRevivePatch(target);
     if (settings['sanc-revive'] == 2) applyFixedRevivePatch(target);

@@ -141,7 +141,8 @@ function makeCompressionDict(nodes) {
 
 function applyCutsceneSkipText(instance) {
     if (instance == undefined) return;
-    writeLine(instance, 0x2ACD, "Fight Agatio and Karst?\x02");
+    writeLine(instance, 0x1B67, "Fight Briggs?\x1E");
+    writeLine(instance, 0x2ACD, "Fight Agatio and Karst?\x1E");
 }
 
 function readLine(instance, index) {
