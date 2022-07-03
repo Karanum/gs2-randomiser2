@@ -69,7 +69,8 @@ function parse(settings) {
         'teleport-patch': settings[9] & 0b1,
 
         'hard-mode': (settings[10] >> 7) & 0b1,
-        'halve-enc': (settings[10] >> 6) & 0b1
+        'halve-enc': (settings[10] >> 6) & 0b1,
+        'major-shuffle': (settings[10] >> 5) & 0b1
     };
 }
 

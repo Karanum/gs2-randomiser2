@@ -13,6 +13,14 @@ function isArmour(type) {
     return true;
 }
 
+function isIdEquipment(id) {
+    if (!itemData.hasOwnProperty(id))
+        return false;
+
+    var type = itemData[id].itemType;
+    return (type == 1 || isArmour(type));
+}
+
 function loadItemData(rom, id, name, desc) {
     var addr = addrOffset + 44 * id;
     var cost = rom[addr] + (rom[addr + 1] << 8);
@@ -310,4 +318,4 @@ function getArmourScore(item) {
 
 module.exports = {initialise, clone, writeToRom, randomiseCompatibility, adjustEquipPrices, adjustStats, 
                 shuffleWeaponStats, shuffleArmourStats, shuffleWeaponEffects, shuffleArmourEffects, 
-                shuffleCurses, disableCurses, isArmour, sortWeaponArray, sortArmourArray};
+                shuffleCurses, disableCurses, isArmour, sortWeaponArray, sortArmourArray, isIdEquipment};

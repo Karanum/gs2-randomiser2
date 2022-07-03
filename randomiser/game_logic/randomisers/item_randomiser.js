@@ -1,8 +1,8 @@
-const locations = require('./locations.js');
-const itemLocations = require('../game_data/item_locations.js');
-const itemData = require('../game_data/items.js');
-const shopData = require('../game_data/shops.js');
-const forgeData = require('../game_data/forgeables.js');
+const locations = require('../locations.js');
+const itemLocations = require('../../game_data/item_locations.js');
+const itemData = require('../../game_data/items.js');
+const shopData = require('../../game_data/shops.js');
+const forgeData = require('../../game_data/forgeables.js');
 
 const summonIds = [3856, 3857, 3858, 3859, 3860, 3861, 3862, 3863, 3864, 3865, 3866, 3867, 3868];
 const summonNames = ["Zagan", "Megaera", "Flora", "Moloch", "Ulysses", "Haures", "Eclipse", "Coatlicue", 
@@ -37,6 +37,9 @@ class ItemRandomiser {
         var accessibleSlots = [];
         var totalWeight = 0;
         this.accessibleItems.forEach((slot) => {
+            if (item['isMajorItem'] != this.instItemLocations[slot][0]['isMajorItem'])
+                return;
+
             var weight = this.slotWeights[slot];
             if (weight != undefined) {
                 accessibleSlots.push(slot);
@@ -79,6 +82,10 @@ class ItemRandomiser {
         var isMimic = item['eventType'] == 0x81;
         var isEmpty = item['vanillaContents'] == 0;
         var isMoney = item['vanillaContents'] > 0x8000;
+
+        if (this.settings['major-shuffle']) {
+            if (item['isMajorItem'] != slotItem['isMajorItem']) return false;
+        }
 
         if (item['isSummon']) {
             if (this.hasRestriction('no-summon', slotItem) && this.settings['item-shuffle'] > 1) return false;

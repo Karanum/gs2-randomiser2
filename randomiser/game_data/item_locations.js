@@ -70,6 +70,7 @@ function loadTreasure(rom, mapId, addr) {
     treasure['id'] = readUint16(rom, addr + 4);
     treasure['vanillaContents'] = readUint16(rom, addr + 6);
     treasure['isKeyItem'] = false;
+    treasure['isMajorItem'] = false;
     treasure['isHidden'] = false;
     return treasure;
 }
@@ -208,7 +209,7 @@ function getUnlockedItems(locations) {
     return items;
 }
 
-function initialise(rom, textutil) {
+function initialise(rom, textutil, itemData) {
     treasureMap = {};
 
     var addr = addrFrom;
@@ -247,6 +248,7 @@ function initialise(rom, textutil) {
                     treasure['vanillaContents'] += 0xF00;
                     treasure['isSummon'] = true;
                     treasure['isKeyItem'] = true;
+                    treasure['isMajorItem'] = true;
                     break;
                 default:
                     var item = treasure['vanillaContents'];
@@ -254,9 +256,16 @@ function initialise(rom, textutil) {
                         treasure['vanillaName'] = textutil.readLinePretty(undefined, item + itemNameOffset);
                         if (keyItems.includes(treasure['id'])) {
                             treasure['isKeyItem'] = true;
-                        } else if(treasure['eventType'] < 0x80 || treasure['eventType'] == 0x85 
-                                || (treasure['eventType'] == 0x83 && treasure['id'] != 0xFC6)) {
-                            treasure['isHidden'] = true;
+                            treasure['isMajorItem'] = true;
+                        } else {
+                            if (treasure['eventType'] < 0x80 || treasure['eventType'] == 0x85 
+                                    || (treasure['eventType'] == 0x83 && treasure['id'] != 0xFC6)) {
+                                treasure['isHidden'] = true;
+                            } 
+                            if (itemData.isIdEquipment(treasure['vanillaContents'])) {
+                                if (!treasure['vanillaName'].startsWith("Rusty") || treasure['isHidden'])
+                                    treasure['isMajorItem'] = true;
+                            }
                         }
                     } else {
                         treasure['vanillaName'] = (item & 0xFFF).toString() + " coins";
@@ -271,7 +280,7 @@ function initialise(rom, textutil) {
     specialLocations.forEach((entry, i) => {
         if (entry[0] == '0x901') return;
 
-        var treasure = {'mapId': entry[2], 'locked': false, 'isSummon': false, 'isKeyItem': true, 'isHidden': false};
+        var treasure = {'mapId': entry[2], 'locked': false, 'isSummon': false, 'isKeyItem': true, 'isMajorItem': true, 'isHidden': false};
         treasure['addr'] = specialLocOffset + (2 * i);
         treasure['eventType'] = entry[1];
         treasure['locationId'] = -1;

@@ -8,7 +8,7 @@ const spoilerLog = require('./spoiler_log.js');
 
 const locations = require('./game_logic/locations.js');
 const textutil = require('./game_logic/textutil.js');
-const itemRandomiser = require('./game_logic/item_randomiser.js');
+const itemRandomiser = require('./game_logic/randomisers/item_randomiser.js');
 const hintSystem = require('./game_logic/hint_system.js');
 const credits = require('./game_logic/credits.js');
 //const mapCode = require('./game_logic/map_code.js');
@@ -61,11 +61,11 @@ function initialise() {
         //rom = ups.applyPatch(rom, upsAvoid);
         rom = ups.applyPatch(rom, upsTeleport);
         rom = ups.applyPatch(rom, upsRandomiser);
+        rom = ups.applyPatch(rom, upsPasswordSkip);
     });
     credits.writeToRom(rom);
 
     doTiming("Decoding text data...", () => textutil.initialise(rom));
-    doTiming("Loading item location data...", () => itemLocations.initialise(rom, textutil));
     doTiming("Loading ability data...", () => abilityData.initialise(rom, textutil));
     doTiming("Loading class data...", () => classData.initialise(rom, textutil));
     doTiming("Loading Djinn data...", () => djinnData.initialise(rom, textutil));
@@ -76,6 +76,7 @@ function initialise() {
     doTiming("Loading character data...", () => characterData.initialise(rom));
     doTiming("Loading enemy data...", () => enemyData.initialise(rom, textutil));
     doTiming("Loading elemental tables...", () => elementData.initialise(rom));
+    doTiming("Loading item location data...", () => itemLocations.initialise(rom, textutil, itemData));
     //doTiming("Loading map code...", () => mapCode.initialise(rom));
 
     textutil.writeLine(undefined, 1504, "Starburst");
@@ -128,6 +129,8 @@ function randomise(seed, rawSettings, spoilerFilePath, callback) {
     var defaultFlags = [0xf22, 0x873];
     var settings = settingsParser.parse(rawSettings);
 
+    /* Debug */ settings['major-shuffle'] = 1;
+
     var textClone = textutil.clone();
     var itemLocClone = itemLocations.clone();
     var classClone = classData.clone();
@@ -153,11 +156,12 @@ function randomise(seed, rawSettings, spoilerFilePath, callback) {
     if (settings['qol-fastship']) applyShipSpeedPatch(target);
     if (settings['qol-tickets']) applyGameTicketPatch(target);
     if (settings['qol-cutscenes']) {
-        target = ups.applyPatch(target, upsPasswordSkip);
+        //target = ups.applyPatch(target, upsPasswordSkip);
+        target = ups.applyPatch(target, upsCutsceneSkip);
         defaultFlags = cutsceneSkipFlags;
         textutil.applyCutsceneSkipText(textClone);
     } else {
-        target = ups.applyPatch(target, upsPasswordSkip);
+        //target = ups.applyPatch(target, upsPasswordSkip);
     }
     if (settings['sanc-revive'] == 1) applyCheapRevivePatch(target);
     if (settings['sanc-revive'] == 2) applyFixedRevivePatch(target);
