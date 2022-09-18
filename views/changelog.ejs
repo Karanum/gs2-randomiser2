@@ -1,55 +1,16 @@
 <!DOCTYPE html>
 <html prefix="og: https://ogp.me/ns#" lang="en">
 <head>
-    <link rel="stylesheet" href="/css/common.css">
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css">
+    <%- include("partials/head_common") %>
 
     <meta property="og:title" content="Version History">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://gs2randomiser.com/changelog.html">
-    <meta property="og:image" content="https://gs2randomiser.com/img/gstlar-logo.webp">
-    <meta property="og:site_name" content="Golden Sun: The Lost Age Randomiser">
-
-    <meta charset="UTF-8">
-    <meta name="theme-color" content="#fad860">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="author" content="Karanum">
-    <link rel="icon" href="/img/favicon.webp">
     <link rel="canonical" href="https://gs2randomiser.com/changelog.html">
     <title>GS2 Randomiser - Changelog</title>
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg sticky-top navbar-light">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="/"><img class="nav-logo" src="/img/gstlar-logo.webp" alt="Randomiser logo"></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navContent">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navContent">
-                <ul class="navbar-nav">
-                    <li class="nav-item"><a class="nav-link" href="/">Generate Seed</a></li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Help</a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="/help.html">Settings Info</a></li>
-                            <li><a class="dropdown-item" href="/tips.html">Useful Tips</a></li>
-                            <li><a class="dropdown-item" href="/changelog.html">Version History</a></li>
-                        </ul>
-                    </li>
-                </ul>
-                <div class="navbar-nav ms-auto">
-                    <a class="nav-link float-end" href="https://discord.com/invite/QWwxrmN"><i class="bi bi-discord"></i> Discord</a>
-                    <a class="nav-link float-end" href="https://github.com/Karanum/gs2-randomiser2"><i class="bi bi-github"></i> GitHub</a>
-                </div>
-            </div>
-        </div>
-    </nav>
+    <% locals.path = "/changelog" %>
+    <%- include("partials/top_nav") %>
 
     <main class="container-fluid">
         <div class="row mt-3 mx-lg-5">
@@ -131,7 +92,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col my-3">
-                                <h3 class="mb-0">v1.0.6-beta</h3> 
+                                <h3 class="mb-0">v1.0.6</h3> 
                                 <span>May 24th, 2021</span>
                                 <ul class="mt-3">
                                     <li>Fixed a logic issue with basic skips enabled in Shrine of the Sea God</li>
@@ -141,7 +102,7 @@
 
                             <hr>
                             <div class="col my-3">
-                                <h3 class="mb-0">v1.0.5-beta</h3> 
+                                <h3 class="mb-0">v1.0.5</h3> 
                                 <span>May 18th, 2021</span>
                                 <ul class="mt-3">
                                     <li>Added a setting to include unobtainable equipment (some shirts, boots and rings) in the item pool</li>
@@ -154,7 +115,7 @@
 
                             <hr>
                             <div class="col my-3">
-                                <h3 class="mb-0">v1.0.4-beta</h3> 
+                                <h3 class="mb-0">v1.0.4</h3> 
                                 <span>May 8th, 2021</span>
                                 <ul class="mt-3">
                                     <li>Added more variety to what empty chests can get changed into when items are displayed outside chests (Herbs, Elixirs, etc. instead of everything being Game Tickets)</li>
@@ -170,7 +131,7 @@
 
                             <hr>
                             <div class="col my-3">
-                                <h3 class="mb-0">v1.0.3-beta</h3> 
+                                <h3 class="mb-0">v1.0.3</h3> 
                                 <span>May 4th, 2021</span>
                                 <ul class="mt-3">
                                     <li>Fixed fatal randomiser crash when trying to sort equipment with a vanilla item shuffle</li>
@@ -181,7 +142,7 @@
 
                             <hr>
                             <div class="col my-3">
-                                <h3 class="mb-0">v1.0.2-beta</h3> 
+                                <h3 class="mb-0">v1.0.2</h3> 
                                 <span>April 25th, 2021</span>
                                 <ul class="mt-3">
                                     <li>Fixed Djinn scaling being incorrect, causing strange difficulty spikes</li>
@@ -190,7 +151,7 @@
 
                             <hr>
                             <div class="col my-3">
-                                <h3 class="mb-0">v1.0.1-beta</h3> 
+                                <h3 class="mb-0">v1.0.1</h3> 
                                 <span>April 21st, 2021</span>
                                 <ul class="mt-3">
                                     <li>Removed MegaROMs warning as it does not seem to cause issues</li>

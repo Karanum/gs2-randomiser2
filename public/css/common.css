@@ -49,7 +49,11 @@ h3 {
 
 .logo {
     min-width: 300px;
-    width: 45%;
+    width: 40%;
+}
+
+.logo-small {
+    width: 200px;
 }
 
 .nav-logo {
@@ -160,4 +164,12 @@ table {
 .navbar {
     background-color: var(--gs2r-card-bg) !important;
     box-shadow: 0 2px 2px rgba(0, 0, 0, 0.15);
+}
+
+.title-text {
+    font-size: larger;
+    font-weight: bold;
+    margin-top: auto;
+    margin-bottom: auto;
+    vertical-align: middle;
 }

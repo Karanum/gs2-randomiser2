@@ -169,6 +169,24 @@ app.get('/fetch_perma_ajax', (req, res) => {
 app.get(['/', '/index.html'], (_, res) => {
     res.render('index.ejs', {version: nodePackage.version});
 });
+app.get('/changelog.html', (_, res) => {
+    res.render('changelog.ejs');
+});
+app.get('/custom.html', (_, res) => {
+    res.render('custom.ejs');
+});
+app.get('/help.html', (_, res) => {
+    res.render('help.ejs');
+});
+app.get('/randomise.html', (_, res) => {
+    res.render('randomise.ejs');
+});
+app.get('/randomise_race.html', (_, res) => {
+    res.render('randomise_race.ejs');
+});
+app.get('/tips.html', (_, res) => {
+    res.render('tips.ejs');
+});
 
 app.get('/permalink/:id', (req, res) => {
     const { id } = req.params;
@@ -197,7 +215,7 @@ if (config.get("use-https")) {
 
     var server = https.createServer({key: key, cert: cert}, app);
     server.listen(port);
-    console.log("Server listening on port " + port);
+    console.log("Server listening for HTTPS on port " + port);
 } else {
     app.listen(port, () => {
         console.log("Server listening on port " + port);
