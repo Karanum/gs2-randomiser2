@@ -4,6 +4,7 @@ output_cache/
 permalinks/
 temp/
 debug/
+map_code_cache/
 
 config.json
 

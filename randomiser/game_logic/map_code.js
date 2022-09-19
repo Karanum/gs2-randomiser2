@@ -1,6 +1,8 @@
+const fs = require('fs');
 const decompr = require('../../modules/decompression.js');
 
 var mapCodeData = {};
+var preCompressed = {};
 
 function read16b(data, pos) {
     return data[pos] + (data[pos + 1] << 8);
@@ -13,6 +15,13 @@ function read24b(data, pos) {
 function write16b(data, pos, write) {
     data[pos] = write & 0xFF;
     data[pos + 1] = (write >> 8) & 0xFF;
+}
+
+function write32b(data, pos, write) {
+    data[pos] = write & 0xFF;
+    data[pos + 1] = (write >> 8) & 0xFF;
+    data[pos + 2] = (write >> 16) & 0xFF;
+    data[pos + 3] = (write >> 24) & 0xFF;
 }
 
 function convertBranchLinks(data, restore) {
@@ -36,29 +45,60 @@ function convertBranchLinks(data, restore) {
 }
 
 function initialise(rom) {
-    for (var i = 1609; i < 1723; ++i) {
-        var pointer = read24b(rom, 0x680000 + 4 * i);
-        var mapCode = decompr.decompress(rom, pointer, 0, true);
-        if (!mapCode) continue;
-
-        convertBranchLinks(mapCode, false);
-        mapCodeData[i] = mapCode;
+    if (!fs.existsSync('./map_code_cache/')) {
+        fs.mkdirSync('./map_code_cache/');
     }
 
-    var temp = mapCodeData[1610];
-    temp[0x4b6] = 0x5B;
-    temp[0x4b7] = 0xE0;
-    convertBranchLinks(temp, true);
-    var cmc = new Uint8Array(decompr.compressC0(temp));
-    console.log(cmc.length);
+    for (var i = 1609; i < 1723; ++i) {
+        var pointer = read24b(rom, 0x680000 + 4 * i);
 
-    require('fs').writeFile("./debug/1610.bin", cmc, (err) => { 
-        if (err) console.log(err); 
-    });
+        var mapCode = decompr.decompress(rom, pointer, 0);
+        if (!mapCode) continue;
+
+        if (fs.existsSync(`./map_code_cache/${i}.bin`)) {
+            preCompressed[i.toString()] = fs.readFileSync(`./map_code_cache/${i}.bin`);
+        } else {
+            compressCacheMapCode(i, mapCode);
+        }
+        
+        convertBranchLinks(mapCode, false);
+        mapCodeData[i.toString()] = [false, mapCode];
+    }
+}
+
+function compressCacheMapCode(i, mapCode) {
+    preCompressed[i.toString()] = new Uint8Array(decompr.compressC1(mapCode));
+    fs.writeFileSync(`./map_code_cache/${i}.bin`, preCompressed[i.toString()]);
 }
 
 function clone() {
     return JSON.parse(JSON.stringify(mapCodeData));
 }
 
-module.exports = {initialise, clone};
+function writeToRom(instance, rom) {
+    var romPos = 0x08000000 + read24b(rom, 0x681924);
+    console.log("Compressing map code...");
+
+    for (var i = 1609; i < 1723; ++i) {
+        var pointerAddr = 0x680000 + 4 * i;
+        write32b(rom, pointerAddr, romPos);
+
+        var entry = instance[i];
+        var cmc = undefined;
+        if (entry[0]) {
+            convertBranchLinks(entry[1], true);
+            cmc = new Uint8Array(decompr.compressC1(entry[1]));
+        } else {
+            cmc = preCompressed[i];
+        }
+
+        rom[romPos++] = 0x1;
+        for (let i = 0; i < cmc.length; ++i) {
+            rom[romPos++] = cmc[i];
+        }
+    }
+
+    console.log("Compressed!");
+}
+
+module.exports = {initialise, clone, writeToRom};

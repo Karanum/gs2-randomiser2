@@ -1,17 +1,13 @@
 function decompress(src, srcPos, destPos, suppressLog = false) {
-    var dest = [];
-    //var start = srcPos;
-
-    var bits = 0;
-    var readCount, byte;
-    //var z = BigInt(0xFEDCBA9876543210);
-
     var format = src[srcPos++];
     if (format == 0) {
         return decompressC0(src, srcPos, destPos);
+    } else if (format == 1) {
+        return decompressC1(src, srcPos, destPos);
     } else if (!suppressLog) {
         console.log("NOT SUPPORTING C-" + format + " YET");
     }
+    return [];
 }
 
 function getPatternLength(src, srcPos, patternPos) {
@@ -106,7 +102,45 @@ function decompressC0(src, srcPos, destPos) {
     }
 }
 
-function compressC0(src) {
+function decompressC1(src, srcPos, destPos) {
+    var dest = [];
+    var bits = 0;
+    var readCount = 0;
+
+    while (true) {
+        bits = src[srcPos++];
+
+        var a = 0x80;
+        while (a > 0) {
+            if ((bits & a) == 0) {
+                dest[destPos++] = src[srcPos++];
+            } else {
+                readCount = src[srcPos++];
+                var offset = src[srcPos++] | ((readCount & 0xF0) << 4);
+                readCount = readCount & 15;
+
+                if (readCount == 0) {
+                    if (offset == 0)
+                        return dest;
+                    readCount = src[srcPos++] + 16;
+                }
+
+                while (readCount-- >= 0) {
+                    dest[destPos] = dest[destPos - offset];
+                    ++destPos;
+                }
+            }
+
+            a = (a >> 1);
+        }
+    }
+}
+
+function compressC0(src, suppressLog = false) {
+    if (!suppressLog) {
+        console.log("WARNING: Compression for format C-0 may not function correctly!");
+    }
+
     var dest = [];
     var srcPos = 0;
     var bits = 0, bitCount = 0;
@@ -184,4 +218,94 @@ function compressC0(src) {
     return dest;
 }
 
-module.exports = {decompress, compressC0};
+function compressC1(src) {
+    var dest = [];
+    var destPos = 0;
+    var distance = 0;
+    var length = 0;
+    var srcPos = 0;
+    var srcLength = src.length;
+
+    while (true) {
+        var fPos = destPos++;
+        var a = 0x80;
+
+        dest[fPos] = 0;
+
+        while (a > 0) {
+            if (srcPos >= srcLength) {
+                dest[fPos] |= a;
+                dest.push(0);
+                dest.push(0);
+                return dest;
+            }
+
+            var dist2 = 0, length2 = 0;
+            var maxLength2 = Math.min(0x110, srcLength - srcPos + 1);
+            var end2 = Math.max(0, srcPos + 1 - 0xFFF);
+
+            for (let i = srcPos; i >= end2; --i) {
+                let j = 0;
+                while (j < maxLength2) {
+                    if (src[srcPos + 1 + j] != src[i + j])
+                        break;
+
+                    if (++j > length2) {
+                        dist2 = i;
+                        length2 = j;
+                        if (j >= 0x10F)
+                            break;
+                    }
+                }
+            }
+
+            var dist3 = 0, length3 = 0;
+            var maxLength3 = Math.min(0x110, srcLength - srcPos + length);
+            var end3 = Math.max(0, srcPos + length - 0xFFF);
+
+            for (let i = srcPos + length - 1; i >= end3; --i) {
+                let j = 0;
+                while (j < maxLength3) {
+                    if (src[srcPos + length + j] != src[i + j])
+                        break;
+
+                    if (++j > length3) {
+                        dist3 = i;
+                        length3 = j;
+                        if (j >= 0x10F)
+                            break;
+                    }
+                }
+            }
+
+            if (length2 == 0) length2 = 1;
+            if (length3 == 0) length3 = 1;
+
+            if ((length2 + 1) >= (length + length3)) 
+                length = 1;
+
+            if (length < 2) {
+                dest[destPos++] = src[srcPos++];
+                distance = dist2;
+                length = length2;
+            } else {
+                dest[fPos] |= a;
+                if (length < 16) {
+                    dest[destPos++] = (((srcPos - distance) >> 8) << 4) | (length - 1);
+                    dest[destPos++] = (srcPos - distance) & 0xFF;
+                } else {
+                    dest[destPos++] = ((srcPos - distance) >> 8) << 4;
+                    dest[destPos++] = (srcPos - distance) & 0xFF;
+                    dest[destPos++] = length - 17;
+                }
+                srcPos += length;
+                distance = dist3;
+                length = length3;
+            }
+
+            a = (a >> 1);
+        }
+    }
+}
+
+module.exports = {decompress, compressC0, compressC1};

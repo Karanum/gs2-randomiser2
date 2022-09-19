@@ -11,7 +11,7 @@ const textutil = require('./game_logic/textutil.js');
 const itemRandomiser = require('./game_logic/randomisers/item_randomiser.js');
 const hintSystem = require('./game_logic/hint_system.js');
 const credits = require('./game_logic/credits.js');
-//const mapCode = require('./game_logic/map_code.js');
+const mapCode = require('./game_logic/map_code.js');
 
 const itemLocations = require('./game_data/item_locations.js');
 const classData = require('./game_data/classes.js');
@@ -61,7 +61,7 @@ function initialise() {
         //rom = ups.applyPatch(rom, upsAvoid);
         rom = ups.applyPatch(rom, upsTeleport);
         rom = ups.applyPatch(rom, upsRandomiser);
-        rom = ups.applyPatch(rom, upsPasswordSkip);
+        //rom = ups.applyPatch(rom, upsPasswordSkip);
     });
     credits.writeToRom(rom);
 
@@ -77,7 +77,7 @@ function initialise() {
     doTiming("Loading enemy data...", () => enemyData.initialise(rom, textutil));
     doTiming("Loading elemental tables...", () => elementData.initialise(rom));
     doTiming("Loading item location data...", () => itemLocations.initialise(rom, textutil, itemData));
-    //doTiming("Loading map code...", () => mapCode.initialise(rom));
+    doTiming("Loading map code...", () => mapCode.initialise(rom));
 
     textutil.writeLine(undefined, 1504, "Starburst");
 
@@ -143,6 +143,7 @@ function randomise(seed, rawSettings, spoilerFilePath, callback) {
     var characterClone = characterData.clone();
     var enemyClone = enemyData.clone();
     var elementClone = elementData.clone();
+    var mapCodeClone = mapCode.clone();
 
     itemLocations.prepItemLocations(itemLocClone, settings);
 
@@ -158,6 +159,7 @@ function randomise(seed, rawSettings, spoilerFilePath, callback) {
     if (settings['qol-cutscenes']) {
         //target = ups.applyPatch(target, upsPasswordSkip);
         target = ups.applyPatch(target, upsCutsceneSkip);
+        //mapCode.applyCutsceneSkip(mapCodeClone);
         defaultFlags = cutsceneSkipFlags;
         textutil.applyCutsceneSkipText(textClone);
     } else {
@@ -266,6 +268,7 @@ function randomise(seed, rawSettings, spoilerFilePath, callback) {
     elementData.writeToRom(elementClone, target);
 
     textutil.writeToRom(textClone, target);
+    mapCode.writeToRom(mapCodeClone, target);
 
     spoilerLog.generate(spoilerFilePath, settings, spheres, itemLocClone, djinnClone, characterClone,
         classClone, shopClone, forgeClone, itemClone, () => {callback(ups.createPatch(vanillaRom, target));});
