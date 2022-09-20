@@ -80,8 +80,7 @@ function applySettings(arr) {
     }
     var arr = arr.slice(0);
 
-    loadValue(loadValue(loadCheckedState(arr[0], ['class-stats', 'no-learning', 'show-items', 'gs1-items']), 
-        'omit', 2), 'item-shuffle', 2);
+    var shuffle = loadValue(loadCheckedState(arr[0], ['class-stats', 'no-learning', 'show-items', 'gs1-items']), 'omit', 2);
     loadCheckedState(arr[1], ['psynergy-power', 'equip-curse', 'equip-effect',
         'equip-unleash', 'equip-sort', 'equip-stats', 'equip-cost', 'equip-shuffle']);
     loadCheckedState(arr[2], ['summon-sort', 'summon-power', 'summon-cost',
@@ -99,12 +98,16 @@ function applySettings(arr) {
     loadValue(loadValue(loadCheckedState(loadEmptyBit(arr[9], 2), ['patch-avoid', 'curse-disable']), 
         'sanc-cost', 2), 'enemy-eres', 2);
     loadCheckedState(loadEmptyBit[arr[10], 6], ['halve-enc', 'hard-mode']);
+
+    shuffle += (((arr[10] >> 5) & 0b1) << 3);
+    $("#inp-item-shuffle").val(shuffle);
 }
 
 function getSettingsArray() {
     var arr = new Uint8Array(11);
+    var shuffle = $("#inp-item-shuffle").val();
 
-    arr[0] = appendCheckedState(appendValue(appendValue(0, 'item-shuffle', 2), 'omit', 2),
+    arr[0] = appendCheckedState(appendValue(shuffle & 0b11, 'omit', 2),
         ['gs1-items', 'show-items', 'no-learning', 'class-stats']);
     arr[1] = appendCheckedState(0, ['equip-shuffle', 'equip-cost', 'equip-stats',
         'equip-sort', 'equip-unleash', 'equip-effect', 'equip-curse', 'psynergy-power']);
@@ -122,7 +125,7 @@ function getSettingsArray() {
     arr[8] = appendValue(appendCheckedState(0, ['equip-defense']), 'start-levels', 7);
     arr[9] = appendEmptyBit(appendCheckedState(appendValue(appendValue(0, 'enemy-eres', 2), 'sanc-cost', 2), 
         ['curse-disable', 'patch-avoid']), 2);
-    arr[10] = appendEmptyBit(appendCheckedState(0, ['hard-mode', 'halve-enc']), 6);
+    arr[10] = appendEmptyBit((appendCheckedState(0, ['hard-mode', 'halve-enc']) << 1) + ((shuffle >> 3) & 0b1), 5);
 
     return arr;
 }
