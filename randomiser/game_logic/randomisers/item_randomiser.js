@@ -37,7 +37,7 @@ class ItemRandomiser {
         var accessibleSlots = [];
         var totalWeight = 0;
         this.accessibleItems.forEach((slot) => {
-            if (item['isMajorItem'] != this.instItemLocations[slot][0]['isMajorItem'])
+            if (this.settings['major-shuffle'] && (item['isMajorItem'] != this.instItemLocations[slot][0]['isMajorItem']))
                 return;
 
             var weight = this.slotWeights[slot];

@@ -122,14 +122,10 @@ function writeStoryFlags(target, flags) {
 }
 
 function randomise(seed, rawSettings, spoilerFilePath, callback) {
-    console.log("Performing randomisation: seed " + seed + ", settings " + rawSettings);
-
     var target = rom.slice(0);
     var prng = mersenne(seed);
     var defaultFlags = [0xf22, 0x873];
     var settings = settingsParser.parse(rawSettings);
-
-    /* Debug */ settings['major-shuffle'] = 1;
 
     var textClone = textutil.clone();
     var itemLocClone = itemLocations.clone();
@@ -143,7 +139,7 @@ function randomise(seed, rawSettings, spoilerFilePath, callback) {
     var characterClone = characterData.clone();
     var enemyClone = enemyData.clone();
     var elementClone = elementData.clone();
-    var mapCodeClone = mapCode.clone();
+    //var mapCodeClone = mapCode.clone();
 
     itemLocations.prepItemLocations(itemLocClone, settings);
 
@@ -163,7 +159,7 @@ function randomise(seed, rawSettings, spoilerFilePath, callback) {
         defaultFlags = cutsceneSkipFlags;
         textutil.applyCutsceneSkipText(textClone);
     } else {
-        //target = ups.applyPatch(target, upsPasswordSkip);
+        target = ups.applyPatch(target, upsPasswordSkip);
     }
     if (settings['sanc-revive'] == 1) applyCheapRevivePatch(target);
     if (settings['sanc-revive'] == 2) applyFixedRevivePatch(target);
