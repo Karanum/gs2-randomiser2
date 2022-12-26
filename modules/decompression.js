@@ -218,7 +218,7 @@ function compressC0(src, suppressLog = false) {
     return dest;
 }
 
-function compressC1(src) {
+function compressC1(src, debug=false) {
     var dest = [];
     var destPos = 0;
     var distance = 0;
@@ -290,7 +290,7 @@ function compressC1(src) {
                 length = length2;
             } else {
                 dest[fPos] |= a;
-                if (length < 16) {
+                if (length <= 16) {
                     dest[destPos++] = (((srcPos - distance) >> 8) << 4) | (length - 1);
                     dest[destPos++] = (srcPos - distance) & 0xFF;
                 } else {

@@ -1,3 +1,4 @@
+const { Console } = require('console');
 const fs = require('fs');
 const decompr = require('../../modules/decompression.js');
 
@@ -76,12 +77,11 @@ function clone() {
 }
 
 function writeToRom(instance, rom) {
-    var romPos = 0x08000000 + read24b(rom, 0x681924);
-    console.log("Compressing map code...");
+    var romPos = read24b(rom, 0x681924);
 
     for (var i = 1609; i < 1723; ++i) {
         var pointerAddr = 0x680000 + 4 * i;
-        write32b(rom, pointerAddr, romPos);
+        write32b(rom, pointerAddr, romPos + 0x08000000);
 
         var entry = instance[i];
         var cmc = undefined;
@@ -96,9 +96,9 @@ function writeToRom(instance, rom) {
         for (let i = 0; i < cmc.length; ++i) {
             rom[romPos++] = cmc[i];
         }
+        romPos += 3;
+        romPos &= 0xFFFFFFFC;
     }
-
-    console.log("Compressed!");
 }
 
 module.exports = {initialise, clone, writeToRom};
