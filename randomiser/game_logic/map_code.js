@@ -1,4 +1,3 @@
-const { Console } = require('console');
 const fs = require('fs');
 const decompr = require('../../modules/decompression.js');
 
@@ -98,6 +97,10 @@ function writeToRom(instance, rom) {
         }
         romPos += 3;
         romPos &= 0xFFFFFFFC;
+    }
+
+    if (romPos >= 0xF9FF00) {
+        console.log("WARNING: The size of the map code data exceeds safe limits");
     }
 }
 

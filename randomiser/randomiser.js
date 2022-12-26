@@ -25,6 +25,8 @@ const characterData = require('./game_data/characters.js');
 const enemyData = require('./game_data/enemies.js');
 const elementData = require('./game_data/elem_tables.js');
 
+const cutsceneSkipPatch = require('./patches/cutscene_skip.js');
+
 const cutsceneSkipFlags = [0xf22, 0x890, 0x891, 0x892, 0x893, 0x894, 0x895, 0x896, 0x848, 0x86c, 0x86d, 0x86e, 0x86f,
         0x916, 0x844, 0x863, 0x864, 0x865, 0x867, 0x872, 0x873, 0x84b, 0x91b, 0x91c, 0x91d, 0x8b2, 0x8b3, 0x8b4,
         0x8a9, 0x8ac, 0x904, 0x971, 0x973, 0x974, 0x924, 0x928, 0x929, 0x92a, 0x880, 0x8f1, 0x8f3, 0x8f5, 0xa6c,
@@ -154,10 +156,11 @@ function randomise(seed, rawSettings, spoilerFilePath, callback) {
     if (settings['qol-tickets']) applyGameTicketPatch(target);
     if (settings['qol-cutscenes']) {
         //target = ups.applyPatch(target, upsPasswordSkip);
-        target = ups.applyPatch(target, upsCutsceneSkip);
+        //target = ups.applyPatch(target, upsCutsceneSkip);
         //mapCode.applyCutsceneSkip(mapCodeClone);
+        cutsceneSkipPatch.apply(mapCodeClone, textClone);
         defaultFlags = cutsceneSkipFlags;
-        textutil.applyCutsceneSkipText(textClone);
+        //textutil.applyCutsceneSkipText(textClone);
     } else {
         target = ups.applyPatch(target, upsPasswordSkip);
     }
