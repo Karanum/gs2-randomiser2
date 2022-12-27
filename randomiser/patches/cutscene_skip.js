@@ -2,8 +2,8 @@ const textutil = require('./../game_logic/textutil.js');
 
 /**
  * Applies this patch to the map code
- * @param {{}} mapCode The map code data instance
- * @param {{}} text The text data instance
+ * @param {MapCodeData} mapCode The map code data instance
+ * @param {string[]} text The text data instance
  */
 function apply(mapCode, text) {
     applyKandorean(mapCode[1619]);
@@ -29,6 +29,7 @@ function applyMapCode(mapCode, offset, data) {
 
 /**
  * Applies cutscene skip to Kandorean Temple
+ * @param {MapCodeEntry} mapCode
  */
 function applyKandorean(mapCode) {
     mapCode[0] = true;
@@ -45,6 +46,7 @@ function applyKandorean(mapCode) {
 
 /**
  * Applies cutscene skip to the Briggs battle in Alhafra
+ * @param {MapCodeEntry} mapCode
  */
 function applyBriggs(mapCode) {
     mapCode[0] = true;
@@ -65,6 +67,7 @@ function applyBriggs(mapCode) {
 
 /**
  * Applies cutscene skip to the Jupiter Lighthouse aerie
+ * @param {MapCodeEntry} mapCode
  */
 function applyJupiterAerie(mapCode) {
     mapCode[0] = true;
@@ -82,3 +85,8 @@ function applyJupiterAerie(mapCode) {
 }
 
 module.exports = {apply};
+
+/**
+ * @typedef {[boolean, byte[]]} MapCodeEntry
+ * @typedef {Object.<string, MapCodeEntry>} MapCodeData
+ */

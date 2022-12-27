@@ -1,11 +1,12 @@
 const fs = require('fs');
 const decompr = require('../../modules/decompression.js');
 
-var mapCodeData = {};
-var preCompressed = {};
+/** @type {MapCodeData} */ var mapCodeData = {};
+/** @type {Object.<string, Uint8Array>} */ var preCompressed = {};
 
 /**
  * Reads 16 bits of data from the specified position.
+ * @returns {number}
  */
 function read16b(data, pos) {
     return data[pos] + (data[pos + 1] << 8);
@@ -13,6 +14,7 @@ function read16b(data, pos) {
 
 /**
  * Reads 24 bits of data from the specified position.
+ * @returns {number}
  */
 function read24b(data, pos) {
     return data[pos] + (data[pos + 1] << 8) + (data[pos + 2] << 16);
@@ -20,6 +22,7 @@ function read24b(data, pos) {
 
 /**
  * Writes 16 bits of data to the specified position.
+ * @returns {number}
  */
 function write16b(data, pos, write) {
     data[pos] = write & 0xFF;
@@ -28,6 +31,7 @@ function write16b(data, pos, write) {
 
 /**
  * Writes 32 bits of data to the specified position.
+ * @returns {number}
  */
 function write32b(data, pos, write) {
     data[pos] = write & 0xFF;
@@ -78,11 +82,10 @@ function initialise(rom) {
         var mapCode = decompr.decompress(rom, pointer, 0);
         if (!mapCode) continue;
 
-        //Applying fixes because of old randomiser hackiness
-        //NOTE: Not sufficient to solve the Piers issue in Kibombo because this means
-        //      it can be difficult to take him out of town under certain conditions
+        //Applying Kibombo fix because of old randomiser hackiness
         if (i == 1648) {
-            mapCode[0x1224] = 0x0;
+            mapCode[0x7520] = 0xED;
+            mapCode[0x7521] = 0xB8;
         }
 
         //Store map code in pre-compressed cache
@@ -115,7 +118,7 @@ function compressCacheMapCode(i, mapCode) {
  * The data is formatted as an object with the MFT indices as keys.
  * Each key maps to a `[boolean, byte[]]` struct where the first element is whether the map code has been modified,
  * and the second element is the binary map code data.
- * @returns {object} A deep copy of the map code data
+ * @returns {MapCodeData} A deep copy of the map code data
  */
 function clone() {
     return JSON.parse(JSON.stringify(mapCodeData));
@@ -123,7 +126,7 @@ function clone() {
 
 /**
  * Writes the map code data to a ROM array.
- * @param {{}} instance The map code data instance (see `clone`)
+ * @param {MapCodeData} instance The map code data instance (see `clone`)
  * @param {Uint8Array} rom The ROM array to write into
  */
 function writeToRom(instance, rom) {
@@ -165,3 +168,7 @@ function writeToRom(instance, rom) {
 }
 
 module.exports = {initialise, clone, writeToRom};
+
+/**
+ * @typedef {Object.<string, [boolean, byte[]]>} MapCodeData
+ */
