@@ -26,6 +26,7 @@ const enemyData = require('./game_data/enemies.js');
 const elementData = require('./game_data/elem_tables.js');
 
 const cutsceneSkipPatch = require('./patches/cutscene_skip.js');
+const tutorialNpcPatch = require('./patches/tutorial_npcs.js');
 
 const cutsceneSkipFlags = [0xf22, 0x890, 0x891, 0x892, 0x893, 0x894, 0x895, 0x896, 0x848, 0x86c, 0x86d, 0x86e, 0x86f,
         0x916, 0x844, 0x863, 0x864, 0x865, 0x867, 0x872, 0x873, 0x84b, 0x91b, 0x91c, 0x91d, 0x8b2, 0x8b3, 0x8b4,
@@ -179,6 +180,8 @@ function randomise(seed, rawSettings, spoilerFilePath, callback) {
     if (settings['hard-mode']) defaultFlags = defaultFlags.concat([0x2E]);
 
     writeStoryFlags(target, defaultFlags);
+
+    tutorialNpcPatch.apply(mapCodeClone, textClone, settings);
 
     var randomiser = new itemRandomiser.ItemRandomiser(prng, locations.clone(), settings);
     if (settings['item-shuffle'] > 0) {
