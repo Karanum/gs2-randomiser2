@@ -7,6 +7,7 @@ const textutil = require('./../game_logic/textutil.js');
  */
 function apply(mapCode, text) {
     applyKandorean(mapCode[1619]);
+    applyGaroh(mapCode[1631]);
     applyBriggs(mapCode[1641]);
     applyKibombo(mapCode[1648]);
     applyJupiterAerie(mapCode[1701]);
@@ -44,6 +45,24 @@ function applyKandorean(mapCode) {
     // ASM for skipping the cutscenes with Kraden outside
     applyMapCode(mapCode[1], 0x2336, [0x2, 0xB0, 0x0, 0xBD]);
     mapCode[1][0x6007] = 0x12;
+}
+
+/**
+ * Applies cutscene skip to Garoh
+ * @param {MapCodeEntry} mapCode 
+ */
+function applyGaroh(mapCode) {
+    mapCode[0] = true;
+
+    //ASM for skipping the Master Maha daytime cutscene
+    mapCode[1][0x389C] = 0x48;
+    applyMapCode(mapCode[1], 0x38A2, [0x52, 0x4]);
+    applyMapCode(mapCode[1], 0x38B4, [0x3, 0xE0]);
+    applyMapCode(mapCode[1], 0x38DC, [0x26, 0xE0]);
+    applyMapCode(mapCode[1], 0x3938, [0x32, 0xE0]);
+    applyMapCode(mapCode[1], 0x39B0, [0x20, 0x20, 0x0, 0x3, 0xCA, 0x30, 0x0, 0x2, 0xB3, 0x30, 0x0, 0x47]);
+    applyMapCode(mapCode[1], 0x4B7A, [0x18, 0xE1]);
+    applyMapCode(mapCode[1], 0x4DF6, [0x80, 0xE1]);
 }
 
 /**
