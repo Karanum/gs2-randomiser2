@@ -8,6 +8,7 @@ const textutil = require('./../game_logic/textutil.js');
 function apply(mapCode, text) {
     applyKandorean(mapCode[1619]);
     applyGaroh(mapCode[1631]);
+    applyAlhafra(mapCode[1640]);
     applyBriggs(mapCode[1641]);
     applyKibombo(mapCode[1648]);
     applyJupiterAerie(mapCode[1701]);
@@ -63,6 +64,19 @@ function applyGaroh(mapCode) {
     applyMapCode(mapCode[1], 0x39B0, [0x20, 0x20, 0x0, 0x3, 0xCA, 0x30, 0x0, 0x2, 0xB3, 0x30, 0x0, 0x47]);
     applyMapCode(mapCode[1], 0x4B7A, [0x18, 0xE1]);
     applyMapCode(mapCode[1], 0x4DF6, [0x80, 0xE1]);
+}
+
+/**
+ * Applies cutscene skip to (Eastern) Alhafra
+ * @param {MapCodeEntry} mapCode 
+ */
+function applyAlhafra(mapCode) {
+    mapCode[0] = true;
+
+    //ASM for skipping the mayor cutscene after Bursting the rock
+    //Note: Naive solution isn't flawless, flags should be set to prevent Alhafra being in jailbreak state
+    applyMapCode(mapCode[1], 0x204A, [0x20, 0xBD]);
+    applyMapCode(mapCode[1], 0x2A0A, [0xE0, 0xBD]);
 }
 
 /**
