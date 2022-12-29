@@ -7,6 +7,7 @@ const textutil = require('./../game_logic/textutil.js');
  */
 function apply(mapCode, text) {
     applyKandorean(mapCode[1619]);
+    applyMadra(mapCode[1625]);
     applyGaroh(mapCode[1631]);
     applyAlhafra(mapCode[1640]);
     applyBriggs(mapCode[1641]);
@@ -46,6 +47,23 @@ function applyKandorean(mapCode) {
     // ASM for skipping the cutscenes with Kraden outside
     applyMapCode(mapCode[1], 0x2336, [0x2, 0xB0, 0x0, 0xBD]);
     mapCode[1][0x6007] = 0x12;
+}
+
+/**
+ * Applies cutscene skip to Madra
+ * @param {MapCodeEntry} mapCode 
+ */
+function applyMadra(mapCode) {
+    mapCode[0] = true;
+
+    //ASM for skipping the mushroom scenes
+    applyMapCode(mapCode[1], 0x102E, [0xD, 0xE0]);
+    applyMapCode(mapCode[1], 0x1090, [0xB0, 0xE0]);
+    applyMapCode(mapCode[1], 0x1202, [0x2, 0xE0]);
+    applyMapCode(mapCode[1], 0x1218, [0x17, 0xE0]);
+    applyMapCode(mapCode[1], 0x1258, [0x10, 0xE0]);
+    applyMapCode(mapCode[1], 0x1286, [0x31, 0xE0]);
+    mapCode[1][0x1252] = 0x19;
 }
 
 /**
