@@ -7,7 +7,7 @@ const textutil = require('./../game_logic/textutil.js');
  */
 function apply(mapCode, text) {
     applyKandorean(mapCode[1619]);
-    applyMadra(mapCode[1625]);
+    applyMadra(mapCode[1624], mapCode[1625]);
     applyGaroh(mapCode[1631]);
     applyAlhafra(mapCode[1640]);
     applyBriggs(mapCode[1641]);
@@ -17,6 +17,9 @@ function apply(mapCode, text) {
     //Set text lines for battle prompts
     textutil.writeLine(text, 0x1B67, "Fight Briggs?\x1E");
     textutil.writeLine(text, 0x2ACD, "Fight Agatio and Karst?\x1E");
+
+    //Set miscellaneous text lines
+    textutil.writeLine(text, 0x2186, "You can't carry any more,\x03so the Mayor's reward was\x03placed in the nearby pot.\x02");
 }
 
 /**
@@ -51,19 +54,29 @@ function applyKandorean(mapCode) {
 
 /**
  * Applies cutscene skip to Madra
- * @param {MapCodeEntry} mapCode 
+ * @param {MapCodeEntry} extMapCode Map code entry for Madra exterior
+ * @param {MapCodeEntry} intMapCode Map code entry for Madra interior
  */
-function applyMadra(mapCode) {
-    mapCode[0] = true;
+function applyMadra(extMapCode, intMapCode) {
+    extMapCode[0] = true;
+    intMapCode[0] = true;
 
     //ASM for skipping the mushroom scenes
-    applyMapCode(mapCode[1], 0x102E, [0xD, 0xE0]);
-    applyMapCode(mapCode[1], 0x1090, [0xB0, 0xE0]);
-    applyMapCode(mapCode[1], 0x1202, [0x2, 0xE0]);
-    applyMapCode(mapCode[1], 0x1218, [0x17, 0xE0]);
-    applyMapCode(mapCode[1], 0x1258, [0x10, 0xE0]);
-    applyMapCode(mapCode[1], 0x1286, [0x31, 0xE0]);
-    mapCode[1][0x1252] = 0x19;
+    applyMapCode(intMapCode[1], 0x102E, [0xD, 0xE0]);
+    applyMapCode(intMapCode[1], 0x1090, [0xB0, 0xE0]);
+    applyMapCode(intMapCode[1], 0x1202, [0x2, 0xE0]);
+    applyMapCode(intMapCode[1], 0x1218, [0x17, 0xE0]);
+    applyMapCode(intMapCode[1], 0x1258, [0x10, 0xE0]);
+    applyMapCode(intMapCode[1], 0x1286, [0x31, 0xE0]);
+    intMapCode[1][0x1252] = 0x19;
+
+    //ASM for skipping Mayor scenes
+    applyMapCode(extMapCode[1], 0x19E8, [0x21, 0x20, 0x0, 0x21, 0x0, 0x22, 0x1, 0xF0, 0xCB, 0xF8, 0x1, 0xF0, 0x21, 0xF9, 0x8C, 0x22, 
+        0x4, 0x20, 0x96, 0x21, 0x52, 0x0, 0x1, 0xF0, 0xB3, 0xF8, 0x20, 0x20, 0x0, 0x2, 0xCD, 0x30, 0x1, 0xF0, 0xE2, 0xF8, 0x4A, 0xE1]);
+    applyMapCode(extMapCode[1], 0x1D2C, [0x2C, 0xE0]);
+    applyMapCode(extMapCode[1], 0x1D88, [0x0, 0x48, 0x0, 0x47, 0x8D, 0xA9, 0x0, 0x2]);
+    extMapCode[1][0x7DD] = 0xD1;
+    intMapCode[1][0x315F] = 0x19;
 }
 
 /**
