@@ -7,6 +7,7 @@ const textutil = require('./../game_logic/textutil.js');
  */
 function apply(mapCode, text) {
     applyKandorean(mapCode[1619]);
+    applyLemurianShip(mapCode[1622], mapCode[1623]);
     applyMadra(mapCode[1624], mapCode[1625]);
     applyGaroh(mapCode[1631]);
     applyAlhafra(mapCode[1640]);
@@ -50,6 +51,23 @@ function applyKandorean(mapCode) {
     // ASM for skipping the cutscenes with Kraden outside
     applyMapCode(mapCode[1], 0x2336, [0x2, 0xB0, 0x0, 0xBD]);
     mapCode[1][0x6007] = 0x12;
+}
+
+/**
+ * Applies cutscene skip to the Lemurian Ship (Indra beach)
+ * @param {MapCodeEntry} intMapCode Map code entry for Lemurian Ship interior
+ * @param {MapCodeEntry} extMapCode Map code entry for East Indra Shore (ship exterior)
+ */
+function applyLemurianShip(intMapCode, extMapCode) {
+    intMapCode[0] = true;
+    extMapCode[0] = true;
+
+    //Changing flag trigger for Piers stopping you, to account for another scene being skipped
+    extMapCode[1][0x242E] = 0x8E;
+
+    //ASM for skipping the ship activation cutscene
+    applyMapCode(intMapCode[1], 0x169C, [0x80, 0x20, 0x0, 0x1, 0xDE, 0x30, 0x1, 0xF0, 0x9D, 0xFA, 0xD1, 0xE0]);
+    intMapCode[1][0x3379] = 0x70;
 }
 
 /**
