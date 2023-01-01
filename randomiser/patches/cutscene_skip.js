@@ -14,6 +14,7 @@ function apply(mapCode, text) {
     applyBriggs(mapCode[1641]);
     applyKibombo(mapCode[1648]);
     applyGabombaCatacombs(mapCode[1651]);
+    applyAquaRock(mapCode[1657], mapCode[1659]);
     applyJupiterAerie(mapCode[1701]);
 
     //Set text lines for battle prompts
@@ -180,6 +181,19 @@ function applyGabombaCatacombs(mapCode) {
     applyMapCode(mapCode[1], 0xAF8, [0x24, 0xE1]);
     applyMapCode(mapCode[1], 0xD4E, [0xB, 0xE0]);
     mapCode[1][0xD68] = 0x14;
+}
+
+/** Applies cutscene skip to Aqua Rock
+ * @param {MapCodeEntry} mapCode
+ */
+function applyAquaRock(apojiiMapCode, rockMapCode) {
+    apojiiMapCode[0] = true;
+    rockMapCode[0] = true;
+
+    // ASM for skipping the entrance unlock cutscene
+    applyMapCode(apojiiMapCode[1], 0x9AA, [0x3E, 0xE0]);
+    applyMapCode(apojiiMapCode[1], 0x2198, [0x9E, 0x50, 0xD0]);
+    applyMapCode(rockMapCode[1], 0x16AA, [0x87, 0xE0]);
 }
 
 /**
