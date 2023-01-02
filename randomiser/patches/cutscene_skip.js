@@ -14,6 +14,7 @@ function apply(mapCode, text) {
     applyBriggs(mapCode[1641]);
     applyKibombo(mapCode[1648]);
     applyGabombaCatacombs(mapCode[1651]);
+    applyEasternSeaIsles(mapCode[1652]);
     applyAquaRock(mapCode[1657], mapCode[1659]);
     applyGaiaRock(mapCode[1664], mapCode[1665]);
     applyJupiterAerie(mapCode[1701]);
@@ -196,6 +197,39 @@ function applyAquaRock(apojiiMapCode, rockMapCode) {
     applyMapCode(apojiiMapCode[1], 0x9AA, [0x3E, 0xE0]);
     applyMapCode(apojiiMapCode[1], 0x2198, [0x9E, 0x50, 0xD0]);
     applyMapCode(rockMapCode[1], 0x16AA, [0x87, 0xE0]);
+}
+
+/**
+ * Applies cutscene skip to the various Eastern Sea islands
+ * @param {MapCodeEntry} mapCode 
+ */
+function applyEasternSeaIsles(mapCode) {
+    mapCode[0] = true;
+    
+    // ASM for skipping the penguin cutscene
+    applyMapCode(mapCode[1], 0x1E0C, [0x5C, 0xE0]);
+    applyMapCode(mapCode[1], 0x1F02, [0x0, 0xE0]);
+    applyMapCode(mapCode[1], 0x1F10, [0x0, 0xE0]);
+    applyMapCode(mapCode[1], 0x1F28, [0x0, 0xE0]);
+
+    // ASM for skipping the bird cutscene
+    applyMapCode(mapCode[1], 0x5E0, [0x33, 0xE0]);
+    applyMapCode(mapCode[1], 0x69C, [0x0, 0xE0]);
+
+    // ASM for skipping the cow cutscene
+    mapCode[1][0x729] = 0xD0;
+    applyMapCode(mapCode[1], 0x72C, [0x14, 0xE0]);
+    applyMapCode(mapCode[1], 0x760, [0x38, 0x68, 0x3, 0xF0, 0x8F, 0xFB, 0x80, 0x46, 0xA4, 0xE0]);
+    applyMapCode(mapCode[1], 0x8F0, [0x15, 0xE0]);
+
+    // ASM for skipping the dog cutscene
+    applyMapCode(mapCode[1], 0xE74, [0x65, 0xE1]);
+    applyMapCode(mapCode[1], 0x114E, [0x1C, 0xE0]);
+    applyMapCode(mapCode[1], 0x1192, [0x0, 0xE0]);
+
+    // ASM for skipping the turtle cutscene
+    //applyMapCode(mapCode[1], 0x12AA, [0xF8, 0xE0]);
+    //applyMapCode(mapCode[1], 0x150A, [0x90, 0xE1]);
 }
 
 /**
