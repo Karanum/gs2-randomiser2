@@ -15,6 +15,7 @@ function apply(mapCode, text) {
     applyKibombo(mapCode[1648]);
     applyGabombaCatacombs(mapCode[1651]);
     applyAquaRock(mapCode[1657], mapCode[1659]);
+    applyGaiaRock(mapCode[1664], mapCode[1665]);
     applyJupiterAerie(mapCode[1701]);
 
     //Set text lines for battle prompts
@@ -183,8 +184,9 @@ function applyGabombaCatacombs(mapCode) {
     mapCode[1][0xD68] = 0x14;
 }
 
-/** Applies cutscene skip to Aqua Rock
- * @param {MapCodeEntry} mapCode
+/** Applies cutscene skip to Aqua Rock (and Apojii Islands)
+ * @param {MapCodeEntry} apojiiMapCode
+ * @param {MapCodeEntry} rockMapCode
  */
 function applyAquaRock(apojiiMapCode, rockMapCode) {
     apojiiMapCode[0] = true;
@@ -194,6 +196,28 @@ function applyAquaRock(apojiiMapCode, rockMapCode) {
     applyMapCode(apojiiMapCode[1], 0x9AA, [0x3E, 0xE0]);
     applyMapCode(apojiiMapCode[1], 0x2198, [0x9E, 0x50, 0xD0]);
     applyMapCode(rockMapCode[1], 0x16AA, [0x87, 0xE0]);
+}
+
+/**
+ * Applies cutscene skip to Gaia Rock
+ * @param {MapCodeEntry} extMapCode 
+ * @param {MapCodeEntry} intMapCode 
+ */
+function applyGaiaRock(extMapCode, intMapCode) {
+    extMapCode[0] = true;
+    intMapCode[0] = true;
+
+    // ASM for skipping the exterior Susa cutscenes
+    applyMapCode(extMapCode[1], 0x38C, [0xF, 0xE0]);
+    applyMapCode(extMapCode[1], 0x8FA, [0x17, 0xE0]);
+
+    // ASM for skipping the interior Susa cutscenes
+    applyMapCode(intMapCode[1], 0x31A2, [0x6, 0xE0]);
+    applyMapCode(intMapCode[1], 0x3770, [0xA, 0x20, 0x0, 0x21, 0x0, 0x22, 0x1, 0xF0, 0xA1, 0xFB, 0x1E, 0x23, 0x13, 0x22, 0x0, 
+        0x93, 0x1, 0x92, 0x55, 0x20, 0x48, 0x21, 0x5, 0x22, 0x2, 0x23, 0x1, 0xF0, 0x3B, 0xFB, 0x1, 0xF0, 0xD, 0xFC, 0x1, 0xF0, 
+        0x13, 0xFC, 0xA5, 0xE1]);
+    intMapCode[1][0x373C] = 0x4;
+    intMapCode[1][0x5F4F] = 0x19;
 }
 
 /**
