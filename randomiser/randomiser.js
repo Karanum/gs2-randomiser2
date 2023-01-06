@@ -26,6 +26,7 @@ const enemyData = require('./game_data/enemies.js');
 const elementData = require('./game_data/elem_tables.js');
 
 const cutsceneSkipPatch = require('./patches/cutscene_skip.js');
+const gabombaPuzzlePatch = require('./patches/gabomba_puzzle.js');
 const tutorialNpcPatch = require('./patches/tutorial_npcs.js');
 
 const cutsceneSkipFlags = [0xf22, 0x890, 0x891, 0x892, 0x893, 0x894, 0x895, 0x896, 0x848, 0x86c, 0x86d, 0x86e, 0x86f,
@@ -145,6 +146,8 @@ function randomise(seed, rawSettings, spoilerFilePath, callback) {
     var mapCodeClone = mapCode.clone();
 
     itemLocations.prepItemLocations(itemLocClone, settings);
+
+    gabombaPuzzlePatch.apply(mapCodeClone, textClone);
 
     if (settings['free-avoid']) abilityClone[150].cost = 0;
     if (settings['free-retreat'] && !(settings['skips-basic'] || settings['skips-oob-easy'] || settings['skips-oob-hard'])) {
