@@ -16,6 +16,7 @@ function apply(mapCode, text) {
     applyGabombaCatacombs(mapCode[1651]);
     applyEasternSeaIsles(mapCode[1652]);
     applyAquaRock(mapCode[1657], mapCode[1659]);
+    applyIzumo(mapCode[1661]);
     applyGaiaRock(mapCode[1664], mapCode[1665]);
     applyJupiterAerie(mapCode[1701]);
 
@@ -241,6 +242,19 @@ function applyEasternSeaIsles(mapCode) {
     applyMapCode(mapCode[1], 0x29D4, [0x4C, 0x21, 0x2E, 0x22, 0xC0, 0x23, 0x12, 0x1, 0x6, 0x32, 0x49, 0x4, 0x12, 0x4, 
         0x1B, 0x2, 0x1, 0xF0, 0x7E, 0xFA, 0x1D, 0xE0]);
     applyMapCode(mapCode[1], 0x2A4C, [0x70, 0xE0]);
+}
+
+/**
+ * Applies cutscene skip to Izumo (interior)
+ * @param {MapCodeEntry} mapCode 
+ */
+function applyIzumo(mapCode) {
+    mapCode[0] = true;
+
+    // ASM for skipping the cutscene of giving Uzume the Dancing Idol
+    applyMapCode(mapCode[1], 0x1E0A, [0x3A, 0xE0]);
+    applyMapCode(mapCode[1], 0x1EF4, [0x50, 0xE0]);
+    applyMapCode(mapCode[1], 0x1FBA, [0x14, 0xE0]);
 }
 
 /**
