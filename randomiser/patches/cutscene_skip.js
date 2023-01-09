@@ -20,6 +20,7 @@ function apply(mapCode, text) {
     applyIzumo(mapCode[1661]);
     applyGaiaRock(mapCode[1664], mapCode[1665]);
     applyChampa(mapCode[1669]);
+    applyShamanVillage(mapCode[1686], mapCode[1687]);
     applyJupiterAerie(mapCode[1701]);
 
     //Set text lines for battle prompts
@@ -351,6 +352,30 @@ function applyChampa(mapCode) {
 
     // Updates function table
     applyMapCode(mapCode[1], 0x3590, [0x41, 0x80, 0x3]);
+}
+
+/**
+ * Applies cutscene skip to Shaman Village
+ * @param {MapCodeEntry} mapCode 
+ * @param {MapCodeEntry} trMapCode
+ */
+function applyShamanVillage(mapCode, trMapCode) {
+    mapCode[0] = true;
+
+    // ASM for skipping the initial cutscene with Moapa
+    applyMapCode(mapCode[1], 0x209C, [0x1A, 0xE0]);
+    applyMapCode(mapCode[1], 0x20EC, [0x72, 0xE2]);
+    applyMapCode(mapCode[1], 0x261C, [0xB4, 0x20, 0x2, 0xF0, 0x4D, 0xF9, 0xF, 0x20, 0x0, 0x21, 0x0, 0x22, 0x2, 0xF0, 0x84, 0xF9, 
+        0x10, 0x20, 0x0, 0x21, 0x0, 0x22, 0x2, 0xF0, 0x7F, 0xF9, 0x11, 0x20, 0x0, 0x21, 0x0, 0x22, 0x2, 0xF0, 0x7A, 0xF9, 0x8F, 0xE0]);
+
+    // ASM for skipping Sheba using Whirlwind on the crystal
+    applyMapCode(mapCode[1], 0x30E6, [0x0, 0xF0, 0x1D, 0xFD, 0x1, 0xF0, 0xEF, 0xFB, 0xE0, 0xBD]);
+    applyMapCode(mapCode[1], 0x4070, [0x3D, 0xD0]);
+    mapCode[1][0x3B28] = 0x4;
+    mapCode[1][0x3B38] = 0x4;
+    mapCode[1][0x3B4A] = 0x4;
+    mapCode[1][0x3B62] = 0x4;
+
 }
 
 /**
