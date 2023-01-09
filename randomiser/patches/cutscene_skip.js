@@ -361,6 +361,7 @@ function applyChampa(mapCode) {
  */
 function applyShamanVillage(mapCode, trMapCode) {
     mapCode[0] = true;
+    trMapCode[0] = true;
 
     // ASM for skipping the initial cutscene with Moapa
     applyMapCode(mapCode[1], 0x209C, [0x1A, 0xE0]);
@@ -375,6 +376,12 @@ function applyShamanVillage(mapCode, trMapCode) {
     mapCode[1][0x3B38] = 0x4;
     mapCode[1][0x3B4A] = 0x4;
     mapCode[1][0x3B62] = 0x4;
+
+    // ASM for skipping Trial Road cutscenes
+    applyMapCode(trMapCode[1], 0x17E2, [0x21, 0xE0]);
+    applyMapCode(trMapCode[1], 0x184A, [0x0, 0x1C]);
+    applyMapCode(trMapCode[1], 0x3576, [0x98, 0xE0]);
+    applyMapCode(trMapCode[1], 0x36B8, [0x7D, 0xE0]);
 
 }
 
