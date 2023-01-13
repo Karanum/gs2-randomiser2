@@ -263,8 +263,7 @@ function initialise(rom, textutil, itemData) {
                                 treasure['isHidden'] = true;
                             } 
                             if (itemData.isIdEquipment(treasure['vanillaContents'])) {
-                                if (!treasure['vanillaName'].startsWith("Rusty") || treasure['isHidden'])
-                                    treasure['isMajorItem'] = true;
+                                treasure['isMajorItem'] = true;
                             }
                         }
                     } else {
