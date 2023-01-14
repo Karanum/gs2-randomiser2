@@ -13,6 +13,7 @@ function apply(mapCode, text) {
     mapCode[1655][1][0x655] = 0xE0;
 
     // Change text lines
+    textutil.writeLine(text, 0x1305, "Consider it done.\x03Just talk to my wife.\x02");
     textutil.writeLine(text, 0x1306, "Consider it done.\x03Just talk to my wife.\x02");
     textutil.writeLine(text, 0x1311, "It's \x16 coins for\x03this \x14\x01.\x03Do you want it?\x1E");
 }
