@@ -53,7 +53,8 @@ function setupAjaxRequest(seed, settings, log) {
 
         if (romData) {
             $("#btn-patch").prop('disabled', false);
-            romTooltip.dispose();
+            var romTooltip = new bootstrap.Tooltip($("#btn-patch").parent()[0]);
+            if (romTooltip) romTooltip.dispose();
         }
         if (log) setupLogAjaxRequest(seed, settings);
     };
