@@ -111,10 +111,12 @@ function prepItemLocations(locations, settings) {
         locations['0xfd6'].forEach((t) => {
             t['vanillaContents'] = 268;
             t['vanillaName'] = "Cleric's Ring";
+            t['isMajorItem'] = true;
         });
         locations['0xfd8'].forEach((t) => {
             t['vanillaContents'] = 93;
             t['vanillaName'] = "Elven Shirt";
+            t['isMajorItem'] = true;
         });
     }
 
