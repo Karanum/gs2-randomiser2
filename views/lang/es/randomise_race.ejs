@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html prefix="og: https://ogp.me/ns#" lang="en">
+<head>
+    <%- include("partials/head_common") %>
+
+    <link rel="stylesheet" href="/css/randomise.css">
+
+    <script src="/js/patcher.js"></script>
+    <script src="/js/randomise_race.js"></script>
+    <script src="/js/spoiler.js"></script>
+
+    <meta property="og:title" content="Generate Seed">
+    <link rel="canonical" href="https://gs2randomiser.com/randomise_race.html">
+    <title>GS2 Randomiser</title>
+</head>
+
+<body>
+    <% locals.path = "/randomise_race" %>
+    <%- include("partials/top_nav") %>
+
+    <main class="container-fluid">
+        <div class="row mt-3 mx-lg-5">
+            <div class="col-12 mx-lg-3 mb-2">
+                <center>
+                    <a href="/"><img class="logo" src="/img/gstlar-logo.webp" alt="Randomiser logo"></a>
+                </center>
+            </div>
+
+            <div class="col-12 mb-4 px-lg-5">
+                <div class="card mt-4">
+                    <div class="card-body">
+                        <div class="row px-lg-5 mt-2 mb-4" id="div-result">
+                            <div class="col-12 col-lg-9 mb-1">
+                                <div class="ms-3 d-inline-block" id="div-spinner">
+                                    <div class="spinner-border spinner-border-sm me-2 mt-2"></div>
+                                    Randomising...
+                                </div>
+                                <div class="ms-3 d-none" id="div-info">
+                                    <b>Seed: </b><span id="span-seed"></span><br>
+                                    <b>Permalink: </b><span id="span-link"></span>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-3 mb-1">
+                                <div class="d-block">
+                                    <a type="button" class="btn btn-primary float-end" id="btn-log" disabled>
+                                        Download spoiler log
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="div-log">
+                            <hr>
+                            <div class="alert alert-primary mx-lg-5 mt-4">
+                                The spoiler log for this seed will be inaccessible once you leave this page.
+                                Make sure to save a copy if you want to refer to it later.
+                            </div>
+                            <div class="col-12 px-lg-5 py-3">
+                                <div class="card">
+                                    <h3 class="card-header" data-bs-toggle="collapse" data-bs-target="#card-toggle">
+                                        <i class="bi bi-caret-down-fill me-2 rot-base" id="caret-log"></i> 
+                                        Spoiler log
+                                    </h3>
+                                    <div class="collapse" id="card-toggle">
+                                        <div class="card-body" id="card-log">
+                                            <ul class="nav nav-tabs"></ul>
+                                            <div class="tab-content mt-1"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

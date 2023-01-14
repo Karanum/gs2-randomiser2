@@ -52,6 +52,14 @@ function generatePermalink() {
     }
 }
 
+function validateLanguage(lang) {
+    if (lang == undefined || lang == 'en') 
+        return '';
+    if (lang == 'es' || lang == 'de' || lang == 'fr')
+        return 'lang/' + lang + '/';
+    return '';
+}
+
 app.get('/randomise_ajax', (req, res) => {
     if (!req.xhr) return res.redirect('/');
     res.type('application/octet-stream');
@@ -166,30 +174,38 @@ app.get('/fetch_perma_ajax', (req, res) => {
     });
 });
 
-app.get(['/', '/index.html'], (_, res) => {
-    res.render('index.ejs', {version: nodePackage.version});
+app.get(['/', '/index.html', '/:lang/index.html'], (req, res) => {
+    const lang = validateLanguage(req.params.lang);
+    res.render(lang + 'index.ejs', {version: nodePackage.version});
 });
-app.get('/changelog.html', (_, res) => {
+app.get(['/changelog.html', '/:lang/changelog.html'], (_, res) => {
+    const lang = validateLanguage(req.params.lang);
     res.render('changelog.ejs');
 });
-app.get('/custom.html', (_, res) => {
-    res.render('custom.ejs');
-});
-app.get('/help.html', (_, res) => {
+//app.get(['/custom.html', '/:lang/custom.html'], (_, res) => {
+//    const lang = validateLanguage(req.params.lang);
+//    res.render('custom.ejs', {lang: lang});
+//});
+app.get(['/help.html', '/:lang/help.html'], (_, res) => {
+    const lang = validateLanguage(req.params.lang);
     res.render('help.ejs');
 });
-app.get('/randomise.html', (_, res) => {
+app.get(['/randomise.html', '/:lang/randomise.html'], (_, res) => {
+    const lang = validateLanguage(req.params.lang);
     res.render('randomise.ejs');
 });
-app.get('/randomise_race.html', (_, res) => {
+app.get(['/randomise_race.html', '/:lang/randomise_race.html'], (_, res) => {
+    const lang = validateLanguage(req.params.lang);
     res.render('randomise_race.ejs');
 });
-app.get('/tips.html', (_, res) => {
+app.get(['/tips.html', '/:lang/tips.html'], (_, res) => {
+    const lang = validateLanguage(req.params.lang);
     res.render('tips.ejs');
 });
 
-app.get('/permalink/:id', (req, res) => {
-    const { id } = req.params;
+app.get(['/permalink/:id', '/:lang/permalink/:id'], (req, res) => {
+    const id = req.params.id;
+    const lang = validateLanguage(req.params.lang);
     fs.readFile(`./permalinks/${id}.meta`, (err, data) => {
         if (err) {
             res.redirect('/');

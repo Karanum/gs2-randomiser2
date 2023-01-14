@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html prefix="og: https://ogp.me/ns#" lang="en">
+<head>
+    <%- include("partials/head_common") %>
+
+    <meta property="og:title" content="Version History">
+    <link rel="canonical" href="https://gs2randomiser.com/changelog.html">
+    <title>GS2 Randomiser - Changelog</title>
+</head>
+
+<body>
+    <% locals.path = "/changelog" %>
+    <%- include("partials/top_nav") %>
+
+    <main class="container-fluid">
+        <div class="row mt-3 mx-lg-5">
+            <div class="col-12 mx-lg-3 mb-2">
+                <center>
+                    <a href="/"><img class="logo" src="/img/gstlar-logo.webp" alt="Randomiser logo"></a>
+                </center>
+            </div>
+
+            <div class="col-12 mb-4 px-lg-5">
+                <div class="card mt-4">
+                    <h1 class="card-header">1.2 Versions</h1>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col my-3">
+                                <h3 class="mb-0">v1.2.0</h3>
+                                <span>(unreleased)</span>
+                                <ul class="mt-3">
+                                    <li>Added major/minor item split to the item shuffle options, see Settings Info for more information</li>
+                                    <li>Added help NPCs to Idejima that explain randomiser changes and settings</li>
+                                    <li>Changed the Gabomba puzzle to be checked by talking to Kraden instead of being on a timer</li>
+                                    <li>Changed Sunshine's forge so you don't need to leave Yallam to get the item</li>
+                                    <li>Improved the cutscene skip setting so most cutscenes are actually skipped in full</li>
+                                    <li>Renamed the setting that removes utility Psynergy from classes to avoid confusion</li>
+                                    <li>Fixed bug when fetching the spoiler log with a ROM already selected during randomisation</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mt-4">
+                    <h1 class="card-header">1.1 Versions</h1>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col my-3">
+                                <h3 class="mb-0">v1.1.3</h3>
+                                <span>May 17th, 2022</span>
+                                <ul class="mt-3">
+                                    <li>Added a setting for switching off the previously innate Avoid changes</li>
+                                    <li>Added a setting for enabling Hard Mode without a cleared save</li>
+                                    <li>Added a setting that halves the battle encounter rate</li>
+                                    <li>Updated the settings for the Chaos prefix (no longer requires glitches)</li>
+                                    <li>Fixed spoiler log to make vanilla empty chests show as empty if an item has been injected there by the randomiser</li>
+                                    <li>Removed the password input prompt to prevent password-related issues</li>
+                                    <li>Due to passwords being removed, the golden items are now included in the unobtainable items setting</li>
+                                </ul>
+                            </div>
+                            <hr>
+
+                            <div class="col my-3">
+                                <h3 class="mb-0">v1.1.2</h3>
+                                <span>December 3rd, 2021</span>
+                                <ul class="mt-3">
+                                    <li>Added the Islet Cave OOB glitch to the Easy OOB Skips setting</li>
+                                    <li>Added a setting for cheaper or fixed sanctum revival costs</li>
+                                    <li>Added a setting for shuffling weapon attack and armour defense</li>
+                                    <li>Added a setting for disabling curses on equipment</li>
+                                    <li>Fixed the Vanilla boat setting being incorrect</li>
+                                    <li>Fixed hint NPCs not liking the number 6 and freaking out about it</li>
+                                    <li>Fixed certain text lines being loaded incorrectly by the server and glitching out</li>
+                                </ul>
+                            </div>
+                            <hr>
+
+                            <div class="col my-3">
+                                <h3 class="mb-0">v1.1.1</h3>
+                                <span>November 13th, 2021</span>
+                                <ul class="mt-3">
+                                    <li>Added the option to create race seeds, which have permalinks and hidden spoiler logs</li>
+                                    <li>Added the ability to set post-randomisation options and moved auto-run there</li>
+                                    <li>Changed summon cost randomisation to ensure that all 1-cost summons have a unique element</li>
+                                    <li>Fixed the Djinn option not appearing in combat under certain circumstances</li>
+                                    <li>Fixed a concurrency bug that sometimes caused incomplete spoiler logs to be sent</li>
+                                    <li>Updated the website with some minor changes to improve our search engine score</li>
+                                </ul>
+                            </div>
+                            <hr>
+
+                            <div class="col my-3">
+                                <h3 class="mb-0">v1.1.0</h3> 
+                                <span>November 7th, 2021</span>
+                                <ul class="mt-3">
+                                    <li>Added advanced equipment shuffling (adds shop artifacts and forge results into the pool)</li>
+                                    <li>Added settings for enemy elemental resistance shuffling and randomisation</li>
+                                    <li>Added a changelog page to the website (this one!)</li>
+                                    <li>Expanded the spoiler log with character stats, class stats, and shop/forge items</li>
+                                    <li>Reworked the randomisation web page so settings are behind tabs and more compact</li>
+                                    <li>Reverted previous randomiser changes to Retreat points, meaning Retreat from interior dungeons works like vanilla again</li>
+                                    <li>Fixed djinn distribution not capping out at 9 Djinn per character</li>
+                                    <li>Fixed a minor logic issue in Gaia Rock</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card mt-4">
+                    <h2 class="card-header">1.0 Versions</h2>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col my-3">
+                                <h3 class="mb-0">v1.0.6</h3> 
+                                <span>May 24th, 2021</span>
+                                <ul class="mt-3">
+                                    <li>Fixed a logic issue with basic skips enabled in Shrine of the Sea God</li>
+                                    <li>Fixed defense boosts on rings, boots and shirts not being shuffled</li>
+                                </ul>
+                            </div>
+
+                            <hr>
+                            <div class="col my-3">
+                                <h3 class="mb-0">v1.0.5</h3> 
+                                <span>May 18th, 2021</span>
+                                <ul class="mt-3">
+                                    <li>Added a setting to include unobtainable equipment (some shirts, boots and rings) in the item pool</li>
+                                    <li>Added a new preset to the website: Official Race Ruleset</li>
+                                    <li>Changed the way class stats are generated so they increase linearly within a class line</li>
+                                    <li>Changed the way equipment is sorted so it takes adjusted stats into consideration</li>
+                                    <li>Made Lucky Medals renewable by having the Phoenix enemy line drop them</li>
+                                </ul>
+                            </div>
+
+                            <hr>
+                            <div class="col my-3">
+                                <h3 class="mb-0">v1.0.4</h3> 
+                                <span>May 8th, 2021</span>
+                                <ul class="mt-3">
+                                    <li>Added more variety to what empty chests can get changed into when items are displayed outside chests (Herbs, Elixirs, etc. instead of everything being Game Tickets)</li>
+                                    <li>In addition, Mimics will now get changed to whatever their loot drop is</li>
+                                    <li>Changed the spoiler log to show if an item was originally a Mimic or an empty chest</li>
+                                    <li>Changed how critical/unleash modifiers are displayed in the item details window so it shows the exact boost</li>
+                                    <li>Fixed Mimics and empty chests appearing in certain locations where they would cause issues</li>
+                                    <li>Fixed attack modifiers from secondary armour effects not being shuffled</li>
+                                    <li>Fixed movesets for some Djinni fights when using Djinni scaling, early-game fights should be better now</li>
+                                    <li>Fixed the Patch ROM button not working in Firefox</li>
+                                </ul>
+                            </div>
+
+                            <hr>
+                            <div class="col my-3">
+                                <h3 class="mb-0">v1.0.3</h3> 
+                                <span>May 4th, 2021</span>
+                                <ul class="mt-3">
+                                    <li>Fixed fatal randomiser crash when trying to sort equipment with a vanilla item shuffle</li>
+                                    <li>Fixed equipment, mimic and summon tablet sorting not working correctly in some locations</li>
+                                    <li>Fixed logic issue where the hidden item in Moapa's basement did not require the Shaman's Rod</li>
+                                </ul>
+                            </div>
+
+                            <hr>
+                            <div class="col my-3">
+                                <h3 class="mb-0">v1.0.2</h3> 
+                                <span>April 25th, 2021</span>
+                                <ul class="mt-3">
+                                    <li>Fixed Djinn scaling being incorrect, causing strange difficulty spikes</li>
+                                </ul>
+                            </div>
+
+                            <hr>
+                            <div class="col my-3">
+                                <h3 class="mb-0">v1.0.1</h3> 
+                                <span>April 21st, 2021</span>
+                                <ul class="mt-3">
+                                    <li>Removed MegaROMs warning as it does not seem to cause issues</li>
+                                    <li>Fixed Healing Fungus hint message not being shown</li>
+                                    <li>Fixed summon tablet locations not being replaced with chests for non-summon, non-Psynergy items</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
