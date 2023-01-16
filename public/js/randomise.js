@@ -63,15 +63,6 @@ function setupAjaxRequest(seed, settings, log) {
 }
 
 function prepSpoilerLog() {
-    $(".card-body .nav-tabs").append('<li class="nav-item"><a class="nav-link active" data-bs-target="#tab-spheres">Progression</a></li>')
-        .append('<li class="nav-item"><a class="nav-link" data-bs-target="#tab-indra">Indra</a></li>')
-        .append('<li class="nav-item"><a class="nav-link" data-bs-target="#tab-osenia">Osenia</a></li>')
-        .append('<li class="nav-item"><a class="nav-link" data-bs-target="#tab-gondowan">Gondowan</a></li>')
-        .append('<li class="nav-item"><a class="nav-link" data-bs-target="#tab-angara">Angara/Tundaria</a></li>')
-        .append('<li class="nav-item"><a class="nav-link" data-bs-target="#tab-eastsea">Eastern Sea</a></li>')
-        .append('<li class="nav-item"><a class="nav-link" data-bs-target="#tab-westsea">Western Sea</a></li>')
-        .append('<li class="nav-item"><a class="nav-link" data-bs-target="#tab-prox">N. Reaches</a></li>')
-        .append('<li class="nav-item"><a class="nav-link" data-bs-target="#tab-search">Search</a></li>');
     $(".card-body .nav-link").attr('data-bs-toggle', 'tab');
     $(".tab-content").append('<div class="tab-pane fade show active" id="tab-spheres"></div>')
         .append('<div class="tab-pane fade" id="tab-indra"></div>')
@@ -146,14 +137,12 @@ $(document).ready(() => {
             var data = new Uint8Array(e.target.result);
             if (data.length < 0x1000000) {
                 $("#err-rom").removeClass('d-none');
-                $("#err-rom").html("The selected ROM appears to be invalid. Please select another ROM file.");
                 return;
             }
 
             var fingerprint = data[1128] + (data[1129] << 8) + (data[1130] << 16) + (data[1131] << 24);
             if (fingerprint != 0x801319d && fingerprint != 0x8f9ee50) {
                 $("#err-rom").removeClass('d-none');
-                $("#err-rom").html("The selected ROM appears to be invalid. Please select another ROM file.");
             }
             romData = data;
 

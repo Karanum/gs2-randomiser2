@@ -5,6 +5,11 @@
 
     <meta property="og:title" content="Version History">
     <link rel="canonical" href="https://gs2randomiser.com/changelog.html">
+    <link ref="alternate" hreflang="en" href="https://gs2randomiser.com/changelog.html">
+    <link ref="alternate" hreflang="de" href="https://gs2randomiser.com/de/changelog.html">
+    <link ref="alternate" hreflang="fr" href="https://gs2randomiser.com/fr/changelog.html">
+    <link ref="alternate" hreflang="es" href="https://gs2randomiser.com/es/changelog.html">
+    <link ref="alternate" hreflang="x-default" href="https://gs2randomiser.com/changelog.html">
     <title>GS2 Randomiser - Changelog</title>
 </head>
 
@@ -16,18 +21,18 @@
         <div class="row mt-3 mx-lg-5">
             <div class="col-12 mx-lg-3 mb-2">
                 <center>
-                    <a href="/"><img class="logo" src="/img/gstlar-logo.webp" alt="Randomiser logo"></a>
+                    <a href="./index.html"><img class="logo" src="/img/gstlar-logo.webp" alt="Randomiser logo"></a>
                 </center>
             </div>
 
             <div class="col-12 mb-4 px-lg-5">
                 <div class="card mt-4">
-                    <h1 class="card-header">1.2 Versions</h1>
+                    <h1 class="card-header"><%= lang.versions.versions.replace("%1", "1.2") %></h1>
                     <div class="card-body">
                         <div class="row">
                             <div class="col my-3">
                                 <h3 class="mb-0">v1.2.0</h3>
-                                <span>(unreleased)</span>
+                                <span>(<%= lang.versions.unreleased %>)</span>
                                 <ul class="mt-3">
                                     <li>Added major/minor item split to the item shuffle options, see Settings Info for more information</li>
                                     <li>Added help NPCs to Idejima that explain randomiser changes and settings</li>
@@ -43,12 +48,17 @@
                 </div>
 
                 <div class="card mt-4">
-                    <h1 class="card-header">1.1 Versions</h1>
+                    <h1 class="card-header"><%= lang.versions.versions.replace("%1", "1.1") %></h1>
                     <div class="card-body">
                         <div class="row">
                             <div class="col my-3">
                                 <h3 class="mb-0">v1.1.3</h3>
-                                <span>May 17th, 2022</span>
+                                <span><%= lang.versions.date_format
+                                    .replace("%d", "17")
+                                    .replace("%s", lang.versions.num_suffixes[7])
+                                    .replace("%m", lang.versions.months[4])
+                                    .replace("%y", "2022")   
+                                %></span>
                                 <ul class="mt-3">
                                     <li>Added a setting for switching off the previously innate Avoid changes</li>
                                     <li>Added a setting for enabling Hard Mode without a cleared save</li>
@@ -63,7 +73,12 @@
 
                             <div class="col my-3">
                                 <h3 class="mb-0">v1.1.2</h3>
-                                <span>December 3rd, 2021</span>
+                                <span><%= lang.versions.date_format
+                                    .replace("%d", "3")
+                                    .replace("%s", lang.versions.num_suffixes[3])
+                                    .replace("%m", lang.versions.months[11])
+                                    .replace("%y", "2021")   
+                                %></span>
                                 <ul class="mt-3">
                                     <li>Added the Islet Cave OOB glitch to the Easy OOB Skips setting</li>
                                     <li>Added a setting for cheaper or fixed sanctum revival costs</li>
@@ -78,7 +93,12 @@
 
                             <div class="col my-3">
                                 <h3 class="mb-0">v1.1.1</h3>
-                                <span>November 13th, 2021</span>
+                                <span><%= lang.versions.date_format
+                                    .replace("%d", "13")
+                                    .replace("%s", lang.versions.num_suffixes[3])
+                                    .replace("%m", lang.versions.months[10])
+                                    .replace("%y", "2021")   
+                                %></span>
                                 <ul class="mt-3">
                                     <li>Added the option to create race seeds, which have permalinks and hidden spoiler logs</li>
                                     <li>Added the ability to set post-randomisation options and moved auto-run there</li>
@@ -91,8 +111,13 @@
                             <hr>
 
                             <div class="col my-3">
-                                <h3 class="mb-0">v1.1.0</h3> 
-                                <span>November 7th, 2021</span>
+                                <h3 class="mb-0">v1.1.0</h3>
+                                <span><%= lang.versions.date_format
+                                    .replace("%d", "7")
+                                    .replace("%s", lang.versions.num_suffixes[7])
+                                    .replace("%m", lang.versions.months[10])
+                                    .replace("%y", "2021")   
+                                %></span>
                                 <ul class="mt-3">
                                     <li>Added advanced equipment shuffling (adds shop artifacts and forge results into the pool)</li>
                                     <li>Added settings for enemy elemental resistance shuffling and randomisation</li>
@@ -109,12 +134,17 @@
                 </div>
                 
                 <div class="card mt-4">
-                    <h2 class="card-header">1.0 Versions</h2>
+                    <h2 class="card-header"><%= lang.versions.versions.replace("%1", "1.0") %></h2>
                     <div class="card-body">
                         <div class="row">
                             <div class="col my-3">
-                                <h3 class="mb-0">v1.0.6</h3> 
-                                <span>May 24th, 2021</span>
+                                <h3 class="mb-0">v1.0.6</h3>
+                                <span><%= lang.versions.date_format
+                                    .replace("%d", "24")
+                                    .replace("%s", lang.versions.num_suffixes[4])
+                                    .replace("%m", lang.versions.months[4])
+                                    .replace("%y", "2021")   
+                                %></span>
                                 <ul class="mt-3">
                                     <li>Fixed a logic issue with basic skips enabled in Shrine of the Sea God</li>
                                     <li>Fixed defense boosts on rings, boots and shirts not being shuffled</li>
@@ -123,8 +153,13 @@
 
                             <hr>
                             <div class="col my-3">
-                                <h3 class="mb-0">v1.0.5</h3> 
-                                <span>May 18th, 2021</span>
+                                <h3 class="mb-0">v1.0.5</h3>
+                                <span><%= lang.versions.date_format
+                                    .replace("%d", "18")
+                                    .replace("%s", lang.versions.num_suffixes[8])
+                                    .replace("%m", lang.versions.months[4])
+                                    .replace("%y", "2021")   
+                                %></span>
                                 <ul class="mt-3">
                                     <li>Added a setting to include unobtainable equipment (some shirts, boots and rings) in the item pool</li>
                                     <li>Added a new preset to the website: Official Race Ruleset</li>
@@ -137,7 +172,12 @@
                             <hr>
                             <div class="col my-3">
                                 <h3 class="mb-0">v1.0.4</h3> 
-                                <span>May 8th, 2021</span>
+                                <span><%= lang.versions.date_format
+                                    .replace("%d", "8")
+                                    .replace("%s", lang.versions.num_suffixes[8])
+                                    .replace("%m", lang.versions.months[4])
+                                    .replace("%y", "2021")   
+                                %></span>
                                 <ul class="mt-3">
                                     <li>Added more variety to what empty chests can get changed into when items are displayed outside chests (Herbs, Elixirs, etc. instead of everything being Game Tickets)</li>
                                     <li>In addition, Mimics will now get changed to whatever their loot drop is</li>
@@ -153,7 +193,12 @@
                             <hr>
                             <div class="col my-3">
                                 <h3 class="mb-0">v1.0.3</h3> 
-                                <span>May 4th, 2021</span>
+                                <span><%= lang.versions.date_format
+                                    .replace("%d", "4")
+                                    .replace("%s", lang.versions.num_suffixes[4])
+                                    .replace("%m", lang.versions.months[4])
+                                    .replace("%y", "2021")   
+                                %></span>
                                 <ul class="mt-3">
                                     <li>Fixed fatal randomiser crash when trying to sort equipment with a vanilla item shuffle</li>
                                     <li>Fixed equipment, mimic and summon tablet sorting not working correctly in some locations</li>
@@ -163,8 +208,13 @@
 
                             <hr>
                             <div class="col my-3">
-                                <h3 class="mb-0">v1.0.2</h3> 
-                                <span>April 25th, 2021</span>
+                                <h3 class="mb-0">v1.0.2</h3>
+                                <span><%= lang.versions.date_format
+                                    .replace("%d", "25")
+                                    .replace("%s", lang.versions.num_suffixes[5])
+                                    .replace("%m", lang.versions.months[3])
+                                    .replace("%y", "2021")   
+                                %></span>
                                 <ul class="mt-3">
                                     <li>Fixed Djinn scaling being incorrect, causing strange difficulty spikes</li>
                                 </ul>
@@ -173,7 +223,12 @@
                             <hr>
                             <div class="col my-3">
                                 <h3 class="mb-0">v1.0.1</h3> 
-                                <span>April 21st, 2021</span>
+                                <span><%= lang.versions.date_format
+                                    .replace("%d", "21")
+                                    .replace("%s", lang.versions.num_suffixes[1])
+                                    .replace("%m", lang.versions.months[3])
+                                    .replace("%y", "2021")
+                                %></span>
                                 <ul class="mt-3">
                                     <li>Removed MegaROMs warning as it does not seem to cause issues</li>
                                     <li>Fixed Healing Fungus hint message not being shown</li>

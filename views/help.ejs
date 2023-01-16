@@ -5,6 +5,11 @@
 
     <meta property="og:title" content="Settings Info">
     <link rel="canonical" href="https://gs2randomiser.com/help.html">
+    <link ref="alternate" hreflang="en" href="https://gs2randomiser.com/help.html">
+    <link ref="alternate" hreflang="de" href="https://gs2randomiser.com/de/help.html">
+    <link ref="alternate" hreflang="fr" href="https://gs2randomiser.com/fr/help.html">
+    <link ref="alternate" hreflang="es" href="https://gs2randomiser.com/es/help.html">
+    <link ref="alternate" hreflang="x-default" href="https://gs2randomiser.com/help.html">
     <title>GS2 Randomiser - Settings Info</title>
 </head>
 
@@ -16,62 +21,59 @@
         <div class="row mt-3 mx-lg-5">
             <div class="col-12 mx-lg-3 mb-2">
                 <center>
-                    <a href="/"><img class="logo" src="/img/gstlar-logo.webp" alt="Randomiser logo"></a>
+                    <a href="./index.html"><img class="logo" src="/img/gstlar-logo.webp" alt="Randomiser logo"></a>
                 </center>
             </div>
 
             <div class="col-12 mb-4 px-lg-5">
                 <div class="card mt-4">
-                    <h2 class="card-header">Settings</h2>
+                    <h2 class="card-header"><%= lang.help.headers.settings %></h2>
                     <div class="card-body">
                         <div class="row">
                             <div class="col mx-lg-2">
-                                <h3>Item Shuffle</h3>
+                                <h3><%= lang.settings.item_shuffle %></h3>
                                 <p class="ms-3 ms-lg-4">
-                                    <b>Vanilla</b> &mdash; Items are not randomised<br>
-                                    <b>Key Items Only</b> &mdash; Important items, psynergy and summon tablets are randomised<br>
-                                    <b>All Chests & Tablets</b> &mdash; All items except hidden items are randomised<br>
-                                    <b>All Items</b> &mdash; All items are randomised<br>
+                                    <b><%= lang.help.item_shuffle.vanilla_name %></b> &mdash; <%= lang.help.item_shuffle.vanilla_help %><br>
+                                    <b><%= lang.help.item_shuffle.key_items_name %></b> &mdash; <%= lang.help.item_shuffle.key_items_help %><br>
+                                    <b><%= lang.help.item_shuffle.most_items_name %></b> &mdash; <%= lang.help.item_shuffle.most_items_help %><br>
+                                    <b><%= lang.help.item_shuffle.all_items_name %></b> &mdash; <%= lang.help.item_shuffle.all_items_help %><br>
                                 </p>
                                 <p class="ms-3 ms-lg-4">
-                                    <b>Major/Minor</b> &mdash; This modifier makes it so the item pool is split into two.
-                                    One item pool contains all Psynergy, summons, key items and equipment (GS1 equipment included, adding 2 locations in Treasure Isle.) 
-                                    The other item pool contains the rest of the items. Items are only swapped within the same pool. This limits the number of important 
-                                    locations to check, providing an experience closer to <i>Key Items Only</i> while still randomising the rest of the items.
-                                </p>
-
-                                <hr>
-                                <h3>Class Psynergy</h3>
-                                <p class="ms-3 ms-lg-4">
-                                    <b>Vanilla</b> &mdash; Psynergy is not randomised<br>
-                                    <b>By classline</b> &mdash; Learned Psynergy is shuffled by classlines (e.g. Squire will have Brute Psynergy)<br>
-                                    <b>By Psynergy group</b> &mdash; Learned Psynergy is shuffled by Psynergy groups (e.g. if a class learns Spire, it will also learn Clay Spire)<br>
-                                    <b>By Psynergy element</b> &mdash; Learned Psynergy is freely shuffled with another Psynergy of the same element<br>
-                                    <b>Randomise fully</b> &mdash; Learned Psynergy is freely shuffled without restrictions
+                                    <b><%= lang.help.item_shuffle.mod_majmin_name %></b> &mdash; <%- lang.help.item_shuffle.mod_majmin_help
+                                        .replace("%1", `<i>${lang.help.item_shuffle.key_items_name}</i>`)
+                                    %>
                                 </p>
 
                                 <hr>
-                                <h3>Lemurian Ship</h3>
+                                <h3><%= lang.settings.psy_shuffle %></h3>
                                 <p class="ms-3 ms-lg-4">
-                                    <b>Vanilla</b> &mdash; The ship is unlocked as usual, by clearing Gabomba and using the Black Crystal to open the door<br>
-                                    <b>Ship door unlocked</b> &mdash; The door of the ship is unlocked, bypassing the need for Gabomba and the Black Crystal<br>
-                                    <b>Available from start</b> &mdash; The ship is available immediately (Lemuria or Atteka Inlet need to be reached to enter the ship)
+                                    <b><%= lang.help.class_psynergy.vanilla_name %></b> &mdash; <%= lang.help.class_psynergy.vanilla_help %><br>
+                                    <b><%= lang.help.class_psynergy.classline_name %></b> &mdash; <%= lang.help.class_psynergy.classline_help %><br>
+                                    <b><%= lang.help.class_psynergy.group_name %></b> &mdash; <%= lang.help.class_psynergy.group_help %><br>
+                                    <b><%= lang.help.class_psynergy.element_name %></b> &mdash; <%= lang.help.class_psynergy.element_help %><br>
+                                    <b><%= lang.help.class_psynergy.full_name %></b> &mdash; <%= lang.help.class_psynergy.full_help %>
                                 </p>
 
                                 <hr>
-                                <h3>Adjusting / Scaling</h3>
+                                <h3><%= lang.settings.logic_ship_mode %></h3>
                                 <p class="ms-3 ms-lg-4">
-                                    Settings that adjust or scale a value will multiply the vanilla value by a random modifier. Below is a list of the modifiers for each value.
+                                    <b><%= lang.help.lemurian_ship.vanilla_name %></b> &mdash; <%= lang.help.lemurian_ship.vanilla_help %><br>
+                                    <b><%= lang.help.lemurian_ship.open_name %></b> &mdash; <%= lang.help.lemurian_ship.open_help %><br>
+                                    <b><%= lang.help.lemurian_ship.unlocked_name %></b> &mdash; <%= lang.help.lemurian_ship.unlocked_help %>
                                 </p>
+
+                                <hr>
+                                <h3><%= lang.help.terms.name %></h3>
+                                <p class="ms-3 ms-lg-4"><%= lang.help.terms.help %></p>
                                 <p class="ms-3 ms-lg-4">
-                                    <b>Equipment stats</b> &mdash; Between 50% and 150%, also scales prices slightly<br>
-                                    <b>Equipment prices</b> &mdash; Between 80% and 120%<br>
-                                    <b>Djinni attack power</b> &mdash; Between 80% and 120%<br>
-                                    <b>Summon power</b> &mdash; Between 80% and 120%<br>
-                                    <b>Psynergy levels</b> &mdash; Between 50% and 150%, can learn Psynergy out of order (e.g. Pure Ply before Ply Well)<br>
-                                    <b>Psynergy power</b> &mdash; Between 80% and 120%<br>
-                                    <b>Psynergy cost</b> &mdash; Between 60% and 140%<br>
-                                    <b>Character stats</b> &mdash; Between 50% and 150% at level 1, between 75% and 125% at level 99
+                                    <b><%= lang.help.terms.equip_stats_name %></b> &mdash; <%= lang.help.terms.equip_stats_help %><br>
+                                    <b><%= lang.help.terms.equip_price_name %></b> &mdash; <%= lang.help.terms.equip_price_help %><br>
+                                    <b><%= lang.help.terms.djinn_power_name %></b> &mdash; <%= lang.help.terms.djinn_power_help %><br>
+                                    <b><%= lang.help.terms.summon_power_name %></b> &mdash; <%= lang.help.terms.summon_power_help %><br>
+                                    <b><%= lang.help.terms.psy_level_name %></b> &mdash; <%= lang.help.terms.psy_level_help %><br>
+                                    <b><%= lang.help.terms.psy_power_name %></b> &mdash; <%= lang.help.terms.psy_power_help %><br>
+                                    <b><%= lang.help.terms.psy_cost_name %></b> &mdash; <%= lang.help.terms.psy_cost_help %><br>
+                                    <b><%= lang.help.terms.character_stats_name %></b> &mdash; <%= lang.help.terms.character_stats_help %>
                                 </p>
                             </div>
                         </div>
@@ -79,91 +81,76 @@
                 </div>
 
                 <div class="card mt-4">
-                    <h2 class="card-header">Skips and Glitches</h2>
+                    <h2 class="card-header"><%= lang.help.headers.skips %></h2>
                     <div class="card-body">
                         <div class="row">
                             <div class="col mx-lg-2">
-                                <h3><a>Basic glitches/skips</a></h3>
+                                <h3><a><%= lang.help.skips_basic.name %></a></h3>
                                 <p class="ms-3 ms-lg-4">
-                                    These skips are in logic through the "Require basic glitches/skips" setting:
-                                    <ul>
-                                        <li>Kibombo sanctum warp</li>
-                                        <li>Tundaria Tower move pillar wiggle (skips Pound)</li>
-                                        <li>Shaman Village retreat warps for Aroma</li>
-                                        <li>Mars Lighthouse dumb (flamethrower) skips</li>
-                                        <li>Mars Lighthouse Venus wing skip</li>
-                                    </ul>
+                                    <%= lang.help.skips_basic.help %>
+                                    <ul><% lang.help.skips_basic.content.forEach((line) => { %>
+                                        <li><%= line %></li>
+                                    <% }) %></ul>
                                 </p>
 
                                 <hr>
-                                <h3><a>Easy OOB skips</a></h3>
+                                <h3><a><%= lang.help.oob_easy.name %></a></h3>
                                 <p class="ms-3 ms-lg-4">
-                                    These skips are in logic through the "Require easy OOB skips" setting:
-                                    <ul>
-                                        <li>Shrine of the Sea God OOB</li>
-                                        <li>Reverse Yampi Desert</li>
-                                        <li>Islet Cave OOB (<a href="https://youtu.be/tyE7rYChiyM">Video</a>)</li>
-                                    </ul>
+                                    <%= lang.help.oob_easy.help %>
+                                    <ul><% lang.help.oob_easy.content.forEach((line, i) => { %>
+                                        <li><%= line %><% if (i == 2) { %>
+                                            (<a href="https://youtu.be/tyE7rYChiyM"><%= lang.help.oob_easy.video %></a>)
+                                        <% } %></li>
+                                    <% }) %></ul>
                                 </p>
 
                                 <hr>
-                                <h3><a>Hard OOB skips</a></h3>
+                                <h3><a><%= lang.help.oob_hard.name %></a></h3>
                                 <p class="ms-3 ms-lg-4">
-                                    These skips are in logic through the "Require hard OOB skips" setting:
-                                    <ul>
-                                        <li>Gondowan Cliffs OOB</li>
-                                        <li>Lemurian Ship OOB (both to Aqua Hydra and the lower floor)</li>
-                                    </ul>
+                                    <%= lang.help.oob_hard.help %>
+                                    <ul><% lang.help.oob_hard.content.forEach((line) => { %>
+                                        <li><%= line %></li>
+                                    <% }) %></ul>
                                 </p>
 
                                 <hr>
-                                <h3><a>Gaia Rock maze</a></h3>
-                                <p class="ms-3 ms-lg-4">
-                                    The maze in Gaia Rock interior is one of the puzzles that is randomised based on Felix's name.
-                                    The "Gaia Rock maze w/o Growth" setting assumes that you know the maze solution for whatever you name Felix as.
-                                    This means the 2 chests, as well as Serpent, are in logic without requiring Growth to pass through the maze.
-                                </p>
+                                <h3><a><%= lang.help.gaia_maze_name %></a></h3>
+                                <p class="ms-3 ms-lg-4"><%= lang.help.gaia_maze_help %></p>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="card mt-4">
-                    <h2 class="card-header">Boss Logic</h2>
+                    <h2 class="card-header"><%= lang.help.headers.boss_logic %></h2>
                     <div class="card-body">
                         <div class="row">
                             <div class="col-12 mx-lg-2">
-                                <p class="ms-1">
-                                    The randomiser will not require you to fight bosses while severely underpowered.
-                                    This means that each boss has a certain Djinn requirement before being in logic.
-                                    (Note that this considers the amount of Djinn in logic, not the amount of Djinn in
-                                    the player's possession.)
-                                </p>
-                                <p class="ms-1">
-                                    The Djinn requirements for bosses to be in logic can be disabled with the "Disable boss logic" setting.
-                                    Serpent will still require at least 3 lights to be turned on, regardless of this setting.
+                                <p class="ms-1"><%= lang.help.boss_logic.help_1 %></p>
+                                <p class="ms-1"><%= lang.help.boss_logic.help_2 %></p>
+                            </div>
+                            <div class="col-12 col-lg-5 mx-lg-2">
+                                <p class="ms-3 ms-lg-4">
+                                    <b><%= lang.help.boss_logic.bosses.chestbeaters%></b> &mdash; 0<br>
+                                    <b><%= lang.help.boss_logic.bosses.king_scorp%></b> &mdash; 3<br>
+                                    <b><%= lang.help.boss_logic.bosses.briggs%></b> &mdash; 6<br>
+                                    <b><%= lang.help.boss_logic.bosses.aqua_hydra%></b> &mdash; 10<br>
+                                    <b><%= lang.help.boss_logic.bosses.serpent%></b> &mdash;
+                                        16 (<%= lang.help.boss_logic.lights.replace("%1", 4) %>) / 
+                                        24 (<%= lang.help.boss_logic.lights.replace("%1", 3) %>)<br>
+                                    <b><%= lang.help.boss_logic.bosses.avimander%></b> &mdash; 20<br>
+                                    <b><%= lang.help.boss_logic.bosses.poseidon%></b> &mdash; 24<br>
                                 </p>
                             </div>
                             <div class="col-12 col-lg-5 mx-lg-2">
                                 <p class="ms-3 ms-lg-4">
-                                    <b>Chestbeaters</b> &mdash; 0<br>
-                                    <b>King Scorpion</b> &mdash; 3<br>
-                                    <b>Briggs</b> &mdash; 6<br>
-                                    <b>Aqua Hydra</b> &mdash; 10<br>
-                                    <b>Serpent</b> &mdash; 16 (4 lights) / 24 (3 lights)<br>
-                                    <b>Avimander</b> &mdash; 20<br>
-                                    <b>Poseidon</b> &mdash; 24<br>
-                                </p>
-                            </div>
-                            <div class="col-12 col-lg-5 mx-lg-2">
-                                <p class="ms-3 ms-lg-4">
-                                    <b>Moapa</b> &mdash; 28<br>
-                                    <b>Flame Dragons</b> &mdash; 48<br>
-                                    <b>Doom Dragon</b> &mdash; 56<br>
-                                    <b>Star Magician</b> &mdash; 64<br>
-                                    <b>Sentinel</b> &mdash; 64<br>
-                                    <b>Valukar</b> &mdash; 64<br>
-                                    <b>Dullahan</b> &mdash; 72<br>
+                                    <b><%= lang.help.boss_logic.bosses.moapa%></b> &mdash; 28<br>
+                                    <b><%= lang.help.boss_logic.bosses.flame_dragons%></b> &mdash; 48<br>
+                                    <b><%= lang.help.boss_logic.bosses.doom_dragon%></b> &mdash; 56<br>
+                                    <b><%= lang.help.boss_logic.bosses.star_magician%></b> &mdash; 64<br>
+                                    <b><%= lang.help.boss_logic.bosses.sentinel%></b> &mdash; 64<br>
+                                    <b><%= lang.help.boss_logic.bosses.valukar%></b> &mdash; 64<br>
+                                    <b><%= lang.help.boss_logic.bosses.dullahan%></b> &mdash; 72<br>
                                 </p>
                             </div>
                         </div>
@@ -171,68 +158,37 @@
                 </div>
 
                 <div class="card mt-4">
-                    <h2 class="card-header">Item Hints</h2>
+                    <h2 class="card-header"><%= lang.help.headers.hints %></h2>
                     <div class="card-body">
                         <div class="row">
                             <div class="col mx-lg-2">
                                 <p class="ms-1">
-                                    The randomiser has a hint system where certain NPCs give hints about the locations of key items
-                                    or the number of key items in certain dungeons. The chances of the different hint types are as follows:
+                                    <%= lang.help.hint_system.help_1%>
                                     <ul>
-                                        <li>50% &ndash; Random key item location</li>
-                                        <li>25% &ndash; Number of key items in dungeon</li>
-                                        <li>25% &ndash; Whether a location has a key item or not</li>
+                                        <li>50% &ndash; <%= lang.help.hint_system.help_2_item %></li>
+                                        <li>25% &ndash; <%= lang.help.hint_system.help_2_area %></li>
+                                        <li>25% &ndash; <%= lang.help.hint_system.help_2_loc %></li>
                                     </ul>
                                 </p>
                                 <p class="ms-1">
-                                    Below is a table of the different hint NPCs and the locations they will give hints for.
+                                    <%= lang.help.hint_system.help_3%>
                                     <table class="table">
                                         <thead>
                                             <tr>
-                                                <td><b>Region</b></td>
-                                                <td><b>NPC</b></td>
-                                                <td><b>Dungeon</b></td>
-                                                <td><b>Single location</b></td>
+                                                <td><b><%= lang.help.hint_system.tr_region%></b></td>
+                                                <td><b><%= lang.help.hint_system.tr_npc%></b></td>
+                                                <td><b><%= lang.help.hint_system.tr_dungeon%></b></td>
+                                                <td><b><%= lang.help.hint_system.tr_location%></b></td>
                                             </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody> <% for (var i = 0; i < 6; ++i) { %>
                                             <tr>
-                                                <td>Indra</td>
-                                                <td>Master Poi</td>
-                                                <td>Gaia Rock</td>
-                                                <td>Shrine of the Sea God &ndash; Prong</td>
+                                                <td><%= lang.help.hint_system.regions[i] %></td>
+                                                <td><%= lang.help.hint_system.npcs[i] %></td>
+                                                <td><%= lang.help.hint_system.dungeons[i] %></td>
+                                                <td><%= lang.help.hint_system.locations[i][0] %>, <%= lang.help.hint_system.locations[i][1] %></td>
                                             </tr>
-                                            <tr>
-                                                <td>Osenia</td>
-                                                <td>Master Maha</td>
-                                                <td>Air's Rock</td>
-                                                <td>Air's Rock &ndash; Reveal tablet</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Gondowan</td>
-                                                <td>Akafubu</td>
-                                                <td>Magma Rock</td>
-                                                <td>Gabomba Catacombs &ndash; Tomegathericon</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Eastern Sea</td>
-                                                <td>King Hydros</td>
-                                                <td>Aqua Rock</td>
-                                                <td>Champa &ndash; Trident</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Western Sea</td>
-                                                <td>Corn Seller</td>
-                                                <td>Jupiter Lighthouse</td>
-                                                <td>Atteka Cave &ndash; Coatlicue tablet</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Northern Reaches</td>
-                                                <td>Prox Elder</td>
-                                                <td>Mars Lighthouse</td>
-                                                <td>Mars Lighthouse &ndash; Mars Star</td>
-                                            </tr>
-                                        </tbody>
+                                        <% } %></tbody>
                                     </table>
                                 </p>
                             </div>

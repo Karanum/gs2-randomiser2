@@ -21,19 +21,19 @@
         <div class="row mt-3 mx-lg-5">
             <div class="col-12 mx-lg-3 mb-2">
                 <center>
-                    <a href="/"><img class="logo" src="/img/gstlar-logo.webp" alt="Randomiser logo"></a>
+                    <a href="./../index.html"><img class="logo" src="/img/gstlar-logo.webp" alt="Randomiser logo"></a>
                 </center>
             </div>
 
             <div class="col-12 mb-4 px-lg-5">
                 <div class="card mt-4">
-                    <h2 class="card-header">Post-randomisation Options</h2>
+                    <h2 class="card-header"><%= lang.randomised.header_settings %></h2>
                     <div class="card-body">
                         <div class="row px-lg-5 my-2">
                             <div class="col-12 my-1">
                                 <div class="form-check form-switch">
                                     <input class="form-check-input cache-setting" type="checkbox" id="inp-qol-autorun">
-                                    <label class="form-check-label">Auto-run (hold B to walk)</label>
+                                    <label class="form-check-label"><%= lang.randomised.setting_autorun %></label>
                                 </div>
                             </div>
                         </div>
@@ -43,13 +43,13 @@
 
             <div class="col-12 mb-4 px-lg-5">
                 <div class="card mt-4">
-                    <h2 class="card-header">Download</h2>
+                    <h2 class="card-header"><%= lang.randomised.header_download %></h2>
                     <div class="card-body">
                         <div class="row px-lg-5 mt-2" id="div-info">
                             <div class="col-6 col-sm-4 col-md-3 col-lg-4 col-xl-3 col-xxl-2 mb-1">
-                                <b>Settings (encoded):</b><br>
-                                <b>Generated on:</b><br>
-                                <b>Randomiser version:</b>
+                                <b><%= lang.randomised.info_settings %>:</b><br>
+                                <b><%= lang.randomised.info_time %>:</b><br>
+                                <b><%= lang.randomised.info_version %>:</b>
                             </div>
                             <div class="col-6 mb-1">
                                 <%= settings %><br>
@@ -62,10 +62,10 @@
                         <div class="row px-lg-5 my-2" id="div-rom">
                             <div class="col-12 my-3">
                                 <div class="card">
-                                    <h3 class="card-header">Select ROM file</h3>
+                                    <h3 class="card-header"><%= lang.randomised.select_rom %></h3>
                                     <div class="card-body py-3 px-lg-5">
                                         <input type="file" class="form-control" id="inp-rom">
-                                        <p class="ms-2 mt-1 mb-0 text-danger d-none" id="err-rom"></p>
+                                        <p class="ms-2 mt-1 mb-0 text-danger d-none" id="err-rom"><%= lang.randomised.invalid_rom %></p>
                                     </div>
                                 </div>
                             </div>
@@ -74,9 +74,9 @@
                         <div class="row px-lg-5 mt-2 mb-4" id="div-result">
                             <div class="col-12 col-lg-6 mb-1">
                                 <div class="d-block">
-                                    <span class="d-inline-block" tabindex="0" data-bs-toggle="tooltip" title="Load a ROM file first">
+                                    <span class="d-inline-block" tabindex="0" data-bs-toggle="tooltip" title="<%= lang.randomised.no_rom %>">
                                         <button class="btn btn-primary me-3" id="btn-patch" disabled>
-                                            Patch ROM
+                                            <%= lang.randomised.btn_patch %>
                                         </button>
                                     </span>
                                 </div>
@@ -85,7 +85,7 @@
                                 <div class="d-block">
                                     <div class="ms-3 d-inline-block" id="div-spinner">
                                         <div class="spinner-border spinner-border-sm me-2"></div>
-                                        Fetching patch data...
+                                        <%= lang.randomised.fetching %>
                                     </div>
                                 </div>
                             </div>

@@ -1,0 +1,431 @@
+{
+    "lang": "Deutsch",
+
+    "topnav": {
+        "generate": "Spiel generieren",
+        "help": "Hilfe",
+        "settings": "Einstellungsinfo",
+        "hints": "Nützliche Tipps",
+        "versions": "Versionsverlauf"
+    },
+
+    "index": {
+        "site_name": "Golden Sun: Die vergessene Epoche Randomisierer",
+        "intro": "Wilkommen auf die webbasierten Golden Sun: Die vergessene Epoche Randomisierer von Karanum, basierten auf dem originalen \"GS2 Randomizer\" von MarvinXLII. Um zu beginnen, wählst du einfach eine Vorinstellung aus und/oder passt du die Einstellungen frei an, um das gewünschte Spielerlebnis zu schaffen.",
+        "new_players": "Wenn du neu bist, wird empfohlen die %1 zu lesen, um zu erfahren was der Randomisierer tun kann, und die %2 um dir in schwierigen Situationen zu helfen. Für weitere Informationen trittst du unserem %3 bei.",
+        "translation": "Bitte beachtest du dass der Randomisierer nur auf der englischen Version des Spiels funktioniert. Außerdem ist der größte Teil dieser Seite maschinell übersetzt. Wenn es also irgendwelche Fehler gibt, lass es mich bitte auf Discord oder durch der GitHub Issue Tracker wissen.",
+        "discord": "Discord-Server",
+
+        "header_generate": "Seed generieren",
+        "generate_seed": "Seed",
+        "generate_newseed": "Zufälligen Seed",
+        "generate_randomise": "Randomisieren",
+        "generate_permalink": "Erzeuge Dauerlink",
+
+        "header_settings": "Randomisierer-Einstellungen",
+        "subheader_preset": "Vorinstellungen",
+        "subheader_rando": "Randomisierung",
+        "subheader_logic": "Logikeinstellungen",
+        "subheader_qol": "Lebensqualität",
+
+        "preset": "Instellung",
+        "apply": "Vorinstellung anwenden",
+
+        "tab_items": "Items",
+        "tab_djinn": "Dschinn/Beschw.",
+        "tab_psynergy": "Psynergy",
+        "tab_stats": "Statistiken",
+
+        "tooltips": {
+            "1": "Truhe- und Steintafel-Sprites werden durch ein Abbild des darin enthaltenen Item ersetzt.",
+            "2": "Verhindert dass Klassen Nutze-Psynergy (Wachstum, Frost, usw.) lernen.",
+            "3": "Macht es wahrscheinlicher frühzeitig schwächere Ausrüstung zu finden.",
+            "4": "Passt die Dschinn-Kampfschwierigkeit basierend auf der Anzahl der eigenen Dschinn an.",
+            "5": "Macht es wahrscheinlicher frühzeitig Beschwörungen mit geringeren Dschinn-Kosten zu finden.",
+            "6": "Einfache Sprünge und Rückzugsglitches können erforderlich sein. Deaktiviert die \"0 PP Rückzug\"-Einstellung.",
+            "7": "Einfache OOB-Sprünge können erforderlich sein. Deaktiviert die \"0 PP Rückzug\"-Einstellung.",
+            "8": "Entfernt logische Dschinn-Anforderungen, sodass du möglicherweise früh gegen Bosse kämpfen müsst.",
+            "9": "Stellt sicher dass Heilung, Gebet, Aura oder Wunsch von Anfang an gelernt wird.",
+            "10": "Dies verhindert die Verwendung von Rückzugsglitches.",
+            "11": "Erhöht nur das Anfangslevel von Charakteren die niedriger anfangen.",
+            "12": "OOB-Sprünge mit präziser oder komplexen Bewegung können erforderlich sein. Deaktiviert die \"0 PP-Rückzug\"-Einstellung.",
+            "13": "Vermeidung schaltet ein/aus. Es verhindert alle Kämpfe, unabhängig von der Truppenlevel.",
+            "14": "Feinde erhalten +50% KP und +25% Attacke und Verteidigung."
+        }
+    },
+
+    "help": {
+        "headers": {
+            "settings": "Einstellungen",
+            "skips": "Sprünge und Glitches",
+            "boss_logic": "Boss-Logik",
+            "hints": "Itemhinweise"
+        },
+
+        "item_shuffle": {
+            "vanilla_name": "Vanilla",
+            "vanilla_help": "Items werden nicht randomisiert",
+            "key_items_name": "Nur wichtiges Items",
+            "key_items_help": "Wichtiges Items, Psynergy und Steintafeln werden randomisiert",
+            "most_items_name": "Alle Truhen & Tafeln",
+            "most_items_help": "Alle Items außer versteckten Items werden randomisiert",
+            "all_items_name": "Alle Items",
+            "all_items_help": "Alle Items werden randomisiert",
+            "mod_majmin_name": "Haupt/Neben",
+            "mod_majmin_help": "Dieser Modifikator sorgt dafür dass der Itempool zweigeteilt wird. Das Haupt-Itempool enthält alle Psynergy, Beschwörungen, wichtiges Items und Ausrüstung (GS1-Ausrüstung eingeschlossen, die 2 Standorte auf Isla Pretiosa zufügt.) Der andere Itempool enthält den Rest der Items. Items werden nur innerhalb desselben Pools getauscht. Dies begrenzt die Anzahl der zu überprüfenden wichtigen Standorte und bietet ein Erlebnis, das näher an %1 liegt, während der Rest der Items weiterhin randomisiert wird."
+        },
+
+        "class_psynergy": {
+            "vanilla_name": "Vanilla",
+            "vanilla_help": "Psynergy ist nicht randomisiert",
+            "classline_name": "Nach Klassengruppe",
+            "classline_help": "Erlernte Psynergy wird nach Klassengruppen gemischt (z.B. Junker wird Psynergy von Raufbold haben)",
+            "group_name": "Nach Psynergygruppe",
+            "group_help": "Erlernte Psynergy wird nach Psynergy-Gruppen gemischt (z.B. wenn eine Klasse Stalagmit lernt, lernt sie auch Ton-Spitze)",
+            "element_name": "Nach Psynergy-Elemente",
+            "element_help": "Erlernte Psynergy wird frei mit einer anderen Psynergy desselben Element gemischt",
+            "full_name": "Komplett randomisieren",
+            "full_help": "Erlernte Psynergy wird ohne Einschränkungen frei gemischt"
+        },
+
+        "lemurian_ship": {
+            "vanilla_name": "Vanilla",
+            "vanilla_help": "Das Schiff wird wie gewohnt freigeschaltet, indem durch Gabomba gehen und den Schwarzer Ball verwenden um die Tür zu öffnen",
+            "open_name": "Schiffstür geöffnet",
+            "open_help": "Die Schiffstür wird entriegeld, wodurch die Anforderung für Gabomba und den Schwarzen Ball umgangen wird",
+            "unlocked_name": "Von Anfang freigeschaltet",
+            "unlocked_help": "Das Schiff ist von Anfang an verfügbar (Lemuria oder Atteka-Flussarm müssen erreicht werden um das Schiff zu betreten)"
+        },
+
+        "terms": {
+            "name": "Variieren / Skalieren",
+            "help": "Einstellungen die einen Wert \"variieren\", multiplizieren den Vanilla-Wert mit einem zufälligen Modifikator. Nachfolgend findst du eine Liste der Modifikatoren für jeden Wert.",
+            "equip_stats_name": "Ausrüstungsstatistiken",
+            "equip_stats_help": "Zwischen 50% und 150%, skaliert auch die Preise etwas",
+            "equip_price_name": "Ausrüstungspreise",
+            "equip_price_help": "Zwischen 80% und 120%",
+            "djinn_power_name": "Dschinn-Angriffskraft",
+            "djinn_power_help": "Zwischen 80% und 120%",
+            "summon_power_name": "Beschwörungs-Angriffskraft",
+            "summon_power_help": "Zwischen 80% und 120%",
+            "psy_level_name": "Psynergy-Levels",
+            "psy_level_help": "Zwischen 50% und 150%, kann Psynergy außerhalb der Reihenfolge lernen (z.B. Stoßgebet vor Tiefes Gebet)",
+            "psy_power_name": "Psynergykraft",
+            "psy_power_help": "Zwischen 80% und 120%",
+            "psy_cost_name": "Psynergykoste",
+            "psy_cost_help": "Zwischen 60% und 140%",
+            "character_stats_name": "Charakterstatistiken",
+            "character_stats_help": "Zwischen 50% und 150% auf Level 1, zwischen 75% und 125% auf Level 99"
+        },
+
+        "skips_basic": {
+            "name": "Einfache Glitches/Sprünge",
+            "help": "Diese Sprünge sind logisch durch die Einstellung \"Einfache Glitches/Sprünge erfordern\":",
+            "content": [
+                "Kibombo Heiligtum-Warp",
+                "Turm von Tundaria Pfeiler-wackel (umgeht Hammer)",
+                "Schamanendorf Rückzug-Warp für Aroma",
+                "Mars-Leuchtturm Flammenwerfer Sprünge",
+                "Mars-Leuchtturm Venus-Anbau Sprung"
+            ]
+        },
+
+        "oob_easy": {
+            "name": "Einfache OOB-Sprünge",
+            "help": "Diese Sprünge sind logisch durch die Einstellung \"Einfache OOB-Sprünge erfordern\":",
+            "content": [
+                "Schrein des Meeresgottes OOB",
+                "Umgekehrte Yampi-Wüste",
+                "Eiland-Höhle OOB"
+            ],
+            "video": "Video"
+        },
+
+        "oob_hard": {
+            "name": "Schwerige OOB-Sprünge",
+            "help": "Diese Sprünge sind logisch durch die Einstellung \"Schwerige OOB-Sprünge erfordern\":",
+            "content": [
+                "Klippen von Gondowan OOB",
+                "Schiff der Lemurianer OOB (sowohl zu Aqua-Hydra als auch die unterste Stufe)"
+            ]
+        },
+
+        "gaia_maze_name": "Gaia-Felsenlabyrinth",
+        "gaia_maze_help": "Das Labyrinth in Gaia-Felsen ist eines der Rätsel das basierend auf Felix' Namen zufällig erstellt wird. Die Einstellung \"Gaia-Felsenlabyrinth ohne Wachstum\" setzt voraus dass du die Labyrinth-Lösung für den Namen von Felix kennst. Das bedeutet, dass die 2 Truhen sowie Vipera ohne Wachstum logisch sind.",
+
+        "boss_logic": {
+            "help_1": "Der Randomisierer fordert nicht auf gegen Bosse zu kämpfen, wenn du stark unterfordert bist. Das bedeutet dass jeder Bosse eine bestimmte Dschinn-Anforderung hat, bevor er in der Logik ist. (Beachte dass die Menge an Dschinn in der Logik berücksichtigt, nicht die Menge an Dschinn in Besitz.)",
+            "help_2": "Die Dschinn-Anforderungen für Bosse können mit der Einstellung \"Boss-Logik deaktivieren\" deaktiviert werden. Unabhängig von dieser Einstellung müssen für Vipera immer noch mindestens 3 Lichter eingeschaltet werden.",
+            "lights": "%1 Lichter",
+
+            "bosses": {
+                "chestbeaters": "Silberrücken",
+                "king_scorp": "Rex Scorpio",
+                "briggs": "Briggs",
+                "aqua_hydra": "Aqua-Hydra",
+                "serpent": "Vipera",
+                "avimander": "Avimander",
+                "poseidon": "Poseidon",
+                "moapa": "Moapa",
+                "flame_dragons": "Flammendrache",
+                "doom_dragon": "Tridesastros",
+                "star_magician": "Sternenmagier",
+                "sentinel": "Sentinel",
+                "valukar": "Valukar",
+                "dullahan": "Dullahan"
+            }
+        },
+
+        "hint_system": {
+            "help_1": "Der Randomisierer hat ein Hinweissystem, bei dem bestimmte NPCs Hinweise auf die Standorte von wichtiges Items oder die Anzahl von wichtiges Items in bestimmten Dungeons geben. Die Chancen der verschiedenen Hinweistypen sind wie folgt:",
+            "help_2_item": "Zufällige Standort eines wichtiges Item",
+            "help_2_area": "Anzahl der wichtiges Items im Dungeon",
+            "help_2_loc": "Ob ein Standort ein wichtiges Item hat",
+            "help_3": "Nachfolgend ist eine Tabelle mit den Hinweis-NPCs und den Standorten für die sie Hinweise geben.",
+
+            "tr_region": "Gebiet",
+            "tr_npc": "NPC",
+            "tr_dungeon": "Dungeon",
+            "tr_location": "Einzelner Standorte",
+
+            "regions": [
+                "Indra", "Osenia", "Gondowan", "Östliche See", "Westliche See", "Nördliche Regionen"
+            ],
+            "npcs": [
+                "Meister Poi", "Meister Maha", "Akafubu", "König Hydros", "Maisverkäufer", "Prox-Ältester"
+            ],
+            "dungeons": [
+                "Gaia-Felsen", "Bora-Felsen", "Magma-Felsen", "Aqua-Felsen", "Jupiter-Leuchtturm", "Mars-Leuchtturm"
+            ],
+            "locations": [
+                ["Schrein des Meeresgottes", "Zinken"],
+                ["Bora-Felsen", "Enthüller-Tafel"],
+                ["Katakomben von Gabomba", "Tomegathericon"],
+                ["Champa", "Dreizack"],
+                ["Höhle von Atteka", "Quetzalcoatl-Tafel"],
+                ["Mars-Leuchtturm", "Mars-Stern"]
+            ]
+        }
+    },
+
+    "tips": {
+        "header_general": "Allgemeine Tipps",
+        "header_eml": "Leicht übersehbare Standorte",
+
+        "tip_sancwarp": "Halte L + Start gedrückt während du dein Spiel lade, um zum Heiligtum der zuletzt besuchten Stadt zurückzukehren, auch bekannt als eine Heiligtum-Warp. Dies kann verwendet werden falls du nicht weiterkommen.",
+        "tip_retreat": "Rückzug kann in allen Gebieten, einschließlich Städten, verwendet werden. Dies kann dazu führen dass du in einigen Situationen stecken bleibt. Heiligtum-Warp wird dein Ausweg sein.",
+        "tip_teleport": "Rückzug kann auf der Weltkarte verwendet werden, wo es sich wie Teleport verhält. Dadurch kann es trotz der Angaben im Menü mit weiniger als 6 PP verwendet werden.",
+        "tip_madrawarp": "Wenn du Teleport verwendt, wählt du dein aktuellen Standord oder dein Schiff aus und brengt du stattdessen zum Strand westlich von Madra.",
+        "tip_avoid": "Wenn die Einstellung für umschaltbare Vermeidung aktiviert ist, verhindert es Kämpfe unabhängig vom Level und bleibt aktiv bis sie erneut verwendet wird.",
+        "tip_psylearn": "Nutze-Psynergy geht zum Charakter ganz links. Sobald ein Charakter 15 Nutze-Psynergy gelernt hat, werden sie übersprungen und die Psynergy geht an das nächste Charakter.",
+        "tip_djinnlimit": "Charaktere sind auf jeweils 9 Dschinn beschränkt. Wenn in der aktuellen Truppe kein Platz mehr ist, wird Dschinn zu einem Charakter geschickt das noch nicht beigetreten ist.",
+        "tip_log": "Im Zweifelsfall, überprüfe das Spoiler-Log. Bitte melde du unlösbare Seeds, damit sie schnell behoben werden können.",
+
+        "loc_help": "Dies ist eine Liste von Standorten die Spielern häufig übersehen werden. Wenn du möcht dass dieser Liste ein Standort hinzugefügt wird, schaue auf dem Discord-Server vorbei und teile uns dein Vorschlag mit.",
+        "loc_ankohl": "Ruinen von Ankohl, im Raum mit den 7 Gesichtern befinden sich mehrere Truhen dahinter",
+        "loc_desert_cave": "Die Truhe im Eingang der Yampi-Wüstenhöhle vor dem Teleportkreis",
+        "loc_taopo": "Die Truhe im Magmagebiet von das Sümpfe von Taopo",
+        "loc_izumo": "Die Truhe und Beschwörungstafel in die Ruinen von Izumo",
+        "loc_gondowan_settlement": "Die im Gras versteckte Truhe in der Gondowan-Siedlung nabei Magma-Felsen",
+        "loc_mars_entrance": "Die Truhe am Eingang zum Mars-Leuchtturm, die Leiter hinauf und zum Aufzug",
+        "loc_mars_upper": "Die Truhe außerhalb des Mars-Anbau im oberen Mars-Leuchtturm, direkt außerhalb des Bildschirms"
+    },
+
+    "settings": {
+        "item_shuffle": "Item-Mischung",
+        "omit_locs": "Standorte weglassen",
+        "gs1_items": "Elfen-Hemd und Priester-Ring züfugen",
+        "dummy_items": "Nicht erhältliche Ausrüstung züfugen",
+        "shuffle_shops": "Shop-Artefakte und schmiedbare Ausrüstung mischen",
+        "no_chests": "Items außerhalb der Truhe anzeigen",
+        "utility_psy": "Keine Nutze-Psynergy von Klassen",
+        "equip_adjust": "Ausrüstungsstatistiken variieren",
+        "weapon_attack_shuffle": "Attacke aus Waffen mischen",
+        "armour_defense_shuffle": "Verteidigung aus Rüstung mischen",
+        "equip_price_adjust": "Ausrüstungspreise variieren",
+        "equip_sort": "Ausrüstung nach Statistiken ordnen",
+        "equip_compat_random": "Ausrüstungskompatibilität randomisieren",
+        "weapon_effect_shuffle": "Effekte aus Waffen mischen",
+        "armour_effect_shuffle": "Effekte aus Rüstung mischen",
+        "curse_random": "Flüche randomisieren",
+        "curse_remove": "Alle Flüche entfernen",
+
+        "djinn_shuffle": "Dschinn mischen",
+        "djinn_stats_shuffle": "Statistiken auf Dschinn mischen",
+        "djinn_power_adjust": "Dschinn-Angriffskraft mischen",
+        "djinn_range_random": "Dschinn-Angriffsbereich mischen",
+        "djinn_scaling": "Dschinn-Kampfschwierigkeit skaliert",
+        "summon_cost_random": "Beschwörungskosten randomisieren",
+        "summon_power_adjust": "Beschwörungs-Angriffskraft variieren",
+        "summon_sort": "Beschwörungen nach Kosten ordnen",
+
+        "psy_shuffle": "Klassen-Psynergy",
+        "psy_levels": "Psynergy-Levels",
+        "psy_power_adjust": "Psynergykraft variieren",
+        "psy_cost_adjust": "Psynergykoste variieren",
+        "psy_range_random": "Psynergybereich randomisieren",
+        "enemypsy_power_adjust": "Feindliche Psynergykraft variieren",
+        "enemypsy_range_random": "Feindliche Psynergybereich randomisieren",
+
+        "character_stats": "Charakterstatistiken",
+        "character_element": "Charakter-Elemente",
+        "enemy_stats": "Feindstatistiken",
+        "class_stats_random": "Klassenstatistiken randomisieren",
+
+        "skips_basic": "Einfache Glitches/Sprünge erfordern",
+        "skips_oob_easy": "Einfache OOB-Sprünge erfordern",
+        "skips_oob_hard": "Schwerige OOB-Sprünge erfordern",
+        "skips_gaia_maze": "Gaia-Felsenlabyrinth ohne Wachstum erfordern",
+        "logic_ship_mode": "Schiff der Lemurianer",
+        "logic_bosses": "Boss-Logik deaktivieren",
+
+        "qol_psy_healing": "Mit heilender Psynergy beginnen",
+        "qol_psy_revive": "Mit Phönix beginnen",
+        "qol_psy_reveal": "Mit Enthüller beginnen",
+        "qol_psycost_avoid": "Vermeidung kostet 0 PP",
+        "qol_psycost_retreat": "Rückzug kostet 0 PP",
+
+        "qol_revive_cost": "Heiligtum-Belebungskoste",
+        "qol_cutscene_skip": "Zwischensequenzen überspringen",
+        "qol_game_tickets": "Keines Spiele-Tickets von Shops",
+        "qol_item_hints": "Itemhinweise zufügen",
+        "qol_faster_ship": "Schnellere Schiffsbewegung auf Weltkarte",
+        "qol_avoid_toggle": "Vermeidung umschaltbar und immer funktionieren machen",
+        "qol_hard_mode": "Schwer Schwierigkeit im Spiel aktivieren",
+        "qol_half_encounters": "Kampfrate halbieren",
+
+        "scale_exp": "Erfahrungsfaktor",
+        "scale_coins": "Münzenfaktor",
+        "starting_level": "Anfangslevels"
+    },
+
+    "options": {
+        "item_shuffle": {
+            "vanilla": "Vanilla",
+            "key": "Nur Wichtiges",
+            "most": "Alle Truhen & Tafeln",
+            "all": "Alle Items",
+            "mod_majmin": "(Haupt/Neben)"
+        },
+
+        "omit_locs": {
+            "none": "Keine Auslassung",
+            "anemos": "Inneres Anemos weglassen",
+            "superboss": "Inneres Anemos + Superbosse weglassen"
+        },
+
+        "psy_shuffle": {
+            "vanilla": "Vanilla",
+            "class": "Nach Klassengruppe randomisieren",
+            "group": "Nach Psynergygruppe randomisieren",
+            "element": "Nach Psynergy-Elemente randomisieren",
+            "full": "Komplett randomisieren"
+        },
+
+        "psy_levels": {
+            "vanilla": "Vanilla",
+            "adjust": "Lernlevels variieren",
+            "random": "Lernlevels randomisieren"
+        },
+
+        "character_stats": {
+            "vanilla": "Vanilla",
+            "shuffle": "Charakterstatistiken mischen",
+            "adjust": "Charakterstatistiken variieren"
+        },
+
+        "character_element": {
+            "vanilla": "Vanilla",
+            "shuffle": "Charakter-Elemente mischen",
+            "random": "Charakter-Elemente randomisieren"
+        },
+
+        "enemy_stats": {
+            "vanilla": "Vanilla",
+            "shuffle": "Feindliche eAbwehr-Tabellen mischen",
+            "random": "Feindliche eAbwehr-Tabellen randomisieren"
+        },
+
+        "ship_mode": {
+            "vanilla": "Vanilla",
+            "open": "Schiffstür geöffnet",
+            "unlocked": "Von Anfang freigeschaltet"
+        },
+
+        "revive_cost": {
+            "vanilla": "Vanilla (20x Level)",
+            "reduced": "Reduziert (2x Level)",
+            "fixed": "Fest auf 100 Münzen"
+        }
+    },
+
+    "presets": {
+        "name": {
+            "easy": "Einfach",
+            "intermediate": "Mittlerer",
+            "hard": "Schwierig",
+            "vanilla": "Vanilla",
+            "open": "Offener Modus",
+            "chaos": "Chaos",
+            "race": "Offizielle Wettstreitregeln"
+        },
+
+        "desc": {
+            "easy": "Dschinn und wichtiges Items werden gemischt, beginnen mit heilender Psynergy und Phönix.",
+            "intermediate": "Dschinn und meisten Items wurden gemischt, mit auch Ausrüstung, Klassen-Psynergy und Charakterstatistiken.",
+            "hard": "Dschinn und alle Items werden gemischt, wobei auch Superboss-Tafeln im Itempool sind. Alles andere außer bereich wird ebenfalls gemischt.",
+            "vanilla": "So nah wie möglich am Original, abzüglich der vom Randomisierer vorgenommenen Änderungen.",
+            "open": "Zwischen Mittlerer und Schwierig, und das Schiff ist von Anfang an freigeschaltet. Zum Ausgleich werden die Anfangslevels erhöht.",
+            "chaos": "Alles ist randomisiert. Möglich sehr schwierig und unfair.",
+            "race": "Das offizielle GS:TLA Wetstreittvorinstellung. Weitere Informationen in unserem Discord."
+        }
+    },
+
+    "versions": {
+        "versions": "%1-Versionen",
+        "unreleased": "unveröffentlicht",
+
+        "date_format": "%d. %m %y",
+        "num_suffixes": ["", "", "", "", "", "", "", "", "", ""],
+        "months": ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"]
+    },
+
+    "randomised": {
+        "header_settings": "Optionen Nach-Randomisierung",
+        "header_download": "Downloaden",
+        "header_log": "Spoiler-Log",
+
+        "setting_autorun": "Automatisch rennen (halte B zu laufen)",
+
+        "select_rom": "ROM auswählen",
+        "select_file": "Dateipfad wählen",
+        "btn_patch": "ROM patchen",
+        "download_log": "Spoiler-Log downloaden",
+
+        "log": {
+            "tab_spheres": "Sequenz",
+            "tab_indra": "Indra",
+            "tab_osenia": "Osenia",
+            "tab_gondowan": "Gondowan",
+            "tab_angara": "Angara/Tundaria",
+            "tab_eastern_sea": "Östliche See",
+            "tab_western_sea": "Westliche See",
+            "tab_prox": "Nordregionen",
+            "tab_search": "Suchen"
+        },
+
+        "randomising": "Randomisierend...",
+        "seed": "Seed",
+        "permalink": "Dauerlink",
+
+        "info_settings": "Einstellungen (codiert)",
+        "info_time": "Erzeugt am",
+        "info_version": "Randomisierer-Version",
+        "fetching": "Patch abrufend...",
+
+        "invalid_rom": "Das ausgewählte ROM scheint ungültig zu sein. Bitte wähle ein anderes ROM aus.",
+        "no_rom": "Lade zuerst ein ROM",
+
+        "log_warning": "Das Spoiler-Log für diesen Seed ist unzugänglich sobald du diese Seite verlasst. Download es wenn du das später noch an wollt sehen."
+    }
+}

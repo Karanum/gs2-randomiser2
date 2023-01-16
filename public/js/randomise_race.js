@@ -30,15 +30,6 @@ function setupAjaxRequest(seed, settings) {
 }
 
 function prepSpoilerLog() {
-    $(".card-body .nav-tabs").append('<li class="nav-item"><a class="nav-link active" data-bs-target="#tab-spheres">Progression</a></li>')
-        .append('<li class="nav-item"><a class="nav-link" data-bs-target="#tab-indra">Indra</a></li>')
-        .append('<li class="nav-item"><a class="nav-link" data-bs-target="#tab-osenia">Osenia</a></li>')
-        .append('<li class="nav-item"><a class="nav-link" data-bs-target="#tab-gondowan">Gondowan</a></li>')
-        .append('<li class="nav-item"><a class="nav-link" data-bs-target="#tab-angara">Angara/Tundaria</a></li>')
-        .append('<li class="nav-item"><a class="nav-link" data-bs-target="#tab-eastsea">Eastern Sea</a></li>')
-        .append('<li class="nav-item"><a class="nav-link" data-bs-target="#tab-westsea">Western Sea</a></li>')
-        .append('<li class="nav-item"><a class="nav-link" data-bs-target="#tab-prox">N. Reaches</a></li>')
-        .append('<li class="nav-item"><a class="nav-link" data-bs-target="#tab-search">Search</a></li>');
     $(".card-body .nav-link").attr('data-bs-toggle', 'tab');
     $(".tab-content").append('<div class="tab-pane fade show active" id="tab-spheres"></div>')
         .append('<div class="tab-pane fade" id="tab-indra"></div>')

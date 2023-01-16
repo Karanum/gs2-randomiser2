@@ -7,8 +7,12 @@
 
     <meta property="og:title" content="Generate Seed">
     <meta name="description" content="Web-based Golden Sun: The Lost Age randomiser (or randomizer if you prefer) by Karanum. Check our Discord for updates.">
-    <meta name="keywords" content="">
     <link rel="canonical" href="https://gs2randomiser.com">
+    <link ref="alternate" hreflang="en" href="https://gs2randomiser.com/index.html">
+    <link ref="alternate" hreflang="de" href="https://gs2randomiser.com/de/index.html">
+    <link ref="alternate" hreflang="fr" href="https://gs2randomiser.com/fr/index.html">
+    <link ref="alternate" hreflang="es" href="https://gs2randomiser.com/es/index.html">
+    <link ref="alternate" hreflang="x-default" href="https://gs2randomiser.com/index.html">
     <title>Golden Sun: The Lost Age Randomiser</title>
 </head>
 
@@ -26,19 +30,19 @@
 
             <div class="col-12 mb-4 px-lg-5">
                 <div class="card mt-4">
-                    <h1 class="card-header">Golden Sun: The Lost Age Randomiser v<%= version %></h1>
+                    <h1 class="card-header"><%= lang.index.site_name %> v<%= version %></h1>
                     <div class="card-body">
                         <div class="row">
                             <div class="col mx-lg-2">
-                                <p>
-                                    Welcome to the web-based Golden Sun: The Lost Age randomiser by Karanum, based on the original "GS2 Randomizer" by MarvinXLII.
-                                    To get started, simply select a preset below and/or freely customise settings to create the experience you want.
-                                </p>
-                                <p>
-                                    If you're new, it's recommended to read the <a href="/help.html">Settings Info</a> page to get a good feel of what the
-                                    randomiser is capable of, and the <a href="/tips.html">Useful Tips</a> page to help you navigate any crazy situations.
-                                    For more information, or just some friendly banter, join our <a href="https://discord.com/invite/QWwxrmN">Discord server</a>.
-                                </p>
+                                <p><%= lang.index.intro %></p>
+                                <p><%- lang.index.new_players
+                                    .replace(/%1/g, "<a href=\"./help.html\">" + lang.topnav.settings + "</a>")
+                                    .replace(/%2/g, "<a href=\"./tips.html\">" + lang.topnav.hints + "</a>")
+                                    .replace(/%3/g, "<a href=\"https://discord.com/invite/QWwxrmN\">" + lang.index.discord + "</a>");
+                                %></p>
+                                <% if (lang.lang != "English") { %>
+                                <p><%= lang.index.translation %></p>
+                                <% } %>
                             </div>
                         </div>
                     </div>
@@ -47,21 +51,21 @@
                 <hr class="my-4">
 
                 <div class="card mt-4">
-                    <h2 class="card-header">Generate a seed</h2>
+                    <h2 class="card-header"><%= lang.index.header_generate %></h2>
                     <div class="card-body">
                         <div class="row ms-1 me-3">
                             <div class="col-12 col-md-7 col-xl-5 my-1">
                                 <div class="input-group">
-                                    <span class="input-group-text">Seed</span>
+                                    <span class="input-group-text"><%= lang.index.generate_seed %></span>
                                     <input type="text" class="form-control" id="inp-seed">
                                 </div>
                             </div>
                             <div class="col-12 col-md-5 col-xl-3 my-1">
-                                <button class="btn btn-outline-primary" id="btn-seed">Random seed</button>
+                                <button class="btn btn-outline-primary" id="btn-seed"><%= lang.index.generate_newseed %></button>
                             </div>
                             <div class="col-12 col-md-5 col-xl-4 d-block my-1">
-                                <button class="btn btn-primary ms-2 float-end" id="btn-submit-race">Create race seed</button>
-                                <button class="btn btn-primary ms-2 float-end" id="btn-submit">Randomise</button>
+                                <button class="btn btn-primary ms-2 float-end" id="btn-submit-race"><%= lang.index.generate_permalink %></button>
+                                <button class="btn btn-primary ms-2 float-end" id="btn-submit"><%= lang.index.generate_randomise %></button>
                             </div>
                         </div>
                     </div>
@@ -70,51 +74,58 @@
 
             <div class="col-12 mb-3 px-lg-5">
                 <div class="card">
-                    <h2 class="card-header">Randomiser Settings</h2>
+                    <h2 class="card-header"><%= lang.index.header_settings %></h2>
                     <div class="card-body">
                         <div class="card">
-                            <h5 class="card-header">Presets</h5>
+                            <h5 class="card-header"><%= lang.index.subheader_preset %></h5>
                             <div class="card-body"> 
                                 <div class="row">
                                     <div class="col-12 col-lg-6">
                                         <div class="input-group mb-3">
-                                            <label class="input-group-text">Preset</label>
+                                            <label class="input-group-text"><%= lang.index.preset %></label>
                                             <select class="form-select" id="inp-preset">
-                                                <option value='0' selected>Easy</option>
-                                                <option value='1'>Intermediate</option>
-                                                <option value='2'>Hard</option>
-                                                <option value='3'>Vanilla</option>
-                                                <option value='4'>Open Mode</option>
-                                                <option value='5'>Chaos</option>
-                                                <option value='6'>Official Race Ruleset</option>
+                                                <option value='0' selected><%= lang.presets.name.easy %></option>
+                                                <option value='1'><%= lang.presets.name.intermediate %></option>
+                                                <option value='2'><%= lang.presets.name.hard %></option>
+                                                <option value='3'><%= lang.presets.name.vanilla %></option>
+                                                <option value='4'><%= lang.presets.name.open %></option>
+                                                <option value='5'><%= lang.presets.name.chaos %></option>
+                                                <option value='6'><%= lang.presets.name.race %></option>
                                             </select>
                                         </div>
 
-                                        <button class="btn btn-primary mb-2" id="btn-preset">Apply Preset</button>
+                                        <button class="btn btn-primary mb-2" id="btn-preset"><%= lang.index.apply %></button>
                                     </div>
 
                                     <div class="col-12 col-lg-6">
-                                        <p class="mt-1" id="p-preset">Key Items and Djinn shuffled, starting with healing Psynergy and Revive.</p>
+                                        <p class="mt-1" id="p-preset"></p>
+                                        <p hidden id="preset-desc-0"><%= lang.presets.desc.easy %></p>
+                                        <p hidden id="preset-desc-1"><%= lang.presets.desc.intermediate %></p>
+                                        <p hidden id="preset-desc-2"><%= lang.presets.desc.hard %></p>
+                                        <p hidden id="preset-desc-3"><%= lang.presets.desc.vanilla %></p>
+                                        <p hidden id="preset-desc-4"><%= lang.presets.desc.open %></p>
+                                        <p hidden id="preset-desc-5"><%= lang.presets.desc.chaos %></p>
+                                        <p hidden id="preset-desc-6"><%= lang.presets.desc.race %></p>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                         <div class="card mt-3">
-                            <h3 class="card-header">Randomisation</h3>
+                            <h3 class="card-header"><p hidden id="preset-desc-0"><%= lang.index.subheader_rando %></p></h3>
                             <div class="card-body"> 
                                 <ul class="nav nav-tabs" id="tabs-randomisation">
                                     <li class="nav-item">
-                                        <button class="nav-link active" id="tab-items" data-bs-toggle="tab" data-bs-target="#tabdiv-items">Items</button>
+                                        <button class="nav-link active" id="tab-items" data-bs-toggle="tab" data-bs-target="#tabdiv-items"><%= lang.index.tab_items %></button>
                                     </li>
                                     <li class="nav-item">
-                                        <button class="nav-link" id="tab-djinn" data-bs-toggle="tab" data-bs-target="#tabdiv-djinn">Djinn/Summons</button>
+                                        <button class="nav-link" id="tab-djinn" data-bs-toggle="tab" data-bs-target="#tabdiv-djinn"><%= lang.index.tab_djinn %></button>
                                     </li>
                                     <li class="nav-item">
-                                        <button class="nav-link" id="tab-psy" data-bs-toggle="tab" data-bs-target="#tabdiv-psy">Psynergy</button>
+                                        <button class="nav-link" id="tab-psy" data-bs-toggle="tab" data-bs-target="#tabdiv-psy"><%= lang.index.tab_psynergy %></button>
                                     </li>
                                     <li class="nav-item">
-                                        <button class="nav-link" id="tab-stats" data-bs-toggle="tab" data-bs-target="#tabdiv-stats">Stats</button>
+                                        <button class="nav-link" id="tab-stats" data-bs-toggle="tab" data-bs-target="#tabdiv-stats"><%= lang.index.tab_stats %></button>
                                     </li>
                                 </ul>
                                 <div class="tab-content mt-4">
@@ -122,25 +133,25 @@
                                         <div class="row">
                                             <div class="col-12 col-lg-6">
                                                 <div class="input-group mb-3">
-                                                    <label class="input-group-text">Item Shuffle</label>
+                                                    <label class="input-group-text"><%= lang.settings.item_shuffle %></label>
                                                     <select class="form-select cache-setting" id="inp-item-shuffle">
-                                                        <option value='0'>Vanilla</option>
-                                                        <option value='1' selected>Key Items Only</option>
-                                                        <option value='2'>All Chests & Tablets</option>
-                                                        <option value='10'>All Chests & Tablets (Major/Minor)</option>
-                                                        <option value='3'>All Items</option>
-                                                        <option value='11'>All Items (Major/Minor)</option>
+                                                        <option value='0'><%= lang.options.item_shuffle.vanilla %></option>
+                                                        <option value='1' selected><%= lang.options.item_shuffle.key %></option>
+                                                        <option value='2'><%= lang.options.item_shuffle.most %></option>
+                                                        <option value='10'><%= lang.options.item_shuffle.most %> <%= lang.options.item_shuffle.mod_majmin %></option>
+                                                        <option value='3'><%= lang.options.item_shuffle.all %></option>
+                                                        <option value='11'><%= lang.options.item_shuffle.all %> <%= lang.options.item_shuffle.mod_majmin %></option>
                                                     </select>
                                                 </div>
                                             </div> 
         
                                             <div class="col-12 col-lg-6">
                                                 <div class="input-group mb-3">
-                                                    <label class="input-group-text">Omit Locations</label>
+                                                    <label class="input-group-text"><%= lang.settings.omit_locs %></label>
                                                     <select class="form-select cache-setting" id="inp-omit">
-                                                        <option value='0'>No omission</option>
-                                                        <option value='1'>Omit Anemos Inner Sanctum</option>
-                                                        <option value='2' selected>Omit superbosses + Inner Sanctum</option>
+                                                        <option value='0'><%= lang.options.omit_locs.none %></option>
+                                                        <option value='1'><%= lang.options.omit_locs.anemos %></option>
+                                                        <option value='2' selected><%= lang.options.omit_locs.superboss %></option>
                                                     </select>
                                                 </div>
                                             </div> 
@@ -148,25 +159,33 @@
                                             <div class="col-12 col-lg-6">
                                                 <div class="form-check form-switch mb-2">
                                                     <input class="form-check-input cache-setting" type="checkbox" id="inp-gs1-items">
-                                                    <label class="form-check-label">Add Elven Shirt and Cleric's Ring</label>
+                                                    <label class="form-check-label"><%= lang.settings.gs1_items %></label>
                                                 </div>
                                                 <div class="form-check form-switch mb-2">
                                                     <input class="form-check-input cache-setting" type="checkbox" id="inp-dummy-items">
-                                                    <label class="form-check-label">Add normally unobtainable equipment</label>
+                                                    <label class="form-check-label"><%= lang.settings.dummy_items %></label>
                                                 </div>
                                                 <div class="form-check form-switch mb-2">
                                                     <input class="form-check-input cache-setting" type="checkbox" id="inp-adv-equip">
-                                                    <label class="form-check-label">Shuffle shop artifact and forgeable equipment</label>
+                                                    <label class="form-check-label"><%= lang.settings.shuffle_shops %></label>
                                                 </div>
                                             </div>
                                             <div class="col-12 col-lg-6">
                                                 <div class="form-check form-switch mb-2">
                                                     <input class="form-check-input cache-setting" type="checkbox" id="inp-show-items" checked>
-                                                    <label class="form-check-label">Show items outside chest <span class="tooltip-container" id="tooltip-1"><i class="bi bi-question-circle-fill"></i></span></label>                            
+                                                    <label class="form-check-label"><%= lang.settings.no_chests %> 
+                                                        <span class="tooltip-container" title="<%= lang.index.tooltips['1'] %>">
+                                                            <i class="bi bi-question-circle-fill"></i>
+                                                        </span>
+                                                    </label>                        
                                                 </div>
                                                 <div class="form-check form-switch mb-3">
                                                     <input class="form-check-input cache-setting" type="checkbox" id="inp-no-learning" checked>
-                                                    <label class="form-check-label">No utility Psynergy from classes <span class="tooltip-container" id="tooltip-2"><i class="bi bi-question-circle-fill"></i></span></label>
+                                                    <label class="form-check-label"><%= lang.settings.utility_psy %> 
+                                                        <span class="tooltip-container" title="<%= lang.index.tooltips['2'] %>">
+                                                            <i class="bi bi-question-circle-fill"></i>
+                                                        </span>
+                                                    </label>
                                                 </div>
                                             </div>
 
@@ -175,46 +194,50 @@
                                             <div class="col-12 col-lg-6">
                                                 <div class="form-check form-switch mb-2">
                                                     <input class="form-check-input cache-setting" type="checkbox" id="inp-equip-stats">
-                                                    <label class="form-check-label">Adjust equipment stats</label>
+                                                    <label class="form-check-label"><%= lang.settings.equip_adjust %></label>
                                                 </div>
                                                 <div class="form-check form-switch mb-2">
                                                     <input class="form-check-input cache-setting" type="checkbox" id="inp-equip-attack">
-                                                    <label class="form-check-label">Shuffle weapon attack</label>
+                                                    <label class="form-check-label"><%= lang.settings.weapon_attack_shuffle %></label>
                                                 </div>
                                                 <div class="form-check form-switch mb-2">
                                                     <input class="form-check-input cache-setting" type="checkbox" id="inp-equip-defense">
-                                                    <label class="form-check-label">Shuffle armour defense</label>
+                                                    <label class="form-check-label"><%= lang.settings.armour_defense_shuffle %></label>
                                                 </div>
                                                 <div class="form-check form-switch mb-2">
                                                     <input class="form-check-input cache-setting" type="checkbox" id="inp-equip-cost">
-                                                    <label class="form-check-label">Adjust equipment prices</label>
+                                                    <label class="form-check-label"><%= lang.settings.equip_price_adjust %></label>
                                                 </div>
                                                 <div class="form-check form-switch mb-3">
                                                     <input class="form-check-input cache-setting" type="checkbox" id="inp-equip-sort" checked>
-                                                    <label class="form-check-label">Bias equipment by stats <span class="tooltip-container" id="tooltip-3"><i class="bi bi-question-circle-fill"></i></span></label>
+                                                    <label class="form-check-label"><%= lang.settings.equip_sort %> 
+                                                        <span class="tooltip-container" title="<%= lang.index.tooltips['3'] %>">
+                                                            <i class="bi bi-question-circle-fill"></i>
+                                                        </span>
+                                                    </label>
                                                 </div>
                                             </div>
 
                                             <div class="col-12 col-lg-6">
                                                 <div class="form-check form-switch mb-2">
                                                     <input class="form-check-input cache-setting" type="checkbox" id="inp-equip-shuffle">
-                                                    <label class="form-check-label">Randomise equipment compatibility</label>
+                                                    <label class="form-check-label"><%= lang.settings.equip_compat_random %></label>
                                                 </div>
                                                 <div class="form-check form-switch mb-2">
                                                     <input class="form-check-input cache-setting" type="checkbox" id="inp-equip-unleash">
-                                                    <label class="form-check-label">Shuffle weapon effects</label>
+                                                    <label class="form-check-label"><%= lang.settings.weapon_effect_shuffle %></label>
                                                 </div>
                                                 <div class="form-check form-switch mb-2">
                                                     <input class="form-check-input cache-setting" type="checkbox" id="inp-equip-effect">
-                                                    <label class="form-check-label">Shuffle armour effects</label>
+                                                    <label class="form-check-label"><%= lang.settings.armour_effect_shuffle %></label>
                                                 </div>
                                                 <div class="form-check form-switch mb-2">
                                                     <input class="form-check-input cache-setting" type="checkbox" id="inp-equip-curse">
-                                                    <label class="form-check-label">Randomise curses</label>
+                                                    <label class="form-check-label"><%= lang.settings.curse_random %></label>
                                                 </div>
                                                 <div class="form-check form-switch mb-3">
                                                     <input class="form-check-input cache-setting" type="checkbox" id="inp-curse-disable">
-                                                    <label class="form-check-label">Remove all curses</label>
+                                                    <label class="form-check-label"><%= lang.settings.curse_remove %></label>
                                                 </div>
                                             </div>
                                         </div>
@@ -225,38 +248,46 @@
                                             <div class="col-12 col-lg-6">
                                                 <div class="form-check form-switch mb-2">
                                                     <input class="form-check-input cache-setting" type="checkbox" id="inp-djinn-shuffle" checked>
-                                                    <label class="form-check-label">Shuffle Djinn</label>
+                                                    <label class="form-check-label"><%= lang.settings.djinn_shuffle %></label>
                                                 </div>
                                                 <div class="form-check form-switch mb-2">
                                                     <input class="form-check-input cache-setting" type="checkbox" id="inp-djinn-stats">
-                                                    <label class="form-check-label">Shuffle Djinni stat boosts</label>
+                                                    <label class="form-check-label"><%= lang.settings.djinn_stats_shuffle %></label>
                                                 </div>
                                                 <div class="form-check form-switch mb-2">
                                                     <input class="form-check-input cache-setting" type="checkbox" id="inp-djinn-power">
-                                                    <label class="form-check-label">Adjust Djinni attack power</label>
+                                                    <label class="form-check-label"><%= lang.settings.djinn_power_adjust %></label>
                                                 </div>
                                                 <div class="form-check form-switch mb-2">
                                                     <input class="form-check-input cache-setting" type="checkbox" id="inp-djinn-aoe">
-                                                    <label class="form-check-label">Randomise Djinni attack AoE</label>
+                                                    <label class="form-check-label"><%= lang.settings.djinn_range_random %></label>
                                                 </div>
                                                 <div class="form-check form-switch mb-3">
                                                     <input class="form-check-input cache-setting" type="checkbox" id="inp-djinn-scale" checked>
-                                                    <label class="form-check-label">Scale Djinni battle difficulty <span class="tooltip-container" id="tooltip-4"><i class="bi bi-question-circle-fill"></i></span></label>
+                                                    <label class="form-check-label"><%= lang.settings.djinn_scaling %> 
+                                                        <span class="tooltip-container" title="<%= lang.index.tooltips['4'] %>">
+                                                            <i class="bi bi-question-circle-fill"></i>
+                                                        </span>
+                                                    </label>
                                                 </div>
                                             </div>
         
                                             <div class="col-12 col-lg-6">
                                                 <div class="form-check form-switch mb-2">
                                                     <input class="form-check-input cache-setting" type="checkbox" id="inp-summon-cost">
-                                                    <label class="form-check-label">Randomise summon costs</label>
+                                                    <label class="form-check-label"><%= lang.settings.summon_cost_random %></label>
                                                 </div>
                                                 <div class="form-check form-switch mb-2">
                                                     <input class="form-check-input cache-setting" type="checkbox" id="inp-summon-power">
-                                                    <label class="form-check-label">Adjust summon power</label>
+                                                    <label class="form-check-label"><%= lang.settings.summon_power_adjust %></label>
                                                 </div>
                                                 <div class="form-check form-switch mb-3">
                                                     <input class="form-check-input cache-setting" type="checkbox" id="inp-summon-sort" checked>
-                                                    <label class="form-check-label">Bias summon tablets by cost <span class="tooltip-container" id="tooltip-5"><i class="bi bi-question-circle-fill"></i></span></label>
+                                                    <label class="form-check-label"><%= lang.settings.summon_sort %> 
+                                                        <span class="tooltip-container" title="<%= lang.index.tooltips['5'] %>">
+                                                            <i class="bi bi-question-circle-fill"></i>
+                                                        </span>
+                                                    </label>
                                                 </div>
                                             </div>
                                         </div>
@@ -266,24 +297,24 @@
                                         <div class="row">
                                             <div class="col-12 col-lg-6">
                                                 <div class="input-group mb-3">
-                                                    <label class="input-group-text">Class Psynergy</label>
+                                                    <label class="input-group-text"><%= lang.settings.psy_shuffle %></label>
                                                     <select class="form-select cache-setting" id="inp-class-psynergy">
-                                                        <option value='0' selected>Vanilla</option>
-                                                        <option value='1'>Randomise by classline</option>
-                                                        <option value='2'>Randomise by Psynergy group</option>
-                                                        <option value='3'>Randomise by Psynergy element</option>
-                                                        <option value='4'>Fully randomised</option>
+                                                        <option value='0' selected><%= lang.options.psy_shuffle.vanilla %></option>
+                                                        <option value='1'><%= lang.options.psy_shuffle.class %></option>
+                                                        <option value='2'><%= lang.options.psy_shuffle.group %></option>
+                                                        <option value='3'><%= lang.options.psy_shuffle.element %></option>
+                                                        <option value='4'><%= lang.options.psy_shuffle.full %></option>
                                                     </select>
                                                 </div>
                                             </div>
         
                                             <div class="col-12 col-lg-6">
                                                 <div class="input-group mb-3">
-                                                    <label class="input-group-text">Psynergy Levels</label>
+                                                    <label class="input-group-text"><%= lang.settings.psy_levels %></label>
                                                     <select class="form-select cache-setting" id="inp-class-levels">
-                                                        <option value='0' selected>Vanilla</option>
-                                                        <option value='1'>Adjust learning levels</option>
-                                                        <option value='2'>Randomise learning levels</option>
+                                                        <option value='0' selected><%= lang.options.psy_levels.vanilla %></option>
+                                                        <option value='1'><%= lang.options.psy_levels.adjust %></option>
+                                                        <option value='2'><%= lang.options.psy_levels.random %></option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -293,26 +324,26 @@
                                             <div class="col-12 col-lg-6">
                                                 <div class="form-check form-switch mb-2">
                                                     <input class="form-check-input cache-setting" type="checkbox" id="inp-psynergy-power">
-                                                    <label class="form-check-label">Adjust Psynergy power</label>
+                                                    <label class="form-check-label"><%= lang.settings.psy_power_adjust %></label>
                                                 </div>
                                                 <div class="form-check form-switch mb-2">
                                                     <input class="form-check-input cache-setting" type="checkbox" id="inp-psynergy-cost">
-                                                    <label class="form-check-label">Adjust Psynergy PP cost</label>
+                                                    <label class="form-check-label"><%= lang.settings.psy_cost_adjust %></label>
                                                 </div>
                                                 <div class="form-check form-switch mb-3">
                                                     <input class="form-check-input cache-setting" type="checkbox" id="inp-psynergy-aoe">
-                                                    <label class="form-check-label">Randomise Psynergy AoE</label>
+                                                    <label class="form-check-label"><%= lang.settings.psy_range_random %></label>
                                                 </div>
                                             </div>
 
                                             <div class="col-12 col-lg-6">
                                                 <div class="form-check form-switch mb-2">
                                                     <input class="form-check-input cache-setting" type="checkbox" id="inp-enemypsy-power">
-                                                    <label class="form-check-label">Adjust enemy Psynergy power</label>
+                                                    <label class="form-check-label"><%= lang.settings.enemypsy_power_adjust %></label>
                                                 </div>
                                                 <div class="form-check form-switch mb-3">
                                                     <input class="form-check-input cache-setting" type="checkbox" id="inp-enemypsy-aoe">
-                                                    <label class="form-check-label">Randomise enemy Psynergy AoE</label>
+                                                    <label class="form-check-label"><%= lang.settings.enemypsy_range_random %></label>
                                                 </div>
                                             </div>
                                         </div>
@@ -322,33 +353,33 @@
                                         <div class="row">
                                             <div class="col-12 col-lg-6">
                                                 <div class="input-group mb-3">
-                                                    <label class="input-group-text">Character Stats</label>
+                                                    <label class="input-group-text"><%= lang.settings.character_stats %></label>
                                                     <select class="form-select cache-setting" id="inp-char-stats">
-                                                        <option value='0' selected>Vanilla</option>
-                                                        <option value='1'>Shuffle character stats</option>
-                                                        <option value='2'>Adjust character stats</option>
+                                                        <option value='0' selected><%= lang.options.character_stats.vanilla %></option>
+                                                        <option value='1'><%= lang.options.character_stats.shuffle %></option>
+                                                        <option value='2'><%= lang.options.character_stats.adjust %></option>
                                                     </select>
                                                 </div>
                                             </div>
         
                                             <div class="col-12 col-lg-6">
                                                 <div class="input-group mb-3">
-                                                    <label class="input-group-text">Character Elements</label>
+                                                    <label class="input-group-text"><%= lang.settings.character_element %></label>
                                                     <select class="form-select cache-setting" id="inp-char-element">
-                                                        <option value='0' selected>Vanilla</option>
-                                                        <option value='1'>Shuffle character elements</option>
-                                                        <option value='2'>Randomise character elements</option>
+                                                        <option value='0' selected><%= lang.options.character_element.vanilla %></option>
+                                                        <option value='1'><%= lang.options.character_element.shuffle %></option>
+                                                        <option value='2'><%= lang.options.character_element.random %></option>
                                                     </select>
                                                 </div>
                                             </div>
 
                                             <div class="col-12 col-lg-6">
                                                 <div class="input-group mb-3">
-                                                    <label class="input-group-text">Enemy Stats</label>
+                                                    <label class="input-group-text"><%= lang.settings.enemy_stats %></label>
                                                     <select class="form-select cache-setting" id="inp-enemy-eres">
-                                                        <option value='0' selected>Vanilla</option>
-                                                        <option value='1'>Shuffle enemy eRes tables</option>
-                                                        <option value='2'>Randomise enemy eRes tables</option>
+                                                        <option value='0' selected><%= lang.options.enemy_stats.vanilla %></option>
+                                                        <option value='1'><%= lang.options.enemy_stats.shuffle %></option>
+                                                        <option value='2'><%= lang.options.enemy_stats.random %></option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -358,7 +389,7 @@
                                             <div class="col-12 col-lg-6">
                                                 <div class="form-check form-switch mb-3">
                                                     <input class="form-check-input cache-setting" type="checkbox" id="inp-class-stats">
-                                                    <label class="form-check-label">Randomise class stat boosts</label>
+                                                    <label class="form-check-label"><%= lang.settings.class_stats_random %></label>
                                                 </div>
                                             </div>
                                         </div>
@@ -368,40 +399,56 @@
                         </div>
 
                         <div class="card mt-3">
-                            <h3 class="card-header">Logic Settings</h3>
+                            <h3 class="card-header"><%= lang.index.subheader_logic %></h3>
                             <div class="card-body">  
                                 <div class="row">
                                     <div class="col-12 col-lg-6">
                                         <div class="form-check form-switch mb-2">
                                             <input class="form-check-input cache-setting" type="checkbox" id="inp-skips-basic">
-                                            <label class="form-check-label">Require basic glitches/skips <span class="tooltip-container" id="tooltip-6"><i class="bi bi-question-circle-fill"></i></span></label>
+                                            <label class="form-check-label"><%= lang.settings.skips_basic %> 
+                                                <span class="tooltip-container" title="<%= lang.index.tooltips['6'] %>">
+                                                    <i class="bi bi-question-circle-fill"></i>
+                                                </span>
+                                            </label>
                                         </div>
                                         <div class="form-check form-switch mb-2">
                                             <input class="form-check-input cache-setting" type="checkbox" id="inp-skips-oob-easy">
-                                            <label class="form-check-label">Require easy OOB skips <span class="tooltip-container" id="tooltip-7"><i class="bi bi-question-circle-fill"></i></span></label>
+                                            <label class="form-check-label"><%= lang.settings.skips_oob_easy %> 
+                                                <span class="tooltip-container" title="<%= lang.index.tooltips['7'] %>">
+                                                    <i class="bi bi-question-circle-fill"></i>
+                                                </span>
+                                            </label>
                                         </div>
                                         <div class="form-check form-switch mb-2">
                                             <input class="form-check-input cache-setting" type="checkbox" id="inp-skips-oob-hard">
-                                            <label class="form-check-label">Require hard OOB skips <span class="tooltip-container" id="tooltip-12"><i class="bi bi-question-circle-fill"></i></span></label>
+                                            <label class="form-check-label"><%= lang.settings.skips_oob_hard %> 
+                                                <span class="tooltip-container" title="<%= lang.index.tooltips['12'] %>">
+                                                    <i class="bi bi-question-circle-fill"></i>
+                                                </span>
+                                            </label>
                                         </div>
                                         <div class="form-check form-switch mb-3">
                                             <input class="form-check-input cache-setting" type="checkbox" id="inp-skips-maze">
-                                            <label class="form-check-label">Require Gaia Rock maze w/o Growth</label>
+                                            <label class="form-check-label"><%= lang.settings.skips_gaia_maze %></label>
                                         </div>
                                     </div>
 
                                     <div class="col-12 col-lg-6">
                                         <div class="input-group mb-3">
-                                            <label class="input-group-text">Lemurian Ship</label>
+                                            <label class="input-group-text"><%= lang.settings.logic_ship_mode %></label>
                                             <select class="form-select cache-setting" id="inp-ship">
-                                                <option value='0' selected>Vanilla</option>
-                                                <option value='1'>Ship door unlocked</option>
-                                                <option value='2'>Available from start</option>
+                                                <option value='0' selected><%= lang.options.ship_mode.vanilla %></option>
+                                                <option value='1'><%= lang.options.ship_mode.open %></option>
+                                                <option value='2'><%= lang.options.ship_mode.unlocked %></option>
                                             </select>
                                         </div>
                                         <div class="form-check form-switch mb-3">
                                             <input class="form-check-input cache-setting" type="checkbox" id="inp-boss-logic">
-                                            <label class="form-check-label">Disable boss logic <span class="tooltip-container" id="tooltip-8"><i class="bi bi-question-circle-fill"></i></span></label>
+                                            <label class="form-check-label"><%= lang.settings.logic_bosses %> 
+                                                <span class="tooltip-container" title="<%= lang.index.tooltips['8'] %>">
+                                                    <i class="bi bi-question-circle-fill"></i>
+                                                </span>
+                                            </label>
                                         </div>
                                     </div>
                                 </div>
@@ -409,32 +456,40 @@
                         </div>
 
                         <div class="card mt-3">
-                            <h3 class="card-header">Quality of Life</h3>
+                            <h3 class="card-header"><%= lang.index.subheader_qol %></h3>
                             <div class="card-body">  
                                 <div class="row">
                                     <div class="col-12 col-lg-6">
                                         <div class="form-check form-switch mb-2">
                                             <input class="form-check-input cache-setting" type="checkbox" id="inp-start-heal" checked>
-                                            <label class="form-check-label">Start with healing Psynergy <span class="tooltip-container" id="tooltip-9"><i class="bi bi-question-circle-fill"></i></span></label>
+                                            <label class="form-check-label"><%= lang.settings.qol_psy_healing %> 
+                                                <span class="tooltip-container" title="<%= lang.index.tooltips['9'] %>">
+                                                    <i class="bi bi-question-circle-fill"></i>
+                                                </span>
+                                            </label>
                                         </div>
                                         <div class="form-check form-switch mb-2">
                                             <input class="form-check-input cache-setting" type="checkbox" id="inp-start-revive" checked>
-                                            <label class="form-check-label">Start with Revive</label>
+                                            <label class="form-check-label"><%= lang.settings.qol_psy_revive %></label>
                                         </div>
                                         <div class="form-check form-switch mb-3">
                                             <input class="form-check-input cache-setting" type="checkbox" id="inp-start-reveal">
-                                            <label class="form-check-label">Start with Reveal</label>
+                                            <label class="form-check-label"><%= lang.settings.qol_psy_reveal %></label>
                                         </div>
                                     </div>
 
                                     <div class="col-12 col-lg-6">
                                         <div class="form-check form-switch mb-2">
                                             <input class="form-check-input cache-setting" type="checkbox" id="inp-free-avoid" checked>
-                                            <label class="form-check-label">Avoid costs 0 PP</label>
+                                            <label class="form-check-label"><%= lang.settings.qol_psycost_avoid %></label>
                                         </div>
                                         <div class="form-check form-switch mb-2">
                                             <input class="form-check-input cache-setting" type="checkbox" id="inp-free-retreat" checked>
-                                            <label class="form-check-label">Retreat costs 0 PP <span class="tooltip-container" id="tooltip-10"><i class="bi bi-question-circle-fill"></i></span></label>
+                                            <label class="form-check-label"><%= lang.settings.qol_psycost_retreat %> 
+                                                <span class="tooltip-container" title="<%= lang.index.tooltips['10'] %>">
+                                                    <i class="bi bi-question-circle-fill"></i>
+                                                </span>
+                                            </label>
                                         </div>
                                     </div>
 
@@ -442,11 +497,11 @@
 
                                     <div class="col-12 col-lg-6">
                                         <div class="input-group mb-3">
-                                            <label class="input-group-text">Sanctum revive cost</label>
+                                            <label class="input-group-text"><%= lang.settings.qol_revive_cost %></label>
                                             <select class="form-select cache-setting" id="inp-sanc-cost">
-                                                <option value='0' selected>Vanilla (20x level)</option>
-                                                <option value='1'>Reduced (2x level)</option>
-                                                <option value='2'>Fixed at 100 gold</option>
+                                                <option value='0' selected><%= lang.options.revive_cost.vanilla %></option>
+                                                <option value='1'><%= lang.options.revive_cost.reduced %></option>
+                                                <option value='2'><%= lang.options.revive_cost.fixed %></option>
                                             </select>
                                         </div>
                                     </div>
@@ -455,19 +510,19 @@
                                     <div class="col-12 col-lg-6">
                                         <div class="form-check form-switch mb-2">
                                             <input class="form-check-input cache-setting" type="checkbox" id="inp-qol-cutscenes" checked>
-                                            <label class="form-check-label">Speed up cutscenes</label>
+                                            <label class="form-check-label"><%= lang.settings.qol_cutscene_skip %></label>
                                         </div>
                                         <div class="form-check form-switch mb-2">
                                             <input class="form-check-input cache-setting" type="checkbox" id="inp-qol-tickets" checked>
-                                            <label class="form-check-label">Disable Game Tickets from shops</label>
+                                            <label class="form-check-label"><%= lang.settings.qol_game_tickets %></label>
                                         </div>
                                         <div class="form-check form-switch mb-2">
                                             <input class="form-check-input cache-setting" type="checkbox" id="inp-qol-hints" checked>
-                                            <label class="form-check-label">Add item hints</label>
+                                            <label class="form-check-label"><%= lang.settings.qol_item_hints %></label>
                                         </div>
                                         <div class="form-check form-switch mb-3">
                                             <input class="form-check-input cache-setting" type="checkbox" id="inp-qol-fastship" checked>
-                                            <label class="form-check-label">Faster overworld ship movement</label>
+                                            <label class="form-check-label"><%= lang.settings.qol_faster_ship %></label>
                                         </div>
                                     </div>
 
@@ -475,21 +530,25 @@
                                         <div class="form-check form-switch mb-2">
                                             <input class="form-check-input cache-setting" type="checkbox" id="inp-patch-avoid" checked>
                                             <label class="form-check-label">
-                                                Make Avoid toggleable and always work
-                                                <span class="tooltip-container" id="tooltip-13"><i class="bi bi-question-circle-fill"></i></span>
+                                                <%= lang.settings.qol_avoid_toggle %>
+                                                <span class="tooltip-container" title="<%= lang.index.tooltips['13'] %>">
+                                                    <i class="bi bi-question-circle-fill"></i>
+                                                </span>
                                             </label>
                                         </div>
                                         <div class="form-check form-switch mb-2">
                                             <input class="form-check-input cache-setting" type="checkbox" id="inp-hard-mode">
                                             <label class="form-check-label">
-                                                Enable Hard mode from the start
-                                                <span class="tooltip-container" id="tooltip-14"><i class="bi bi-question-circle-fill"></i></span>
+                                                <%= lang.settings.qol_hard_mode %>
+                                                <span class="tooltip-container" title="<%= lang.index.tooltips['14'] %>">
+                                                    <i class="bi bi-question-circle-fill"></i>
+                                                </span>
                                             </label>
                                         </div>
                                         <div class="form-check form-switch mb-3">
                                             <input class="form-check-input cache-setting" type="checkbox" id="inp-halve-enc">
                                             <label class="form-check-label">
-                                                Halve encounter rate
+                                                <%= lang.settings.qol_half_encounters %>
                                             </label>
                                         </div>
                                     </div>
@@ -498,18 +557,22 @@
 
                                     <div class="col-12 col-lg-6">
                                         <div class="input-group mb-3">
-                                            <label class="input-group-text">Scale Exp</label>
+                                            <label class="input-group-text"><%= lang.settings.scale_exp %></label>
                                             <input type="number" class="form-control cache-setting" min="1" max="15" value="1" id="inp-scale-exp">
                                         </div>
                                         <div class="input-group mb-3">
-                                            <label class="input-group-text">Scale Coins</label>
+                                            <label class="input-group-text"><%= lang.settings.scale_coins %></label>
                                             <input type="number" class="form-control cache-setting" min="1" max="15" value="1" id="inp-scale-coins">
                                         </div>
                                     </div>
 
                                     <div class="col-12 col-lg-6">
                                         <div class="input-group mb-3">
-                                            <label class="input-group-text">Starting Levels&nbsp;<span class="tooltip-container" id="tooltip-11"><i class="bi bi-question-circle-fill"></i></span></label>
+                                            <label class="input-group-text"><%= lang.settings.starting_level %>&nbsp;
+                                                <span class="tooltip-container" title="<%= lang.index.tooltips['11'] %>">
+                                                    <i class="bi bi-question-circle-fill"></i>
+                                                </span>
+                                            </label>
                                             <input type="number" class="form-control cache-setting" min="5" max="99" value="5" id="inp-start-levels">
                                         </div>
                                     </div>

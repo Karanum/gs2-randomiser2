@@ -4,6 +4,13 @@ const http = require('http');
 const https = require('https');
 const config = require('./modules/config.js');
 
+const locales = {
+    "en": require('./lang/en_GB.json'),
+    "de": require('./lang/de_DE.json'),
+    "fr": require('./lang/fr_FR.json'),
+    "es": require('./lang/es_ES.json')
+};
+
 const port = config.get("port");
 const app = express();
 
@@ -53,11 +60,11 @@ function generatePermalink() {
 }
 
 function validateLanguage(lang) {
-    if (lang == undefined || lang == 'en') 
-        return '';
+    if (lang == undefined) 
+        return 'en';
     if (lang == 'es' || lang == 'de' || lang == 'fr')
-        return 'lang/' + lang + '/';
-    return '';
+        return lang;
+    return 'en';
 }
 
 app.get('/randomise_ajax', (req, res) => {
@@ -176,31 +183,31 @@ app.get('/fetch_perma_ajax', (req, res) => {
 
 app.get(['/', '/index.html', '/:lang/index.html'], (req, res) => {
     const lang = validateLanguage(req.params.lang);
-    res.render(lang + 'index.ejs', {version: nodePackage.version});
+    res.render('index.ejs', {version: nodePackage.version, lang: locales[lang]});
 });
-app.get(['/changelog.html', '/:lang/changelog.html'], (_, res) => {
+app.get(['/changelog.html', '/:lang/changelog.html'], (req, res) => {
     const lang = validateLanguage(req.params.lang);
-    res.render('changelog.ejs');
+    res.render('changelog.ejs', {lang: locales[lang]});
 });
-//app.get(['/custom.html', '/:lang/custom.html'], (_, res) => {
+//app.get(['/custom.html', '/:lang/custom.html'], (req, res) => {
 //    const lang = validateLanguage(req.params.lang);
-//    res.render('custom.ejs', {lang: lang});
+//    res.render('custom.ejs', {lang: locales[lang]});
 //});
-app.get(['/help.html', '/:lang/help.html'], (_, res) => {
+app.get(['/help.html', '/:lang/help.html'], (req, res) => {
     const lang = validateLanguage(req.params.lang);
-    res.render('help.ejs');
+    res.render('help.ejs', {lang: locales[lang]});
 });
-app.get(['/randomise.html', '/:lang/randomise.html'], (_, res) => {
+app.get(['/randomise.html', '/:lang/randomise.html'], (req, res) => {
     const lang = validateLanguage(req.params.lang);
-    res.render('randomise.ejs');
+    res.render('randomise.ejs', {lang: locales[lang]});
 });
-app.get(['/randomise_race.html', '/:lang/randomise_race.html'], (_, res) => {
+app.get(['/randomise_race.html', '/:lang/randomise_race.html'], (req, res) => {
     const lang = validateLanguage(req.params.lang);
-    res.render('randomise_race.ejs');
+    res.render('randomise_race.ejs', {lang: locales[lang]});
 });
-app.get(['/tips.html', '/:lang/tips.html'], (_, res) => {
+app.get(['/tips.html', '/:lang/tips.html'], (req, res) => {
     const lang = validateLanguage(req.params.lang);
-    res.render('tips.ejs');
+    res.render('tips.ejs', {lang: locales[lang]});
 });
 
 app.get(['/permalink/:id', '/:lang/permalink/:id'], (req, res) => {
@@ -215,7 +222,7 @@ app.get(['/permalink/:id', '/:lang/permalink/:id'], (req, res) => {
                 var keyval = line.split('=');
                 meta[keyval[0]] = keyval[1];
             });
-            res.render('permalink.ejs', {settings: meta.settings, version: meta.version, time: meta.time});
+            res.render('permalink.ejs', {settings: meta.settings, version: meta.version, time: meta.time, lang: locales[lang]});
         }
     });
 });

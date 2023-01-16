@@ -73,7 +73,7 @@ function prepSpoilerLog() {
 $(document).ready(() => {
     var romTooltip = new bootstrap.Tooltip($("#btn-patch").parent()[0]);
 
-    var id = document.location.pathname.slice(11);
+    var id = document.location.pathname.split('/').pop();
     setupAjaxRequest(id, true);
 
     $("#btn-patch").on('click', () => {
@@ -109,14 +109,12 @@ $(document).ready(() => {
             var data = new Uint8Array(e.target.result);
             if (data.length < 0x1000000) {
                 $("#err-rom").removeClass('d-none');
-                $("#err-rom").html("The selected ROM appears to be invalid. Please select another ROM file.");
                 return;
             }
 
             var fingerprint = data[1128] + (data[1129] << 8) + (data[1130] << 16) + (data[1131] << 24);
             if (fingerprint != 0x801319d && fingerprint != 0x8f9ee50) {
                 $("#err-rom").removeClass('d-none');
-                $("#err-rom").html("The selected ROM appears to be invalid. Please select another ROM file.");
             }
             romData = data;
 

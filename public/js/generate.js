@@ -48,16 +48,7 @@ function loadCachedSetting(elem) {
 }
 
 function getPresetTooltip(val) {
-    switch (Number(val)) {
-        case 0: return "Key Items and Djinn shuffled, starting with healing Psynergy and Revive.";
-        case 1: return "Most items and Djinn shuffled, with additional shuffling in equipment, class Psynergy and character stats.";
-        case 2: return "All items and Djinn shuffled, with superboss tablets being in the item pool. Everything else except AoEs is also shuffled.";
-        case 3: return "As close to vanilla as it gets, minus the innate changes applied by the randomiser.";
-        case 4: return "A mix of Intermediate and Hard with the Lemurian Ship unlocked from the start. Starting levels are increased to compensate.";
-        case 5: return "Everything is randomised. Possibly very hard and unfair.";
-        case 6: return "The official GS:TLA Randomiser race preset. Check our Discord for more information.";
-    }
-    return "?"
+    return $("#preset-desc-" + val).text();
 }
 
 function getPreset(val) {
@@ -155,12 +146,12 @@ $(document).ready(() => {
 
     $("#btn-submit").on('click', () => {
         var seed = $("#inp-seed").val();
-        window.location.href = `/randomise.html?settings=${getSettingsString()}&seed=${seed}`;
+        window.location.href = `./randomise.html?settings=${getSettingsString()}&seed=${seed}`;
     });
 
     $("#btn-submit-race").on('click', () => {
         var seed = $("#inp-seed").val();
-        window.location.href = `/randomise_race.html?settings=${getSettingsString()}&seed=${seed}`;
+        window.location.href = `./randomise_race.html?settings=${getSettingsString()}&seed=${seed}`;
     });
 
     $("#inp-scale-exp").on('change', () => {
@@ -194,21 +185,6 @@ $(document).ready(() => {
             $(".cache-setting").each((_, elem) => saveCachedSetting(elem));
         }
     });
-
-    $("#tooltip-1").attr('title', "Chest and tablet sprites are replaced by the icon of the item inside.");
-    $("#tooltip-2").attr('title', "Prevents utility Psynergy (Growth, Frost, etc.) from being learned by classes.");
-    $("#tooltip-3").attr('title', "Makes it more likely to find weaker equipment early on.");
-    $("#tooltip-4").attr('title', "Adjusts Djinni battle difficulty based on number of owned Djinn.");
-    $("#tooltip-5").attr('title', "Makes it more likely to find summons with less Djinn cost early on.");
-    $("#tooltip-6").attr('title', "Basic skips and retreat door warps may be required. Disables 0 PP Retreat setting.");
-    $("#tooltip-7").attr('title', "Simple OOB skips may be required. Disables 0 PP Retreat setting.");
-    $("#tooltip-8").attr('title', "Removes logical Djinn requirements, so you may need to fight bosses early.");
-    $("#tooltip-9").attr('title', "Ensures that Cure, Ply, Aura, or Wish is learned from the start.");
-    $("#tooltip-10").attr('title', "Note: this prevents the use of Retreat glitches.");
-    $("#tooltip-11").attr('title', "Only increases the starting level of characters that start off lower.");
-    $("#tooltip-12").attr('title', "OOB skips with tight or complex movement may be required. Disables 0 PP Retreat setting.");
-    $("#tooltip-13").attr('title', "Use Avoid to turn it on/off. It will negate all encounters regardless of party level.");
-    $("#tooltip-14").attr('title', "Enemies get +50% HP and +25% Attack and Defense.");
 
     var tooltipHolders = $(".tooltip-container");
     tooltipHolders.each((i) => new bootstrap.Tooltip(tooltipHolders[i]));
