@@ -264,7 +264,7 @@ function initialise(rom, textutil, itemData) {
                                     || (treasure['eventType'] == 0x83 && treasure['id'] != 0xFC6)) {
                                 treasure['isHidden'] = true;
                             } 
-                            if (itemData.isIdEquipment(treasure['vanillaContents'])) {
+                            if (itemData.isIdEquipment(treasure['vanillaContents']) || (item >= 0x1AD && item <= 0x1B5)) {
                                 treasure['isMajorItem'] = true;
                             }
                         }
