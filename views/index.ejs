@@ -8,11 +8,11 @@
     <meta property="og:title" content="Generate Seed">
     <meta name="description" content="Web-based Golden Sun: The Lost Age randomiser (or randomizer if you prefer) by Karanum. Check our Discord for updates.">
     <link rel="canonical" href="https://gs2randomiser.com">
-    <link ref="alternate" hreflang="en" href="https://gs2randomiser.com/index.html">
+    <link ref="alternate" hreflang="en" href="https://gs2randomiser.com/en/index.html">
     <link ref="alternate" hreflang="de" href="https://gs2randomiser.com/de/index.html">
     <link ref="alternate" hreflang="fr" href="https://gs2randomiser.com/fr/index.html">
     <link ref="alternate" hreflang="es" href="https://gs2randomiser.com/es/index.html">
-    <link ref="alternate" hreflang="x-default" href="https://gs2randomiser.com/index.html">
+    <link ref="alternate" hreflang="x-default" href="https://gs2randomiser.com/en/index.html">
     <title>Golden Sun: The Lost Age Randomiser</title>
 </head>
 
@@ -36,11 +36,11 @@
                             <div class="col mx-lg-2">
                                 <p><%= lang.index.intro %></p>
                                 <p><%- lang.index.new_players
-                                    .replace(/%1/g, "<a href=\"./help.html\">" + lang.topnav.settings + "</a>")
-                                    .replace(/%2/g, "<a href=\"./tips.html\">" + lang.topnav.hints + "</a>")
+                                    .replace(/%1/g, "<a href=\"/" + lang.lang + "/help.html\">" + lang.topnav.settings + "</a>")
+                                    .replace(/%2/g, "<a href=\"/" + lang.lang + "/tips.html\">" + lang.topnav.hints + "</a>")
                                     .replace(/%3/g, "<a href=\"https://discord.com/invite/QWwxrmN\">" + lang.index.discord + "</a>");
                                 %></p>
-                                <% if (lang.lang != "English") { %>
+                                <% if (lang.lang != "en") { %>
                                 <p><%= lang.index.translation %></p>
                                 <% } %>
                             </div>
@@ -112,7 +112,7 @@
                         </div>
 
                         <div class="card mt-3">
-                            <h3 class="card-header"><p hidden id="preset-desc-0"><%= lang.index.subheader_rando %></p></h3>
+                            <h3 class="card-header"><%= lang.index.subheader_rando %></h3>
                             <div class="card-body"> 
                                 <ul class="nav nav-tabs" id="tabs-randomisation">
                                     <li class="nav-item">

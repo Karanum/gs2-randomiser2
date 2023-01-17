@@ -173,3 +173,9 @@ table {
     margin-bottom: auto;
     vertical-align: middle;
 }
+
+.flag {
+    width: 20px;
+    margin-bottom: 2px;
+    margin-right: 4px;
+}

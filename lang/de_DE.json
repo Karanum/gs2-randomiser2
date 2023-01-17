@@ -1,5 +1,5 @@
 {
-    "lang": "Deutsch",
+    "lang": "de",
 
     "topnav": {
         "generate": "Spiel generieren",
@@ -72,7 +72,7 @@
             "all_items_name": "Alle Items",
             "all_items_help": "Alle Items werden randomisiert",
             "mod_majmin_name": "Haupt/Neben",
-            "mod_majmin_help": "Dieser Modifikator sorgt dafür dass der Itempool zweigeteilt wird. Das Haupt-Itempool enthält alle Psynergy, Beschwörungen, wichtiges Items und Ausrüstung (GS1-Ausrüstung eingeschlossen, die 2 Standorte auf Isla Pretiosa zufügt.) Der andere Itempool enthält den Rest der Items. Items werden nur innerhalb desselben Pools getauscht. Dies begrenzt die Anzahl der zu überprüfenden wichtigen Standorte und bietet ein Erlebnis, das näher an %1 liegt, während der Rest der Items weiterhin randomisiert wird."
+            "mod_majmin_help": "Dieser Modifikator sorgt dafür dass der Itempool zweigeteilt wird. Das Haupt-Itempool enthält alle Psynergy, Beschwörungen, Schmiedematerialien, wichtiges Items und Ausrüstung (GS1-Ausrüstung eingeschlossen, die 2 Standorte auf Isla Pretiosa zufügt.) Der andere Itempool enthält den Rest der Items. Items werden nur innerhalb desselben Pools getauscht. Dies begrenzt die Anzahl der zu überprüfenden wichtigen Standorte und bietet ein Erlebnis, das näher an %1 liegt, während der Rest der Items weiterhin randomisiert wird."
         },
 
         "class_psynergy": {

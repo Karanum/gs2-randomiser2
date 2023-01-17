@@ -11,13 +11,51 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"><%= lang.topnav.help %></a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="./help.html"><%= lang.topnav.settings %></a></li>
-                        <li><a class="dropdown-item" href="./tips.html"><%= lang.topnav.hints %></a></li>
-                        <li><a class="dropdown-item" href="./changelog.html"><%= lang.topnav.versions %></a></li>
+                        <li><a class="dropdown-item" href="/<%= lang.lang %>/help.html"><%= lang.topnav.settings %></a></li>
+                        <li><a class="dropdown-item" href="/<%= lang.lang %>/tips.html"><%= lang.topnav.hints %></a></li>
+                        <li><a class="dropdown-item" href="/<%= lang.lang %>/changelog.html"><%= lang.topnav.versions %></a></li>
                     </ul>
                 </li>
             </ul>
             <div class="navbar-nav ms-auto">
+                <li class="nav-item dropdown me-3">
+                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                        <% if (lang.lang == "en") { %>
+                        <img class="flag" src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f1ec-1f1e7.svg" />
+                        English
+                        <% } %>
+                        <% if (lang.lang == "de") { %>
+                        <img class="flag" src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f1e9-1f1ea.svg" />
+                        Deutsch
+                        <% } %>
+                        <% if (lang.lang == "fr") { %>
+                        <img class="flag" src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f1eb-1f1f7.svg" />
+                        Français
+                        <% } %>
+                        <% if (lang.lang == "es") { %>
+                        <img class="flag" src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f1ea-1f1f8.svg" />
+                        Español
+                        <% } %>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" id="lang-en">
+                            <img class="flag" src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f1ec-1f1e7.svg" />
+                            English
+                        </a></li>
+                        <li><a class="dropdown-item" id="lang-de">
+                            <img class="flag" src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f1e9-1f1ea.svg" />
+                            Deutsch
+                        </a></li>
+                        <li><a class="dropdown-item" id="lang-fr">
+                            <img class="flag" src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f1eb-1f1f7.svg" />
+                            Français
+                        </a></li>
+                        <li><a class="dropdown-item" id="lang-es">
+                            <img class="flag" src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f1ea-1f1f8.svg" />
+                            Español
+                        </a></li>
+                    </ul>
+                </li>
                 <a class="nav-link float-end" href="https://discord.com/invite/QWwxrmN"><i class="bi bi-discord"></i> Discord</a>
                 <a class="nav-link float-end" href="https://github.com/Karanum/gs2-randomiser2"><i class="bi bi-github"></i> GitHub</a>
             </div>

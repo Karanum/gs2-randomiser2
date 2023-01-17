@@ -59,9 +59,25 @@ function generatePermalink() {
     }
 }
 
-function validateLanguage(lang) {
-    if (lang == undefined) 
-        return 'en';
+function validateLanguage(req) {
+    var lang = req.params.lang;
+    if (lang == undefined) {
+        var cookie = req.headers.cookie;
+        if (cookie != undefined) {
+            var cookies = cookie.split(';');
+            for (var i = 0; i < cookies.length; ++i) {
+                var crumbs = cookies[i].trim().split('=');
+                if (crumbs.length >= 2 && crumbs[0] == "lang") {
+                    lang = crumbs[1];
+                    break;
+                }
+            }
+        }
+
+        if (lang == undefined)
+            return req.acceptsLanguages("en", "de", "fr", "es") || "en";
+    }
+
     if (lang == 'es' || lang == 'de' || lang == 'fr')
         return lang;
     return 'en';
@@ -182,11 +198,11 @@ app.get('/fetch_perma_ajax', (req, res) => {
 });
 
 app.get(['/', '/index.html', '/:lang/index.html'], (req, res) => {
-    const lang = validateLanguage(req.params.lang);
+    const lang = validateLanguage(req);
     res.render('index.ejs', {version: nodePackage.version, lang: locales[lang]});
 });
 app.get(['/changelog.html', '/:lang/changelog.html'], (req, res) => {
-    const lang = validateLanguage(req.params.lang);
+    const lang = validateLanguage(req);
     res.render('changelog.ejs', {lang: locales[lang]});
 });
 //app.get(['/custom.html', '/:lang/custom.html'], (req, res) => {
@@ -194,25 +210,25 @@ app.get(['/changelog.html', '/:lang/changelog.html'], (req, res) => {
 //    res.render('custom.ejs', {lang: locales[lang]});
 //});
 app.get(['/help.html', '/:lang/help.html'], (req, res) => {
-    const lang = validateLanguage(req.params.lang);
+    const lang = validateLanguage(req);
     res.render('help.ejs', {lang: locales[lang]});
 });
 app.get(['/randomise.html', '/:lang/randomise.html'], (req, res) => {
-    const lang = validateLanguage(req.params.lang);
+    const lang = validateLanguage(req);
     res.render('randomise.ejs', {lang: locales[lang]});
 });
 app.get(['/randomise_race.html', '/:lang/randomise_race.html'], (req, res) => {
-    const lang = validateLanguage(req.params.lang);
+    const lang = validateLanguage(req);
     res.render('randomise_race.ejs', {lang: locales[lang]});
 });
 app.get(['/tips.html', '/:lang/tips.html'], (req, res) => {
-    const lang = validateLanguage(req.params.lang);
+    const lang = validateLanguage(req);
     res.render('tips.ejs', {lang: locales[lang]});
 });
 
 app.get(['/permalink/:id', '/:lang/permalink/:id'], (req, res) => {
     const id = req.params.id;
-    const lang = validateLanguage(req.params.lang);
+    const lang = validateLanguage(req);
     fs.readFile(`./permalinks/${id}.meta`, (err, data) => {
         if (err) {
             res.redirect('/');

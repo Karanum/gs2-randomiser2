@@ -1,5 +1,5 @@
 {
-    "lang": "English",
+    "lang": "en",
 
     "topnav": {
         "generate": "Generate Seed",
@@ -72,7 +72,7 @@
             "all_items_name": "All Items",
             "all_items_help": "All items are randomised",
             "mod_majmin_name": "Major/Minor",
-            "mod_majmin_help": "This modifier makes it so the item pool is split into two. One item pool contains all Psynergy, summons, key items and equipment (GS1 equipment included, adding 2 locations in Treasure Isle.) The other item pool contains the rest of the items. Items are only swapped within the same pool. This limits the number of important locations to check, providing an experience closer to %1 while still randomising the rest of the items."
+            "mod_majmin_help": "This modifier makes it so the item pool is split into two. One item pool contains all Psynergy, summons, forgeables, key items and equipment (GS1 equipment included, adding 2 locations in Treasure Isle.) The other item pool contains the rest of the items. Items are only swapped within the same pool. This limits the number of important locations to check, providing an experience closer to %1 while still randomising the rest of the items."
         },
 
         "class_psynergy": {
