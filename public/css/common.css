@@ -11,7 +11,7 @@
     --gs2r-button-border: #efc739;
     --gs2r-button-highlight: #e1c256; 
     --gs2r-card-bg: #faf4d7;
-    --gs2r-card-border: rgba(137, 102, 4, .35);
+    --gs2r-card-border: #95824d38;
     --gs2r-card-header1: #fad860;
     --gs2r-card-header2: #fae18a;
     --gs2r-checkbox-highlight: #f1cd4a;
@@ -19,10 +19,56 @@
     --gs2r-link-nav: #6e5a05;
     --gs2r-text: #4d3002;
     --gs2r-tooltip: #4d300291;
+
+    --gs2r-btn-outline-text: #977601;
+    --gs2r-inp-group-text: #f1e6ba;
+    --gs2r-inp-border: #d3cbab;
+    --gs2r-inp-bg: #fff;
+}
+
+:root.dark {
+    --bs-primary: #f1ce4e !important;
+
+    --gs2r-bg: #2e2207;
+    --gs2r-button: #907922;
+    --gs2r-button-border: #9c8635;
+    --gs2r-button-highlight: #ab8b17; 
+    --gs2r-card-bg: #49390b;
+    --gs2r-card-bg-highlight: #614d13;
+    --gs2r-card-bg-selected: #7c6728;
+    --gs2r-card-border: #b2964959;
+    --gs2r-card-header1: #745e0f;
+    --gs2r-card-header2: #8f7720;
+    --gs2r-checkbox-highlight: #c4a73b;
+    --gs2r-link: #e2bb12;
+    --gs2r-link-nav: #f4e5bc;
+    --gs2r-text: #f4e5bc;
+    --gs2r-tooltip: #ecc78c91;
+
+    --gs2r-btn-outline-text: #efba00;
+    --gs2r-inp-group-text: #766934;
+    --gs2r-inp-border: #6f6026;
+    --gs2r-inp-bg: #2e2517;
+}
+
+.dark .form-select {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23b49a60' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e") !important;
+}
+
+.dark .dropdown-menu {
+    background-color: var(--gs2r-card-bg-highlight) !important;
+}
+
+.dark .nav-tabs, .dark .nav-tabs .nav-link.active, .dark .nav-tabs .nav-link:hover {
+    border-color: var(--gs2r-card-border) !important;
+}
+
+.dark .dropdown-item:focus, .dark .dropdown-item:hover, .dark .nav-tabs .nav-link.active {
+    background-color: var(--gs2r-card-bg-selected) !important;
 }
 
 a {
-    color: var(--gs2r-link);
+    color: var(--gs2r-link) !important;
 }
 
 b {
@@ -71,6 +117,7 @@ body {
 
 .card {
     border: .5px solid var(--gs2r-card-border) !important;
+    background-color: var(--gs2r-card-border) !important;
 }
 
 .card-body {
@@ -86,19 +133,20 @@ body {
 }
 
 .input-group-text {
-    background-color: #f1e6ba !important;
-    border-color: #d3cbab !important;
+    background-color: var(--gs2r-inp-group-text) !important;
+    border-color: var(--gs2r-inp-border) !important;
     color: var(--gs2r-text) !important;
 }
 
 .form-select, .form-control, .form-check-input {
-    border-color: #d3cbab !important;
+    border-color: var(--gs2r-inp-border) !important;
+    background-color: var(--gs2r-inp-bg) !important;
     color: var(--gs2r-text) !important;
 }
 
 .form-select:focus, .form-control:focus, .form-check-input:focus {
     box-shadow: 0 0 0 .25rem #e9b02e40 !important;
-    border-color: #d3cbab !important;
+    border-color: var(--gs2r-inp-border)!important;
 }
 
 .form-check-input:not(:checked) {
@@ -119,7 +167,7 @@ body {
 
 .btn-outline-primary {
     border-color: #cea203 !important;
-    color: #977601 !important;
+    color: var(--gs2r-btn-outline-text) !important;
 }
 
 .btn-outline-primary:active:focus, .btn-primary:active:focus, .btn-outline-primary:focus, .btn-primary:focus {
@@ -176,6 +224,6 @@ table {
 
 .flag {
     width: 20px;
-    margin-bottom: 2px;
-    margin-right: 4px;
+    margin-bottom: 3px;
+    margin-right: 2px;
 }
