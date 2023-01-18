@@ -1,6 +1,5 @@
 const fs = require("fs");
 const mersenne = require('../modules/mersenne.js');
-//const decompr = require('../modules/decompression.js');
 
 const ups = require('./ups.js');
 const settingsParser = require('./settings.js');
@@ -30,17 +29,23 @@ const fastForgingPatch = require('./patches/fast_forging.js');
 const gabombaPuzzlePatch = require('./patches/gabomba_puzzle.js');
 const tutorialNpcPatch = require('./patches/tutorial_npcs.js');
 
+// List of in-game flags to turn on when cutscene skip is enabled
 const cutsceneSkipFlags = [0xf22, 0x890, 0x891, 0x892, 0x893, 0x894, 0x895, 0x896, 0x848, 0x86c, 0x86d, 0x86e, 0x86f,
         0x916, 0x844, 0x863, 0x864, 0x865, 0x867, 0x872, 0x873, 0x84b, 0x91b, 0x91c, 0x91d, 0x8b2, 0x8b3, 0x8b4,
         0x8a9, 0x8ac, 0x904, 0x971, 0x973, 0x974, 0x924, 0x928, 0x929, 0x92a, 0x880, 0x8f1, 0x8f3, 0x8f5, 0xa6c,
         0x8f6, 0x8fc, 0x8fe, 0x910, 0x911, 0x913, 0x980, 0x981, 0x961, 0x964, 0x965, 0x966, 0x968, 0x962, 0x969,
         0x96a, 0xa8c, 0x88f, 0x8f0, 0x9b1, 0xa78, 0x90c, 0xa2e, 0x9c0, 0x9c1, 0x9c2, 0x908, 0x94F];
 
-var upsCutsceneSkip, upsDjinnScaling, upsAvoid, upsTeleport, upsRandomiser;
+var upsDjinnScaling, upsAvoid, upsTeleport, upsRandomiser;
 
 var vanillaRom = new Uint8Array(fs.readFileSync("./randomiser/rom/gs2.gba"));
 var rom = Uint8Array.from(vanillaRom);
 
+/**
+ * Perform a timing on the specified function
+ * @param {string} msg The message to show in console when starting the task
+ * @param {Function} callback The function to execute
+ */
 function doTiming(msg, callback) {
     var timing = Date.now();
     process.stdout.write(msg + ' ');
@@ -48,10 +53,19 @@ function doTiming(msg, callback) {
     console.log(Date.now() - timing + "ms");
 }
 
+/**
+ * Write a sequence of bytes to the target
+ * @param {Uint8Array} target 
+ * @param {uint} start 
+ * @param {byte[]} bytes 
+ */
 function writeByteSequence(target, start, bytes) {
     bytes.forEach((byte) => target[start++] = byte);
 }
 
+/**
+ * Initialises the randomiser
+ */
 function initialise() {
     doTiming("Loading UPS patches...", () => {
         upsAvoid = fs.readFileSync("./randomiser/ups/avoid.ups");
@@ -97,27 +111,52 @@ function initialise() {
     rom[0x4D62F] = 0xE0;
 }
 
+/**
+ * Applies Game Ticket removal patch to the ROM
+ * @param {Uint8Array} target 
+ */
 function applyGameTicketPatch(target) {
     target[0xAFED4] = 0x70;
     target[0xAFED5] = 0x47;
 }
 
+/**
+ * Applies ship overworld speed patch to the ROM
+ * @param {Uint8Array} target 
+ */
 function applyShipSpeedPatch(target) {
     target[0x285A4] = 0xF0;
 }
 
+/**
+ * Applies revive cost reduction to the ROM
+ * @param {Uint8Array} target 
+ */
 function applyCheapRevivePatch(target) {
     writeByteSequence(target, 0x10A874, [0x50, 0x00, 0xC0, 0x46, 0xC0, 0x46]);
 }
 
+/**
+ * Applies fixed revive cost to the ROM
+ * @param {Uint8Array} target 
+ */
 function applyFixedRevivePatch(target) {
     writeByteSequence(target, 0x10A874, [0x64, 0x20, 0xC0, 0x46, 0xC0, 0x46]);
 }
 
+/**
+ * Applies encounter rate halving to the ROM
+ * @param {Uint8Array} target 
+ */
 function applyHalvedRatePatch(target) {
     target[0xCA0B8] = 0x78;
 }
 
+/**
+ * Writes a list of flags to auto-enable to the ROM
+ * @param {Uint8Array} target 
+ * @param {int[]} flags 
+ */
 function writeStoryFlags(target, flags) {
     var addr = 0xF4280;
     flags.forEach((flag) => {
@@ -127,12 +166,20 @@ function writeStoryFlags(target, flags) {
     });
 }
 
+/**
+ * Generates a randomised ROM
+ * @param {number} seed The PRNG initialisation seed
+ * @param {byte[]} rawSettings The binary encoded randomiser settings
+ * @param {string} spoilerFilePath The file path to save the spoiler log to
+ * @param {(patch : Uint8Array) => void} callback Callback function upon completion, passing the UPS patch data as a parameter
+ */
 function randomise(seed, rawSettings, spoilerFilePath, callback) {
     var target = rom.slice(0);
     var prng = mersenne(seed);
     var defaultFlags = [0xf22, 0x873];
     var settings = settingsParser.parse(rawSettings);
 
+    // Cloning the (mostly) vanilla data containers
     var textClone = textutil.clone();
     var itemLocClone = itemLocations.clone();
     var classClone = classData.clone();
@@ -147,11 +194,15 @@ function randomise(seed, rawSettings, spoilerFilePath, callback) {
     var elementClone = elementData.clone();
     var mapCodeClone = mapCode.clone();
 
+    // Preparing item locations for randomisation and determining which locations to shuffle
     itemLocations.prepItemLocations(itemLocClone, settings);
 
+    // Applying innate map code patches
     gabombaPuzzlePatch.apply(mapCodeClone, textClone);
     fastForgingPatch.apply(mapCodeClone, textClone);
+    tutorialNpcPatch.apply(mapCodeClone, textClone, settings);
 
+    // Applying settings
     if (settings['free-avoid']) abilityClone[150].cost = 0;
     if (settings['free-retreat'] && !(settings['skips-basic'] || settings['skips-oob-easy'] || settings['skips-oob-hard'])) {
         abilityClone[149].cost = 0;
@@ -181,8 +232,7 @@ function randomise(seed, rawSettings, spoilerFilePath, callback) {
 
     writeStoryFlags(target, defaultFlags);
 
-    tutorialNpcPatch.apply(mapCodeClone, textClone, settings);
-
+    // Performing randomisation until a valid seed is found, or too many randomisations have been performed
     var randomiser = new itemRandomiser.ItemRandomiser(prng, locations.clone(), settings);
     if (settings['item-shuffle'] > 0) {
         var attempts = 0;
@@ -205,6 +255,7 @@ function randomise(seed, rawSettings, spoilerFilePath, callback) {
         randomiser.shuffleItems(itemLocClone);
     }
 
+    // Applying more settings
     if (settings['psynergy-power']) abilityData.adjustAbilityPower(abilityClone, "Psynergy", prng);
     if (settings['psynergy-cost']) abilityData.adjustPsynergyCost(abilityClone, prng);
     if (settings['psynergy-aoe']) abilityData.randomiseAbilityRange(abilityClone, "Psynergy", prng);
@@ -257,6 +308,7 @@ function randomise(seed, rawSettings, spoilerFilePath, callback) {
     enemyData.scaleBattleRewards(enemyClone, settings['scale-coins'], settings['scale-exp']);
     abilityData.setStartingPsynergy(target, settings, prng);
 
+    // Writing the modified data containers to the new ROM file
     itemLocations.writeToRom(itemLocClone, prng, target, settings['show-items']);
     classData.writeToRom(classClone, target);
     abilityData.writeToRom(abilityClone, target);
@@ -272,6 +324,7 @@ function randomise(seed, rawSettings, spoilerFilePath, callback) {
     textutil.writeToRom(textClone, target);
     mapCode.writeToRom(mapCodeClone, target);
 
+    // Creating the spoiler log and calling the callback function with the patch data
     spoilerLog.generate(spoilerFilePath, settings, spheres, itemLocClone, djinnClone, characterClone,
         classClone, shopClone, forgeClone, itemClone, () => {callback(ups.createPatch(vanillaRom, target));});
 }

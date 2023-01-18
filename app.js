@@ -19,6 +19,7 @@ const allowedPermaChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0
 const nodePackage = require('./package.json');
 const versionSuffix = nodePackage.version.replaceAll('.', '_');
 
+// App initialisation
 console.log("Starting...");
 const randomiser = require('./randomiser/randomiser.js');
 console.log("Randomiser initialised\n");
@@ -33,6 +34,11 @@ if (!fs.existsSync('./temp/')) {
     fs.mkdirSync('./temp/');
 }
 
+/**
+ * Parses the encoded randomiser settings sent by the client
+ * @param {string} str 
+ * @returns {number[]}
+ */
 function parseSettings(str) {
     var array = new Uint8Array(11);
     str = str.padEnd(array.length * 2, '0');
@@ -46,6 +52,10 @@ function parseSettings(str) {
     return array;
 }
 
+/**
+ * Creates a random permalink filename
+ * @returns {string}
+ */
 function generatePermalink() {
     while (true) {
         var link = "";
@@ -59,9 +69,16 @@ function generatePermalink() {
     }
 }
 
+/**
+ * Returns the site language to display based on client preferences
+ * @param {Request} req ExpressJS Request object
+ * @returns {string} A valid language identifier
+ */
 function validateLanguage(req) {
+    // First check whether a language is specified in the URL
     var lang = req.params.lang;
     if (lang == undefined) {
+        // Check the cookie for a previously set language
         var cookie = req.headers.cookie;
         if (cookie != undefined) {
             var cookies = cookie.split(';');
@@ -74,14 +91,21 @@ function validateLanguage(req) {
             }
         }
 
+        // If no language cookie exists, check the Accepts-Languages header
+        // Default to "en" if none of the languages are valid
         if (lang == undefined)
             return req.acceptsLanguages("en", "de", "fr", "es") || "en";
     }
 
+    // If a URL language is specified, check if it is valid, otherwise default to "en"
     if (lang == 'es' || lang == 'de' || lang == 'fr')
         return lang;
     return 'en';
 }
+
+//=======================================================================================
+// AJAX requests (randomisation, spoiler log)
+//=======================================================================================
 
 app.get('/randomise_ajax', (req, res) => {
     if (!req.xhr) return res.redirect('/');
@@ -197,6 +221,10 @@ app.get('/fetch_perma_ajax', (req, res) => {
     });
 });
 
+//=======================================================================================
+// HTTP routing
+//=======================================================================================
+
 app.get(['/', '/index.html', '/:lang/index.html'], (req, res) => {
     const lang = validateLanguage(req);
     res.render('index.ejs', {version: nodePackage.version, lang: locales[lang]});
@@ -242,6 +270,10 @@ app.get(['/permalink/:id', '/:lang/permalink/:id'], (req, res) => {
         }
     });
 });
+
+//=======================================================================================
+// Server initialisation
+//=======================================================================================
 
 app.disable('x-powered-by');
 app.set('view engine', 'ejs');
