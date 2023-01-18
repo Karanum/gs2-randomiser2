@@ -2,430 +2,430 @@
     "lang": "es",
 
     "topnav": {
-        "generate": "Generate Seed",
-        "help": "Help",
-        "settings": "Settings Info",
-        "hints": "Useful Tips",
-        "versions": "Version History"
+        "generate": "Generar Seed",
+        "help": "Ayuda",
+        "settings": "Informacion de Ajustes",
+        "hints": "Consejos Útiles",
+        "versions": "Historial de Versiones"
     },
 
     "index": {
-        "site_name": "Golden Sun: The Lost Age Randomiser",
-        "intro": "Welcome to the web-based Golden Sun: The Lost Age randomiser by Karanum, based on the original \"GS2 Randomizer\" by MarvinXLII. To get started, simply select a preset below and/or freely customise settings to create the experience you want.",
-        "new_players": "If you're new, it's recommended to read the %1 page to get a good feel of what the randomiser is capable of, and the %2 page to help you navigate any crazy situations. For more information, or just some friendly banter, join our %3.",
-        "translation": "Please note that the randomizer only works on the English version of the game. Also, most of this page is machine translated. If there are any bugs, please let me know on Discord or through the GitHub issue tracker.",
-        "discord": "Discord server",
+        "site_name": "Golden Sun: La Edad Perdida Randomizador",
+        "intro": "Bienvenido al randomizador Golden Sun: La Edad Perdida de Karanum, basado en el \"GS2 Randomizer\" original de MarvinXLII. Para comenzar, simplemente seleccione un ajuste preestablecido a continuación y/o personalice libremente la configuración para crear la experiencia que desea.",
+        "new_players": "Si es nuevo, se recomienda leer la página %1 para tener una buena idea de lo que es capaz de hacer el aleatorizador, y la página %2 para ayudarlo a navegar situaciones locas. Para obtener más información, o simplemente algunas bromas amistosas, únase a nuestro %3.",
+        "translation": "Tenga en cuenta que el randomizador solo funciona en la versión en inglés del juego. Además, la mayor parte de esta página está traducida automáticamente. Si hay algún error, házmelo saber en Discord o a través del GitHub Issue Tracker.",
+        "discord": "servidor de Discord",
 
-        "header_generate": "Generate a seed",
+        "header_generate": "Generar un seed",
         "generate_seed": "Seed",
-        "generate_newseed": "Random Seed",
-        "generate_randomise": "Randomise",
-        "generate_permalink": "Create race seed",
+        "generate_newseed": "Seed Aleatorios",
+        "generate_randomise": "Aleatorizar",
+        "generate_permalink": "Crear enlace permanente",
 
-        "header_settings": "Randomiser Settings",
-        "subheader_preset": "Presets",
-        "subheader_rando": "Randomisation",
-        "subheader_logic": "Logic Settings",
-        "subheader_qol": "Quality of Life",
+        "header_settings": "Ajustes de Aleatorización",
+        "subheader_preset": "Preajustes",
+        "subheader_rando": "Aleatorización",
+        "subheader_logic": "Ajustes Lógicos",
+        "subheader_qol": "Calidad de Vida",
 
-        "preset": "Preset",
-        "apply": "Apply Preset",
+        "preset": "Preajuste",
+        "apply": "Aplicar Preajuste",
 
-        "tab_items": "Items",
-        "tab_djinn": "Djinn/Summons",
-        "tab_psynergy": "Psynergy",
-        "tab_stats": "Stats",
+        "tab_items": "Objeto",
+        "tab_djinn": "Djinn/Invoc.",
+        "tab_psynergy": "Psinergía",
+        "tab_stats": "Estadísticas",
 
         "tooltips": {
-            "1": "Chest and tablet sprites are replaced by the icon of the item inside.",
-            "2": "Prevents utility Psynergy (Growth, Frost, etc.) from being learned by classes.",
-            "3": "Makes it more likely to find weaker equipment early on.",
-            "4": "Adjusts Djinni battle difficulty based on number of owned Djinn.",
-            "5": "Makes it more likely to find summons with less Djinn cost early on.",
-            "6": "Basic skips and retreat door warps may be required. Disables 0 PP Retreat setting.",
-            "7": "Simple OOB skips may be required. Disables 0 PP Retreat setting.",
-            "8": "Removes logical Djinn requirements, so you may need to fight bosses early.",
-            "9": "Ensures that Cure, Ply, Aura, or Wish is learned from the start.",
-            "10": "Note: this prevents the use of Retreat glitches.",
-            "11": "Only increases the starting level of characters that start off lower.",
-            "12": "OOB skips with tight or complex movement may be required. Disables 0 PP Retreat setting.",
-            "13": "Use Avoid to turn it on/off. It will negate all encounters regardless of party level.",
-            "14": "Enemies get +50% HP and +25% Attack and Defense."
+            "1": "Los sprites de cofres y lápidas se reemplazan por el ícono del objeto que se encuentra dentro.",
+            "2": "Evita que las clases aprendan Psinergía de utilidad (Planta, Congelación, etc.)",
+            "3": "Hace que sea más probable encontrar equipos más débiles desde el principio.",
+            "4": "Ajusta la dificultad de la batalla de Djinn en función del número de Djinn que posee.",
+            "5": "Hace que sea más probable encontrar invocación con menos costo de Djinn desde el principio.",
+            "6": "Es posible que se requieran saltos y Huir-warps básicos. Deshabilita la configuración de 0 PP Huir.",
+            "7": "Es posible que se requieran saltos fuera-límites simples. Deshabilita la configuración de 0 PP Huir.",
+            "8": "Elimina los requisitos lógicos de Djinn, por lo que es posible que debas luchar contra los jefes temprano.",
+            "9": "Garantiza que Cura, Plegaria, Aura o Deseo se aprendan desde el principio.",
+            "10": "Nota: esto evita el uso de fallos de Huir.",
+            "11": "Solo aumenta el nivel inicial de los personajes que comienzan más abajo.",
+            "12": "Es posible que se requieran saltos fuera-límites con movimientos precisos o complejos. Deshabilita la configuración de 0 PP Huir.",
+            "13": "Utilice Esquivar para activarlo o desactivarlo. Anulará todos los encuentros independientemente del nivel del grupo.",
+            "14": "Los enemigos obtienen +50% PV y +25% Ataque y Defensa."
         }
     },
 
     "help": {
         "headers": {
-            "settings": "Settings",
-            "skips": "Skips and Glitches",
-            "boss_logic": "Boss Logic",
-            "hints": "Item Hints"
+            "settings": "Ajustes",
+            "skips": "Saltos y Fallas",
+            "boss_logic": "Lógica de Jefes",
+            "hints": "Sugerencias de Objeto"
         },
 
         "item_shuffle": {
             "vanilla_name": "Vanilla",
-            "vanilla_help": "Items are not randomised",
-            "key_items_name": "Key Items Only",
-            "key_items_help": "Important items, psynergy and summon tablets are randomised",
-            "most_items_name": "All Chests & Tablets",
-            "most_items_help": "All items except hidden items are randomised",
-            "all_items_name": "All Items",
-            "all_items_help": "All items are randomised",
-            "mod_majmin_name": "Major/Minor",
-            "mod_majmin_help": "This modifier makes it so the item pool is split into two. One item pool contains all Psynergy, summons, forgeables, key items and equipment (GS1 equipment included, adding 2 locations in Treasure Isle.) The other item pool contains the rest of the items. Items are only swapped within the same pool. This limits the number of important locations to check, providing an experience closer to %1 while still randomising the rest of the items."
+            "vanilla_help": "Los objetos no son aleatorios.",
+            "key_items_name": "Sólo Objetos Importantes",
+            "key_items_help": "Los objetos importantes, psinergía y lápidas de invocación se aleatorizan",
+            "most_items_name": "Todos Cofres y Lápidas",
+            "most_items_help": "Todos los objetos, excepto los objetos ocultos, son aleatorios",
+            "all_items_name": "Todos Objetos",
+            "all_items_help": "Todos los objetos son aleatorios.",
+            "mod_majmin_name": "Mayor/Menor",
+            "mod_majmin_help": "Este modificador hace que el conjunto de objetos se divida en dos. El grupo de objetos mayores contiene toda la Psinergía, invocaciones, forjables, objetos importantes y equipo (equipo GS1 incluido, agregando 2 ubicaciones en Isla del Tesoro.) El otro grupo contiene el resto de los objetos. Los objetos solo se intercambian dentro del mismo grupo. Esto limita la cantidad de ubicaciones importantes para verificar, lo que brinda una experiencia más cercana a %1 y aún aleatoriza el resto de los objetos."
         },
 
         "class_psynergy": {
             "vanilla_name": "Vanilla",
-            "vanilla_help": "Psynergy is not randomised",
-            "classline_name": "By classline",
-            "classline_help": "Learned Psynergy is shuffled by classlines (e.g. Squire will have Brute Psynergy)",
-            "group_name": "By Psynergy group",
-            "group_help": "Learned Psynergy is shuffled by Psynergy groups (e.g. if a class learns Spire, it will also learn Clay Spire)",
-            "element_name": "By Psynergy element",
-            "element_help": "Learned Psynergy is freely shuffled with another Psynergy of the same element",
-            "full_name": "Randomise fully",
-            "full_help": "Learned Psynergy is freely shuffled without restrictions"
+            "vanilla_help": "La Psinergía no es aleatoria",
+            "classline_name": "Por grupo de clases",
+            "classline_help": "La Psinergía aprendida se baraja por grupo de clase (por ejemplo, Escudero tendrá Psinergía Bestia)",
+            "group_name": "Por grupo de Psinergía",
+            "group_help": "La Psinergía aprendida se baraja por grupos de Psinergía (por ejemplo, si una clase aprende Esquirlas, también aprenderá Barro)",
+            "element_name": "Por elemento de Psinergía",
+            "element_help": "La Psinergía aprendida se baraja libremente con otra Psinergía del mismo elemento",
+            "full_name": "Aleatorizar completamente",
+            "full_help": "La Psinergía aprendida se baraja libremente sin restricciones"
         },
 
         "lemurian_ship": {
             "vanilla_name": "Vanilla",
-            "vanilla_help": "The ship is unlocked as usual, by clearing Gabomba and using the Black Crystal to open the door",
-            "open_name": "Ship door unlocked",
-            "open_help": "The door of the ship is unlocked, bypassing the need for Gabomba and the Black Crystal",
-            "unlocked_name": "Available from start",
-            "unlocked_help": "The ship is available immediately (Lemuria or Atteka Inlet need to be reached to enter the ship)"
+            "vanilla_help": "El barco se desbloquea como de costumbre, limpiando Gabomba y usando el Orbe negro para abrir la puerta",
+            "open_name": "Puerta del barco desbloqueada",
+            "open_help": "La puerta del barco está desbloqueada, sin pasar por la necesidad de Gabomba y el Orbe negro.",
+            "unlocked_name": "Disponible desde el principio",
+            "unlocked_help": "El barco está disponible de inmediato (es necesario llegar a Lemuria o Ensenada de Atteka para ingresar al barco)"
         },
 
         "terms": {
-            "name": "Adjusting / Scaling",
-            "help": "Settings that \"adjust\" a value will multiply the vanilla value by a random modifier. Below is a list of the modifiers for each value.",
-            "equip_stats_name": "Equipment stats",
-            "equip_stats_help": "Between 50% and 150%, also scales prices slightly",
-            "equip_price_name": "Equipment prices",
-            "equip_price_help": "Between 80% and 120%",
-            "djinn_power_name": "Djinni attack power",
-            "djinn_power_help": "Between 80% and 120%",
-            "summon_power_name": "Summon power",
-            "summon_power_help": "Between 80% and 120%",
-            "psy_level_name": "Psynergy levels",
-            "psy_level_help": "Between 50% and 150%, can learn Psynergy out of order (e.g. Pure Ply before Ply Well)",
-            "psy_power_name": "Psynergy power",
-            "psy_power_help": "Between 80% and 120%",
-            "psy_cost_name": "Psynergy cost",
-            "psy_cost_help": "Between 60% and 140%",
-            "character_stats_name": "Character stats",
-            "character_stats_help": "Between 50% and 150% at level 1, between 75% and 125% at level 99"
+            "name": "Ajustando / Escalado",
+            "help": "Los ajustes que \"ajustan\" un valor multiplicarán el valor estándar por un modificador aleatorio. A continuación se muestra una lista de los modificadores para cada valor.",
+            "equip_stats_name": "Estadísticas de equipo",
+            "equip_stats_help": "Entre 50% y 150%, también escala ligeramente los precios",
+            "equip_price_name": "Precios de equipos",
+            "equip_price_help": "Entre 80% y 120%",
+            "djinn_power_name": "Poder de ataque de Djinn",
+            "djinn_power_help": "Entre 80% y 120%",
+            "summon_power_name": "Poder de ataque de invocaciones",
+            "summon_power_help": "Entre 80% y 120%",
+            "psy_level_name": "Niveles de Psinergía",
+            "psy_level_help": "Entre 50% y 150%, puede aprender Psinergía fuera de servicio (por ejemplo, Anteplegaria antes de Megaplegaria)",
+            "psy_power_name": "Poder de Psinergía",
+            "psy_power_help": "Entre 80% y 120%",
+            "psy_cost_name": "Precios de Psinergía",
+            "psy_cost_help": "Entre 60% y 140%",
+            "character_stats_name": "Estadísticas de personajes",
+            "character_stats_help": "Entre 50% y 150% a nivel 1, entre 75% y 125% a nivel 99"
         },
 
         "skips_basic": {
-            "name": "Basic glitches/skips",
-            "help": "These skips are in logic through the \"Require basic glitches/skips\" setting:",
+            "name": "Fallos/saltos básicos",
+            "help": "Estos saltos están en la lógica a través de la configuración \"Requerir fallas/saltos básicos\":",
             "content": [
-                "Kibombo sanctum warp",
-                "Tundaria Tower move pillar wiggle (skips Pound)",
-                "Shaman Village retreat warps for Aroma",
-                "Mars Lighthouse dumb (flamethrower) skips",
-                "Mars Lighthouse Venus wing skip"
+                "Santuario-warp en Kibombo",
+                "Tundaria Tower move pillar wiggle (se salta Aplastar)",
+                "Huir-warps de Aldea Chamán para Aroma",
+                "Faro de Marte saltos lanzallamas",
+                "Faro de Marte saltos ala de Venus"
             ]
         },
 
         "oob_easy": {
-            "name": "Easy OOB skips",
-            "help": "These skips are in logic through the \"Require easy OOB skips\" setting:",
+            "name": "Saltos fuera-límites fáciles",
+            "help": "Estos saltos están en la lógica a través de la configuración \"Requerir saltos fuera-límites fáciles\":",
             "content": [
-                "Shrine of the Sea God OOB",
-                "Reverse Yampi Desert",
-                "Islet Cave OOB %1"
+                "Fuera-límites en Lugar Sagrado del Mar",
+                "Desierto de Yampi inverso",
+                "Fuera-límites en Cueva de la Isla"
             ],
-            "video": "Video"
+            "video": "Vídeo"
         },
 
         "oob_hard": {
-            "name": "Hard OOB skips",
-            "help": "These skips are in logic through the \"Require hard OOB skips\" setting:",
+            "name": "Saltos fuera-límites difíciles",
+            "help": "Estos saltos están en la lógica a través de la configuración \"Requerir saltos fuera-límites difíciles\":",
             "content": [
-                "Gondowan Cliffs OOB",
-                "Lemurian Ship OOB (both to Aqua Hydra and the lower floor)"
+                "Fuera-límites en Riscos de Gondowan",
+                "Fuera-límites en Barco Lemurio (tanto a Aquahidra como a la planta baja)"
             ]
         },
 
-        "gaia_maze_name": "Gaia Rock maze",
-        "gaia_maze_help": "The maze in Gaia Rock interior is one of the puzzles that is randomised based on Felix's name. The \"Gaia Rock maze w/o Growth\" setting assumes that you know the maze solution for whatever you name Felix as. This means the 2 chests, as well as Serpent, are in logic without requiring Growth to pass through the maze.",
+        "gaia_maze_name": "Laberinto de Roca del Tierra",
+        "gaia_maze_help": "El laberinto en el interior de Roca de Madre Tierra es uno de los acertijos aleatorios según el nombre de Félix. La configuración \"Laberinto de Roca del Tierra sin Planta\" asume que conoces la solución del laberinto para lo que sea que llames a Félix. Esto significa que los 2 cofres, así como la Serpiente, están en lógica sin requerir Planta para atravesar el laberinto.",
 
         "boss_logic": {
-            "help_1": "The randomiser will not require you to fight bosses while severely underpowered. This means that each boss has a certain Djinn requirement before being in logic. (Note that this considers the amount of Djinn in logic, not the amount of Djinn in the player's possession.)",
-            "help_2": "The Djinn requirements for bosses to be in logic can be disabled with the \"Disable boss logic\" setting. Serpent will still require at least 3 lights to be turned on, regardless of this setting.",
-            "lights": "%1 lights",
+            "help_1": "El randomizador no requerirá que luches contra jefes mientras tengas poca potencia. Esto significa que cada jefe tiene un cierto requisito de Djinn antes de estar en la lógica. (Tenga en cuenta que esto considera la cantidad de Djinn en la lógica, no la cantidad de Djinn en posesión del jugador).",
+            "help_2": "Los requisitos de Djinn para que los jefes estén en la lógica se pueden deshabilitar con la configuración \"Deshabilitar la lógica de jefes\". Serpiente aún requerirá que se enciendan al menos 3 luces, independientemente de esta configuración.",
+            "lights": "%1 luces",
 
             "bosses": {
-                "chestbeaters": "Chestbeaters",
-                "king_scorp": "King Scorpion",
+                "chestbeaters": "Orangutanes",
+                "king_scorp": "Rey Escorpión",
                 "briggs": "Briggs",
-                "aqua_hydra": "Aqua Hydra",
-                "serpent": "Serpent",
+                "aqua_hydra": "Aquahidra",
+                "serpent": "Serpiente",
                 "avimander": "Avimander",
-                "poseidon": "Poseidon",
+                "poseidon": "Poseidón",
                 "moapa": "Moapa",
-                "flame_dragons": "Flame Dragons",
-                "doom_dragon": "Doom Dragon",
-                "star_magician": "Star Magician",
-                "sentinel": "Sentinel",
-                "valukar": "Valukar",
-                "dullahan": "Dullahan"
+                "flame_dragons": "Dragones Fulgor",
+                "doom_dragon": "Dragón Mortal",
+                "star_magician": "Mago Estrella",
+                "sentinel": "Centinela",
+                "valukar": "Balrog",
+                "dullahan": "Dulahan"
             }
         },
 
         "hint_system": {
-            "help_1": "The randomiser has a hint system where certain NPCs give hints about the locations of key items or the number of key items in certain dungeons. The chances of the different hint types are as follows:",
-            "help_2_item": "Random key item location",
-            "help_2_area": "Number of key items in dungeon",
-            "help_2_loc": "Whether a location has a key item or not",
-            "help_3": "Below is a table of the different hint NPCs and the locations they will give hints for.",
+            "help_1": "El randomizador tiene un sistema de sugerencias en el que ciertos NPC dan sugerencias sobre la ubicación de objetos importantes o la cantidad de objetos importantes en ciertas mazmorras. Las posibilidades de los diferentes tipos de sugerencias son las siguientes:",
+            "help_2_item": "Ubicación aleatoria de objetos importantes",
+            "help_2_area": "Número de objetos importantes en la mazmorra",
+            "help_2_loc": "Si una ubicación tiene un objeto importante o no",
+            "help_3": "A continuación se muestra una tabla de los diferentes NPC de pistas y las ubicaciones para las que darán sugerencias.",
 
-            "tr_region": "Region",
-            "tr_npc": "NPC",
-            "tr_dungeon": "Dungeon",
-            "tr_location": "Single location",
+            "tr_region": "Región",
+            "tr_npc": "Personaje",
+            "tr_dungeon": "Mazmorra",
+            "tr_location": "Única ubicación",
 
             "regions": [
-                "Indra", "Osenia", "Gondowan", "Eastern Sea", "Western Sea", "Northern Reaches"
+                "Indra", "Osenia", "Gondowan", "Mar Oriental", "Mar Occidental", "Límite Norte"
             ],
             "npcs": [
-                "Master Poi", "Master Maha", "Akafubu", "King Hydros", "Corn Seller", "Prox Elder"
+                "Maestro Poi", "Maestro Maha", "Akafubu", "Rey Hidros", "Vendedor de Maíz", "Anciano de Prox"
             ],
             "dungeons": [
-                "Gaia Rock", "Air's Rock", "Magma Rock", "Aqua Rock", "Jupiter Lighthouse", "Mars Lighthouse"
+                "Roca de Madre Tierra", "Roca del Aire", "Roca del Magma", "Roca del Agua", "Faro de Júpiter", "Faro de Marte"
             ],
             "locations": [
-                ["Shrine of the Sea God", "Prong"],
-                ["Air's Rock", "Reveal tablet"],
+                ["Lugar Sagrado del Mar", "Punta"],
+                ["Roca del Aire", "Lápida del Revelar"],
                 ["Gabomba Catacombs", "Tomegathericon"],
-                ["Champa", "Trident"],
-                ["Atteka Cave", "Coatlicue tablet"],
-                ["Mars Lighthouse", "Mars Star"]
+                ["Champa", "Tridente"],
+                ["Caverna de Atteka", "Lápida de Coatlicue"],
+                ["Faro de Marte", "Estrella Marte"]
             ]
         }
     },
 
     "tips": {
-        "header_general": "General Tips",
-        "header_eml": "Easily Missable Locations",
+        "header_general": "Consejos Generales",
+        "header_eml": "Ubicaciones Fácilmente Imperdibles",
 
-        "tip_sancwarp": "Hold L + Start while loading your game to return to the sanctum of the last visited town or city, a.k.a. sanctum warping. This can be used in case you are stuck.",
-        "tip_retreat": "Retreat can be used in all areas, including towns. This can cause you to become stuck in some situations. Sanctum warping will be your way out.",
-        "tip_teleport": "Retreat can be used on the world map, where it will act like Teleport. This allows it to be used with less than 6 PP, despite what the Psynergy menu might say.",
-        "tip_madrawarp": "When using Teleport, selecting your current location or your boat will instead take you to the beach west of Madra.",
-        "tip_avoid": "If the toggleable Avoid setting is on, Avoid will prevent encounters regardless of level and remains active until used again.",
-        "tip_psylearn": "Utility Psynergy will go to the leftmost party member. Once a character has learned 15 utility Psynergy, they will be skipped over and the Psynergy goes to the next party member.",
-        "tip_djinnlimit": "Characters are limited to having 9 Djinn each. If there is no more space in the current party, Djinn will be sent to a party member that hasn't joined yet.",
-        "tip_log": "When in doubt, don't hesitate to check the spoiler log. Please report unsolvable seeds so they can be fixed quickly.",
+        "tip_sancwarp": "Mantenga presionado L + Start mientras carga su juego para regresar al santuario de la última ciudad o pueblo visitado, también conocido como santuario-warp. Esto se puede usar en caso de que esté atascado.",
+        "tip_retreat": "Huir se puede utilizar en todas las áreas, incluidas las ciudades. Esto puede hacer que te quedes atascado en algunas situaciones. El santuatio-warp será tu salida.",
+        "tip_teleport": "Huir se puede usar en el mapa del mundo, donde actuará como Teletransporte. Esto permite que se use con menos de 6 PP, a pesar de lo que diga el menú de Psinergía.",
+        "tip_madrawarp": "Al usar Teletransporte, seleccionar su ubicación actual o su barco lo llevará a la playa al oeste de Madra.",
+        "tip_avoid": "Si la opción Esquivar alternable está activada, Evitar evitará los encuentros independientemente del nivel y permanecerá activo hasta que se vuelva a utilizar.",
+        "tip_psylearn": "La Psinergía de utilidad irá al miembro del partido más a la izquierda. Una vez que un personaje haya aprendido 15 Psinergía de utilidad, se omitirán y la Psinergía pasará al siguiente miembro del grupo.",
+        "tip_djinnlimit": "Los personajes están limitados a tener 9 Djinn cada uno. Si no hay más espacio en el grupo actual, Djinn se enviará a un miembro del grupo que aún no se haya unido.",
+        "tip_log": "En caso de duda, no dude en consultar el registro de ubicación. Informe las semillas irresolubles para que puedan repararse rápidamente.",
 
-        "loc_help": "This is a list of locations that tend to be missed and/or overlooked by players. If you would like to see a location added to this list, swing by the Discord server and let us know your suggestion.",
-        "loc_ankohl": "Ankohl Ruins, in the room with the 7 faces, there are several items behind them",
-        "loc_desert_cave": "The chest in the Yampi Desert Cave entrance, before the Teleport platform",
-        "loc_taopo": "The chest in the magma section of Taopo Swamp",
-        "loc_izumo": "The chest and the summon tablet in the cave below Izumo",
-        "loc_gondowan_settlement": "The chest hidden by the weeds in Gondowan Settlement, near Magma Rock",
-        "loc_mars_entrance": "The chest at the entrance to Mars Lighthouse, up the ladder and towards the elevators",
-        "loc_mars_upper": "The chest outside the Mars wing in upper Mars Lighthouse, just off-screen"
+        "loc_help": "Esta es una lista de ubicaciones que los jugadores suelen pasar por alto y/o pasar por alto. Si desea ver una ubicación agregada a esta lista, pase por el servidor de Discord y háganos saber su sugerencia.",
+        "loc_ankohl": "Ankhol, en la habitación con las 7 caras, hay varios objetos detrás de ellas",
+        "loc_desert_cave": "El cofre en la entrada de la Cueva de Yampi, antes del sigilo Teletransporte",
+        "loc_taopo": "El cofre en la sección de magma del Ciénaga de Taopo",
+        "loc_izumo": "El cofre y la lápida invocación en las Ruinas de Izumo",
+        "loc_gondowan_settlement": "El cofre escondido por la hierba en Asentamiento Gondowan, cerca de Roca del Magma",
+        "loc_mars_entrance": "El cofre a la entrada del Faro de Marte, subiendo la escalera y hacia los ascensores",
+        "loc_mars_upper": "El cofre fuera del ala de Marte en la parte superior del Faro de Marte, justo fuera de la pantalla"
     },
 
     "settings": {
-        "item_shuffle": "Item Shuffle",
-        "omit_locs": "Omit Locations",
-        "gs1_items": "Add Elven Shirt and Cleric's Ring",
-        "dummy_items": "Add normally unobtainable equipment",
-        "shuffle_shops": "Shuffle shop artifact and forgeable equipment",
-        "no_chests": "Show items outside chest",
-        "utility_psy": "No utility Psynergy from classes",
-        "equip_adjust": "Adjust equipment stats",
-        "weapon_attack_shuffle": "Shuffle weapon attack",
-        "armour_defense_shuffle": "Shuffle armour defense",
-        "equip_price_adjust": "Adjust equipment prices",
-        "equip_sort": "Bias equipment by stats",
-        "equip_compat_random": "Randomise equipment compatibility",
-        "weapon_effect_shuffle": "Shuffle weapon effects",
-        "armour_effect_shuffle": "Shuffle armour effects",
-        "curse_random": "Randomise curses",
-        "curse_remove": "Remove all curses",
+        "item_shuffle": "Intercambiar Objetos",
+        "omit_locs": "Omitir Ubicaciones",
+        "gs1_items": "Añadir Camisa de Elfo y Anillo Clerical",
+        "dummy_items": "Agregar equipo no obtenible",
+        "shuffle_shops": "Intercambiar artefactos tienda y equipo forjable",
+        "no_chests": "Mostrar objetos fuera de los cofres",
+        "utility_psy": "Sin Psinergía de utilidad de las clases",
+        "equip_adjust": "Ajustar estadísticas del equipo",
+        "weapon_attack_shuffle": "Intercambiar ataque de armas",
+        "armour_defense_shuffle": "Intercambiar defensa de armaduras",
+        "equip_price_adjust": "Ajustar precios de equipos",
+        "equip_sort": "Ordenar equipos por estadísticas",
+        "equip_compat_random": "Aleatorizar compatibilidad del equipo",
+        "weapon_effect_shuffle": "Intercambiar efectos de armas",
+        "armour_effect_shuffle": "Intercambiar efectos de armaduras",
+        "curse_random": "Intercambiar objetos malditos",
+        "curse_remove": "Quitar todas maldiciones",
 
-        "djinn_shuffle": "Shuffle Djinn",
-        "djinn_stats_shuffle": "Shuffle Djinni stat boosts",
-        "djinn_power_adjust": "Adjust Djinni attack power",
-        "djinn_range_random": "Randomise Djinni attack AoE",
-        "djinn_scaling": "Scale Djinni battle difficulty",
-        "summon_cost_random": "Randomise summon costs",
-        "summon_power_adjust": "Adjust summon power",
-        "summon_sort": "Bias summon tablets by cost",
+        "djinn_shuffle": "Intercambiar Djinn",
+        "djinn_stats_shuffle": "Intercambiar aumentos de estadísticas de Djinn",
+        "djinn_power_adjust": "Ajustar poder de ataque de Djinn",
+        "djinn_range_random": "Aleatorizar alcance de ataque de Djinn",
+        "djinn_scaling": "Escalar la dificultad de la batalla de Djinn",
+        "summon_cost_random": "Aleatorizar costos de invocación",
+        "summon_power_adjust": "Ajustar poder de invocaciones",
+        "summon_sort": "Ordenar lápidas de invocación por costo",
 
-        "psy_shuffle": "Class Psynergy",
-        "psy_levels": "Psynergy Levels",
-        "psy_power_adjust": "Adjust Psynergy power",
-        "psy_cost_adjust": "Adjust Psynergy PP cost",
-        "psy_range_random": "Randomise Psynergy AoE",
-        "enemypsy_power_adjust": "Adjust enemy Psynergy power",
-        "enemypsy_range_random": "Randomise enemy Psynergy AoE",
+        "psy_shuffle": "Psinergía de Clases",
+        "psy_levels": "Niveles de Psinergía",
+        "psy_power_adjust": "Ajustar poder de Psinergía",
+        "psy_cost_adjust": "Ajustar costos PP de Psinergía",
+        "psy_range_random": "Aleatorizar alcance de Psinergía",
+        "enemypsy_power_adjust": "Ajustar poder de Psinergía enemiga",
+        "enemypsy_range_random": "Aleatorizar alcance de Psinergía enemiga",
 
-        "character_stats": "Character Stats",
-        "character_element": "Character Elements",
-        "enemy_stats": "Enemy Stats",
-        "class_stats_random": "Randomise class stat boosts",
+        "character_stats": "Estadísticas de Personajes",
+        "character_element": "Elementos de Personajes",
+        "enemy_stats": "Estadísticas de Enemigas",
+        "class_stats_random": "Aleatorizar estadísticas de clases",
 
-        "skips_basic": "Require basic glitches/skips",
-        "skips_oob_easy": "Require easy OOB skips",
-        "skips_oob_hard": "Require hard OOB skips",
-        "skips_gaia_maze": "Require Gaia Rock maze w/o Growth",
-        "logic_ship_mode": "Lemurian Ship",
-        "logic_bosses": "Disable boss logic",
+        "skips_basic": "Requerir fallas/saltos básicos",
+        "skips_oob_easy": "Requerir saltos fuera-límites fáciles",
+        "skips_oob_hard": "Requerir saltos fuera-límites difíciles",
+        "skips_gaia_maze": "Laberinto de Roca del Tierra sin Planta",
+        "logic_ship_mode": "Barco Lemurio",
+        "logic_bosses": "Deshabilitar la lógica de jefes",
 
-        "qol_psy_healing": "Start with healing Psynergy",
-        "qol_psy_revive": "Start with Revive",
-        "qol_psy_reveal": "Start with Reveal",
-        "qol_psycost_avoid": "Avoid costs 0 PP",
-        "qol_psycost_retreat": "Retreat costs 0 PP",
+        "qol_psy_healing": "Comienzo con Psinergía curativa",
+        "qol_psy_revive": "Comienzo con Resucitar",
+        "qol_psy_reveal": "Comienzo con Revelar",
+        "qol_psycost_avoid": "Esquivar costes 0 PP",
+        "qol_psycost_retreat": "Huir costes 0 PP",
 
-        "qol_revive_cost": "Sanctum revive cost",
-        "qol_cutscene_skip": "Skip cutscenes",
-        "qol_game_tickets": "Disable Game Tickets from shops",
-        "qol_item_hints": "Add item hints",
-        "qol_faster_ship": "Faster overworld ship movement",
-        "qol_avoid_toggle": "Make Avoid toggleable and always work",
-        "qol_hard_mode": "Enable Hard mode from the start",
-        "qol_half_encounters": "Halve encounter rate",
+        "qol_revive_cost": "Costo resucitar en ciudad",
+        "qol_cutscene_skip": "Saltar escenas",
+        "qol_game_tickets": "Deshabilitar tickets de juego de tiendas",
+        "qol_item_hints": "Agregar sugerencias de objetos",
+        "qol_faster_ship": "Barco más rápido en mapa del mundo",
+        "qol_avoid_toggle": "Hacer que Esquivar sea conmutable",
+        "qol_hard_mode": "Habilitar la dificultad Difícil en juego",
+        "qol_half_encounters": "Reducir a la mitad la tasa de batalla",
 
-        "scale_exp": "Scale Exp",
-        "scale_coins": "Scale Coins",
-        "starting_level": "Starting Levels"
+        "scale_exp": "Escala Exp.",
+        "scale_coins": "Escala Monedas",
+        "starting_level": "Niveles Iniciales"
     },
 
     "options": {
         "item_shuffle": {
             "vanilla": "Vanilla",
-            "key": "Key Items Only",
-            "most": "All Chests & Tablets",
-            "all": "All Items",
-            "mod_majmin": "(Major/Minor)"
+            "key": "Sólo Objetos Importantes",
+            "most": "Todos Cofres y Lápidas",
+            "all": "Todos Objetos",
+            "mod_majmin": "(Mayor/Menor)"
         },
 
         "omit_locs": {
-            "none": "No omission",
-            "anemos": "Omit Anemos Inner Sanctum",
-            "superboss": "Omit superbosses + Inner Sanctum"
+            "none": "Sin omisión",
+            "anemos": "Omitir Anemos interior",
+            "superboss": "Omitir superjefes y Anemos interior"
         },
 
         "psy_shuffle": {
             "vanilla": "Vanilla",
-            "class": "Randomise by classline",
-            "group": "Randomise by Psynergy group",
-            "element": "Randomise by Psynergy element",
-            "full": "Fully randomised"
+            "class": "Intercambiar por grupo de clases",
+            "group": "Intercambiar por grupo de Psinergía",
+            "element": "Intercambiar por elemento de Psinergía",
+            "full": "Aleatorizar completamente"
         },
 
         "psy_levels": {
             "vanilla": "Vanilla",
-            "adjust": "Adjust learning levels",
-            "random": "Randomise learning levels"
+            "adjust": "Ajustar niveles de aprendizaje",
+            "random": "Aleatorizar niveles de aprendizaje"
         },
 
         "character_stats": {
             "vanilla": "Vanilla",
-            "shuffle": "Shuffle character stats",
-            "adjust": "Adjust character stats"
+            "shuffle": "Intercambiar estadísticas de personajes",
+            "adjust": "Ajustar estadísticas de personajes"
         },
 
         "character_element": {
             "vanilla": "Vanilla",
-            "shuffle": "Shuffle character elements",
-            "random": "Randomise character elements"
+            "shuffle": "Intercambiar elementos de personajes",
+            "random": "Aleatorizar elementos de personajes"
         },
 
         "enemy_stats": {
             "vanilla": "Vanilla",
-            "shuffle": "Shuffle enemy eRes tables",
-            "random": "Randomise enemy eRes tables"
+            "shuffle": "Intercambiar tablas eRes enemigas",
+            "random": "Aleatorizar tablas eRes enemigas"
         },
 
         "ship_mode": {
             "vanilla": "Vanilla",
-            "open": "Ship door unlocked",
-            "unlocked": "Available from start"
+            "open": "Puerta del barco desbloqueada",
+            "unlocked": "Disponible desde el principio"
         },
 
         "revive_cost": {
-            "vanilla": "Vanilla (20x level)",
-            "reduced": "Reduced (2x level)",
-            "fixed": "Fixed at 100 coins"
+            "vanilla": "Vanilla (20x nivel)",
+            "reduced": "Reducio (2x nivel)",
+            "fixed": "Fijado en 100 Monedas"
         }
     },
 
     "presets": {
         "name": {
-            "easy": "Easy",
-            "intermediate": "Intermediate",
-            "hard": "Hard",
+            "easy": "Fácil",
+            "intermediate": "Intermedio",
+            "hard": "Difícil",
             "vanilla": "Vanilla",
-            "open": "Open Mode",
-            "chaos": "Chaos",
-            "race": "Official Race Ruleset"
+            "open": "Modo Abierto",
+            "chaos": "Caos",
+            "race": "Reglas Oficiales del Torneo"
         },
 
         "desc": {
-            "easy": "Key Items and Djinn shuffled, starting with healing Psynergy and Revive.",
-            "intermediate": "Most items and Djinn shuffled, with additional shuffling in equipment, class Psynergy and character stats.",
-            "hard": "All items and Djinn shuffled, with superboss tablets being in the item pool. Everything else except AoEs is also shuffled.",
-            "vanilla": "As close to vanilla as it gets, minus the innate changes applied by the randomiser.",
-            "open": "A mix of Intermediate and Hard with the Lemurian Ship unlocked from the start. Starting levels are increased to compensate.",
-            "chaos": "Everything is randomised. Possibly very hard and unfair.",
-            "race": "The official GS:TLA Randomiser race preset. Check our Discord for more information."
+            "easy": "Objetos importantes y Djinn intercambiados, comience con Psinergía curativa y Resucitar.",
+            "intermediate": "La mayoría de objetos y Djinn intercambiados, y también equipamiento, Psinergía de clases y estadísticas de personajes.",
+            "hard": "Todos objetos y Djinn intercambiados, con lápidas de superjefe en el grupo de objetos. Todo lo demás excepto alcance también está incluido.",
+            "vanilla": "Lo más parecido al original posible, menos los cambios innatos aplicados por el randomizador.",
+            "open": "Una mezcla de Intermedio y Difícil con el Barco Lemuriano desbloqueado desde el principio. Los niveles iniciales aumentan para compensar.",
+            "chaos": "Todo es aleatorio. Posiblemente muy difícil e injusto.",
+            "race": "El preajuste oficial del torneos randomizador GS:TLA. Consulte nuestro Discord para obtener más información."
         }
     },
 
     "versions": {
-        "versions": "%1 Versions",
-        "unreleased": "unreleased",
+        "versions": "Versiones %1",
+        "unreleased": "inédito",
 
-        "date_format": "%m %d%s, %y",
-        "num_suffixes": ["th", "st", "nd", "rd", "th", "th", "th", "th", "th", "th"],
-        "months": ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+        "date_format": "%d de %m de %y",
+        "num_suffixes": ["", "", "", "", "", "", "", "", "", ""],
+        "months": ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"]
     },
 
     "randomised": {
-        "header_settings": "Post-randomisation Options",
-        "header_download": "Download",
-        "header_log": "Spoiler log",
+        "header_settings": "Opciones Posteriores Aleatorización",
+        "header_download": "Descargar",
+        "header_log": "Registro de ubicaciones",
 
-        "setting_autorun": "Auto-run (hold B to walk)",
+        "setting_autorun": "Auto-correr (mantenga B para caminar)",
 
-        "select_rom": "Select ROM file",
-        "select_file": "Choose File",
-        "btn_patch": "Patch ROM",
-        "download_log": "Download spoiler log",
+        "select_rom": "Seleccionar ROM",
+        "select_file": "Elija Archivo",
+        "btn_patch": "Parche ROM",
+        "download_log": "Descargar registro",
 
         "log": {
-            "tab_spheres": "Progression",
+            "tab_spheres": "Progresión",
             "tab_indra": "Indra",
             "tab_osenia": "Osenia",
             "tab_gondowan": "Gondowan",
             "tab_angara": "Angara/Tundaria",
-            "tab_eastern_sea": "Eastern Sea",
-            "tab_western_sea": "Western Sea",
-            "tab_prox": "N. Reaches",
-            "tab_search": "Search"
+            "tab_eastern_sea": "Mar Oriental",
+            "tab_western_sea": "Mar Occidental",
+            "tab_prox": "Límite Norte",
+            "tab_search": "Buscar"
         },
 
-        "randomising": "Randomising...",
+        "randomising": "Aleatorización...",
         "seed": "Seed",
-        "permalink": "Permalink",
+        "permalink": "Enlace permanente",
 
-        "info_settings": "Settings (encoded)",
-        "info_time": "Generated on",
-        "info_version": "Randomiser version",
-        "fetching": "Fetching patch data...",
+        "info_settings": "Ajustes (codificado)",
+        "info_time": "Generado el",
+        "info_version": "Versión randomizador",
+        "fetching": "Obtener datos del parche...",
 
-        "invalid_rom": "The selected ROM appears to be invalid. Please select another ROM file.",
-        "no_rom": "Load a ROM file first",
+        "invalid_rom": "La ROM seleccionada parece no ser válida. Seleccione otro archivo.",
+        "no_rom": "Primero carga una ROM",
 
-        "log_warning": "The spoiler log for this seed will be inaccessible once you leave this page. Make sure to save a copy if you want to refer to it later."
+        "log_warning": "El registro de ubicaciones para esta semilla será inaccesible una vez que salga de esta página. Asegúrese de guardar una copia si desea consultarla más tarde."
     }
 }
