@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html prefix="og: https://ogp.me/ns#" lang="en">
+<html prefix="og: https://ogp.me/ns#" lang="<%= lang.lang %>">
 <head>
     <%- include("partials/head_common") %>
 
@@ -33,16 +33,26 @@
                             <div class="col my-3">
                                 <h3 class="mb-0">v1.2.0</h3>
                                 <span>(<%= lang.versions.unreleased %>)</span>
-                                <ul class="mt-3">
-                                    <li>Added major/minor item split to the item shuffle options, see Settings Info for more information</li>
-                                    <li>Added help NPCs to Idejima that explain randomiser changes and settings</li>
-                                    <li>Changed the Gabomba puzzle to be checked by talking to Kraden instead of being on a timer</li>
-                                    <li>Changed Sunshine's forge so you don't need to leave Yallam to get the item</li>
-                                    <li>Improved the cutscene skip setting so most cutscenes are actually skipped in full</li>
-                                    <li>Renamed the setting that removes utility Psynergy from classes to avoid confusion</li>
-                                    <li>Removed the Update option from the main menu to prevent password issues</li>
-                                    <li>Fixed bug when fetching the spoiler log with a ROM already selected during randomisation</li>
-                                </ul>
+                                <div class="mt-3">
+                                    <b>Randomiser changes</b>
+                                    <ul>
+                                        <li>Added major/minor item split to the item shuffle options, see Settings Info for more information</li>
+                                        <li>Added help NPCs to Idejima that explain randomiser changes and settings</li>
+                                        <li>Changed the Gabomba puzzle to be checked by talking to Kraden instead of being on a timer</li>
+                                        <li>Changed Sunshine's forge so you don't need to leave Yallam to get the item</li>
+                                        <li>Improved the cutscene skip setting so most cutscenes are actually skipped in full</li>                                 
+                                        <li>Removed the Update option from the main menu to prevent password issues</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <b>Website changes</b>
+                                    <ul>
+                                        <li>Added a dark theme to the website (which is a work in progress until I'm happy with the colours)</li>
+                                        <li>Added different languages to the website: German, French and Spanish</li>
+                                        <li>Renamed the setting that removes utility Psynergy from classes to avoid confusion</li>
+                                        <li>Fixed bug when fetching the spoiler log with a ROM already selected during randomisation</li>
+                                    </ul>
+                                </div>
                                 <b>Note:</b> With this update, randomisation times have increased due to map code compression. Generating a seed may take up to 15 seconds depending on settings and server load.
                             </div>
                         </div>

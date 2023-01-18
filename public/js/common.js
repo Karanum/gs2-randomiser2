@@ -20,6 +20,16 @@ function getLangPath(lang) {
 }
 
 $(document).ready(() => {
+    $("#btn-theme").click(() => {
+        if ($("html").hasClass("dark")) {
+            localStorage.setItem("theme", "light");
+            $("html").removeClass("dark");
+        } else {
+            localStorage.setItem("theme", "dark");
+            $("html").addClass("dark");
+        }
+    });
+
     $("#lang-en").click(() => {
         setLangCookie("en");
         window.location = getLangPath("en");

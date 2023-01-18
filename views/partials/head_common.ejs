@@ -1,3 +1,10 @@
+<script>
+    var theme = localStorage.getItem("theme");
+    if (theme && theme == "dark") {
+        document.documentElement.classList.add("dark");
+    }
+</script>
+
 <link rel="stylesheet" href="/css/common.css">
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

@@ -20,6 +20,7 @@
     --gs2r-text: #4d3002;
     --gs2r-tooltip: #4d300291;
 
+    --gs2r-btn-outline: #cea203;
     --gs2r-btn-outline-text: #977601;
     --gs2r-inp-group-text: #f1e6ba;
     --gs2r-inp-border: #d3cbab;
@@ -27,28 +28,29 @@
 }
 
 :root.dark {
-    --bs-primary: #f1ce4e !important;
+    --bs-primary: #f1ac4e !important;
 
-    --gs2r-bg: #2e2207;
-    --gs2r-button: #907922;
-    --gs2r-button-border: #9c8635;
-    --gs2r-button-highlight: #ab8b17; 
-    --gs2r-card-bg: #49390b;
-    --gs2r-card-bg-highlight: #614d13;
-    --gs2r-card-bg-selected: #7c6728;
-    --gs2r-card-border: #b2964959;
-    --gs2r-card-header1: #745e0f;
-    --gs2r-card-header2: #8f7720;
-    --gs2r-checkbox-highlight: #c4a73b;
-    --gs2r-link: #e2bb12;
+    --gs2r-bg: #2e1f07;
+    --gs2r-button: #8f5a20;
+    --gs2r-button-border: #9c6b35;
+    --gs2r-button-highlight: #ad7011; 
+    --gs2r-card-bg: #492e0b;
+    --gs2r-card-bg-highlight: #5a3b12;
+    --gs2r-card-bg-selected: #724a24;
+    --gs2r-card-border: #9f6d4259;
+    --gs2r-card-header1: #744a0f;
+    --gs2r-card-header2: #8f5a20;
+    --gs2r-checkbox-highlight: #a9672c;
+    --gs2r-link: #e2a412;
     --gs2r-link-nav: #f4e5bc;
     --gs2r-text: #f4e5bc;
-    --gs2r-tooltip: #ecc78c91;
+    --gs2r-tooltip: #e49d22b0;
 
-    --gs2r-btn-outline-text: #efba00;
-    --gs2r-inp-group-text: #766934;
-    --gs2r-inp-border: #6f6026;
-    --gs2r-inp-bg: #2e2517;
+    --gs2r-btn-outline: #a16a03;
+    --gs2r-btn-outline-text: #d68811;
+    --gs2r-inp-group-text: #704e2d;
+    --gs2r-inp-border: #6f5326;
+    --gs2r-inp-bg: #322419;
 }
 
 .dark .form-select {
@@ -166,7 +168,7 @@ body {
 }
 
 .btn-outline-primary {
-    border-color: #cea203 !important;
+    border-color: var(--gs2r-btn-outline) !important;
     color: var(--gs2r-btn-outline-text) !important;
 }
 
@@ -226,4 +228,8 @@ table {
     width: 20px;
     margin-bottom: 3px;
     margin-right: 2px;
+}
+
+#btn-theme {
+    cursor: pointer;
 }
