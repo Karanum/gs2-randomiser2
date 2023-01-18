@@ -139,12 +139,6 @@ function makeCompressionDict(nodes) {
     });
 }
 
-function applyCutsceneSkipText(instance) {
-    if (instance == undefined) return;
-    writeLine(instance, 0x1B67, "Fight Briggs?\x1E");
-    writeLine(instance, 0x2ACD, "Fight Agatio and Karst?\x1E");
-}
-
 function readLine(instance, index) {
     if (instance == undefined) instance = lines;
     return instance[index].slice(0);
@@ -230,4 +224,4 @@ function clone() {
     return JSON.parse(JSON.stringify(lines));
 }
 
-module.exports = {applyCutsceneSkipText, initialise, clone, readLine, readLinePretty, writeLine, writeToRom};
+module.exports = {initialise, clone, readLine, readLinePretty, writeLine, writeToRom};

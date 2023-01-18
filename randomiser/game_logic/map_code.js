@@ -82,6 +82,12 @@ function initialise(rom) {
         var mapCode = decompr.decompress(rom, pointer, 0);
         if (!mapCode) continue;
 
+        //Applying password prompt skip to the New Game menu
+        if (i == 1610) {
+            mapCode[0x4B6] = 0x5B;
+            mapCode[0x4B7] = 0xE0;
+        }
+
         //Applying Kibombo fix because of old randomiser hackiness
         if (i == 1648) {
             mapCode[0x7520] = 0xED;

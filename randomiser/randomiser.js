@@ -36,7 +36,7 @@ const cutsceneSkipFlags = [0xf22, 0x890, 0x891, 0x892, 0x893, 0x894, 0x895, 0x89
         0x8f6, 0x8fc, 0x8fe, 0x910, 0x911, 0x913, 0x980, 0x981, 0x961, 0x964, 0x965, 0x966, 0x968, 0x962, 0x969,
         0x96a, 0xa8c, 0x88f, 0x8f0, 0x9b1, 0xa78, 0x90c, 0xa2e, 0x9c0, 0x9c1, 0x9c2, 0x908, 0x94F];
 
-var upsCutsceneSkip, upsDjinnScaling, upsAvoid, upsTeleport, upsRandomiser, upsPasswordSkip;
+var upsCutsceneSkip, upsDjinnScaling, upsAvoid, upsTeleport, upsRandomiser;
 
 var vanillaRom = new Uint8Array(fs.readFileSync("./randomiser/rom/gs2.gba"));
 var rom = Uint8Array.from(vanillaRom);
@@ -59,14 +59,11 @@ function initialise() {
         upsRandomiser = fs.readFileSync("./randomiser/ups/randomiser_general.ups");
         upsCutsceneSkip = fs.readFileSync("./randomiser/ups/cutscene_skip.ups");
         upsDjinnScaling = fs.readFileSync("./randomiser/ups/djinn_scaling.ups");
-        upsPasswordSkip = fs.readFileSync("./randomiser/ups/password_skip.ups");
     });
 
     doTiming("Applying innate UPS patches...", () => {
-        //rom = ups.applyPatch(rom, upsAvoid);
         rom = ups.applyPatch(rom, upsTeleport);
         rom = ups.applyPatch(rom, upsRandomiser);
-        rom = ups.applyPatch(rom, upsPasswordSkip);
     });
     credits.writeToRom(rom);
 
@@ -94,6 +91,10 @@ function initialise() {
     textutil.writeLine(undefined, 4226, "Crit Rate");
     rom[0xFBA18] = 0x2C;
     rom[0xFBA19] = 0xBA;
+
+    // Remove "Update" option from main menu
+    rom[0x4D62E] = 0x0;
+    rom[0x4D62F] = 0xE0;
 }
 
 function applyGameTicketPatch(target) {
@@ -161,14 +162,8 @@ function randomise(seed, rawSettings, spoilerFilePath, callback) {
     if (settings['qol-fastship']) applyShipSpeedPatch(target);
     if (settings['qol-tickets']) applyGameTicketPatch(target);
     if (settings['qol-cutscenes']) {
-        //target = ups.applyPatch(target, upsPasswordSkip);
-        //target = ups.applyPatch(target, upsCutsceneSkip);
-        //mapCode.applyCutsceneSkip(mapCodeClone);
         cutsceneSkipPatch.apply(mapCodeClone, textClone);
         defaultFlags = cutsceneSkipFlags;
-        //textutil.applyCutsceneSkipText(textClone);
-    } else {
-        target = ups.applyPatch(target, upsPasswordSkip);
     }
     if (settings['sanc-revive'] == 1) applyCheapRevivePatch(target);
     if (settings['sanc-revive'] == 2) applyFixedRevivePatch(target);
