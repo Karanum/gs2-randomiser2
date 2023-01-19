@@ -20,13 +20,21 @@ function getLangPath(lang) {
 }
 
 $(document).ready(() => {
+    if ($("html").hasClass("dark")) {
+        $("meta[name=theme-color]").remove();
+        $("head").append('<meta name="theme-color" content="#835310">');
+    }
+
     $("#btn-theme").click(() => {
+        $("meta[name=theme-color]").remove();
         if ($("html").hasClass("dark")) {
             localStorage.setItem("theme", "light");
             $("html").removeClass("dark");
+            $("head").append('<meta name="theme-color" content="#fad860">');
         } else {
             localStorage.setItem("theme", "dark");
             $("html").addClass("dark");
+            $("head").append('<meta name="theme-color" content="#835310">');
         }
     });
 
