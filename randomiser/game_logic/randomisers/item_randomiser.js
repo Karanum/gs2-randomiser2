@@ -61,7 +61,7 @@ class ItemRandomiser {
             t['isKeyItem'] = item['isKeyItem'];
         });
 
-        accessibleSlots.forEach((slot) => this.slotWeights[slot] *= Math.max(this.prng.random(), 0.1));
+        accessibleSlots.forEach((slot) => this.slotWeights[slot] *= (0.5 * Math.max(this.prng.random(), 0.1)));
         delete this.slotWeights[slot];
         delete this.availableItems['0x' + item['id'].toString(16)];
     }
@@ -150,17 +150,33 @@ class ItemRandomiser {
         this.instItemLocations = instItemLocations;
         if (this.settings['item-shuffle'] == 0) return;
 
-        var biasEarly = ['0x84a', '0x878', '0x105', '0x106', '0x88c', '0x9ba', '0x3', '0x8ff'];
-        if (this.settings['item-shuffle'] == 1) {
-            biasEarly = biasEarly.concat(['0x918', '0xf67']);
-            if (!this.settings['start-reveal']) biasEarly.push('0x8d4');
+        var biasEarly = [];
+        if (this.settings['item-shuffle'] == 1 || this.settings['ship'] < 2) {
+            biasEarly = ['0x84a', '0x878', '0x105', '0x106', '0x88c', '0x9ba', '0x3'];
+            if (this.settings['item-shuffle'] == 1) {
+                biasEarly = biasEarly.concat(['0x918', '0xf67']);
+                if (!this.settings['start-reveal']) biasEarly.push('0x8d4');
+            }
+            if (this.settings['ship'] == 0)
+                biasEarly.push('0x8ff');
         }
 
         this.availableItems = itemLocations.getUnlockedItems(instItemLocations);
         this.slotWeights = {};
 
         for (var flag in this.availableItems) {
-            this.slotWeights[flag] = 1;
+            if (!this.settings['major-shuffle'] && this.settings['item-shuffle'] > 0) {
+                let slot = this.availableItems[flag];
+                if (slot.id >= 0xFCF && slot.id <= 0xFD8) {
+                    this.slotWeights[flag] = 0.25;
+                } else if (slot.id >= 0xFB0 && slot.id <= 0xFB5) {
+                    this.slotWeights[flag] = 0.75;
+                } else {
+                    this.slotWeights[flag] = 1;
+                }
+            } else {
+                this.slotWeights[flag] = 1;
+            }
         }
 
         this.flagSet = this.getInitialFlagSet();

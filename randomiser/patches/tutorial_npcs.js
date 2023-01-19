@@ -32,9 +32,9 @@ function apply(mapCode, text, settings) {
     textutil.writeLine(text, 0x1570, "Thanks for playing this\x03randomiser! I'm Karanum,\x03the developer.\x01If you're new, make sure\x03to check the help pages\x03on the website.\x01Also, if you get stuck, holding\x03L and Start while selecting which\x03save file to load can help.\x02");
     textutil.writeLine(text, 0x1571, "Hey now,\x03no peeking!\x01You'll get to see what I'm working\x03on when it's ready!\x02");
     textutil.writeLine(text, 0x1572, "Did you know Retreat has\x03been changed big time in\x03this randomiser?\x01Using it on the overworld lets\x03you teleport to any location\x03you've visited.\x01You can even use Retreat\x03in towns now, so you\x03can get around faster!\x02");
-    textutil.writeLine(text, 0x1573, "Haaah! Hiyaaaaah!\x02");
+    textutil.writeLine(text, 0x1573, "I feel a sudden urge\x03to yell and break pots.\x02");
     textutil.writeLine(text, 0x1574, "Avoid is now a toggle.\x01Use it once, no encounters.\x01Use it again, encounters.\x01Not based on level anymore.\x01Easy.\x02");
-    textutil.writeLine(text, 0x1575, "Man, I'm so nervous.\x03These guys are my heroes.\x03I don't know what to say.\x02");
+    textutil.writeLine(text, 0x1575, "Man, I'm so nervous.\x03I'm really bad at small talk.\x02");
     textutil.writeLine(text, 0x1576, "I see you've enabled the\x03hint system. Good choice.\x01There are six characters\x03who will give you hints\x03about this seed.\x01There's Master Poi, Master Maha,\x03Akafubu, King Hydros, and the\x03Proxian elder.\x01Oh, and that corn seller guy\x03in Contigo, as well.\x02");
     textutil.writeLine(text, 0x1577, "I shall reign supreme.\x02");
 }
