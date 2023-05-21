@@ -3,13 +3,16 @@ const defaultValues = {
     "use-https": false,
     "ssl-key": "",
     "ssl-cert": "",
-    "port": 3000
+    "port": 3000,
+    "production": false
 };
 
 var config;
 
 function get(key) {
-    return config[key] || defaultValues[key];
+    if (!(key in config))
+        return defaultValues[key];
+    return config[key];
 }
 
 function initialise() {

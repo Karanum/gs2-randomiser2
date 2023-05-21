@@ -9,7 +9,7 @@ function setupAjaxRequest(seed, settings) {
 
         var decoder = new TextDecoder();
         var linkId = decoder.decode(response.slice(0, 12));
-        var permalink = "https://gs2randomiser.com/permalink/" + linkId;
+        var permalink = window.location.origin + "/permalink/" + linkId;
         var log = response.slice(12);
 
         var blob = new Blob([log], { type: 'plain/text' });

@@ -183,7 +183,11 @@ app.get('/create_perma_ajax', (req, res) => {
                 if (err) 
                     console.log(err); 
                 else {
-                    var meta = `seed=${seed}\nsettings=${settings}\nversion=v${nodePackage.version}\ntime=${new Date().getTime()}`;
+                    var version = nodePackage.version;
+                    if (!config.get("production"))
+                        version += ' (dev-env)';
+
+                    var meta = `settings=${settings}\nversion=v${version}\ntime=${new Date().getTime()}`;
                     fs.writeFile(`./permalinks/${permalink}.meta`, meta, (err) => {
                         if (err) 
                             console.log(err);

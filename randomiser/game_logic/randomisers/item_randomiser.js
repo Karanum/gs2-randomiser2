@@ -61,7 +61,7 @@ class ItemRandomiser {
             t['isKeyItem'] = item['isKeyItem'];
         });
 
-        accessibleSlots.forEach((slot) => this.slotWeights[slot] *= (0.5 * Math.max(this.prng.random(), 0.1)));
+        accessibleSlots.forEach((slot) => this.slotWeights[slot] *= (0.65 * Math.max(this.prng.random(), 0.1)));
         delete this.slotWeights[slot];
         delete this.availableItems['0x' + item['id'].toString(16)];
     }
