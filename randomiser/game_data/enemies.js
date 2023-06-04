@@ -8,7 +8,7 @@ const bosses = ["Chestbeater", "King Scorpion", "Sea Fighter", "Briggs", "Aqua H
     "Valukar", "Sentinel", "Dullahan"];
 
 const djinnIds = [
-    [2, 4, 5, 6, 7, 8, 9, 10, 12, 13, 14], [19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29],
+    [2, 11, 5, 6, 7, 8, 9, 10, 12, 13, 14], [19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29],
     [32, 33, 35, 38, 39, 42, 43], [48, 49, 51, 52, 53, 54, 55, 56, 57, 58]
 ];
 
@@ -172,7 +172,7 @@ function sortDjinn(instance) {
 function fixDjinnMovesets(instance) {
     instance["Venus Djinni"].forEach((djinni) => {
         if (djinni.hp == 255)
-            djinni.attacks = [4, 6, 9, 12, 15, 498, 1, 1];
+            djinni.attacks = [3, 4, 6, 12, 15, 498, 1, 1];
     });
 
     instance["Mercury Djinni"].forEach((djinni) => {
