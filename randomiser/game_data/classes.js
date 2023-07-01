@@ -1,4 +1,3 @@
-const fs = require('fs');
 const abilityData = require('./abilities.js');
 const weightedPicker = require('./../../modules/weightedPicker.js');
 

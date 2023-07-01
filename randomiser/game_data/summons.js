@@ -16,9 +16,6 @@ function initialise(rom) {
         var cost = [rom[addr], rom[addr + 1], rom[addr + 2], rom[addr + 3]];
         summonData.push({id: i, name: summon, addr: addr, abilityId: abilityId, cost: cost});
     });
-
-    const fs = require('fs');
-    fs.writeFileSync('./debug/summons.json', JSON.stringify(summonData));
 }
 
 function clone() {
