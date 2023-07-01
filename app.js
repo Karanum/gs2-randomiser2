@@ -17,7 +17,7 @@ const app = express();
 const allowedPermaChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
 const nodePackage = require('./package.json');
-const versionSuffix = nodePackage.version.replaceAll('.', '_');
+const versionSuffix = nodePackage.version.replace(/\./g, '_');
 
 // App initialisation
 console.log("Starting...");
