@@ -68,6 +68,15 @@ function writeToRom(instance, rom, textInstance) {
         if (!instance.hasOwnProperty(id)) continue;
         var item = instance[id];
         var addr = item.addr;
+
+        if (item.itemType == 5 || item.itemType == 8 || item.itemType == 9) {
+            if (item.attack == 0 && item.defense == 0 && item.useEffect == 0) {
+                if (item.equipEffects.flat().reduce((a, b) => a + b, 0) == 0) {
+                    item.defense = 5;
+                }
+            }
+        }
+
         rom[addr] = (item.cost & 0xFF);
         rom[addr + 1] = (item.cost >> 8);
         rom[addr + 2] = item.itemType;
