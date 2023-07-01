@@ -197,4 +197,18 @@ function scaleBattleRewards(instance, coinScale, expScale) {
     }
 }
 
-module.exports = {initialise, clone, writeToRom, sortDjinn, scaleBattleRewards};
+function loadFullBossData(rom, instance) {
+    loadFullEnemyData(rom, instance["Avimander"][0]);
+    loadFullEnemyData(rom, instance["Poseidon"][1]);
+    instance["Knight"].forEach((enemy) => loadFullEnemyData(rom, enemy));
+    loadFullEnemyData(rom, instance["Flame Dragon"][1]);
+    loadFullEnemyData(rom, instance["Doom Dragon"][6]);
+    loadFullEnemyData(rom, instance["Doom Dragon"][7]);
+    loadFullEnemyData(rom, instance["Doom Dragon"][8]);
+    loadFullEnemyData(rom, instance["Refresh Ball"][0]);
+    loadFullEnemyData(rom, instance["Thunder Ball"][0]);
+    loadFullEnemyData(rom, instance["Valukar"][0]);
+    loadFullEnemyData(rom, instance["Dullahan"][1]);
+}
+
+module.exports = {initialise, clone, writeToRom, sortDjinn, scaleBattleRewards, loadFullBossData};

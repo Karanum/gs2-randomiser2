@@ -70,7 +70,8 @@ function parse(settings) {
 
         'hard-mode': (settings[10] >> 7) & 0b1,
         'halve-enc': (settings[10] >> 6) & 0b1,
-        'major-shuffle': (settings[10] >> 5) & 0b1
+        'major-shuffle': (settings[10] >> 5) & 0b1,
+        'easier-bosses': (settings[10] >> 4) & 0b1
     };
 }
 

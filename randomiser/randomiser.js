@@ -25,6 +25,7 @@ const enemyData = require('./game_data/enemies.js');
 const elementData = require('./game_data/elem_tables.js');
 
 const cutsceneSkipPatch = require('./patches/cutscene_skip.js');
+const easierBossesPatch = require('./patches/easier_bosses.js');
 const fastForgingPatch = require('./patches/fast_forging.js');
 const gabombaPuzzlePatch = require('./patches/gabomba_puzzle.js');
 const tutorialNpcPatch = require('./patches/tutorial_npcs.js');
@@ -256,6 +257,8 @@ function randomise(seed, rawSettings, spoilerFilePath, callback) {
     }
 
     // Applying more settings
+    if (settings['easier-bosses']) easierBossesPatch.apply(rom, enemyClone, abilityClone);
+
     if (settings['psynergy-power']) abilityData.adjustAbilityPower(abilityClone, "Psynergy", prng);
     if (settings['psynergy-cost']) abilityData.adjustPsynergyCost(abilityClone, prng);
     if (settings['psynergy-aoe']) abilityData.randomiseAbilityRange(abilityClone, "Psynergy", prng);

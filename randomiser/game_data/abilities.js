@@ -24,11 +24,12 @@ function loadAbility(rom, id, name) {
     var target = rom[addr];
     var damageType = rom[addr + 1] & 0xF;
     var element = rom[addr + 2];
+    var addedEffect = rom[addr + 3];
     var range = rom[addr + 8];
     var cost = rom[addr + 9];
     var power = rom[addr + 10] + (rom[addr + 11] << 8);
     abilityData[id] = {name: name, addr: addr, type: type, target: target, damageType: damageType,
-        element: element, range: range, cost: cost, power: power};
+        element: element, range: range, cost: cost, power: power, addedEffect: addedEffect};
 }
 
 function initialise(rom, textutil) {
@@ -56,6 +57,7 @@ function writeToRom(instance, rom) {
         rom[addr] = ability.target;
         rom[addr + 1] = (rom[addr + 1] & 0xF0) + ability.damageType; 
         rom[addr + 2] = ability.element;
+        rom[addr + 3] = ability.addedEffect;
         rom[addr + 8] = ability.range;
         rom[addr + 9] = ability.cost;
         rom[addr + 10] = (ability.power & 0xFF);

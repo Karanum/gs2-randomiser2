@@ -293,6 +293,7 @@
         "qol_avoid_toggle": "Hacer que Esquivar sea conmutable",
         "qol_hard_mode": "Habilitar la dificultad Difícil en juego",
         "qol_half_encounters": "Reducir a la mitad la tasa de batalla",
+        "qol_easier_bosses": "Jefes más fáciles",
 
         "scale_exp": "Escala Exp.",
         "scale_coins": "Escala Monedas",

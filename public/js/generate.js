@@ -53,13 +53,13 @@ function getPresetTooltip(val) {
 
 function getPreset(val) {
     switch (Number(val)) {
-        case 0: return [102, 16, 137, 0, 7, 3, 14, 17, 5, 7, 0];
+        case 0: return [102, 16, 137, 0, 7, 3, 14, 17, 5, 7, 16];
         case 1: return [175, 156, 201, 80, 79, 3, 72, 17, 5, 7, 0];
         case 2: return [159, 255, 239, 170, 151, 3, 72, 17, 5, 7, 0];
         case 3: return [0, 0, 0, 0, 0, 0, 0, 17, 5, 0, 0];
         case 4: return [159, 172, 200, 144, 79, 131, 200, 17, 18, 7, 0];
         case 5: return [207, 255, 255, 175, 151, 142, 216, 17, 133, 135, 0];
-        case 6: return [159, 175, 238, 152, 79, 130, 72, 49, 18, 7, 0];
+        case 6: return [159, 175, 238, 152, 79, 130, 72, 49, 18, 7, 16];
     }
     return undefined;
 }
@@ -88,7 +88,7 @@ function applySettings(arr) {
     loadCheckedState(loadValue(arr[8], 'start-levels', 7), ['equip-defense']);
     loadValue(loadValue(loadCheckedState(loadEmptyBit(arr[9], 2), ['patch-avoid', 'curse-disable']), 
         'sanc-cost', 2), 'enemy-eres', 2);
-    loadCheckedState(loadEmptyBit[arr[10], 6], ['halve-enc', 'hard-mode']);
+    loadCheckedState(loadEmptyBit(loadCheckedState(loadEmptyBit(arr[10], 4), ['easy-boss']), 1), ['halve-enc', 'hard-mode']);
 
     shuffle += (((arr[10] >> 5) & 0b1) << 3);
     $("#inp-item-shuffle").val(shuffle);
@@ -116,8 +116,10 @@ function getSettingsArray() {
     arr[8] = appendValue(appendCheckedState(0, ['equip-defense']), 'start-levels', 7);
     arr[9] = appendEmptyBit(appendCheckedState(appendValue(appendValue(0, 'enemy-eres', 2), 'sanc-cost', 2), 
         ['curse-disable', 'patch-avoid']), 2);
-    arr[10] = appendEmptyBit((appendCheckedState(0, ['hard-mode', 'halve-enc']) << 1) + ((shuffle >> 3) & 0b1), 5);
+    arr[10] = appendEmptyBit(appendCheckedState(appendEmptyBit(appendCheckedState(0, ['hard-mode', 'halve-enc']), 1), 
+        ['easy-boss']), 4);
 
+    arr[10] += (((shuffle >> 3) & 0b1) << 5);
     return arr;
 }
 
