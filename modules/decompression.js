@@ -218,92 +218,85 @@ function compressC0(src, suppressLog = false) {
     return dest;
 }
 
-function compressC1(src, debug=false) {
+function compressC1(src) {
     var dest = [];
     var destPos = 0;
-    var distance = 0;
-    var length = 0;
     var srcPos = 0;
     var srcLength = src.length;
+    var lookbackTable = [];
 
     while (true) {
-        var fPos = destPos++;
-        var a = 0x80;
+        var flagPos = destPos++;
+        var flagMask = 0x80;
 
-        dest[fPos] = 0;
+        dest[flagPos] = 0;
 
-        while (a > 0) {
+        while (flagMask > 0) {
             if (srcPos >= srcLength) {
-                dest[fPos] |= a;
+                dest[flagPos] |= flagMask;
                 dest.push(0);
                 dest.push(0);
                 return dest;
             }
 
-            var dist2 = 0, length2 = 0;
-            var maxLength2 = Math.min(0x110, srcLength - srcPos + 1);
-            var end2 = Math.max(0, srcPos + 1 - 0xFFF);
+            // Do lookbacks
+            var lookbackLength = 0;
+            var lookbackOffset = 0;
+            var hword = src[srcPos] + (src[srcPos + 1] << 8);
+            if (lookbackTable[hword]) {
+                lookbackTable[hword].forEach((pos) => {
+                    if (srcPos - pos > 0xFFF) return;
 
-            for (let i = srcPos; i >= end2; --i) {
-                let j = 0;
-                while (j < maxLength2) {
-                    if (src[srcPos + 1 + j] != src[i + j])
-                        break;
-
-                    if (++j > length2) {
-                        dist2 = i;
-                        length2 = j;
-                        if (j >= 0x10F)
+                    var length = 2;
+                    while (srcPos + length < srcLength) {
+                        if (src[srcPos + length] != src[pos + length] || length >= 0x10F)
                             break;
+                        ++length;
                     }
-                }
+                    
+                    if (length >= lookbackLength) {
+                        lookbackLength = length;
+                        lookbackOffset = srcPos - pos;
+                    }
+                });
             }
 
-            var dist3 = 0, length3 = 0;
-            var maxLength3 = Math.min(0x110, srcLength - srcPos + length);
-            var end3 = Math.max(0, srcPos + length - 0xFFF);
-
-            for (let i = srcPos + length - 1; i >= end3; --i) {
-                let j = 0;
-                while (j < maxLength3) {
-                    if (src[srcPos + length + j] != src[i + j])
-                        break;
-
-                    if (++j > length3) {
-                        dist3 = i;
-                        length3 = j;
-                        if (j >= 0x10F)
-                            break;
-                    }
-                }
-            }
-
-            if (length2 == 0) length2 = 1;
-            if (length3 == 0) length3 = 1;
-
-            if ((length2 + 1) >= (length + length3)) 
-                length = 1;
-
-            if (length < 2) {
-                dest[destPos++] = src[srcPos++];
-                distance = dist2;
-                length = length2;
-            } else {
-                dest[fPos] |= a;
-                if (length <= 16) {
-                    dest[destPos++] = (((srcPos - distance) >> 8) << 4) | (length - 1);
-                    dest[destPos++] = (srcPos - distance) & 0xFF;
+            // Add byte pair to the lookup table
+            if (srcPos < srcLength - 1) {
+                var hword = src[srcPos] + (src[srcPos + 1] << 8);
+                if (!lookbackTable[hword]) {
+                    lookbackTable[hword] = [srcPos];
                 } else {
-                    dest[destPos++] = ((srcPos - distance) >> 8) << 4;
-                    dest[destPos++] = (srcPos - distance) & 0xFF;
-                    dest[destPos++] = length - 17;
+                    lookbackTable[hword].push(srcPos);
                 }
-                srcPos += length;
-                distance = dist3;
-                length = length3;
             }
 
-            a = (a >> 1);
+            // Transpose data into destination array
+            if (lookbackLength < 2) {
+                dest[destPos++] = src[srcPos++];
+            } else {
+                dest[flagPos] |= flagMask;
+                if (lookbackLength <= 16) {
+                    dest[destPos++] = ((lookbackOffset >> 8) << 4) | (lookbackLength - 1);
+                    dest[destPos++] = lookbackOffset & 0xFF;
+                } else {
+                    dest[destPos++] = (lookbackOffset >> 8) << 4;
+                    dest[destPos++] = lookbackOffset & 0xFF;
+                    dest[destPos++] = lookbackLength - 17;
+                }
+                
+                // Add skipped byte pairs to lookback table
+                var targetPos = srcPos + lookbackLength;
+                while ((++srcPos) < targetPos) {
+                    var hword = src[srcPos] + (src[srcPos + 1] << 8);
+                    if (!lookbackTable[hword]) {
+                        lookbackTable[hword] = [srcPos];
+                    } else {
+                        lookbackTable[hword].push(srcPos);
+                    }
+                }
+            }
+            flagMask = (flagMask >> 1);
         }
     }
 }
