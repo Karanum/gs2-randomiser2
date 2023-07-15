@@ -43,6 +43,17 @@
                                 <% if (lang.lang != "en") { %>
                                 <p><%= lang.index.translation %></p>
                                 <% } %>
+                                <div class="alert alert-info mt-4">
+                                    <i class="bi bi-info-circle-fill"></i>
+                                    <span class="ms-1"><b><%= lang.versions.date_format
+                                        .replace("%d", "15")
+                                        .replace("%s", lang.versions.num_suffixes[5])
+                                        .replace("%m", lang.versions.months[6])
+                                        .replace("%y", "2023")
+                                    %></b></span><br/>
+                                    If you are using the old EmoTracker pack and aren't in the Discord: as of last week there is a new official tracker pack available at
+                                    <a href="https://github.com/Karanum/gstla_emotracker_pack" style="color: #967a05 !important;">https://github.com/Karanum/gstla_emotracker_pack</a><br/>
+                                </div>
                             </div>
                         </div>
                     </div>
