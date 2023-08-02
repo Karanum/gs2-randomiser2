@@ -1,0 +1,22 @@
+{
+    "nodes": {
+        "entrances": ["57:5", "132:1", "132:2"],
+        "treasure": ["0xAA2;no-empty;no-mimic", "0xF92"],
+        "djinn": [],
+        "map_points": [],
+        "flags": []
+    },
+
+    "edges": {
+        "external": [
+            ["132:1", "2:29", "Overworld", true, "", []]
+        ],
+
+        "internal": [
+            ["132:1", "132:2", true, false, "", []],
+            ["132:1", "0xAA2", false, false, "", []],
+            ["132:2", "57:5", true, true, "", []],
+            ["57:5", "0xF92", false, false, "", []]
+        ]
+    }
+}

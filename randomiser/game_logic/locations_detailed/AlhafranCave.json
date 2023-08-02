@@ -1,0 +1,43 @@
+{
+    "nodes": {
+        "entrances": [
+            "100:1", "100:2", "100:3", "100:4", "100:5",
+            "101:6", "101:7", "101:8", "101:9", "101:10"
+        ],
+
+        "treasure": [
+            "0xF25", "0xF26", "0xF27", "0xF8E", "0xF8F", "0xF90", "0xF91"
+        ],
+
+        "djinn": [],
+        "map_points": [],
+        "flags": []
+    },
+
+    "edges": {
+        "external": [
+            ["100:1", "95:12", "Alhafra", true, "", []],
+            ["101:8", "95:8", "Alhafra", true, "", []]
+        ],
+
+        "internal": [
+            ["100:1", "100:2", true, false, "", []],
+            ["100:3", "100:4", true, false, "", []],
+            ["100:3", "100:5", true, false, "", [ ["alhafra_briggsEscaped"] ]],
+            ["100:3", "0xF8F", false, false, "", [ ["alhafra_briggsEscaped", "Frost Jewel"] ]],
+            ["100:3", "0xF90", false, false, "", [ ["alhafra_briggsEscaped", "Frost Jewel"] ]],
+            ["100:3", "0xF91", false, false, "", [ ["alhafra_briggsEscaped", "Frost Jewel"] ]],
+            ["100:2", "100:3", true, true, "", []],
+            ["100:4", "101:6", true, true, "", []],
+            ["100:5", "101:7", true, true, "", []],
+
+            ["101:6", "0xF25", false, false, "", [ ["Pound Cube", "Lash Pebble"] ]],
+            ["101:6", "0xF26", false, false, "", [ ["Pound Cube", "Lash Pebble"] ]],
+            ["101:6", "0xF27", false, false, "", [ ["Pound Cube", "Lash Pebble"] ]],
+            ["101:7", "101:10", true, false, "", []],
+            ["101:9", "0xF8E", true, false, "", []],
+            ["101:9", "101:10", false, true, "", []],
+            ["101:10", "101:9", false, true, "", [ ["alhafra_briggsEscaped"] ]]
+        ]
+    }
+}

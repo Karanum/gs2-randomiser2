@@ -1,0 +1,19 @@
+{
+    "nodes": {
+        "entrances": ["277:5"],
+        "treasure": ["0x17"],
+        "djinn": [],
+        "map_points": [],
+        "flags": []
+    },
+
+    "edges": {
+        "external": [
+            ["277:5", "2:88", "Overworld", true, "", []]
+        ],
+
+        "internal": [
+            ["277:5", "0x17", false, false, "", [ ["Parch"] ]]
+        ]
+    }
+}

@@ -1,0 +1,86 @@
+{
+    "nodes": {
+        "entrances": [
+            "115:1", "115:2",
+            "116:1", "116:2", "116:3", "116:4",
+            "117:1", "117:2", "117:3", "117:4", "117:5", "117:6", "117:7",
+            "118:1", "118:2", "118:3", "118:4", "118:5",
+            "119:1", "119:2",
+            "120:1", "120:2", "120:3", "120:4",
+            "121:1",
+            "122:1", "122:2",
+            "123:1", "123:2",
+            "124:1", "124:2"
+        ],
+
+        "treasure": ["0x8FF", "0xE72", "0xF51", "0xF52"],
+        "djinn": ["0x39"],
+        "map_points": [],
+
+        "flags": [
+            "116_left", "116_right", "121_solved", "gabomba_cleared"
+        ]
+    },
+
+    "edges": {
+        "external": [
+            ["120:3", "111:4", "Kibombo", true, "", [ ["gabomba_cleared"] ]],
+            ["123:1", "111:3", "Kibombo", true, "ladder;conditional", []],
+            ["124:2", "126:1", "GabombaCatacombs", true, "ladder", [ ["gabomba_cleared"] ]]
+        ],
+
+        "internal": [
+            ["115:1", "115:2", true, false, "", []],
+            ["115:1", "0xE72", false, false, "", []],
+            ["115:1", "0xF51", false, false, "", []],
+            ["115:1", "123:2", true, true, "ladder", []],
+            ["115:2", "116:1", true, true, "ladder", []],
+
+            ["116:1", "116:2", false, false, "", [ ["Lash Pebble"] ]],
+            ["116:2", "116:1", false, false, "", []],
+            ["116:3", "116_left", false, false, "", [ ["Pound Cube"] ]],
+            ["116:4", "116_right", false, false, "", [ ["Pound Cube"] ]],
+            ["116:4", "0xF52", false, false, "", []],
+            ["116:2", "117:1", true, true, "ladder", []],
+            ["116:3", "117:2", true, true, "ladder", []],
+            ["116:4", "117:3", true, true, "ladder", []],
+
+            ["117:1", "117:4", true, false, "", []],
+            ["117:2", "117:5", true, false, "", []],
+            ["117:3", "117:6", true, false, "", []],
+            ["117:7", "117:1", false, false, "", [ ["Lash Pebble"] ]],
+            ["117:7", "0x39", false, false, "", []],
+            ["117:4", "118:1", true, true, "ladder", []],
+            ["117:5", "118:2", true, true, "ladder", []],
+            ["117:6", "118:3", true, true, "ladder", []],
+
+            ["118:1", "118:2", true, false, "", []],
+            ["118:1", "118:3", true, false, "", []],
+            ["118:1", "118:4", true, false, "", []],
+            ["118:1", "118:5", true, false, "", []],
+            ["118:4", "119:1", true, true, "ladder", []],
+            ["118:5", "117:7", false, true, "fall", [ ["116_left", "116_right"] ]],
+
+            ["119:1", "119:2", false, false, "", [ ["116_left", "116_right"] ]],
+            ["119:2", "119:1", false, false, "", []],
+            ["119:2", "120:1", true, true, "ladder", []],
+
+            ["120:1", "120:2", true, false, "", []],
+            ["120:1", "120:3", true, false, "", []],
+            ["120:1", "120:4", true, false, "", []],
+            ["120:2", "121:1", true, true, "ladder", []],
+            ["120:4", "122:1", true, false, "", [ ["121_solved"] ]],
+
+            ["121:1", "121_solved", false, false, "", [ ["Pound Cube"] ]],
+
+            ["122:1", "122:2", true, false, "", []],
+            ["122:2", "124:1", true, true, "", []],
+
+            ["123:1", "123:2", true, false, "", []],
+
+            ["124:1", "124:2", true, false, "", []],
+            ["124:1", "0x8FF", false, false, "", []],
+            ["124:1", "gabomba_cleared", false, false, "", []]
+        ]
+    }
+}

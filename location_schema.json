@@ -1,0 +1,121 @@
+{
+	"type": "object",
+	"properties": {
+		"nodes": {
+			"type": "object",
+			"properties": {
+				"entrances": {
+					"type": "array",
+					"items": { "type": "string" }
+				},
+				"treasure": {
+					"type": "array",
+					"items": { "type": "string" }
+				},
+				"djinn": {
+					"type": "array",
+					"items": { "type": "string" }
+				},
+				"map_points": {
+					"type": "array",
+					"items": { "type": "string" }
+				},
+				"flags": {
+					"type": "array",
+					"items": { "type": "string" }
+				}
+			},
+			"required": [ "entrances", "treasure", "djinn", "map_points", "flags"]
+		},
+		"edges": {
+			"type": "object",
+			"properties": {
+				"external": {
+					"type": "array",
+					"items": {
+						"type": "array",
+						"minItems": 6,
+						"prefixItems": [
+							{
+								"title": "internal_node",
+                                "type": "string"
+                            },
+                            {
+								"title": "external_node",
+                                "type": "string"
+                            },
+                            {
+								"title": "external_location",
+                                "type": "string"
+                            },
+                            {
+								"title": "is_shuffleable",
+                                "type": "boolean"
+                            },
+							{
+								"title": "special_type",
+                                "type": "string"
+                            },
+                            {
+                                "type": "array",
+                                "items": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+						]
+					}
+				},
+				"internal": {
+					"type": "array",
+					"items": {
+						"type": "array",
+						"minItems": 6,
+						"prefixItems": [
+                            {
+                                "title": "node_1",
+                                "type": "string"
+                            },
+                            {
+                                "title": "node_2",
+                                "type": "string"
+                            },
+                            {
+                                "title": "mirrored",
+                                "type": "boolean"
+                            },
+                            {
+                                "title": "is_shuffleable",
+                                "type": "boolean"
+                            },
+                            {
+                                "title": "special_type",
+                                "type": "string"
+                            },
+                            {
+                                "title": "requirements",
+                                "type": "array",
+                                "items": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        ]
+					}
+				}
+			},
+			"required": [
+				"external",
+				"internal"
+			]
+		}
+	},
+	"required": [
+		"nodes",
+		"edges"
+	]
+}

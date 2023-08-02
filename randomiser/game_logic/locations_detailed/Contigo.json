@@ -1,0 +1,103 @@
+{
+    "nodes": {
+        "entrances": [
+            "236:1", "236:2", "236:3", "236:4", "236:5", "236:6", "236:7", "236:8", "236:9", "236:10", "236:11", "236:12", "236:99",
+            "237:1", "237:2", "237:3", "237:4", "237:5", "237:6", "237:7",
+            "238:8", "238:9", "238:10",
+            "239:21", "239:22", "239:23", "239:24"
+        ],
+
+        "treasure": [
+            "0x101;no-summon;no-mimic", "0x102;no-summon;no-mimic", "0x103;no-summon;no-mimic", "0x104;no-summon;no-mimic", 
+            "0xFC5", "0xFC6", "0xFC7"
+        ],
+
+        "djinn": [
+            "0x30", "0x31", "0x32", "0x33", "0x34", "0x35", "0x3E", 
+            "0x44", "0x45", "0x46", "0x47", "0x48", "0x49", 
+            "0x58", "0x59", "0x5A", "0x5B", "0x5C", "0x5D", 
+            "0x67", "0x6C", "0x6D", "0x6E", "0x6F", "0x70", "0x71"
+        ],
+
+        "map_points": [],
+
+        "flags": [ "reunion" ]
+    },
+
+    "edges": {
+        "external": [
+            ["236:1", "2:54", "Overworld", true, "", []],
+            ["236:99", "303:99", "AnemosInnerSanctum", true, "teleport", [ ["Teleport Lapis"] ]],
+            ["239:22", "308:3", "AnemosInnerSanctum", true, "", []],
+            ["239:23", "308:1", "AnemosInnerSanctum", true, "", [ ["Reveal"] ]],
+            ["239:24", "308:4", "AnemosInnerSanctum", true, "", []]
+        ],
+
+        "internal": [
+            // Map 236
+            ["236:1", "236:2", true, false, "", []],
+            ["236:1", "236:3", true, false, "", []],
+            ["236:1", "236:4", true, false, "", []],
+            ["236:1", "236:5", true, false, "", []],
+            ["236:1", "236:6", true, false, "", []],
+            ["236:1", "236:7", true, false, "", []],
+            ["236:1", "236:8", true, false, "", []],
+            ["236:1", "236:9", true, false, "", []],
+            ["236:1", "236:10", true, false, "", []],
+            ["236:1", "236:11", true, false, "", []],
+            ["236:1", "236:12", true, false, "", []],
+            ["236:1", "0x3E", false, false, "", [ ["Scoop Gem"] ]],
+            ["236:1", "0x67", false, false, "", [ ["Orb of Force"] ]],
+            ["236:1", "0xFC5", false, false, "", []],
+            ["236:1", "0xFC6", false, false, "", []],
+            ["236:1", "0xFC7", false, false, "", [ ["Cyclone Chip"] ]],
+            ["236:2", "237:1", true, true, "", []],
+            ["236:3", "237:2", true, true, "", []],
+            ["236:4", "238:10", true, true, "", []],
+            ["236:5", "237:7", true, true, "", []],
+            ["236:6", "238:8", true, true, "", []],
+            ["236:7", "238:9", true, true, "", []],
+            ["236:8", "237:5", true, true, "", []],
+            ["236:9", "237:6", true, true, "", []],
+            ["236:10", "237:3", true, true, "", []],
+            ["236:11", "237:4", true, true, "", []],
+            ["236:12", "239:21", true, true, "", []],
+
+            // Map 237
+            ["237:4", "reunion", false, false, "", [ ["jupiter_lit"] ]],
+            ["237:4", "0x101", false, false, "", [ ["reunion"] ]],
+            ["237:4", "0x102", false, false, "", [ ["reunion"] ]],
+            ["237:4", "0x103", false, false, "", [ ["reunion"] ]],
+            ["237:4", "0x104", false, false, "", [ ["reunion"] ]],
+            ["237:4", "0x30", false, false, "", [ ["reunion"] ]],
+            ["237:4", "0x31", false, false, "", [ ["reunion"] ]],
+            ["237:4", "0x32", false, false, "", [ ["reunion"] ]],
+            ["237:4", "0x33", false, false, "", [ ["reunion"] ]],
+            ["237:4", "0x34", false, false, "", [ ["reunion"] ]],
+            ["237:4", "0x35", false, false, "", [ ["reunion"] ]],
+            ["237:4", "0x44", false, false, "", [ ["reunion"] ]],
+            ["237:4", "0x45", false, false, "", [ ["reunion"] ]],
+            ["237:4", "0x46", false, false, "", [ ["reunion"] ]],
+            ["237:4", "0x47", false, false, "", [ ["reunion"] ]],
+            ["237:4", "0x48", false, false, "", [ ["reunion"] ]],
+            ["237:4", "0x49", false, false, "", [ ["reunion"] ]],
+            ["237:4", "0x58", false, false, "", [ ["reunion"] ]],
+            ["237:4", "0x59", false, false, "", [ ["reunion"] ]],
+            ["237:4", "0x5A", false, false, "", [ ["reunion"] ]],
+            ["237:4", "0x5B", false, false, "", [ ["reunion"] ]],
+            ["237:4", "0x5C", false, false, "", [ ["reunion"] ]],
+            ["237:4", "0x5D", false, false, "", [ ["reunion"] ]],
+            ["237:4", "0x6C", false, false, "", [ ["reunion"] ]],
+            ["237:4", "0x6D", false, false, "", [ ["reunion"] ]],
+            ["237:4", "0x6E", false, false, "", [ ["reunion"] ]],
+            ["237:4", "0x6F", false, false, "", [ ["reunion"] ]],
+            ["237:4", "0x70", false, false, "", [ ["reunion"] ]],
+            ["237:4", "0x71", false, false, "", [ ["reunion"] ]],
+
+            // Map 239
+            ["239:21", "239:22", true, false, "", []],
+            ["239:21", "239:23", true, false, "", []],
+            ["239:21", "239:24", true, false, "", []]
+        ]
+    }
+}

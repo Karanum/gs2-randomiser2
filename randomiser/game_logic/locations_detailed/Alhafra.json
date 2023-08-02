@@ -1,0 +1,73 @@
+{
+    "nodes": {
+        "entrances": [
+            "95:1", "95:2", "95:5", "95:6", "95:7", "95:8", "95:9", "95:11", "95:12",
+            "96:1", "96:2", "96:5", "96:6", "96:7", "96:20", "96:21", "96:22", "96:23", "96:24", "96:25",
+            "98:1", "98:2",
+            "99:1", "99:2", "99:3", "99:4", "99:5"
+        ],
+
+        "treasure": [
+            "0xF1D", "0xF1E", "0xF1F", "0xF20", "0xF21", "0xF23", "0xF24"
+        ],
+
+        "djinn": [],
+        "map_points": [],
+
+        "flags": [
+            "boss_briggs", "alhafra_briggsEscaped", "99_bread"
+        ]
+    },
+
+    "edges": {
+        "external": [
+            ["95:8", "101:8", "AlhafranCave", true, "", []],
+            ["95:9", "2:20", "Overworld", true, "", []],
+            ["95:12", "100:1", "AlhafranCave", true, "", []]
+        ],
+
+        "internal": [
+            ["95:1", "95:9", true, false, "", []],
+            ["95:2", "95:9", true, false, "", []],
+            ["95:3", "95:9", true, false, "", []],
+            ["95:4", "95:9", true, false, "", []],
+            ["95:5", "95:9", true, false, "", []],
+            ["95:6", "95:9", true, false, "", []],
+            ["95:7", "95:9", true, false, "", []],
+            ["95:8", "95:9", true, false, "", []],
+            ["95:11", "95:9", true, false, "", []],
+            ["95:12", "95:9", true, false, "", [ ["99_bread", "boss_briggs"], ["alhafra_briggsEscaped"] ]],
+            ["95:9", "0xF1D", false, false, "", [ ["Reveal"] ]],
+            ["95:9", "0xF1E", false, false, "", []],
+            ["95:9", "0xF1F", false, false, "", [ ["boss_briggs"] ]],
+            ["95:9", "0xF20", false, false, "", []],
+            ["95:1", "96:1", true, true, "", []],
+            ["95:2", "96:2", true, true, "", []],
+            ["95:5", "96:5", true, true, "", []],
+            ["95:6", "96:6", true, true, "", []],
+            ["95:7", "96:7", true, true, "", []],
+            ["95:11", "98:1", true, true, "", []],
+
+            ["96:1", "0xF23", false, false, "", []],
+            ["96:6", "96:20", true, false, "", []],
+            ["96:6", "96:24", true, false, "", []],
+            ["96:22", "96:25", true, false, "", []],
+            ["95:22", "0xF24", false, false, "", []],
+            ["96:20", "96:21", true, true, "", []],
+            ["96:22", "96:23", true, true, "", []],
+
+            ["98:1", "98:2", true, false, "", []],
+            ["98:1", "0xF21", false, false, "", []],
+            ["98:2", "alhafra_briggsEscaped", false, false, "", [ ["boss_briggs", "Lash Pebble", "Pound Cube", "Burst Brooch"] ]],
+            ["98:2", "99:1", true, true, "", []],
+
+            ["99:1", "99:2", true, false, "", []],
+            ["99:3", "99:4", false, false, "", [ ["boss_briggs"] ]],
+            ["99:3", "boss_briggs", false, false, "", [ ["djinn:6"] ]],
+            ["99:4", "99:3", false, false, "", []],
+            ["99:5", "99_bread", false, false, "", [ ["Tremor Bit"] ]],
+            ["99:2", "99:3", true, true, "", []],
+            ["99:4", "99:5", true, true, "", []]
+        ]
+    }
+}
