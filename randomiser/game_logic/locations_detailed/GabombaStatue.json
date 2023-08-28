@@ -15,7 +15,6 @@
 
         "treasure": ["0x8FF", "0xE72", "0xF51", "0xF52"],
         "djinn": ["0x39"],
-        "map_points": [],
 
         "flags": [
             "116_left", "116_right", "121_solved", "gabomba_cleared"

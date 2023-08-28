@@ -16,16 +16,12 @@
 					"type": "array",
 					"items": { "type": "string" }
 				},
-				"map_points": {
-					"type": "array",
-					"items": { "type": "string" }
-				},
 				"flags": {
 					"type": "array",
 					"items": { "type": "string" }
 				}
 			},
-			"required": [ "entrances", "treasure", "djinn", "map_points", "flags"]
+			"required": [ "entrances", "treasure", "djinn", "flags"]
 		},
 		"edges": {
 			"type": "object",

@@ -19,8 +19,6 @@
 
         "djinn": [],
 
-        "map_points": [],
-
         "flags": [
             "189_pillar", "190_face", "191_face", "191_pillar", "192_face1", "192_face2", "192_pillar", "193_pushdown", "193_pillar"
         ]

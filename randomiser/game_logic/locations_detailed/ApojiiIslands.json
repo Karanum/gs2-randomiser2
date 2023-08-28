@@ -9,7 +9,6 @@
         ],
         "treasure": ["0xF9A", "0xF9B", "0xF9C", "0xF9D", "0xF9E"],
         "djinn": ["0x77"],
-        "map_points": [],
         "flags": ["apojii_stone"]
     },
 

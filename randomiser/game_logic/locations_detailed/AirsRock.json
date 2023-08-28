@@ -24,10 +24,6 @@
 
         "djinn": [],
 
-        "map_points": [
-            "82_main"
-        ],
-
         "flags": [
             "82_stormbrand", "84_pillar", "84_fog", "airs_vface", "airs_hface"
         ]
@@ -40,14 +36,13 @@
 
         "internal": [
             // Map 82
-            ["82:1", "82_main", false, false, "", [ ["Whirlwind"] ]],
-            ["82_main", "0xE71", false, false, "", []],
-            ["82_main", "0xF32", false, false, "", [ ["Whirlwind"] ]],
-            ["82_main", "0xF33", false, false, "", [ ["Whirlwind"] ]],
-            ["82_main", "82_stormbrand", false, false, "", [ ["Whirlwind"] ]],
-            ["82_main", "82:2", false, false, "", [ ["Whirlwind"] ]],
-            ["82:2", "82_main", false, false, "", []],
-            ["82_main", "82:3", true, false, "", []],
+            ["82:1", "82:3", false, false, "", [ ["Whirlwind"] ]],
+            ["82:3", "0xE71", false, false, "", []],
+            ["82:3", "0xF32", false, false, "", [ ["Whirlwind"] ]],
+            ["82:3", "0xF33", false, false, "", [ ["Whirlwind"] ]],
+            ["82:3", "82_stormbrand", false, false, "", [ ["Whirlwind"] ]],
+            ["82:3", "82:2", false, false, "", [ ["Whirlwind"] ]],
+            ["82:2", "82:3", false, false, "", []],
             ["82:4", "0xF34", false, false, "", [ ["82_stormbrand"] ]],
             ["82:2", "83:1", true, true, "ladder", []],
             ["82:3", "83:2", true, true, "ladder", []],

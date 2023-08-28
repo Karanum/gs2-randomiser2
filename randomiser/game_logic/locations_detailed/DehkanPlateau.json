@@ -15,7 +15,6 @@
 
         "treasure": ["0x878;no-mimic;no-empty", "0xF07", "0xF08", "0xF09", "0xF0A", "0xF0B"],
         "djinn": ["0x5F"],
-        "map_points": [],
         "flags": []
     },
 
