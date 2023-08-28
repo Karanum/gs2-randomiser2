@@ -1,0 +1,25 @@
+{
+    "nodes": {
+        "entrances": ["213:1", "213:2", "213:3", "214:11", "215:1"],
+        "treasure": ["0xFC0", "0xFC1"],
+        "djinn": [],
+        "flags": []
+    },
+
+    "edges": {
+        "external": [
+            ["213:1", "2:48", "Overworld", true, "", []]
+        ],
+
+        "internal": [
+            ["213:1", "213:2", true, false, "", []],
+            ["213:1", "213:3", true, false, "", []],
+            ["213:1", "0xFC1", false, false, "", []],
+            ["213:2", "214:11", true, true, "", []],
+            ["213:3", "215:1", false, true, "ladder", [ ["Cyclone Chip"] ]],
+
+            ["215:1", "0xFC0", false, false, "", []],
+            ["215:1", "213:3", false, true, "ladder", []]
+        ]
+    }
+}

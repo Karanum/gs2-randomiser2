@@ -1,0 +1,18 @@
+{
+    "nodes": {
+        "entrances": ["275:1"],
+        "treasure": ["0x10"],
+        "djinn": [],
+        "flags": []
+    },
+
+    "edges": {
+        "external": [
+            ["275:1", "2:83", "Overworld", true, "", []]
+        ],
+
+        "internal": [
+            ["275:1", "0x10", false, false, "", [ ["Lash Pebble"] ]]
+        ]
+    }
+}

@@ -1,0 +1,32 @@
+{
+    "nodes": {
+        "entrances": ["102:1", "102:2", "102:3", "103:1", "103:2", "104:1"],
+        "treasure": ["0xF40", "0xF41", "0xF43"],
+        "djinn": ["0x61"],
+        "flags": []
+    },
+
+    "edges": {
+        "external": [
+            ["102:1", "2:21", "Overworld", true, "", []],
+            ["102:2", "2:22", "Overworld", true, "", []],
+            ["103:1", "2:85", "Overworld", true, "ship", []],
+            ["103:2", "2:86", "Overworld", true, "ship", []]
+        ],
+
+        "internal": [
+            ["102:1", "0x61", true, false, "", [ ["boss_briggs"] ]],
+            ["102:2", "0x61", false, false, "", [ ["Frost Jewel"], ["Scoop Gem"] ]],
+            ["102:2", "102:3", true, false, "", []],
+            ["0x61", "102:2", false, false, "", []],
+            ["0x61", "0xF40", false, false, "", [ ["Frost Jewel"] ]],
+            ["0x61", "0xF41", false, false, "", []],
+            ["0x61", "0xF43", false, false, "", []],
+            ["102:3", "104:1", false, true, "", [ ["Whirlwind"] ]],
+
+            ["103:1", "103:2", true, false, "", [ ["Grindstone"] ]],
+
+            ["104:1", "102:3", false, true, "", []]
+        ]
+    }
+}

@@ -1,0 +1,22 @@
+{
+    "nodes": {
+        "entrances": ["9:2", "9:4"],
+        "treasure": ["0x1;no-summon", "0x2;no-summon", "0x3;no-summon", "0x4;no-summon"],
+        "djinn": [],
+        "flags": []
+    },
+
+    "edges": {
+        "external": [
+            ["9:4", "2:1", "Overworld", true, "", []]
+        ],
+
+        "internal": [
+            ["9:2", "9:4", true, false, "", []],
+            ["9:2", "0x1", false, false, "", []],
+            ["9:2", "0x2", false, false, "", []],
+            ["9:2", "0x3", false, false, "", []],
+            ["9:2", "0x4", false, false, "", []]
+        ]
+    }
+}

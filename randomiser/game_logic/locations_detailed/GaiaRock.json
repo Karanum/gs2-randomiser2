@@ -1,0 +1,95 @@
+{
+    "nodes": {
+        "entrances": [
+            "174:1", "174:2", "174:3", "174:4", "174:5",
+            "175:1", "175:2", "175:3", "175:4",
+            "176:1",
+            "177:1", "177:4", "177:9",
+            "178:1", "178:2", "178:3", "178:4", "178:5", "178:6", "178:7", "178:8", "178:9", "178:10",
+            "179:1", "179:2", "179:3",
+            "180:1", "180:2", "180:3",
+            "181:1", "181:2", "181:3", "181:4", "181:5", "181:6", "181:7", "181:43"
+        ],
+
+        "treasure": [
+            "0x9BA;no-mimic;no-empty", "0xE41", "0xE74",
+            "0xF73", "0xF74;no-mimic;no-empty", "0xF75", "0xF76"
+        ],
+
+        "djinn": [],
+
+        "flags": [
+            "boss_serpent", "light_1", "light_2", "light_3", "light_4", "180_cyclone", "181_cyclone"
+        ]
+    },
+
+    "edges": {
+        "external": [
+            ["174:5", "2:39", "Overworld", true, "", []]
+        ],
+
+        "internal": [
+            ["174:2", "174:1", false, false, "", [ ["Whirlwind"] ]],
+            ["174:2", "0xF73", false, false, "", []],
+            ["174:4", "174:3", false, false, "", []],
+            ["174:4", "174:5", true, false, "", []],
+            ["174:1", "175:1", true, true, "", []],
+            ["174:2", "174:3", true, true, "ladder", []],
+            ["174:4", "178:1", true, true, "", []],
+
+            ["175:1", "175:2", true, false, "", [ ["Whirlwind"] ]],
+            ["175:3", "175:4", true, false, "", []],
+            ["175:2", "175:3", true, true, "ladder", []],
+            ["175:4", "176:1", true, true, "", []],
+
+            ["176:1", "0xF74", false, false, "", [ ["Reveal"] ]],
+            ["176:1", "0xF75", false, false, "", []],
+
+            ["177:1", "177:4", true, false, "", [ ["Growth"] ]],
+            ["177:1", "0xE74", false, false, "", [ ["Growth"] ]],
+            ["177:1", "0xF76", false, false, "", [ ["Growth"] ]],
+            ["177:9", "0x9BA", false, false, "", [ ["boss_serpent"] ]],
+            ["177:9", "0xE41", false, false, "", [ ["boss_serpent", "Sand"] ]],
+            ["177:9", "boss_serpent", false, false, "", [ ["djinn:16", "lights:4"], ["djinn:24", "lights:3"] ]],
+            ["177:1", "178:4", true, true, "maze", []],
+            ["177:4", "177:9", true, true, "maze", []],
+            ["177:9", "178:4", false, true, "", []],
+
+            ["178:1", "178:2", true, false, "", []],
+            ["178:1", "178:5", true, false, "", []],
+            ["178:1", "178:8", true, false, "", []],
+            ["178:3", "178:4", true, false, "", []],
+            ["178:6", "178:7", true, false, "", []],
+            ["178:9", "178:10", true, false, "", []],
+            ["178:2", "178:3", true, true, "", []],
+            ["178:5", "178:6", false, true, "", [ ["Dancing Idol"] ]],
+            ["178:6", "178:5", false, true, "", []],
+            ["178:7", "180:1", true, true, "", []],
+            ["178:8", "178:9", false, true, "", [ ["Dancing Idol"] ]],
+            ["178:9", "178:8", false, true, "", []],
+            ["178:10", "180:2", true, true, "", []],
+
+            ["179:1", "179:2", true, false, "", []],
+            ["179:1", "179:3", true, false, "", []],
+            ["179:1", "light_2", false, false, "", [ ["Dancing Idol"] ]],
+            ["179:1", "light_3", false, false, "", [ ["Dancing Idol", "181_cyclone"] ]],
+            ["179:1", "light_4", false, false, "", [ ["Cyclone Chip"] ]],
+            ["179:1", "180:3", true, true, "", []],
+            ["179:2", "181:7", true, true, "", []],
+
+            ["180:1", "180:3", true, false, "", [ ["180_cyclone"] ]],
+            ["180:2", "180_cyclone", false, false, "", [ ["Cyclone Chip"] ]],
+
+            ["181:1", "181:3", true, false, "", []],
+            ["181:1", "181:5", true, false, "", [ ["Whirlwind"] ]],
+            ["181:2", "181:7", true, false, "", []],
+            ["181:4", "light_1", false, false, "", [ ["Dancing Idol"] ]],
+            ["181:6", "181:43", true, false, "", []],
+            ["181:6", "181_cyclone", false, false, "", [ ["Cyclone Chip"] ]],
+            ["181:1", "181:2", true, true, "", []],
+            ["181:3", "181:4", true, true, "", []],
+            ["181:5", "181:6", true, true, "", []],
+            ["181:43", "179:3", false, true, "fall", [ ["181_cyclone"] ]]
+        ]
+    }
+}
