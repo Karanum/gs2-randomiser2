@@ -1,0 +1,62 @@
+{
+    "nodes": {
+        "entrances": [
+            "170:1", "170:2", "170:3", "170:4", "170:5", "170:6", "170:7",
+            "171:1", "171:2", "171:3", "171:4", "171:5", "171:6", "171:7", "171:8", "171:10",
+            "172:1", "172:2", "172:3", "172:4",
+            "173:1", "173:2", "173:3"
+        ],
+        "treasure": [
+            "0x14", "0xF9F", "0xFA0", "0xFA1", "0xFA2", "0xFA3", "0xFA4", "0xFA5", "0xFA6"
+        ],
+        "djinn": ["0x63"],
+        "flags": []
+    },
+
+    "edges": {
+        "external": [
+            ["171:1", "2:38", "Overworld", true, "", []]
+        ],
+
+        "internal": [
+            ["170:1", "0xFA4", false, false, "", []],
+            ["170:2", "0xFA5", false, false, "", []],
+            ["170:7", "0x63", false, false, "", [ ["boss_serpent", "Dancing Idol"] ]],
+            ["170:1", "171:2", true, true, "", []],
+            ["170:2", "171:3", true, true, "", []],
+            ["170:3", "171:4", true, true, "", []],
+            ["170:4", "171:5", true, true, "", []],
+            ["170:5", "171:6", true, true, "", []],
+            ["170:6", "171:7", true, true, "", []],
+            ["170:7", "171:8", true, true, "", []],
+
+            ["171:1", "171:2", true, false, "", []],
+            ["171:1", "171:3", true, false, "", []],
+            ["171:1", "171:4", true, false, "", []],
+            ["171:1", "171:5", true, false, "", []],
+            ["171:1", "171:6", true, false, "", []],
+            ["171:1", "171:7", true, false, "", []],
+            ["171:1", "171:8", true, false, "", []],
+            ["171:1", "171:10", true, false, "", []],
+            ["171:1", "0xF9F", false, false, "", [ ["Cyclone Chip"] ]],
+            ["171:1", "0xFA0", false, false, "", [ ["Cyclone Chip"] ]],
+            ["171:1", "0xFA1", false, false, "", [ ["Cyclone Chip"] ]],
+            ["171:1", "0xFA2", false, false, "", []],
+            ["171:1", "0xFA3", false, false, "", []],
+            ["171:10", "172:1", false, true, "ladder", [ ["Reveal"] ]],
+
+            ["172:1", "172:2", false, false, "", [ ["Sand", "Frost Jewel"] ]],
+            ["172:2", "172:1", false, false, "", [ ["Sand"] ]],
+            ["172:3", "172:4", false, false, "", [ ["Sand", "Pound Cube"] ]],
+            ["172:1", "171:10", false, true, "ladder", []],
+            ["172:2", "172:3", true, true, "", []],
+            ["172:4", "173:1", true, true, "ladder", []],
+
+            ["173:1", "173:2", false, false, "", [ ["Pound Cube", "Parch"] ]],
+            ["173:1", "0xFA6", false, false, "", []],
+            ["173:2", "173:1", false, false, "", [ ["Pound Cube"] ]],
+            ["173:3", "0x14", false, false, "", []],
+            ["173:2", "173:3", true, true, "", []]
+        ]
+    }
+}
