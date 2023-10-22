@@ -324,6 +324,7 @@
             "vanilla": "Vanilla",
             "class": "Intercambiar por grupo de clases",
             "group": "Intercambiar por grupo de Psinergía",
+            "group_element": "Intercambiar por grupo de Psinergía (prefiere mismo elemento)",
             "element": "Intercambiar por elemento de Psinergía",
             "full": "Aleatorizar completamente"
         },

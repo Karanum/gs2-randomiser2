@@ -324,6 +324,7 @@
             "vanilla": "Inchangé",
             "class": "Randomiser par ligne de classe",
             "group": "Randomiser par ligne de Psy",
+            "group_element": "Randomiser par ligne de Psy (préférez même élément)",
             "element": "Randomiser par élément de Psy",
             "full": "Randomisation complète"
         },

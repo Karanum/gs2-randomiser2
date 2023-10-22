@@ -324,6 +324,7 @@
             "vanilla": "Vanilla",
             "class": "Nach Klassengruppe randomisieren",
             "group": "Nach Psynergygruppe randomisieren",
+            "group_element": "Nach Psynergygruppe randomisieren (neigen zum gleichen Element)",
             "element": "Nach Psynergy-Elemente randomisieren",
             "full": "Komplett randomisieren"
         },

@@ -7,6 +7,7 @@ const addrOffset = 0xC15F4;
 const addrInterval = 0x348;
 
 const weightFallout = 0.33;
+const sameElementWeightMult = 4;
 const psyDecayChance = 0.15;
 
 const utilPsynergy = [12, 24, 33, 78, 185];
@@ -163,7 +164,7 @@ function shufflePsynergyByClass(instance, prng) {
     });
 }
 
-function shufflePsynergyByGroup(instance, prng) {
+function shufflePsynergyByGroup(instance, prng, preferSameElement) {
     var weights = [];
     var totalWeight = 0;
     psynergyGroups.forEach(() => {
@@ -175,9 +176,18 @@ function shufflePsynergyByGroup(instance, prng) {
         var selectedGroups = [];
         var psyNum = 0;
         while (true) {
+            let alteredWeights;
+            if (preferSameElement) {
+                alteredWeights = [];
+                let classElements = classLine.elements[classLine.elements.length - 1];
+                psynergyGroups.forEach((group, i) => {
+                    alteredWeights.push(weights[i] * ((group.element == 4 || classElements[group.element] > 0) ? sameElementWeightMult : 1));
+                });
+            }
+
             var selectedGroup;
             while (selectedGroup == undefined || selectedGroups.includes(selectedGroup)) {
-                selectedGroup = weightedPicker.pickIndex(prng, weights, totalWeight);
+                selectedGroup = weightedPicker.pickIndex(prng, preferSameElement ? alteredWeights : weights, totalWeight);
             }
 
             var group = psynergyGroups[selectedGroup];
@@ -320,9 +330,10 @@ function adjustLevels(instance, prng) {
 function randomisePsynergy(instance, mode, prng) {
     switch(mode) {
         case 1: return shufflePsynergyByClass(instance, prng);
-        case 2: return shufflePsynergyByGroup(instance, prng);
+        case 2: return shufflePsynergyByGroup(instance, prng, false);
         case 3: return shufflePsynergyByElement(instance, prng);
         case 4: return shufflePsynergy(instance, prng);
+        case 5: return shufflePsynergyByGroup(instance, prng, true);
     }
 }
 

@@ -324,6 +324,7 @@
             "vanilla": "Vanilla",
             "class": "Randomise by classline",
             "group": "Randomise by Psynergy group",
+            "group_element": "Randomise by Psynergy group (prefer same element)",
             "element": "Randomise by Psynergy element",
             "full": "Fully randomised"
         },
