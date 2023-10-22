@@ -65,11 +65,12 @@ const randomiserSettings = {
     'sanc-cost': [9, 4, 2],
     'enemy-eres': [9, 6, 2],
 
+    'manual-rg': [10, 1, 1],
     'fixed-puzzles': [10, 2, 1],
     'random-puzzles': [10, 3, 1],
     'easy-boss': [10, 4, 1],
     'halve-enc': [10, 6, 1],
-    'hard-mode': [10, 7, 1],
+    'hard-mode': [10, 7, 1]
 };
 
 const randomiserPresets = [

@@ -302,7 +302,9 @@
         "starting_level": "Niveles Iniciales",
 
         "puzzles_fixed": "Haz que puzzles basados en nombre fijado",
-        "puzzles_random": "Haz que puzzles basados en nombre aleatorios"
+        "puzzles_random": "Haz que puzzles basados en nombre aleatorios",
+
+        "manual_retreat_glitch": "Mantenga SELECT para activar siempre Huir glitch"
     },
 
     "options": {

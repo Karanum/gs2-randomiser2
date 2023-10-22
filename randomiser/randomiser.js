@@ -31,6 +31,7 @@ const gabombaPuzzlePatch = require('./patches/gabomba_puzzle.js');
 const tutorialNpcPatch = require('./patches/tutorial_npcs.js');
 const fixCharPatch = require('./patches/fix_char.js');
 const puzzlesPatch = require('./patches/puzzles.js');
+const retreatGlitchPatch = require('./patches/retreat_glitch.js');
 
 // List of in-game flags to turn on when cutscene skip is enabled
 const cutsceneSkipFlags = [0xf22, 0x890, 0x891, 0x892, 0x893, 0x894, 0x895, 0x896, 0x848, 0x86c, 0x86d, 0x86e, 0x86f,
@@ -312,6 +313,8 @@ function randomise(seed, rawSettings, spoilerFilePath, callback) {
     characterData.adjustStartingLevels(characterClone, settings['start-levels']);
     enemyData.scaleBattleRewards(enemyClone, settings['scale-coins'], settings['scale-exp']);
     abilityData.setStartingPsynergy(target, settings, prng);
+
+    if (settings['manual-rg']) retreatGlitchPatch.apply(target, textClone);
 
     fixCharPatch.apply(mapCodeClone, djinnClone);
 

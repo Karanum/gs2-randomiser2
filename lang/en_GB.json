@@ -302,7 +302,9 @@
         "starting_level": "Starting Levels",
 
         "puzzles_fixed": "Make name-based puzzles fixed",
-        "puzzles_random": "Make name-based puzzles random"
+        "puzzles_random": "Make name-based puzzles random",
+
+        "manual_retreat_glitch": "Hold SELECT to always trigger Retreat glitch"
     },
 
     "options": {

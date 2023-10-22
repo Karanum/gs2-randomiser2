@@ -112,7 +112,7 @@
                             </div>
                         </div>
 
-                        <div class="card mt-3">
+                        <div class="card mt-4">
                             <h3 class="card-header"><%= lang.index.subheader_rando %></h3>
                             <div class="card-body"> 
                                 <ul class="nav nav-tabs" id="tabs-randomisation">
@@ -270,7 +270,7 @@
                             </div>
                         </div>
 
-                        <div class="card mt-3">
+                        <div class="card mt-4">
                             <h3 class="card-header"><%= lang.index.subheader_logic %></h3>
                             <div class="card-body">  
                                 <div class="row">
@@ -300,7 +300,7 @@
                             </div>
                         </div>
 
-                        <div class="card mt-3">
+                        <div class="card mt-4">
                             <h3 class="card-header"><%= lang.index.subheader_qol %></h3>
                             <div class="card-body">  
                                 <div class="row">
@@ -312,7 +312,8 @@
 
                                     <div class="col-12 col-lg-6">
                                         <%- include('partials/setting_switch', { id: 'inp-free-avoid', label: lang.settings.qol_psycost_avoid, checked: true }) %>
-                                        <%- include('partials/setting_switch', { id: 'inp-free-retreat', label: lang.settings.qol_psycost_retreat, checked: true, tooltip: 10 }) %>
+                                        <%- include('partials/setting_switch', { id: 'inp-free-retreat', label: lang.settings.qol_psycost_retreat, checked: true }) %>
+                                        <%- include('partials/setting_switch', { id: 'inp-manual-rg', label: lang.settings.manual_retreat_glitch }) %>
                                     </div>
 
                                     <hr class="mt-1 mb-3">

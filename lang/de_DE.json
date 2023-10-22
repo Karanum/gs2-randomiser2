@@ -302,7 +302,9 @@
         "starting_level": "Anfangslevels",
 
         "puzzles_fixed": "Mach namenbasierte Puzzles fixiert",
-        "puzzles_random": "Mach namenbasierte Puzzles zufällig"
+        "puzzles_random": "Mach namenbasierte Puzzles zufällig",
+
+        "manual_retreat_glitch": "Halt SELECT um immer Rückzugglitch zu aktivieren"
     },
 
     "options": {

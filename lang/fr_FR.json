@@ -302,7 +302,9 @@
         "starting_level": "Niveaux de départ",
 
         "puzzles_fixed": "Changer puzzles basés sur nom pour qu'ils déterminé",
-        "puzzles_random": "Changer puzzles basés sur nom pour qu'ils random"
+        "puzzles_random": "Changer puzzles basés sur nom pour qu'ils random",
+
+        "manual_retreat_glitch": "Maintenez SELECT pour toujours activer Fuir glitch"
     },
 
     "options": {
