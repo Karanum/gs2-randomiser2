@@ -179,7 +179,7 @@ function writeStoryFlags(target, flags) {
 function randomise(seed, rawSettings, spoilerFilePath, callback) {
     var target = rom.slice(0);
     var prng = mersenne(seed);
-    var defaultFlags = [0xf22, 0x873];
+    var defaultFlags = [0xf22, 0x873, 0x844, 0x863, 0x864, 0x865, 0x867];
     var settings = settingsParser.parse(rawSettings);
 
     // Cloning the (mostly) vanilla data containers
