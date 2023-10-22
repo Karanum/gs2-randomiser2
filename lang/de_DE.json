@@ -50,7 +50,9 @@
             "11": "Erhöht nur das Anfangslevel von Charakteren die niedriger anfangen.",
             "12": "OOB-Sprünge mit präziser oder komplexen Bewegung können erforderlich sein. Deaktiviert die \"0 PP-Rückzug\"-Einstellung.",
             "13": "Vermeidung schaltet ein/aus. Es verhindert alle Kämpfe, unabhängig von der Truppenlevel.",
-            "14": "Feinde erhalten +50% KP und +25% Attacke und Verteidigung."
+            "14": "Feinde erhalten +50% KP und +25% Attacke und Verteidigung.",
+            "15": "Puzzles in Gabomba-Statue, Gaia-Felsen und Straße der Prüfungen werden zum Namen \"Felix\" generiert.",
+            "16": "Puzzles in Gabomba-Statue, Gaia-Felsen und Straße der Prüfungen werden zufällig generiert."
         }
     },
 
@@ -297,7 +299,10 @@
 
         "scale_exp": "Erfahrungsfaktor",
         "scale_coins": "Münzenfaktor",
-        "starting_level": "Anfangslevels"
+        "starting_level": "Anfangslevels",
+
+        "puzzles_fixed": "Mach namenbasierte Puzzles fixiert",
+        "puzzles_random": "Mach namenbasierte Puzzles zufällig"
     },
 
     "options": {

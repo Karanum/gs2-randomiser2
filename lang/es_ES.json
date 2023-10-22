@@ -50,7 +50,9 @@
             "11": "Solo aumenta el nivel inicial de los personajes que comienzan más abajo.",
             "12": "Es posible que se requieran saltos fuera-límites con movimientos precisos o complejos. Deshabilita la configuración de 0 PP Huir.",
             "13": "Utilice Esquivar para activarlo o desactivarlo. Anulará todos los encuentros independientemente del nivel del grupo.",
-            "14": "Los enemigos obtienen +50% PV y +25% Ataque y Defensa."
+            "14": "Los enemigos obtienen +50% PV y +25% Ataque y Defensa.",
+            "15": "Puzzles en Estatua de Gabomba, Roca del Tierra y Prueba Final se generan por el nombre \"Felix\".",
+            "16": "Puzzles en Estatua de Gabomba, Roca del Tierra y Prueba Final se generan aleatoriamente."
         }
     },
 
@@ -297,7 +299,10 @@
 
         "scale_exp": "Escala Exp.",
         "scale_coins": "Escala Monedas",
-        "starting_level": "Niveles Iniciales"
+        "starting_level": "Niveles Iniciales",
+
+        "puzzles_fixed": "Haz que puzzles basados en nombre fijado",
+        "puzzles_random": "Haz que puzzles basados en nombre aleatorios"
     },
 
     "options": {

@@ -288,6 +288,13 @@
                                         ] }) %>
                                         <%- include('partials/setting_switch', { id: 'inp-boss-logic', label: lang.settings.logic_bosses, tooltip: 8 }) %>
                                     </div>
+
+                                    <hr class="mt-1 mb-3">
+
+                                    <div class="col-12 col-lg-6">
+                                        <%- include('partials/setting_switch', { id: 'inp-random-puzzles', label: lang.settings.puzzles_random, tooltip: 16 }) %>
+                                        <%- include('partials/setting_switch', { id: 'inp-fixed-puzzles', label: lang.settings.puzzles_fixed, tooltip: 15, margin: 3 }) %>
+                                    </div>
                                 </div>
                             </div>
                         </div>

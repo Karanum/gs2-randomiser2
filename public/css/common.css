@@ -120,6 +120,7 @@ body {
 .card {
     border: .5px solid var(--gs2r-card-border) !important;
     background-color: var(--gs2r-card-border) !important;
+    box-shadow: 2px 2px 6px #0003;
 }
 
 .card-body {

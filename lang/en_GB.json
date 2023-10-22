@@ -50,7 +50,9 @@
             "11": "Only increases the starting level of characters that start off lower.",
             "12": "OOB skips with tight or complex movement may be required. Disables 0 PP Retreat setting.",
             "13": "Use Avoid to turn it on/off. It will negate all encounters regardless of party level.",
-            "14": "Enemies get +50% HP and +25% Attack and Defense."
+            "14": "Enemies get +50% HP and +25% Attack and Defense.",
+            "15": "Puzzles in Gabomba Statue, Gaia Rock and Trial Road are generated for the name \"Felix\".",
+            "16": "Puzzles in Gabomba Statue, Gaia Rock and Trial Road are generated randomly."
         }
     },
 
@@ -297,7 +299,10 @@
 
         "scale_exp": "Scale Exp",
         "scale_coins": "Scale Coins",
-        "starting_level": "Starting Levels"
+        "starting_level": "Starting Levels",
+
+        "puzzles_fixed": "Make name-based puzzles fixed",
+        "puzzles_random": "Make name-based puzzles random"
     },
 
     "options": {

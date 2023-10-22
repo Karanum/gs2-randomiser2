@@ -30,6 +30,7 @@ const fastForgingPatch = require('./patches/fast_forging.js');
 const gabombaPuzzlePatch = require('./patches/gabomba_puzzle.js');
 const tutorialNpcPatch = require('./patches/tutorial_npcs.js');
 const fixCharPatch = require('./patches/fix_char.js');
+const puzzlesPatch = require('./patches/puzzles.js');
 
 // List of in-game flags to turn on when cutscene skip is enabled
 const cutsceneSkipFlags = [0xf22, 0x890, 0x891, 0x892, 0x893, 0x894, 0x895, 0x896, 0x848, 0x86c, 0x86d, 0x86e, 0x86f,
@@ -313,6 +314,12 @@ function randomise(seed, rawSettings, spoilerFilePath, callback) {
     abilityData.setStartingPsynergy(target, settings, prng);
 
     fixCharPatch.apply(mapCodeClone, djinnClone);
+
+    if (settings['fixed-puzzles']) {
+        puzzlesPatch.applyFixed(mapCodeClone);
+    } else if (settings['random-puzzles']) {
+        puzzlesPatch.applyRandom(mapCodeClone, prng);
+    }
 
     // Writing the modified data containers to the new ROM file
     itemLocations.writeToRom(itemLocClone, prng, target, settings['show-items']);

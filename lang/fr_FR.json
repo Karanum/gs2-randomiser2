@@ -50,7 +50,9 @@
             "11": "Augmente uniquement le niveau de départ des personnages qui commencement plus bas.",
             "12": "Des sauts hors-limites avec un mouvement précis ou complexe peuvent être nécessaires. Désactive le paramètre de 0 PP Fuir.",
             "13": "Utilisez Esquive pour l'(dés)activer. Cela annulera tous les combats quel que soit le niveau du groupe.",
-            "14": "Les ennemis obtiennent +50% de PV et +25% d'Attaque et Défense."
+            "14": "Les ennemis obtiennent +50% de PV et +25% d'Attaque et Défense.",
+            "15": "Puzzles de Statue de Gabomba, Mont Gaia et Route du Courage sont généres pour le nom \"Felix\".",
+            "16": "Puzzles de Statue de Gabomba, Mont Gaia et Route du Courage sont généres aléatoire."
         }
     },
 
@@ -297,7 +299,10 @@
 
         "scale_exp": "Échelle d'Exp",
         "scale_coins": "Échelle de Pièces",
-        "starting_level": "Niveaux de départ"
+        "starting_level": "Niveaux de départ",
+
+        "puzzles_fixed": "Changer puzzles basés sur nom pour qu'ils déterminé",
+        "puzzles_random": "Changer puzzles basés sur nom pour qu'ils random"
     },
 
     "options": {
