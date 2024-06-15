@@ -1,5 +1,8 @@
 const textutil = require ('./textutil.js');
 
+/**
+ * Shared hint texts for items/locations.
+ */
 const multiHints = {
     "Alhafra": "in a port city\x03ruled through schemes",
     "Cliffs": "on cliffs that\x03divide the land",
@@ -13,6 +16,9 @@ const multiHints = {
     "Western Sea": "on an island in\x03the Western Sea"
 };
 
+/**
+ * Hint texts for items.
+ */
 const itemHints = {
     "Aquarius Stone": "The azure stone that\x03leads the chosen one",
     "Black Crystal": "The orb that controls the\x03vessels of the ancients",
@@ -62,6 +68,9 @@ const itemHints = {
     "Zagan": multiHints["Summon"]
 };
 
+/**
+ * Hint texts for locations.
+ */
 const mapHints = {
     "Air's Rock": "at a sacred place of\x03abundant Jupiter energy",
     "Anemos Inner Sanctum": "deep inside\x03the moonlit ruins",
@@ -111,9 +120,13 @@ const mapHints = {
     "Madra": multiHints["Madra"], "Madra Catacombs": multiHints["Madra"]
 };
 
+/** Helper array to convert numbers to their text representation. */
 const numToStr = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve",
     "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen", "twenty"];
 
+/**
+ * Returns the number of key items for the specified location.
+ */
 function getKeyItemCount(itemLocs, mapName) {
     var count = 0;
     for (var flag in itemLocs) {
@@ -125,6 +138,9 @@ function getKeyItemCount(itemLocs, mapName) {
     return count;
 }
 
+/**
+ * Returns the sphere depth of the specified item.
+ */
 function getSphereDepth(spheres, itemLocs, itemName) {
     for (var i = 0; i < spheres.length; ++i) {
         for (var j = 0; j < spheres[i].length; ++j) {
@@ -136,165 +152,256 @@ function getSphereDepth(spheres, itemLocs, itemName) {
     return -1;
 }
 
-function pickRandomSlot(prng, spheres, depth) {
-    var targetDepth = depth;
-    for (var i = depth + 1; i < spheres.length; ++i) {
-        targetDepth = i;
-        if (prng.random() < 0.4) break;
-    }
-    var sphere = spheres[targetDepth];
-    return sphere[Math.floor(prng.random() * sphere.length)];
+/**
+ * Returns the highest sphere depth from a list of items.
+ */
+function getMaxSphereDepth(spheres, itemLocs, itemList) {
+    var maxDepth = 0;
+    itemList.forEach((item) => {
+        maxDepth = Math.max(maxDepth, getSphereDepth(spheres, itemLocs, item));
+    })
+    return maxDepth;
 }
 
-function makeItemHint(item) {
+/**
+ * Returns a random item location ID based on the given sphere depth.
+ */
+function pickRandomSlot(prng, spheres, itemLocs, depth) {
+    var targetDepth = undefined;
+    if (depth + 3 >= spheres.length) --depth;
+    for (var i = depth + 2; i < spheres.length; ++i) {
+        targetDepth = i;
+        if (prng.random() < 0.4 + (3 - Math.min(3, spheres.length - i - 2)) * 0.2) break;
+    }
+    if (!targetDepth) targetDepth = spheres.length - 1;
+    var sphere = spheres[targetDepth];
+    var weightedSphere = [];
+    sphere.forEach((slot) => {
+        var item = itemLocs[slot][0];
+        weightedSphere.push(slot);
+        if (item.contents < 0xF10 || item.contents > 0xF1C) {
+            weightedSphere.push(slot);
+            weightedSphere.push(slot);
+        }
+    })
+    return weightedSphere[Math.floor(prng.random() * weightedSphere.length)];
+}
+
+/**
+ * Returns the hint text string for the specified item.
+ */
+function makeItemHintText(item) {
     var itemHint = itemHints[item['name']] || item['name'] || "???";
     var mapHint = mapHints[item['mapName']] || ("in " + item['mapName']) || "???";
     return itemHint + "...\x01awaits " + mapHint + ".";
 }
 
-function getHintIndra(prng, type, spheres, itemLocs) {
-    if (type == 0) {
-        var depth = getSphereDepth(spheres, itemLocs, "Whirlwind");
-        var item = itemLocs[pickRandomSlot(prng, spheres, depth)][0];
-        return makeItemHint(item) + "\x02";
-    } else if (type == 1) {
+/**
+ * Gets a random item for the item hint, attempting to avoid the items already listed in `seen`.
+ */
+function getItemHint(prng, spheres, itemLocs, depth, seen) {
+    var slot = pickRandomSlot(prng, spheres, itemLocs, depth);
+    var attempts = 0;
+    while (slot in seen && attempts < 10) {
+        slot = pickRandomSlot(prng, spheres, itemLocs, depth);
+        ++attempts;
+    }
+    seen.push(slot);
+    return itemLocs[slot][0];
+}
+
+/**
+ * Returns a random hint for Master Poi.
+ */
+function getHintIndra(prng, type, spheres, itemLocs, seen) {
+    var depth = getSphereDepth(spheres, itemLocs, "Whirlwind");
+    var areaDepth = getMaxSphereDepth(spheres, itemLocs, ["Whirlwind", "Growth", "Reveal"]);
+    var locDepth = getMaxSphereDepth(spheres, itemLocs, ["Lash Pebble", "Sea God's Tear", "Reveal", "Frost Jewel"]);
+
+    if (type == 1 && depth < areaDepth) {
         var numKeyItems = getKeyItemCount(itemLocs, "Gaia Rock");
         if (numKeyItems == 1)
             return "There is one important\x03item in Gaia Rock.\x02";
         return "There are " + numToStr[numKeyItems] + " important\x03items in Gaia Rock.\x02";
-    } else {
+    }
+    else if (type == 2 && depth < locDepth) {
         var item = itemLocs["0x8c7"][0];
-        if (item['isKeyItem']) {
-            return "The top of the Sea God's\x03tower holds a treasure\x03of importance.\x02";
-        } else {
-            return "The top of the Sea God's\x03tower does not have\x03anything of value.\x02";
-        }
+        return `The top of the Sea God's\x03tower ${item['isKeyItem']
+            ? 'holds a treasure\x03of great importance'
+            : 'does not have\x03anything of value'
+        }.\x02`;
+    }
+    else {
+        var item = getItemHint(prng, spheres, itemLocs, depth, seen);
+        return makeItemHintText(item) + '\x02';
     }
 }
 
-function getHintOsenia(prng, type, spheres, itemLocs) {
-    if (type == 0) {
-        var depth = getSphereDepth(spheres, itemLocs, "Reveal");
-        var item = itemLocs[pickRandomSlot(prng, spheres, depth)][0];
-        return makeItemHint(item) + "\x02";
-    } else if (type == 1) {
+/**
+ * Returns a random hint for Master Maha.
+ */
+function getHintOsenia(prng, type, spheres, itemLocs, seen) {
+    var depth = getSphereDepth(spheres, itemLocs, "Reveal");
+    var areaDepth = getSphereDepth(spheres, itemLocs, "Whirlwind");
+
+    if (type == 1 && depth < areaDepth) {
         var numKeyItems = getKeyItemCount(itemLocs, "Air's Rock");
         if (numKeyItems == 1)
             return "There is one important\x03item in Air's Rock.\x02";
         return "There are " + numToStr[numKeyItems] + " important\x03items in Air's Rock.\x02";
-    } else {
+    }
+    else if (type == 2 && depth < areaDepth) {
         var item = itemLocs["0x8d4"][0];
-        if (item['isKeyItem']) {
-            return "The room that guards the\x03unseen holds a treasure\x03of great importance.\x02";
-        } else {
-            return "The room that guards the\x03unseen does not have\x03anything of value.\x02";
-        };
+        return `The room that guards the\x03unseen ${item['isKeyItem']
+            ? 'holds a treasure\x03of great importance'
+            : 'does not have\x03anything of value'
+        }.\x02`;
+    }
+    else {
+        var item = getItemHint(prng, spheres, itemLocs, depth, seen);
+        return makeItemHintText(item) + '\x02';
     }
 }
 
-function getHintGondowan(prng, type, spheres, itemLocs) {
-    if (type == 0) {
-        var depth = Math.max(getSphereDepth(spheres, itemLocs, "Lash Pebble"),
-            getSphereDepth(spheres, itemLocs, "Scoop Gem"), getSphereDepth(spheres, itemLocs, "Pound Cube"));
-        var item = itemLocs[pickRandomSlot(prng, spheres, depth)][0];
-        return makeItemHint(item) + "\x02";
-    } else if (type == 1) {
+/**
+ * Returns a random hint for Akafubu.
+ */
+function getHintGondowan(prng, type, spheres, itemLocs, seen) {
+    var depth = getMaxSphereDepth(spheres, itemLocs, ["Lash Pebble", "Scoop Gem", "Pound Cube"]);
+    var areaDepth = getMaxSphereDepth(spheres, itemLocs, ["Grindstone", "Lifting Gem", "Burst Brooch", "Growth"]);
+    var locDepth = getMaxSphereDepth(spheres, itemLocs, ["Cyclone Chip", "Frost Jewel", "Reveal"]);
+
+    if (type == 1 && depth < areaDepth) {
         var numKeyItems = getKeyItemCount(itemLocs, "Magma Rock");
         if (numKeyItems == 1)
             return "There is one important\x03item in Magma Rock.\x02";
         return "There are " + numToStr[numKeyItems] + " important\x03items in Magma Rock.\x02";
-    } else {
+    }
+    else if (type == 2 && depth < locDepth) {
         var item = itemLocs["0xf93"][0];
-        if (item['isKeyItem']) {
-            return "The depths of our great\x03statue hold a treasure\x03of great importance.\x02";
-        } else {
-            return "The depths of our great\x03statue do not have\x03anything of value.\x02";
-        };
+        return `The depths of our great\x03statue ${item['isKeyItem']
+            ? 'hold a treasure\x03of great importance'
+            : 'do not have\x03anything of value'
+        }.\x02`;
+    }
+    else {
+        var item = getItemHint(prng, spheres, itemLocs, depth, seen);
+        return makeItemHintText(item) + '\x02';
     }
 }
 
-function getHintLemuria(prng, type, spheres, itemLocs) {
-    if (type == 0) {
-        var depth = Math.min(getSphereDepth(spheres, itemLocs, "Grindstone"), getSphereDepth(spheres, itemLocs, "Trident"));
-        var item = itemLocs[pickRandomSlot(prng, spheres, depth)][0];
-        return makeItemHint(item) + "\x02";
-    } else if (type == 1) {
+/**
+ * Returns a random hint for King Hydros.
+ */
+function getHintLemuria(prng, type, spheres, itemLocs, seen) {
+    var depth = getSphereDepth(spheres, itemLocs, "Grindstone");
+    var areaDepth = Math.min(
+        getMaxSphereDepth(spheres, itemLocs, ["Douse Drop", "Frost Jewel"]),
+        getMaxSphereDepth(spheres, itemLocs, ["Douse Drop", "Parch"])   
+    );
+    var locDepth = getMaxSphereDepth(spheres, itemLocs, ["Burst Brooch", "Left Prong", "Center Prong", "Right Prong", "Reveal"]);
+
+    if (type == 1 && depth < areaDepth) {
         var numKeyItems = getKeyItemCount(itemLocs, "Aqua Rock");
         if (numKeyItems == 1)
             return "There is one important\x03item in Aqua Rock.\x02";
         return "There are " + numToStr[numKeyItems] + " important\x03items in Aqua Rock.\x02";
-    } else {
+    }
+    else if (type == 2 && depth < locDepth) {
         var item = itemLocs["0x978"][0];
-        if (item['isKeyItem']) {
-            return "The mistress of the great\x03forge holds a treasure\x03of great importance.\x02";
-        } else {
-            return "The mistress of the great\x03forge does not have\x03anything of value.\x02";
-        };
+        return `The mistress of the ancient\x03forge ${item['isKeyItem']
+            ? 'holds a treasure\x03of great importance'
+            : 'does not have\x03anything of value'
+        }.\x02`;
+    }
+    else {
+        var item = getItemHint(prng, spheres, itemLocs, depth, seen);
+        return makeItemHintText(item) + '\x02';
     }
 }
 
-function getHintAtteka(prng, type, spheres, itemLocs) {
-    if (type == 0) {
-        var depth = getSphereDepth(spheres, itemLocs, "Grindstone");
-        var item = itemLocs[pickRandomSlot(prng, spheres, depth)][0];
-        return makeItemHint(item) + "\x02";
-    } else if (type == 1) {
+/**
+ * Returns a random hint for the Contigo corn seller.
+ */
+function getHintAtteka(prng, type, spheres, itemLocs, seen) {
+    var depth = getSphereDepth(spheres, itemLocs, "Grindstone");
+    var areaDepth = getMaxSphereDepth(spheres, itemLocs, ["Cyclone Chip", "Hover Jade", "Reveal", "Red Key", "Blue Key"]);
+
+    if (type == 1 && depth < areaDepth) {
         var numKeyItems = getKeyItemCount(itemLocs, "Jupiter Lighthouse");
         if (numKeyItems == 1)
             return "There is one important\x03item in Jupiter Lighthouse.\x02";
         return "There are " + numToStr[numKeyItems] + " important\x03items in Jupiter Lighthouse.\x02";
-    } else {
-        var item = itemLocs["0x17"][0];
-        if (item['isKeyItem']) {
-            return "The flooded southern cave\x03holds a treasure of\x03great importance.\x02";
-        } else {
-            return "The flooded southern cave\x03does not have anything\x03of value.\x02";
-        };
+    }
+    else if (type == 2 && depth < areaDepth) {
+        var isKeyItem = ["0x101", "0x102", "0x103", "0x104"].some((id) => itemLocs[id][0]['isKeyItem']);
+        return `The other warriors of\x03Vale ${isKeyItem
+            ? 'hold a treasure\x03of great importance'
+            : 'do not have\x03anything of value'
+        }.\x02`;
+    }
+    else {
+        var item = getItemHint(prng, spheres, itemLocs, depth, seen);
+        return makeItemHintText(item) + '\x02';
     }
 }
 
-function getHintProx(prng, type, spheres, itemLocs) {
-    if (type == 0) {
-        var depth = Math.max(getSphereDepth(spheres, itemLocs, "Grindstone"), getSphereDepth(spheres, itemLocs, "Magma Ball"));
-        var item = itemLocs[pickRandomSlot(prng, spheres, depth)][0];
-        return makeItemHint(item) + "\x02";
-    } else if (type == 1) {
+/**
+ * Returns a random hint for the Proxian elder.
+ */
+function getHintProx(prng, type, spheres, itemLocs, seen) {
+    var depth = getMaxSphereDepth(spheres, itemLocs, ["Grindstone", "Magma Ball"]);
+    var areaDepth = getMaxSphereDepth(spheres, itemLocs, ["Grindstone", "Magma Ball", "Pound Cube", "Burst Brooch", "Teleport Lapis", "Blaze", "Reveal"]);
+
+    if (type == 1 && depth < areaDepth) {
         var numKeyItems = getKeyItemCount(itemLocs, "Mars Lighthouse");
         if (numKeyItems == 1)
             return "There is one important\x03item in Mars Lighthouse.\x02";
         return "There are " + numToStr[numKeyItems] + " important\x03items in Mars Lighthouse.\x02";
-    } else {
+    }
+    else if (type == 2 && depth < areaDepth) {
         var item = itemLocs["0xa3a"][0];
-        if (item['isKeyItem']) {
-            return "The missing warriors of\x03Prox hold a treasure\x03of great importance.\x02";
-        } else {
-            return "The missing warriors of\x03Prox do not have\x03anything of value.\x02";
-        };
+        return `The missing warriors of\x03Prox ${item['isKeyItem']
+            ? 'hold a treasure\x03of great importance'
+            : 'do not have\x03anything of value'
+        }.\x02`;
+    }
+    else {
+        var item = getItemHint(prng, spheres, itemLocs, depth, seen);
+        return makeItemHintText(item) + '\x02';
     }
 }
 
+/**
+ * Pick a random hint type, where `0` = item hint (60%), `1` = area hint (20%), `2` = single location hint (20%).
+ */
 function randomHintType(prng) {
-    return Math.max(1, Math.floor(prng.random() * 4)) - 1;
+    return Math.max(2, Math.floor(prng.random() * 5)) - 2;
 }
 
+/**
+ * Write randomly chosen hints into the text of the game.
+ */
 function writeHints(prng, lines, spheres, itemLocs) {
-    var hint = getHintIndra(prng, randomHintType(prng), spheres, itemLocs);
+    var seen = [];
+
+    var hint = getHintIndra(prng, randomHintType(prng), spheres, itemLocs, seen);
     textutil.writeLine(lines, 6055, hint);
 
-    hint = getHintOsenia(prng, randomHintType(prng), spheres, itemLocs);
+    hint = getHintOsenia(prng, randomHintType(prng), spheres, itemLocs, seen);
     textutil.writeLine(lines, 6797, hint);
 
-    hint = getHintGondowan(prng, randomHintType(prng), spheres, itemLocs);
+    hint = getHintGondowan(prng, randomHintType(prng), spheres, itemLocs, seen);
     textutil.writeLine(lines, 8191, hint);
 
-    hint = getHintLemuria(prng, randomHintType(prng), spheres, itemLocs);
+    hint = getHintLemuria(prng, randomHintType(prng), spheres, itemLocs, seen);
     textutil.writeLine(lines, 10362, hint);
 
-    hint = getHintAtteka(prng, randomHintType(prng), spheres, itemLocs);
+    hint = getHintAtteka(prng, randomHintType(prng), spheres, itemLocs, seen);
     textutil.writeLine(lines, 10455, hint);
     textutil.writeLine(lines, 11238, hint);
 
-    hint = getHintProx(prng, randomHintType(prng), spheres, itemLocs);
+    hint = getHintProx(prng, randomHintType(prng), spheres, itemLocs, seen);
     textutil.writeLine(lines, 11623, hint);
 }
 
