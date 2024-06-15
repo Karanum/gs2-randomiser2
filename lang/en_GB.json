@@ -279,6 +279,7 @@
         "skips_oob_hard": "Require hard OOB skips",
         "skips_gaia_maze": "Require Gaia Rock maze w/o Growth",
         "logic_ship_mode": "Lemurian Ship",
+        "logic_ship_wings": "Start with the Wings of Anemos",
         "logic_bosses": "Disable boss logic",
 
         "qol_psy_healing": "Start with healing Psynergy",

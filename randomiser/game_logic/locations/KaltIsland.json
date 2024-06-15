@@ -3,6 +3,11 @@
         [
             "Ship",
             "Grindstone"
+        ],
+        [
+            "Ship",
+            "ShipWings",
+            "Hover Jade"
         ]
     ],
     "Treasure": [],

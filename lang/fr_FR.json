@@ -279,6 +279,7 @@
         "skips_oob_hard": "Nécessite sauts difficiles hors-limites",
         "skips_gaia_maze": "Nécessite Mont Gaia labyrinthe sans Bourgeon",
         "logic_ship_mode": "Bateau Lémurian",
+        "logic_ship_wings": "Commencez par les Ailes d'Anémos",
         "logic_bosses": "Désactiver logique des boss",
 
         "qol_psy_healing": "Commencez par Psy soigner",

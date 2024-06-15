@@ -234,6 +234,7 @@ function randomise(seed, rawSettings, spoilerFilePath, callback) {
             fixLemurianShipPatch.apply(mapCodeClone);
         }
     }
+    if (settings['ship-wings']) defaultFlags = defaultFlags.concat([0x8df]);
 
     if (settings['hard-mode']) defaultFlags = defaultFlags.concat([0x2E]);
 

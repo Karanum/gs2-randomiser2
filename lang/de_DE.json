@@ -279,6 +279,7 @@
         "skips_oob_hard": "Schwerige OOB-Sprünge erfordern",
         "skips_gaia_maze": "Gaia-Felsenlabyrinth ohne Wachstum erfordern",
         "logic_ship_mode": "Schiff der Lemurianer",
+        "logic_ship_wings": "Mit die Flügel von Anemos beginnen",
         "logic_bosses": "Boss-Logik deaktivieren",
 
         "qol_psy_healing": "Mit heilender Psynergy beginnen",

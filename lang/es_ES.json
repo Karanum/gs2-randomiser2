@@ -279,6 +279,7 @@
         "skips_oob_hard": "Requerir saltos fuera-límites difíciles",
         "skips_gaia_maze": "Laberinto de Roca del Tierra sin Planta",
         "logic_ship_mode": "Barco Lemurio",
+        "logic_ship_wings": "Comienzo con las Alas de Anemos",
         "logic_bosses": "Deshabilitar la lógica de jefes",
 
         "qol_psy_healing": "Comienzo con Psinergía curativa",

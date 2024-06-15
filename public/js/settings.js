@@ -65,6 +65,7 @@ const randomiserSettings = {
     'sanc-cost': [9, 4, 2],
     'enemy-eres': [9, 6, 2],
 
+    'ship-wings': [10, 0, 1],
     'manual-rg': [10, 1, 1],
     'fixed-puzzles': [10, 2, 1],
     'random-puzzles': [10, 3, 1],
