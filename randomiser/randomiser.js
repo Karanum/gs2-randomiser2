@@ -30,6 +30,7 @@ const fastForgingPatch = require('./patches/fast_forging.js');
 const gabombaPuzzlePatch = require('./patches/gabomba_puzzle.js');
 const tutorialNpcPatch = require('./patches/tutorial_npcs.js');
 const fixCharPatch = require('./patches/fix_char.js');
+const fixLemurianShipPatch = require('./patches/fix_lemurian_ship.js');
 const puzzlesPatch = require('./patches/puzzles.js');
 const retreatGlitchPatch = require('./patches/retreat_glitch.js');
 
@@ -229,6 +230,8 @@ function randomise(seed, rawSettings, spoilerFilePath, callback) {
         defaultFlags = defaultFlags.concat([0x985]);
         if (settings['ship'] == 2) {
             defaultFlags = defaultFlags.concat([0x982, 0x983, 0x8de, 0x907]);
+        } else if (settings['ship'] == 1) {
+            fixLemurianShipPatch.apply(mapCodeClone);
         }
     }
 
