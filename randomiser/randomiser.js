@@ -33,6 +33,7 @@ const fixCharPatch = require('./patches/fix_char.js');
 const fixLemurianShipPatch = require('./patches/fix_lemurian_ship.js');
 const puzzlesPatch = require('./patches/puzzles.js');
 const retreatGlitchPatch = require('./patches/retreat_glitch.js');
+const backEntrancePatch = require('./patches/register_back_entrances.js');
 
 // List of in-game flags to turn on when cutscene skip is enabled
 const cutsceneSkipFlags = [0xf22, 0x890, 0x891, 0x892, 0x893, 0x894, 0x895, 0x896, 0x848, 0x86c, 0x86d, 0x86e, 0x86f,
@@ -119,6 +120,9 @@ function initialise() {
     // Remove "Update" option from main menu
     rom[0x4D62E] = 0x0;
     rom[0x4D62F] = 0xE0;
+
+    // Apply the back entrance patch
+    backEntrancePatch.apply(rom);
 }
 
 /**
