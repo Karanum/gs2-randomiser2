@@ -1,0 +1,6 @@
+<%_
+    let active = locals.active ?? false;
+_%>
+<li class="nav-item">
+    <button class="nav-link<%= active ? ' active' : '' %>" data-bs-toggle="tab" data-bs-target="#<%= locals.target %>"><%= locals.label %></button>
+</li>

@@ -59,10 +59,9 @@ router.get(['/', '/index.html', '/:lang/index.html'], validateLanguage, (req, re
 router.get(['/changelog.html', '/:lang/changelog.html'], validateLanguage, (req, res) => {
     res.render('changelog.ejs', {lang: locales[req.mwLang]});
 });
-//router.get(['/custom.html', '/:lang/custom.html'], validateLanguage, (req, res) => {
-//    const lang = validateLanguage(req.params.lang);
+// router.get(['/custom.html', '/:lang/custom.html'], validateLanguage, (req, res) => {
 //    res.render('custom.ejs', {lang: locales[req.mwLang]});
-//});
+// });
 router.get(['/help.html', '/:lang/help.html'], validateLanguage, (req, res) => {
     res.render('help.ejs', {lang: locales[req.mwLang]});
 });

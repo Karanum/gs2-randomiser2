@@ -76,13 +76,18 @@ function initialise() {
         upsAvoid = fs.readFileSync("./randomiser/ups/avoid.ups");
         upsTeleport = fs.readFileSync("./randomiser/ups/teleport.ups");
         upsRandomiser = fs.readFileSync("./randomiser/ups/randomiser_general.ups");
-        upsCutsceneSkip = fs.readFileSync("./randomiser/ups/cutscene_skip.ups");
         upsDjinnScaling = fs.readFileSync("./randomiser/ups/djinn_scaling.ups");
     });
 
     doTiming("Applying innate UPS patches...", () => {
         rom = ups.applyPatch(rom, upsTeleport);
         rom = ups.applyPatch(rom, upsRandomiser);
+
+        // Quick fix to remove part of the Champa map code injection
+        // TODO: Update randomiser_general.ups with this fix 
+        //   (though honestly, exorcise the whole injection system, it's a monstrosity of an if-else chain)
+        rom[0x0100771e] = 0x70;
+        rom[0x0100771f] = 0x47;
     });
     credits.writeToRom(rom);
 
