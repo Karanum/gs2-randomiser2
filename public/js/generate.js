@@ -22,7 +22,7 @@ function getPresetTooltip(val) {
 }
 
 function applySettings(arr) {
-    if (arr.length != 11) {
+    if (arr.length != 12) {
         console.error("Settings array is not the correct length.");
         return;
     }
@@ -49,7 +49,7 @@ function applySettings(arr) {
 }
 
 function getSettingsArray() {
-    var arr = new Uint8Array(11).fill(0);
+    var arr = new Uint8Array(12).fill(0);
     Object.keys(randomiserSettings).forEach((key) => {
         let elem = $(`#inp-${key}`);
         if (!elem) {

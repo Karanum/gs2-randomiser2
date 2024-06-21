@@ -35,6 +35,7 @@
         "tab_djinn": "Dschinn/Beschw.",
         "tab_psynergy": "Psynergy",
         "tab_stats": "Statistiken",
+        "tab_misc": "Andere",
 
         "tooltips": {
             "1": "Truhe- und Steintafel-Sprites werden durch ein Abbild des darin enthaltenen Item ersetzt.",
@@ -274,6 +275,8 @@
         "enemy_stats": "Feindstatistiken",
         "class_stats_random": "Klassenstatistiken randomisieren",
 
+        "music_shuffle": "In-Game Musik mischen",
+
         "skips_basic": "Einfache Glitches/Sprünge erfordern",
         "skips_oob_easy": "Einfache OOB-Sprünge erfordern",
         "skips_oob_hard": "Schwerige OOB-Sprünge erfordern",
@@ -406,6 +409,7 @@
         "header_log": "Spoiler-Log",
 
         "setting_autorun": "Automatisch rennen (halte B zu laufen)",
+        "setting_ignore_music": "Musik nicht mischen",
 
         "select_rom": "ROM auswählen",
         "select_file": "Dateipfad wählen",

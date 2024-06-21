@@ -35,6 +35,7 @@
         "tab_djinn": "Djinn/Summons",
         "tab_psynergy": "Psynergy",
         "tab_stats": "Stats",
+        "tab_misc": "Misc.",
 
         "tooltips": {
             "1": "Chest and tablet sprites are replaced by the icon of the item inside.",
@@ -274,6 +275,8 @@
         "enemy_stats": "Enemy Stats",
         "class_stats_random": "Randomise class stat boosts",
 
+        "music_shuffle": "Shuffle in-game music",
+
         "skips_basic": "Require basic glitches/skips",
         "skips_oob_easy": "Require easy OOB skips",
         "skips_oob_hard": "Require hard OOB skips",
@@ -406,6 +409,7 @@
         "header_log": "Spoiler log",
 
         "setting_autorun": "Auto-run (hold B to walk)",
+        "setting_ignore_music": "Don't shuffle music",
 
         "select_rom": "Select ROM file",
         "select_file": "Choose File",

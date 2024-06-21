@@ -75,7 +75,9 @@ function parse(settings) {
         'random-puzzles': (settings[10] >> 3) & 0b1,
         'fixed-puzzles': (settings[10] >> 2) & 0b1,
         'manual-rg': (settings[10] >> 1) & 0b1,
-        'ship-wings': settings[10] & 0b1
+        'ship-wings': settings[10] & 0b1,
+
+        'music-shuffle': (settings[11] >> 7) & 0b1
     };
 }
 

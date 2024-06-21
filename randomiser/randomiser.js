@@ -23,6 +23,7 @@ const forgeData = require('./game_data/forgeables.js');
 const characterData = require('./game_data/characters.js');
 const enemyData = require('./game_data/enemies.js');
 const elementData = require('./game_data/elem_tables.js');
+const musicData = require('./game_data/music.js');
 
 const cutsceneSkipPatch = require('./patches/cutscene_skip.js');
 const easierBossesPatch = require('./patches/easier_bosses.js');
@@ -104,6 +105,7 @@ function initialise() {
     doTiming("Loading character data...", () => characterData.initialise(rom));
     doTiming("Loading enemy data...", () => enemyData.initialise(rom, textutil));
     doTiming("Loading elemental tables...", () => elementData.initialise(rom));
+    doTiming("Loading music data...", () => musicData.initialise(rom));
     doTiming("Loading item location data...", () => itemLocations.initialise(rom, textutil, itemData));
     doTiming("Loading map code...", () => mapCode.initialise(rom));
 
@@ -207,6 +209,7 @@ function randomise(seed, rawSettings, spoilerFilePath, callback) {
     var characterClone = characterData.clone();
     var enemyClone = enemyData.clone();
     var elementClone = elementData.clone();
+    var musicClone = musicData.clone();
     var mapCodeClone = mapCode.clone();
 
     // Preparing item locations for randomisation and determining which locations to shuffle
@@ -317,6 +320,7 @@ function randomise(seed, rawSettings, spoilerFilePath, callback) {
     if (settings['enemy-eres'] == 2) elementData.randomiseResistances(elementClone, prng);
 
     if (settings['adv-equip']) randomiser.shuffleEquipmentAdvanced(prng, itemClone, shopClone, forgeClone);
+    if (settings['music-shuffle']) musicData.shuffleBGM(musicClone, prng);
 
     if (settings['equip-sort']) randomiser.sortEquipment(itemClone);
     if (settings['summon-sort']) randomiser.sortSummons();
@@ -351,6 +355,7 @@ function randomise(seed, rawSettings, spoilerFilePath, callback) {
     characterData.writeToRom(characterClone, target);
     enemyData.writeToRom(enemyClone, target);
     elementData.writeToRom(elementClone, target);
+    musicData.writeToRom(musicClone, target);
 
     textutil.writeToRom(textClone, target);
     mapCode.writeToRom(mapCodeClone, target);

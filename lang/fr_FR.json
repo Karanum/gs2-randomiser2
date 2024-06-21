@@ -35,6 +35,7 @@
         "tab_djinn": "Djinn/Invoc.",
         "tab_psynergy": "Psy",
         "tab_stats": "Statistiques",
+        "tab_misc": "Autres",
 
         "tooltips": {
             "1": "Les sprites des coffres et de stèles sont remplacés par l'icône l'objet à l'intérieur.",
@@ -274,6 +275,8 @@
         "enemy_stats": "Stats des ennemies",
         "class_stats_random": "Randomiser statistiques des classes",
 
+        "music_shuffle": "Mélanger musique du jeu",
+
         "skips_basic": "Nécessite pépins/sauts de base",
         "skips_oob_easy": "Nécessite sauts hors-limites de base",
         "skips_oob_hard": "Nécessite sauts difficiles hors-limites",
@@ -406,6 +409,7 @@
         "header_log": "Journal d'emplacement",
 
         "setting_autorun": "Auto-courir (maintenez B pour marcher)",
+        "setting_ignore_music": "Ne mélange pas musique",
 
         "select_rom": "Sélectionnez ROM",
         "select_file": "Choisir Fichier",

@@ -20,7 +20,7 @@ console.log("Randomiser initialised\n");
  * @returns {number[]}
  */
 function parseSettings(str) {
-    var array = new Uint8Array(11);
+    var array = new Uint8Array(12);
     str = str.padEnd(array.length * 2, '0');
 
     for (var i = 0; i < array.length; ++i) {

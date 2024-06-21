@@ -7,6 +7,8 @@ class UPSPatcher {
     sourceLength = 0;
     targetLength = 0;
 
+    ignoreMusic = false;
+
     explodePatch(patchFile) {
         this.explAddresses = [];
         this.explValues = [];
@@ -76,7 +78,9 @@ class UPSPatcher {
             let addr = this.explAddresses[i];
             let values = this.explValues[i];
             for (let j = 0; j < values.length; ++j) {
-                this.writeByte(values[j] ^ this.readByte(source, addr), target, addr);
+                if (!this.ignoreMusic || addr < 0x1C4530 || addr >= 0x1C5E30) {
+                    this.writeByte(values[j] ^ this.readByte(source, addr), target, addr);
+                }
                 ++addr;
             }
         }

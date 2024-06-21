@@ -35,6 +35,7 @@
         "tab_djinn": "Djinn/Invoc.",
         "tab_psynergy": "Psinergía",
         "tab_stats": "Estadísticas",
+        "tab_misc": "Otros",
 
         "tooltips": {
             "1": "Los sprites de cofres y lápidas se reemplazan por el ícono del objeto que se encuentra dentro.",
@@ -274,6 +275,8 @@
         "enemy_stats": "Estadísticas de Enemigas",
         "class_stats_random": "Aleatorizar estadísticas de clases",
 
+        "music_shuffle": "Intercambiar música del juego",
+
         "skips_basic": "Requerir fallas/saltos básicos",
         "skips_oob_easy": "Requerir saltos fuera-límites fáciles",
         "skips_oob_hard": "Requerir saltos fuera-límites difíciles",
@@ -406,6 +409,7 @@
         "header_log": "Registro de ubicaciones",
 
         "setting_autorun": "Auto-correr (mantenga B para caminar)",
+        "setting_ignore_music": "No intercambies música",
 
         "select_rom": "Seleccionar ROM",
         "select_file": "Elija Archivo",
