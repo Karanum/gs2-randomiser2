@@ -202,7 +202,7 @@ function makeItemHintText(item) {
 function getItemHint(prng, spheres, itemLocs, depth, seen) {
     var slot = pickRandomSlot(prng, spheres, itemLocs, depth);
     var attempts = 0;
-    while (slot in seen && attempts < 10) {
+    while (seen.includes(slot) && attempts < 10) {
         slot = pickRandomSlot(prng, spheres, itemLocs, depth);
         ++attempts;
     }
