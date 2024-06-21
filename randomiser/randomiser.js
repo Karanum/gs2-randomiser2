@@ -34,6 +34,7 @@ const fixLemurianShipPatch = require('./patches/fix_lemurian_ship.js');
 const puzzlesPatch = require('./patches/puzzles.js');
 const retreatGlitchPatch = require('./patches/retreat_glitch.js');
 const backEntrancePatch = require('./patches/register_back_entrances.js');
+const endgameShortcutPatch = require('./patches/endgame_shortcuts.js');
 
 // List of in-game flags to turn on when cutscene skip is enabled
 const cutsceneSkipFlags = [0xf22, 0x890, 0x891, 0x892, 0x893, 0x894, 0x895, 0x896, 0x848, 0x86c, 0x86d, 0x86e, 0x86f,
@@ -215,6 +216,7 @@ function randomise(seed, rawSettings, spoilerFilePath, callback) {
     gabombaPuzzlePatch.apply(mapCodeClone, textClone);
     fastForgingPatch.apply(mapCodeClone, textClone);
     tutorialNpcPatch.apply(mapCodeClone, textClone, settings);
+    endgameShortcutPatch.apply(mapCodeClone);
 
     // Applying settings
     if (settings['free-avoid']) abilityClone[150].cost = 0;
