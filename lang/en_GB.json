@@ -35,6 +35,7 @@
         "tab_djinn": "Djinn/Summons",
         "tab_psynergy": "Psynergy",
         "tab_stats": "Stats",
+        "tab_misc": "Misc.",
 
         "tooltips": {
             "1": "Chest and tablet sprites are replaced by the icon of the item inside.",
@@ -50,7 +51,9 @@
             "11": "Only increases the starting level of characters that start off lower.",
             "12": "OOB skips with tight or complex movement may be required. Disables 0 PP Retreat setting.",
             "13": "Use Avoid to turn it on/off. It will negate all encounters regardless of party level.",
-            "14": "Enemies get +50% HP and +25% Attack and Defense."
+            "14": "Enemies get +50% HP and +25% Attack and Defense.",
+            "15": "Puzzles in Gabomba Statue, Gaia Rock and Trial Road are generated for the name \"Felix\".",
+            "16": "Puzzles in Gabomba Statue, Gaia Rock and Trial Road are generated randomly."
         }
     },
 
@@ -202,7 +205,7 @@
                 ["Air's Rock", "Reveal tablet"],
                 ["Gabomba Catacombs", "Tomegathericon"],
                 ["Champa", "Trident"],
-                ["Atteka Cave", "Coatlicue tablet"],
+                ["Contigo", "Isaac's Party"],
                 ["Mars Lighthouse", "Mars Star"]
             ]
         }
@@ -272,11 +275,14 @@
         "enemy_stats": "Enemy Stats",
         "class_stats_random": "Randomise class stat boosts",
 
+        "music_shuffle": "Shuffle in-game music",
+
         "skips_basic": "Require basic glitches/skips",
         "skips_oob_easy": "Require easy OOB skips",
         "skips_oob_hard": "Require hard OOB skips",
         "skips_gaia_maze": "Require Gaia Rock maze w/o Growth",
         "logic_ship_mode": "Lemurian Ship",
+        "logic_ship_wings": "Start with the Wings of Anemos",
         "logic_bosses": "Disable boss logic",
 
         "qol_psy_healing": "Start with healing Psynergy",
@@ -297,7 +303,12 @@
 
         "scale_exp": "Scale Exp",
         "scale_coins": "Scale Coins",
-        "starting_level": "Starting Levels"
+        "starting_level": "Starting Levels",
+
+        "puzzles_fixed": "Make name-based puzzles fixed",
+        "puzzles_random": "Make name-based puzzles random",
+
+        "manual_retreat_glitch": "Hold SELECT to always trigger Retreat glitch"
     },
 
     "options": {
@@ -319,6 +330,7 @@
             "vanilla": "Vanilla",
             "class": "Randomise by classline",
             "group": "Randomise by Psynergy group",
+            "group_element": "Randomise by Psynergy group (prefer same element)",
             "element": "Randomise by Psynergy element",
             "full": "Fully randomised"
         },
@@ -397,6 +409,7 @@
         "header_log": "Spoiler log",
 
         "setting_autorun": "Auto-run (hold B to walk)",
+        "setting_ignore_music": "Don't shuffle music",
 
         "select_rom": "Select ROM file",
         "select_file": "Choose File",

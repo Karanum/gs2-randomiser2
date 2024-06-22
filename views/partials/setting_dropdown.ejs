@@ -1,0 +1,12 @@
+<%_
+    let margin = locals.margin ?? '3';
+    let selected = locals.selected ?? '';
+_%>
+<div class="input-group mb-<%= margin %>">
+    <label for="<%= locals.id %>" class="input-group-text"><%= label %></label>
+    <select class="form-select cache-setting" id="<%= locals.id %>">
+        <%_ locals.data.forEach((line) => { _%>
+        <option value="<%= line[0] %>" <%= selected == line[0] ? 'selected' : '' %>><%= line[1] %></option>
+        <%_ }) _%>
+    </select>
+</div>

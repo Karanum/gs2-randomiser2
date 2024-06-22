@@ -1,0 +1,15 @@
+<%_
+    let margin = locals.margin ?? '2';
+    let checked = (locals.checked ? 'checked' : '');
+_%>
+<div class="form-check form-switch mb-<%= margin %>">
+    <input class="form-check-input cache-setting" type="checkbox" id="<%= locals.id %>" <%= checked %>>
+    <label for="<%= locals.id %>" class="form-check-label">
+        <%= label %>
+        <%_ if (locals.tooltip) { _%>
+        <span class="tooltip-container" title="<%= lang.index.tooltips[`${locals.tooltip}`] %>">
+            <i class="bi bi-question-circle-fill"></i>
+        </span>
+        <%_ } _%>
+    </label>
+</div>

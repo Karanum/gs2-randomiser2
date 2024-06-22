@@ -35,6 +35,7 @@
         "tab_djinn": "Djinn/Invoc.",
         "tab_psynergy": "Psinergía",
         "tab_stats": "Estadísticas",
+        "tab_misc": "Otros",
 
         "tooltips": {
             "1": "Los sprites de cofres y lápidas se reemplazan por el ícono del objeto que se encuentra dentro.",
@@ -50,7 +51,9 @@
             "11": "Solo aumenta el nivel inicial de los personajes que comienzan más abajo.",
             "12": "Es posible que se requieran saltos fuera-límites con movimientos precisos o complejos. Deshabilita la configuración de 0 PP Huir.",
             "13": "Utilice Esquivar para activarlo o desactivarlo. Anulará todos los encuentros independientemente del nivel del grupo.",
-            "14": "Los enemigos obtienen +50% PV y +25% Ataque y Defensa."
+            "14": "Los enemigos obtienen +50% PV y +25% Ataque y Defensa.",
+            "15": "Puzzles en Estatua de Gabomba, Roca del Tierra y Prueba Final se generan por el nombre \"Felix\".",
+            "16": "Puzzles en Estatua de Gabomba, Roca del Tierra y Prueba Final se generan aleatoriamente."
         }
     },
 
@@ -202,7 +205,7 @@
                 ["Roca del Aire", "Lápida del Revelar"],
                 ["Gabomba Catacombs", "Tomegathericon"],
                 ["Champa", "Tridente"],
-                ["Caverna de Atteka", "Lápida de Coatlicue"],
+                ["Mitdir", "Grupo de Hans"],
                 ["Faro de Marte", "Estrella Marte"]
             ]
         }
@@ -272,11 +275,14 @@
         "enemy_stats": "Estadísticas de Enemigas",
         "class_stats_random": "Aleatorizar estadísticas de clases",
 
+        "music_shuffle": "Intercambiar música del juego",
+
         "skips_basic": "Requerir fallas/saltos básicos",
         "skips_oob_easy": "Requerir saltos fuera-límites fáciles",
         "skips_oob_hard": "Requerir saltos fuera-límites difíciles",
         "skips_gaia_maze": "Laberinto de Roca del Tierra sin Planta",
         "logic_ship_mode": "Barco Lemurio",
+        "logic_ship_wings": "Comienzo con las Alas de Anemos",
         "logic_bosses": "Deshabilitar la lógica de jefes",
 
         "qol_psy_healing": "Comienzo con Psinergía curativa",
@@ -297,7 +303,12 @@
 
         "scale_exp": "Escala Exp.",
         "scale_coins": "Escala Monedas",
-        "starting_level": "Niveles Iniciales"
+        "starting_level": "Niveles Iniciales",
+
+        "puzzles_fixed": "Haz que puzzles basados en nombre fijado",
+        "puzzles_random": "Haz que puzzles basados en nombre aleatorios",
+
+        "manual_retreat_glitch": "Mantenga SELECT para activar siempre Huir glitch"
     },
 
     "options": {
@@ -319,6 +330,7 @@
             "vanilla": "Vanilla",
             "class": "Intercambiar por grupo de clases",
             "group": "Intercambiar por grupo de Psinergía",
+            "group_element": "Intercambiar por grupo de Psinergía (prefiere mismo elemento)",
             "element": "Intercambiar por elemento de Psinergía",
             "full": "Aleatorizar completamente"
         },
@@ -397,6 +409,7 @@
         "header_log": "Registro de ubicaciones",
 
         "setting_autorun": "Auto-correr (mantenga B para caminar)",
+        "setting_ignore_music": "No intercambies música",
 
         "select_rom": "Seleccionar ROM",
         "select_file": "Elija Archivo",

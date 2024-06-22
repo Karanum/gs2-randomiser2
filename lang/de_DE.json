@@ -35,6 +35,7 @@
         "tab_djinn": "Dschinn/Beschw.",
         "tab_psynergy": "Psynergy",
         "tab_stats": "Statistiken",
+        "tab_misc": "Andere",
 
         "tooltips": {
             "1": "Truhe- und Steintafel-Sprites werden durch ein Abbild des darin enthaltenen Item ersetzt.",
@@ -50,7 +51,9 @@
             "11": "Erhöht nur das Anfangslevel von Charakteren die niedriger anfangen.",
             "12": "OOB-Sprünge mit präziser oder komplexen Bewegung können erforderlich sein. Deaktiviert die \"0 PP-Rückzug\"-Einstellung.",
             "13": "Vermeidung schaltet ein/aus. Es verhindert alle Kämpfe, unabhängig von der Truppenlevel.",
-            "14": "Feinde erhalten +50% KP und +25% Attacke und Verteidigung."
+            "14": "Feinde erhalten +50% KP und +25% Attacke und Verteidigung.",
+            "15": "Puzzles in Gabomba-Statue, Gaia-Felsen und Straße der Prüfungen werden zum Namen \"Felix\" generiert.",
+            "16": "Puzzles in Gabomba-Statue, Gaia-Felsen und Straße der Prüfungen werden zufällig generiert."
         }
     },
 
@@ -202,7 +205,7 @@
                 ["Bora-Felsen", "Enthüller-Tafel"],
                 ["Katakomben von Gabomba", "Tomegathericon"],
                 ["Champa", "Dreizack"],
-                ["Höhle von Atteka", "Quetzalcoatl-Tafel"],
+                ["Contigo", "Isaacs Gruppe"],
                 ["Mars-Leuchtturm", "Mars-Stern"]
             ]
         }
@@ -272,11 +275,14 @@
         "enemy_stats": "Feindstatistiken",
         "class_stats_random": "Klassenstatistiken randomisieren",
 
+        "music_shuffle": "In-Game Musik mischen",
+
         "skips_basic": "Einfache Glitches/Sprünge erfordern",
         "skips_oob_easy": "Einfache OOB-Sprünge erfordern",
         "skips_oob_hard": "Schwerige OOB-Sprünge erfordern",
         "skips_gaia_maze": "Gaia-Felsenlabyrinth ohne Wachstum erfordern",
         "logic_ship_mode": "Schiff der Lemurianer",
+        "logic_ship_wings": "Mit die Flügel von Anemos beginnen",
         "logic_bosses": "Boss-Logik deaktivieren",
 
         "qol_psy_healing": "Mit heilender Psynergy beginnen",
@@ -297,7 +303,12 @@
 
         "scale_exp": "Erfahrungsfaktor",
         "scale_coins": "Münzenfaktor",
-        "starting_level": "Anfangslevels"
+        "starting_level": "Anfangslevels",
+
+        "puzzles_fixed": "Mach namenbasierte Puzzles fixiert",
+        "puzzles_random": "Mach namenbasierte Puzzles zufällig",
+
+        "manual_retreat_glitch": "Halt SELECT um immer Rückzugglitch zu aktivieren"
     },
 
     "options": {
@@ -319,6 +330,7 @@
             "vanilla": "Vanilla",
             "class": "Nach Klassengruppe randomisieren",
             "group": "Nach Psynergygruppe randomisieren",
+            "group_element": "Nach Psynergygruppe randomisieren (neigen zum gleichen Element)",
             "element": "Nach Psynergy-Elemente randomisieren",
             "full": "Komplett randomisieren"
         },
@@ -397,6 +409,7 @@
         "header_log": "Spoiler-Log",
 
         "setting_autorun": "Automatisch rennen (halte B zu laufen)",
+        "setting_ignore_music": "Musik nicht mischen",
 
         "select_rom": "ROM auswählen",
         "select_file": "Dateipfad wählen",

@@ -3,6 +3,7 @@
 <head>
     <%- include("partials/head_common") %>
 
+    <script src="/js/settings.js"></script>
     <script src="/js/generate.js"></script>
 
     <meta property="og:title" content="Generate Seed">
@@ -43,17 +44,6 @@
                                 <% if (lang.lang != "en") { %>
                                 <p><%= lang.index.translation %></p>
                                 <% } %>
-                                <div class="alert alert-info mt-4">
-                                    <i class="bi bi-info-circle-fill"></i>
-                                    <span class="ms-1"><b><%= lang.versions.date_format
-                                        .replace("%d", "15")
-                                        .replace("%s", lang.versions.num_suffixes[5])
-                                        .replace("%m", lang.versions.months[6])
-                                        .replace("%y", "2023")
-                                    %></b></span><br/>
-                                    If you are using the old EmoTracker pack and aren't in the Discord: as of last week there is a new official tracker pack available at
-                                    <a href="https://github.com/Karanum/gstla_emotracker_pack" style="color: #967a05 !important;">https://github.com/Karanum/gstla_emotracker_pack</a><br/>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -122,7 +112,7 @@
                             </div>
                         </div>
 
-                        <div class="card mt-3">
+                        <div class="card mt-4">
                             <h3 class="card-header"><%= lang.index.subheader_rando %></h3>
                             <div class="card-body"> 
                                 <ul class="nav nav-tabs" id="tabs-randomisation">
@@ -138,118 +128,56 @@
                                     <li class="nav-item">
                                         <button class="nav-link" id="tab-stats" data-bs-toggle="tab" data-bs-target="#tabdiv-stats"><%= lang.index.tab_stats %></button>
                                     </li>
+                                    <li class="nav-item">
+                                        <button class="nav-link" id="tab-misc" data-bs-toggle="tab" data-bs-target="#tabdiv-misc"><%= lang.index.tab_misc %></button>
+                                    </li>
                                 </ul>
                                 <div class="tab-content mt-4">
                                     <div class="tab-pane fade show active" id="tabdiv-items">
                                         <div class="row">
                                             <div class="col-12 col-lg-6">
-                                                <div class="input-group mb-3">
-                                                    <label class="input-group-text"><%= lang.settings.item_shuffle %></label>
-                                                    <select class="form-select cache-setting" id="inp-item-shuffle">
-                                                        <option value='0'><%= lang.options.item_shuffle.vanilla %></option>
-                                                        <option value='1' selected><%= lang.options.item_shuffle.key %></option>
-                                                        <option value='2'><%= lang.options.item_shuffle.most %></option>
-                                                        <option value='10'><%= lang.options.item_shuffle.most %> <%= lang.options.item_shuffle.mod_majmin %></option>
-                                                        <option value='3'><%= lang.options.item_shuffle.all %></option>
-                                                        <option value='11'><%= lang.options.item_shuffle.all %> <%= lang.options.item_shuffle.mod_majmin %></option>
-                                                    </select>
-                                                </div>
+                                                <%- include('partials/setting_dropdown', { id: 'inp-item-shuffle', label: lang.settings.item_shuffle, selected: '1', data: [
+                                                    ['0', lang.options.item_shuffle.vanilla], 
+                                                    ['1', lang.options.item_shuffle.key],
+                                                    ['2', lang.options.item_shuffle.most], ['10', `${lang.options.item_shuffle.most} ${lang.options.item_shuffle.mod_majmin}`],
+                                                    ['3', lang.options.item_shuffle.all], ['11', `${lang.options.item_shuffle.all} ${lang.options.item_shuffle.mod_majmin}`]
+                                                ] }) %>
                                             </div> 
         
                                             <div class="col-12 col-lg-6">
-                                                <div class="input-group mb-3">
-                                                    <label class="input-group-text"><%= lang.settings.omit_locs %></label>
-                                                    <select class="form-select cache-setting" id="inp-omit">
-                                                        <option value='0'><%= lang.options.omit_locs.none %></option>
-                                                        <option value='1'><%= lang.options.omit_locs.anemos %></option>
-                                                        <option value='2' selected><%= lang.options.omit_locs.superboss %></option>
-                                                    </select>
-                                                </div>
+                                                <%- include('partials/setting_dropdown', { id: 'inp-omit', label: lang.settings.omit_locs, selected: '2', data: [
+                                                    ['0', lang.options.omit_locs.none], 
+                                                    ['1', lang.options.omit_locs.anemos], 
+                                                    ['2', lang.options.omit_locs.superboss]
+                                                ] }) %>
                                             </div> 
         
                                             <div class="col-12 col-lg-6">
-                                                <div class="form-check form-switch mb-2">
-                                                    <input class="form-check-input cache-setting" type="checkbox" id="inp-gs1-items">
-                                                    <label class="form-check-label"><%= lang.settings.gs1_items %></label>
-                                                </div>
-                                                <div class="form-check form-switch mb-2">
-                                                    <input class="form-check-input cache-setting" type="checkbox" id="inp-dummy-items">
-                                                    <label class="form-check-label"><%= lang.settings.dummy_items %></label>
-                                                </div>
-                                                <div class="form-check form-switch mb-2">
-                                                    <input class="form-check-input cache-setting" type="checkbox" id="inp-adv-equip">
-                                                    <label class="form-check-label"><%= lang.settings.shuffle_shops %></label>
-                                                </div>
+                                                <%- include('partials/setting_switch', { id: 'inp-gs1-items', label: lang.settings.gs1_items }) %>
+                                                <%- include('partials/setting_switch', { id: 'inp-dummy-items', label: lang.settings.dummy_items }) %>
+                                                <%- include('partials/setting_switch', { id: 'inp-adv-equip', label: lang.settings.shuffle_shops }) %>
                                             </div>
                                             <div class="col-12 col-lg-6">
-                                                <div class="form-check form-switch mb-2">
-                                                    <input class="form-check-input cache-setting" type="checkbox" id="inp-show-items" checked>
-                                                    <label class="form-check-label"><%= lang.settings.no_chests %> 
-                                                        <span class="tooltip-container" title="<%= lang.index.tooltips['1'] %>">
-                                                            <i class="bi bi-question-circle-fill"></i>
-                                                        </span>
-                                                    </label>                        
-                                                </div>
-                                                <div class="form-check form-switch mb-3">
-                                                    <input class="form-check-input cache-setting" type="checkbox" id="inp-no-learning" checked>
-                                                    <label class="form-check-label"><%= lang.settings.utility_psy %> 
-                                                        <span class="tooltip-container" title="<%= lang.index.tooltips['2'] %>">
-                                                            <i class="bi bi-question-circle-fill"></i>
-                                                        </span>
-                                                    </label>
-                                                </div>
+                                                <%- include('partials/setting_switch', { id: 'inp-show-items', label: lang.settings.no_chests, checked: true, tooltip: 1 }) %>
+                                                <%- include('partials/setting_switch', { id: 'inp-no-learning', label: lang.settings.utility_psy, checked: true, tooltip: 2 }) %>
                                             </div>
 
                                             <hr class="mt-1 mb-3">
 
                                             <div class="col-12 col-lg-6">
-                                                <div class="form-check form-switch mb-2">
-                                                    <input class="form-check-input cache-setting" type="checkbox" id="inp-equip-stats">
-                                                    <label class="form-check-label"><%= lang.settings.equip_adjust %></label>
-                                                </div>
-                                                <div class="form-check form-switch mb-2">
-                                                    <input class="form-check-input cache-setting" type="checkbox" id="inp-equip-attack">
-                                                    <label class="form-check-label"><%= lang.settings.weapon_attack_shuffle %></label>
-                                                </div>
-                                                <div class="form-check form-switch mb-2">
-                                                    <input class="form-check-input cache-setting" type="checkbox" id="inp-equip-defense">
-                                                    <label class="form-check-label"><%= lang.settings.armour_defense_shuffle %></label>
-                                                </div>
-                                                <div class="form-check form-switch mb-2">
-                                                    <input class="form-check-input cache-setting" type="checkbox" id="inp-equip-cost">
-                                                    <label class="form-check-label"><%= lang.settings.equip_price_adjust %></label>
-                                                </div>
-                                                <div class="form-check form-switch mb-3">
-                                                    <input class="form-check-input cache-setting" type="checkbox" id="inp-equip-sort" checked>
-                                                    <label class="form-check-label"><%= lang.settings.equip_sort %> 
-                                                        <span class="tooltip-container" title="<%= lang.index.tooltips['3'] %>">
-                                                            <i class="bi bi-question-circle-fill"></i>
-                                                        </span>
-                                                    </label>
-                                                </div>
+                                                <%- include('partials/setting_switch', { id: 'inp-equip-stats', label: lang.settings.equip_adjust }) %>
+                                                <%- include('partials/setting_switch', { id: 'inp-equip-attack', label: lang.settings.weapon_attack_shuffle }) %>
+                                                <%- include('partials/setting_switch', { id: 'inp-equip-defense', label: lang.settings.armour_defense_shuffle }) %>
+                                                <%- include('partials/setting_switch', { id: 'inp-equip-cost', label: lang.settings.equip_price_adjust }) %>
+                                                <%- include('partials/setting_switch', { id: 'inp-equip-sort', label: lang.settings.equip_sort, checked: true, margin: 3, tooltip: 3 }) %>
                                             </div>
 
                                             <div class="col-12 col-lg-6">
-                                                <div class="form-check form-switch mb-2">
-                                                    <input class="form-check-input cache-setting" type="checkbox" id="inp-equip-shuffle">
-                                                    <label class="form-check-label"><%= lang.settings.equip_compat_random %></label>
-                                                </div>
-                                                <div class="form-check form-switch mb-2">
-                                                    <input class="form-check-input cache-setting" type="checkbox" id="inp-equip-unleash">
-                                                    <label class="form-check-label"><%= lang.settings.weapon_effect_shuffle %></label>
-                                                </div>
-                                                <div class="form-check form-switch mb-2">
-                                                    <input class="form-check-input cache-setting" type="checkbox" id="inp-equip-effect">
-                                                    <label class="form-check-label"><%= lang.settings.armour_effect_shuffle %></label>
-                                                </div>
-                                                <div class="form-check form-switch mb-2">
-                                                    <input class="form-check-input cache-setting" type="checkbox" id="inp-equip-curse">
-                                                    <label class="form-check-label"><%= lang.settings.curse_random %></label>
-                                                </div>
-                                                <div class="form-check form-switch mb-3">
-                                                    <input class="form-check-input cache-setting" type="checkbox" id="inp-curse-disable">
-                                                    <label class="form-check-label"><%= lang.settings.curse_remove %></label>
-                                                </div>
+                                                <%- include('partials/setting_switch', { id: 'inp-equip-shuffle', label: lang.settings.equip_compat_random }) %>
+                                                <%- include('partials/setting_switch', { id: 'inp-equip-unleash', label: lang.settings.weapon_effect_shuffle }) %>
+                                                <%- include('partials/setting_switch', { id: 'inp-equip-effect', label: lang.settings.armour_effect_shuffle }) %>
+                                                <%- include('partials/setting_switch', { id: 'inp-equip-curse', label: lang.settings.curse_random }) %>
+                                                <%- include('partials/setting_switch', { id: 'inp-curse-disable', label: lang.settings.curse_remove }) %>
                                             </div>
                                         </div>
                                     </div>
@@ -257,49 +185,17 @@
                                     <div class="tab-pane fade" id="tabdiv-djinn">
                                         <div class="row">
                                             <div class="col-12 col-lg-6">
-                                                <div class="form-check form-switch mb-2">
-                                                    <input class="form-check-input cache-setting" type="checkbox" id="inp-djinn-shuffle" checked>
-                                                    <label class="form-check-label"><%= lang.settings.djinn_shuffle %></label>
-                                                </div>
-                                                <div class="form-check form-switch mb-2">
-                                                    <input class="form-check-input cache-setting" type="checkbox" id="inp-djinn-stats">
-                                                    <label class="form-check-label"><%= lang.settings.djinn_stats_shuffle %></label>
-                                                </div>
-                                                <div class="form-check form-switch mb-2">
-                                                    <input class="form-check-input cache-setting" type="checkbox" id="inp-djinn-power">
-                                                    <label class="form-check-label"><%= lang.settings.djinn_power_adjust %></label>
-                                                </div>
-                                                <div class="form-check form-switch mb-2">
-                                                    <input class="form-check-input cache-setting" type="checkbox" id="inp-djinn-aoe">
-                                                    <label class="form-check-label"><%= lang.settings.djinn_range_random %></label>
-                                                </div>
-                                                <div class="form-check form-switch mb-3">
-                                                    <input class="form-check-input cache-setting" type="checkbox" id="inp-djinn-scale" checked>
-                                                    <label class="form-check-label"><%= lang.settings.djinn_scaling %> 
-                                                        <span class="tooltip-container" title="<%= lang.index.tooltips['4'] %>">
-                                                            <i class="bi bi-question-circle-fill"></i>
-                                                        </span>
-                                                    </label>
-                                                </div>
+                                                <%- include('partials/setting_switch', { id: 'inp-djinn-shuffle', label: lang.settings.djinn_shuffle, checked: true }) %>
+                                                <%- include('partials/setting_switch', { id: 'inp-djinn-stats', label: lang.settings.djinn_stats_shuffle }) %>
+                                                <%- include('partials/setting_switch', { id: 'inp-djinn-power', label: lang.settings.djinn_power_adjust }) %>
+                                                <%- include('partials/setting_switch', { id: 'inp-djinn-aoe', label: lang.settings.djinn_range_random }) %>
+                                                <%- include('partials/setting_switch', { id: 'inp-djinn-scale', label: lang.settings.djinn_scaling, checked: true, margin: 3, tooltip: 4 }) %>
                                             </div>
         
                                             <div class="col-12 col-lg-6">
-                                                <div class="form-check form-switch mb-2">
-                                                    <input class="form-check-input cache-setting" type="checkbox" id="inp-summon-cost">
-                                                    <label class="form-check-label"><%= lang.settings.summon_cost_random %></label>
-                                                </div>
-                                                <div class="form-check form-switch mb-2">
-                                                    <input class="form-check-input cache-setting" type="checkbox" id="inp-summon-power">
-                                                    <label class="form-check-label"><%= lang.settings.summon_power_adjust %></label>
-                                                </div>
-                                                <div class="form-check form-switch mb-3">
-                                                    <input class="form-check-input cache-setting" type="checkbox" id="inp-summon-sort" checked>
-                                                    <label class="form-check-label"><%= lang.settings.summon_sort %> 
-                                                        <span class="tooltip-container" title="<%= lang.index.tooltips['5'] %>">
-                                                            <i class="bi bi-question-circle-fill"></i>
-                                                        </span>
-                                                    </label>
-                                                </div>
+                                                <%- include('partials/setting_switch', { id: 'inp-summon-cost', label: lang.settings.summon_cost_random }) %>
+                                                <%- include('partials/setting_switch', { id: 'inp-summon-power', label: lang.settings.summon_power_adjust }) %>
+                                                <%- include('partials/setting_switch', { id: 'inp-summon-sort', label: lang.settings.summon_sort, checked: true, tooltip: 5 }) %>
                                             </div>
                                         </div>
                                     </div>
@@ -307,55 +203,35 @@
                                     <div class="tab-pane fade" id="tabdiv-psy">
                                         <div class="row">
                                             <div class="col-12 col-lg-6">
-                                                <div class="input-group mb-3">
-                                                    <label class="input-group-text"><%= lang.settings.psy_shuffle %></label>
-                                                    <select class="form-select cache-setting" id="inp-class-psynergy">
-                                                        <option value='0' selected><%= lang.options.psy_shuffle.vanilla %></option>
-                                                        <option value='1'><%= lang.options.psy_shuffle.class %></option>
-                                                        <option value='2'><%= lang.options.psy_shuffle.group %></option>
-                                                        <option value='3'><%= lang.options.psy_shuffle.element %></option>
-                                                        <option value='4'><%= lang.options.psy_shuffle.full %></option>
-                                                    </select>
-                                                </div>
+                                                <%- include('partials/setting_dropdown', { id: 'inp-class-psynergy', label: lang.settings.psy_shuffle, selected: '0', data: [
+                                                    ['0', lang.options.psy_shuffle.vanilla], 
+                                                    ['1', lang.options.psy_shuffle.class], 
+                                                    ['2', lang.options.psy_shuffle.group],
+                                                    ['5', lang.options.psy_shuffle.group_element],
+                                                    ['3', lang.options.psy_shuffle.element],
+                                                    ['4', lang.options.psy_shuffle.full]
+                                                ] }) %>
                                             </div>
         
                                             <div class="col-12 col-lg-6">
-                                                <div class="input-group mb-3">
-                                                    <label class="input-group-text"><%= lang.settings.psy_levels %></label>
-                                                    <select class="form-select cache-setting" id="inp-class-levels">
-                                                        <option value='0' selected><%= lang.options.psy_levels.vanilla %></option>
-                                                        <option value='1'><%= lang.options.psy_levels.adjust %></option>
-                                                        <option value='2'><%= lang.options.psy_levels.random %></option>
-                                                    </select>
-                                                </div>
+                                                <%- include('partials/setting_dropdown', { id: 'inp-class-levels', label: lang.settings.psy_levels, selected: '0', data: [
+                                                    ['0', lang.options.psy_levels.vanilla], 
+                                                    ['1', lang.options.psy_levels.adjust], 
+                                                    ['2', lang.options.psy_levels.random]
+                                                ] }) %>
                                             </div>
 
                                             <hr class="mt-1 mb-3">
 
                                             <div class="col-12 col-lg-6">
-                                                <div class="form-check form-switch mb-2">
-                                                    <input class="form-check-input cache-setting" type="checkbox" id="inp-psynergy-power">
-                                                    <label class="form-check-label"><%= lang.settings.psy_power_adjust %></label>
-                                                </div>
-                                                <div class="form-check form-switch mb-2">
-                                                    <input class="form-check-input cache-setting" type="checkbox" id="inp-psynergy-cost">
-                                                    <label class="form-check-label"><%= lang.settings.psy_cost_adjust %></label>
-                                                </div>
-                                                <div class="form-check form-switch mb-3">
-                                                    <input class="form-check-input cache-setting" type="checkbox" id="inp-psynergy-aoe">
-                                                    <label class="form-check-label"><%= lang.settings.psy_range_random %></label>
-                                                </div>
+                                                <%- include('partials/setting_switch', { id: 'inp-psynergy-power', label: lang.settings.psy_power_adjust }) %>
+                                                <%- include('partials/setting_switch', { id: 'inp-psynergy-cost', label: lang.settings.psy_cost_adjust }) %>
+                                                <%- include('partials/setting_switch', { id: 'inp-psynergy-aoe', label: lang.settings.psy_range_random, margin: 3 }) %>
                                             </div>
 
                                             <div class="col-12 col-lg-6">
-                                                <div class="form-check form-switch mb-2">
-                                                    <input class="form-check-input cache-setting" type="checkbox" id="inp-enemypsy-power">
-                                                    <label class="form-check-label"><%= lang.settings.enemypsy_power_adjust %></label>
-                                                </div>
-                                                <div class="form-check form-switch mb-3">
-                                                    <input class="form-check-input cache-setting" type="checkbox" id="inp-enemypsy-aoe">
-                                                    <label class="form-check-label"><%= lang.settings.enemypsy_range_random %></label>
-                                                </div>
+                                                <%- include('partials/setting_switch', { id: 'inp-enemypsy-power', label: lang.settings.enemypsy_power_adjust }) %>
+                                                <%- include('partials/setting_switch', { id: 'inp-enemypsy-aoe', label: lang.settings.enemypsy_range_random }) %>
                                             </div>
                                         </div>
                                     </div>
@@ -363,45 +239,41 @@
                                     <div class="tab-pane fade" id="tabdiv-stats">
                                         <div class="row">
                                             <div class="col-12 col-lg-6">
-                                                <div class="input-group mb-3">
-                                                    <label class="input-group-text"><%= lang.settings.character_stats %></label>
-                                                    <select class="form-select cache-setting" id="inp-char-stats">
-                                                        <option value='0' selected><%= lang.options.character_stats.vanilla %></option>
-                                                        <option value='1'><%= lang.options.character_stats.shuffle %></option>
-                                                        <option value='2'><%= lang.options.character_stats.adjust %></option>
-                                                    </select>
-                                                </div>
+                                                <%- include('partials/setting_dropdown', { id: 'inp-char-stats', label: lang.settings.character_stats, selected: '0', data: [
+                                                    ['0', lang.options.character_stats.vanilla], 
+                                                    ['1', lang.options.character_stats.shuffle], 
+                                                    ['2', lang.options.character_stats.adjust]
+                                                ] }) %>
                                             </div>
         
                                             <div class="col-12 col-lg-6">
-                                                <div class="input-group mb-3">
-                                                    <label class="input-group-text"><%= lang.settings.character_element %></label>
-                                                    <select class="form-select cache-setting" id="inp-char-element">
-                                                        <option value='0' selected><%= lang.options.character_element.vanilla %></option>
-                                                        <option value='1'><%= lang.options.character_element.shuffle %></option>
-                                                        <option value='2'><%= lang.options.character_element.random %></option>
-                                                    </select>
-                                                </div>
+                                                <%- include('partials/setting_dropdown', { id: 'inp-char-element', label: lang.settings.character_element, selected: '0', data: [
+                                                    ['0', lang.options.character_element.vanilla], 
+                                                    ['1', lang.options.character_element.shuffle], 
+                                                    ['2', lang.options.character_element.random]
+                                                ] }) %>
                                             </div>
 
                                             <div class="col-12 col-lg-6">
-                                                <div class="input-group mb-3">
-                                                    <label class="input-group-text"><%= lang.settings.enemy_stats %></label>
-                                                    <select class="form-select cache-setting" id="inp-enemy-eres">
-                                                        <option value='0' selected><%= lang.options.enemy_stats.vanilla %></option>
-                                                        <option value='1'><%= lang.options.enemy_stats.shuffle %></option>
-                                                        <option value='2'><%= lang.options.enemy_stats.random %></option>
-                                                    </select>
-                                                </div>
+                                                <%- include('partials/setting_dropdown', { id: 'inp-enemy-eres', label: lang.settings.enemy_stats, selected: '0', data: [
+                                                    ['0', lang.options.enemy_stats.vanilla], 
+                                                    ['1', lang.options.enemy_stats.shuffle], 
+                                                    ['2', lang.options.enemy_stats.random]
+                                                ] }) %>
                                             </div>
 
                                             <hr class="mt-1 mb-3">
 
                                             <div class="col-12 col-lg-6">
-                                                <div class="form-check form-switch mb-3">
-                                                    <input class="form-check-input cache-setting" type="checkbox" id="inp-class-stats">
-                                                    <label class="form-check-label"><%= lang.settings.class_stats_random %></label>
-                                                </div>
+                                                <%- include('partials/setting_switch', { id: 'inp-class-stats', label: lang.settings.class_stats_random, margin: 3 }) %>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="tab-pane fade" id="tabdiv-misc">
+                                        <div class="row">
+                                            <div class="col-12 col-lg-6">
+                                                <%- include('partials/setting_switch', { id: 'inp-music-shuffle', label: lang.settings.music_shuffle, margin: 3 }) %>
                                             </div>
                                         </div>
                                     </div>
@@ -409,165 +281,76 @@
                             </div>
                         </div>
 
-                        <div class="card mt-3">
+                        <div class="card mt-4">
                             <h3 class="card-header"><%= lang.index.subheader_logic %></h3>
                             <div class="card-body">  
                                 <div class="row">
                                     <div class="col-12 col-lg-6">
-                                        <div class="form-check form-switch mb-2">
-                                            <input class="form-check-input cache-setting" type="checkbox" id="inp-skips-basic">
-                                            <label class="form-check-label"><%= lang.settings.skips_basic %> 
-                                                <span class="tooltip-container" title="<%= lang.index.tooltips['6'] %>">
-                                                    <i class="bi bi-question-circle-fill"></i>
-                                                </span>
-                                            </label>
-                                        </div>
-                                        <div class="form-check form-switch mb-2">
-                                            <input class="form-check-input cache-setting" type="checkbox" id="inp-skips-oob-easy">
-                                            <label class="form-check-label"><%= lang.settings.skips_oob_easy %> 
-                                                <span class="tooltip-container" title="<%= lang.index.tooltips['7'] %>">
-                                                    <i class="bi bi-question-circle-fill"></i>
-                                                </span>
-                                            </label>
-                                        </div>
-                                        <div class="form-check form-switch mb-2">
-                                            <input class="form-check-input cache-setting" type="checkbox" id="inp-skips-oob-hard">
-                                            <label class="form-check-label"><%= lang.settings.skips_oob_hard %> 
-                                                <span class="tooltip-container" title="<%= lang.index.tooltips['12'] %>">
-                                                    <i class="bi bi-question-circle-fill"></i>
-                                                </span>
-                                            </label>
-                                        </div>
-                                        <div class="form-check form-switch mb-3">
-                                            <input class="form-check-input cache-setting" type="checkbox" id="inp-skips-maze">
-                                            <label class="form-check-label"><%= lang.settings.skips_gaia_maze %></label>
-                                        </div>
+                                        <%- include('partials/setting_switch', { id: 'inp-skips-basic', label: lang.settings.skips_basic, tooltip: 6 }) %>
+                                        <%- include('partials/setting_switch', { id: 'inp-skips-oob-easy', label: lang.settings.skips_oob_easy, tooltip: 7 }) %>
+                                        <%- include('partials/setting_switch', { id: 'inp-skips-oob-hard', label: lang.settings.skips_oob_hard, tooltip: 12 }) %>
+                                        <%- include('partials/setting_switch', { id: 'inp-skips-maze', label: lang.settings.skips_gaia_maze, margin: 3 }) %>
                                     </div>
 
                                     <div class="col-12 col-lg-6">
-                                        <div class="input-group mb-3">
-                                            <label class="input-group-text"><%= lang.settings.logic_ship_mode %></label>
-                                            <select class="form-select cache-setting" id="inp-ship">
-                                                <option value='0' selected><%= lang.options.ship_mode.vanilla %></option>
-                                                <option value='1'><%= lang.options.ship_mode.open %></option>
-                                                <option value='2'><%= lang.options.ship_mode.unlocked %></option>
-                                            </select>
-                                        </div>
-                                        <div class="form-check form-switch mb-3">
-                                            <input class="form-check-input cache-setting" type="checkbox" id="inp-boss-logic">
-                                            <label class="form-check-label"><%= lang.settings.logic_bosses %> 
-                                                <span class="tooltip-container" title="<%= lang.index.tooltips['8'] %>">
-                                                    <i class="bi bi-question-circle-fill"></i>
-                                                </span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="card mt-3">
-                            <h3 class="card-header"><%= lang.index.subheader_qol %></h3>
-                            <div class="card-body">  
-                                <div class="row">
-                                    <div class="col-12 col-lg-6">
-                                        <div class="form-check form-switch mb-2">
-                                            <input class="form-check-input cache-setting" type="checkbox" id="inp-start-heal" checked>
-                                            <label class="form-check-label"><%= lang.settings.qol_psy_healing %> 
-                                                <span class="tooltip-container" title="<%= lang.index.tooltips['9'] %>">
-                                                    <i class="bi bi-question-circle-fill"></i>
-                                                </span>
-                                            </label>
-                                        </div>
-                                        <div class="form-check form-switch mb-2">
-                                            <input class="form-check-input cache-setting" type="checkbox" id="inp-start-revive" checked>
-                                            <label class="form-check-label"><%= lang.settings.qol_psy_revive %></label>
-                                        </div>
-                                        <div class="form-check form-switch mb-3">
-                                            <input class="form-check-input cache-setting" type="checkbox" id="inp-start-reveal">
-                                            <label class="form-check-label"><%= lang.settings.qol_psy_reveal %></label>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-12 col-lg-6">
-                                        <div class="form-check form-switch mb-2">
-                                            <input class="form-check-input cache-setting" type="checkbox" id="inp-free-avoid" checked>
-                                            <label class="form-check-label"><%= lang.settings.qol_psycost_avoid %></label>
-                                        </div>
-                                        <div class="form-check form-switch mb-2">
-                                            <input class="form-check-input cache-setting" type="checkbox" id="inp-free-retreat" checked>
-                                            <label class="form-check-label"><%= lang.settings.qol_psycost_retreat %> 
-                                                <span class="tooltip-container" title="<%= lang.index.tooltips['10'] %>">
-                                                    <i class="bi bi-question-circle-fill"></i>
-                                                </span>
-                                            </label>
-                                        </div>
+                                        <%- include('partials/setting_dropdown', { id: 'inp-ship', label: lang.settings.logic_ship_mode, selected: '0', data: [
+                                            ['0', lang.options.ship_mode.vanilla], 
+                                            ['1', lang.options.ship_mode.open], 
+                                            ['2', lang.options.ship_mode.unlocked]
+                                        ] }) %>
+                                        <%- include('partials/setting_switch', { id: 'inp-ship-wings', label: lang.settings.logic_ship_wings }) %>
+                                        <%- include('partials/setting_switch', { id: 'inp-boss-logic', label: lang.settings.logic_bosses, tooltip: 8, margin: 3 }) %>
                                     </div>
 
                                     <hr class="mt-1 mb-3">
 
                                     <div class="col-12 col-lg-6">
-                                        <div class="input-group mb-3">
-                                            <label class="input-group-text"><%= lang.settings.qol_revive_cost %></label>
-                                            <select class="form-select cache-setting" id="inp-sanc-cost">
-                                                <option value='0' selected><%= lang.options.revive_cost.vanilla %></option>
-                                                <option value='1'><%= lang.options.revive_cost.reduced %></option>
-                                                <option value='2'><%= lang.options.revive_cost.fixed %></option>
-                                            </select>
-                                        </div>
+                                        <%- include('partials/setting_switch', { id: 'inp-random-puzzles', label: lang.settings.puzzles_random, tooltip: 16 }) %>
+                                        <%- include('partials/setting_switch', { id: 'inp-fixed-puzzles', label: lang.settings.puzzles_fixed, tooltip: 15, margin: 3 }) %>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card mt-4">
+                            <h3 class="card-header"><%= lang.index.subheader_qol %></h3>
+                            <div class="card-body">  
+                                <div class="row">
+                                    <div class="col-12 col-lg-6">
+                                        <%- include('partials/setting_switch', { id: 'inp-start-heal', label: lang.settings.qol_psy_healing, checked: true, tooltip: 9 }) %>
+                                        <%- include('partials/setting_switch', { id: 'inp-start-revive', label: lang.settings.qol_psy_revive, checked: true }) %>
+                                        <%- include('partials/setting_switch', { id: 'inp-start-reveal', label: lang.settings.qol_psy_reveal, margin: 3 }) %>
+                                    </div>
+
+                                    <div class="col-12 col-lg-6">
+                                        <%- include('partials/setting_switch', { id: 'inp-free-avoid', label: lang.settings.qol_psycost_avoid, checked: true }) %>
+                                        <%- include('partials/setting_switch', { id: 'inp-free-retreat', label: lang.settings.qol_psycost_retreat, checked: true }) %>
+                                        <%- include('partials/setting_switch', { id: 'inp-manual-rg', label: lang.settings.manual_retreat_glitch }) %>
+                                    </div>
+
+                                    <hr class="mt-1 mb-3">
+
+                                    <div class="col-12 col-lg-6">
+                                        <%- include('partials/setting_dropdown', { id: 'inp-sanc-cost', label: lang.settings.qol_revive_cost, selected: '0', data: [
+                                            ['0', lang.options.revive_cost.vanilla], 
+                                            ['1', lang.options.revive_cost.reduced], 
+                                            ['2', lang.options.revive_cost.fixed]
+                                        ] }) %>
                                     </div>
                                     <div class="col-12 col-lg-6"></div>
 
                                     <div class="col-12 col-lg-6">
-                                        <div class="form-check form-switch mb-2">
-                                            <input class="form-check-input cache-setting" type="checkbox" id="inp-qol-cutscenes" checked>
-                                            <label class="form-check-label"><%= lang.settings.qol_cutscene_skip %></label>
-                                        </div>
-                                        <div class="form-check form-switch mb-2">
-                                            <input class="form-check-input cache-setting" type="checkbox" id="inp-qol-tickets" checked>
-                                            <label class="form-check-label"><%= lang.settings.qol_game_tickets %></label>
-                                        </div>
-                                        <div class="form-check form-switch mb-2">
-                                            <input class="form-check-input cache-setting" type="checkbox" id="inp-qol-hints" checked>
-                                            <label class="form-check-label"><%= lang.settings.qol_item_hints %></label>
-                                        </div>
-                                        <div class="form-check form-switch mb-3">
-                                            <input class="form-check-input cache-setting" type="checkbox" id="inp-qol-fastship" checked>
-                                            <label class="form-check-label"><%= lang.settings.qol_faster_ship %></label>
-                                        </div>
+                                        <%- include('partials/setting_switch', { id: 'inp-qol-cutscenes', label: lang.settings.qol_cutscene_skip, checked: true }) %>
+                                        <%- include('partials/setting_switch', { id: 'inp-qol-tickets', label: lang.settings.qol_game_tickets, checked: true }) %>
+                                        <%- include('partials/setting_switch', { id: 'inp-qol-hints', label: lang.settings.qol_item_hints, checked: true }) %>
+                                        <%- include('partials/setting_switch', { id: 'inp-qol-fastship', label: lang.settings.qol_faster_ship, checked: true, margin: 3 }) %>
                                     </div>
 
                                     <div class="col-12 col-lg-6">
-                                        <div class="form-check form-switch mb-2">
-                                            <input class="form-check-input cache-setting" type="checkbox" id="inp-patch-avoid" checked>
-                                            <label class="form-check-label">
-                                                <%= lang.settings.qol_avoid_toggle %>
-                                                <span class="tooltip-container" title="<%= lang.index.tooltips['13'] %>">
-                                                    <i class="bi bi-question-circle-fill"></i>
-                                                </span>
-                                            </label>
-                                        </div>
-                                        <div class="form-check form-switch mb-2">
-                                            <input class="form-check-input cache-setting" type="checkbox" id="inp-hard-mode">
-                                            <label class="form-check-label">
-                                                <%= lang.settings.qol_hard_mode %>
-                                                <span class="tooltip-container" title="<%= lang.index.tooltips['14'] %>">
-                                                    <i class="bi bi-question-circle-fill"></i>
-                                                </span>
-                                            </label>
-                                        </div>
-                                        <div class="form-check form-switch mb-2">
-                                            <input class="form-check-input cache-setting" type="checkbox" id="inp-halve-enc">
-                                            <label class="form-check-label">
-                                                <%= lang.settings.qol_half_encounters %>
-                                            </label>
-                                        </div>
-                                        <div class="form-check form-switch mb-3">
-                                            <input class="form-check-input cache-setting" type="checkbox" id="inp-easy-boss">
-                                            <label class="form-check-label">
-                                                <%= lang.settings.qol_easier_bosses %>
-                                            </label>
-                                        </div>
+                                        <%- include('partials/setting_switch', { id: 'inp-patch-avoid', label: lang.settings.qol_avoid_toggle, checked: true, tooltip: 13 }) %>
+                                        <%- include('partials/setting_switch', { id: 'inp-hard-mode', label: lang.settings.qol_hard_mode, tooltip: 14 }) %>
+                                        <%- include('partials/setting_switch', { id: 'inp-halve-enc', label: lang.settings.qol_half_encounters }) %>
+                                        <%- include('partials/setting_switch', { id: 'inp-easy-boss', label: lang.settings.qol_easier_bosses }) %>
                                     </div>
 
                                     <hr class="mt-1 mb-3">

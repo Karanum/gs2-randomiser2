@@ -35,6 +35,7 @@
         "tab_djinn": "Djinn/Invoc.",
         "tab_psynergy": "Psy",
         "tab_stats": "Statistiques",
+        "tab_misc": "Autres",
 
         "tooltips": {
             "1": "Les sprites des coffres et de stèles sont remplacés par l'icône l'objet à l'intérieur.",
@@ -50,7 +51,9 @@
             "11": "Augmente uniquement le niveau de départ des personnages qui commencement plus bas.",
             "12": "Des sauts hors-limites avec un mouvement précis ou complexe peuvent être nécessaires. Désactive le paramètre de 0 PP Fuir.",
             "13": "Utilisez Esquive pour l'(dés)activer. Cela annulera tous les combats quel que soit le niveau du groupe.",
-            "14": "Les ennemis obtiennent +50% de PV et +25% d'Attaque et Défense."
+            "14": "Les ennemis obtiennent +50% de PV et +25% d'Attaque et Défense.",
+            "15": "Puzzles de Statue de Gabomba, Mont Gaia et Route du Courage sont généres pour le nom \"Felix\".",
+            "16": "Puzzles de Statue de Gabomba, Mont Gaia et Route du Courage sont généres aléatoire."
         }
     },
 
@@ -202,7 +205,7 @@
                 ["Rochair", "Vision stèle"],
                 ["Gabomba Catacombs", "Tomegathericon"],
                 ["Champa", "Trident"],
-                ["Grotte d'Attéka", "Coatlicue stèle"],
+                ["Contigo", "Groupe d'Vlad"],
                 ["Phare de Mars", "Etoile de Mars"]
             ]
         }
@@ -272,11 +275,14 @@
         "enemy_stats": "Stats des ennemies",
         "class_stats_random": "Randomiser statistiques des classes",
 
+        "music_shuffle": "Mélanger musique du jeu",
+
         "skips_basic": "Nécessite pépins/sauts de base",
         "skips_oob_easy": "Nécessite sauts hors-limites de base",
         "skips_oob_hard": "Nécessite sauts difficiles hors-limites",
         "skips_gaia_maze": "Nécessite Mont Gaia labyrinthe sans Bourgeon",
         "logic_ship_mode": "Bateau Lémurian",
+        "logic_ship_wings": "Commencez par les Ailes d'Anémos",
         "logic_bosses": "Désactiver logique des boss",
 
         "qol_psy_healing": "Commencez par Psy soigner",
@@ -297,7 +303,12 @@
 
         "scale_exp": "Échelle d'Exp",
         "scale_coins": "Échelle de Pièces",
-        "starting_level": "Niveaux de départ"
+        "starting_level": "Niveaux de départ",
+
+        "puzzles_fixed": "Changer puzzles basés sur nom pour qu'ils déterminé",
+        "puzzles_random": "Changer puzzles basés sur nom pour qu'ils random",
+
+        "manual_retreat_glitch": "Maintenez SELECT pour toujours activer Fuir glitch"
     },
 
     "options": {
@@ -319,6 +330,7 @@
             "vanilla": "Inchangé",
             "class": "Randomiser par ligne de classe",
             "group": "Randomiser par ligne de Psy",
+            "group_element": "Randomiser par ligne de Psy (préférez même élément)",
             "element": "Randomiser par élément de Psy",
             "full": "Randomisation complète"
         },
@@ -397,6 +409,7 @@
         "header_log": "Journal d'emplacement",
 
         "setting_autorun": "Auto-courir (maintenez B pour marcher)",
+        "setting_ignore_music": "Ne mélange pas musique",
 
         "select_rom": "Sélectionnez ROM",
         "select_file": "Choisir Fichier",

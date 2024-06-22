@@ -1,0 +1,13 @@
+<%_
+    let margin = locals.margin ?? '3';
+_%>
+<div class="mb-<%= margin %> col-12 col-lg-6 d-flex gap-2">
+    <div class="col">
+        <label for="<%= locals.id %>" class="form-label"><%= locals.label %></label>
+        <select class="form-select item-dropdown col" id="<%= locals.id %>" placeholder="<%= locals.default %>"></select>
+    </div>
+    <div class="col-auto div-coin d-none">
+        <label for="<%= locals.id %>-coin" class="form-label">Amount</label>
+        <input type="number" name="<%= locals.id %>-coin" id="<%= locals.id %>-coin" class="form-control" min="1" max="36863">
+    </div>
+</div>

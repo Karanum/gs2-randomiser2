@@ -20,7 +20,7 @@ function loadCachedSetting(elem) {
     }
 }
 
-function setupAjaxRequest(id, log) {
+function setupAjaxRequest(id) {
     var req = new XMLHttpRequest();
     req.open('GET', `/fetch_perma_ajax?id=${id}`, true);
     req.setRequestHeader('X-Requested-With', "XMLHttpRequest");
@@ -84,6 +84,8 @@ $(document).ready(() => {
         } else {
             patcher.disableAutoRunPatch();
         }
+
+        patcher.ignoreMusic = $("#inp-qol-ignore-music").prop('checked');
 
         var romCopy = new Uint8Array(romData);
         romCopy = patcher.patchRom(romCopy);

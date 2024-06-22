@@ -4,6 +4,12 @@
             "Ship",
             "Grindstone",
             "Whirlwind"
+        ],
+        [
+            "Ship",
+            "ShipWings",
+            "Hover Jade",
+            "Whirlwind"
         ]
     ],
     "Treasure": [

@@ -1,0 +1,617 @@
+<div class="row">
+    <div class="col-auto">
+        <ul class="nav nav-tabs flex-column">
+            <%- include('../tab_button', { active: true, target: 'tabdiv-loc-start', label: 'Starting Items' }) %>
+            <%- include('../tab_button', { target: 'tabdiv-loc-overworld', label: 'Overworld' }) %>
+            <%- include('../tab_button', { target: 'tabdiv-loc-indra-towns', label: 'Indra Towns' }) %>
+            <%- include('../tab_button', { target: 'tabdiv-loc-indra-dungeons', label: 'Indra Dungeons' }) %>
+            <%- include('../tab_button', { target: 'tabdiv-loc-osenia-towns', label: 'Osenia Towns' }) %>
+            <%- include('../tab_button', { target: 'tabdiv-loc-osenia-dungeons', label: 'Osenia Dungeons' }) %>
+            <%- include('../tab_button', { target: 'tabdiv-loc-gondowan-towns', label: 'Gondowan Towns' }) %>
+            <%- include('../tab_button', { target: 'tabdiv-loc-gondowan-dungeons', label: 'Gondowan Dungeons' }) %>
+            <%- include('../tab_button', { target: 'tabdiv-loc-eastsea-towns', label: 'E. Sea Towns' }) %>
+            <%- include('../tab_button', { target: 'tabdiv-loc-eastsea-dungeons', label: 'E. Sea Dungeons' }) %>
+            <%- include('../tab_button', { target: 'tabdiv-loc-westsea-towns', label: 'W. Sea Towns' }) %>
+            <%- include('../tab_button', { target: 'tabdiv-loc-westsea-dungeons', label: 'W. Sea Dungeons' }) %>
+        </ul>
+    </div>
+
+<!--
+    TEMPLATE:
+    <%- include('../item_dropdown', { id: 'loc-', label: '???', default: '???' }) %>    
+-->
+
+    <div class="col">
+        <div class="tab-content">
+            <div class="tab-pane fade show active mx-2" id="tabdiv-loc-start">
+                <div class="mb-4">
+                    <h2>Felix's party</h2>
+                    <div class="my-2 ms-4 row">
+                        <%- include('../item_dropdown', { id: 'loc-1', label: 'Felix Slot #1', default: 'Shaman\'s Rod' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-4', label: 'Felix Slot #2', default: 'Growth' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-2', label: 'Sheba Slot #1', default: 'Mind Read' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-3', label: 'Sheba Slot #2', default: 'Whirlwind' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-105', label: 'Piers Slot #1', default: 'Douse Drop' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-106', label: 'Piers Slot #2', default: 'Frost Jewel' }) %>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <h2>Isaac's party</h2>
+                    <div class="my-2 ms-4 row">
+                        <%- include('../item_dropdown', { id: 'loc-101', label: 'Slot #1', default: 'Carry Stone' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-102', label: 'Slot #2', default: 'Lifting Gem' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-103', label: 'Slot #3', default: 'Orb of Force' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-104', label: 'Slot #4', default: 'Catch Beads' }) %>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade mx-2" id="tabdiv-loc-overworld">
+                <div class="mb-4">
+                    <h2>Sunken Items</h2>
+                    <div class="my-2 ms-4 row">
+                        <%- include('../item_dropdown', { id: 'loc-e5b', label: 'South-East of Sea of Time', default: 'Rusty Axe (Captain\'s Axe)' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-e5c', label: 'West of Treasure Isle', default: 'Rusty Mace (Hagbone Mace)' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-e5d', label: 'Near Tundaria Tower', default: 'Rusty Sword (Pirate\'s Sabre)' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-e5e', label: 'North of Hesperia', default: 'Rusty Staff (Goblin\'s Rod)' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-e5f', label: 'West of Atteka', default: 'Rusty Sword (Soul Brand)' }) %>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade mx-2" id="tabdiv-loc-indra-towns">
+                <div class="mb-4">
+                    <h2>Daila</h2>
+                    <div class="my-2 ms-4 row">
+                        <%- include('../item_dropdown', { id: 'loc-a20', label: 'Sea God\'s Tear', default: 'Sea God\'s Tear' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-f01', label: 'North-East Jar', default: 'Herb' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-f02', label: 'South-West Barrel', default: 'Smoke Bomb' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-f5e', label: 'Buried Item', default: 'Psy Crystal' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-f03', label: 'Inn - Barrel', default: 'Sleep Bomb' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-f04', label: 'Corner House - Jar', default: '3 Coins' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-f05', label: 'Mayor\'s House - Jar', default: '12 Coins' }) %>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <h2>Madra</h2>
+                    <div class="my-2 ms-4 row">
+                        <%- include('../item_dropdown', { id: 'loc-f0c', label: 'Ledge Chest', default: 'Nurse\'s Cap' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-f0d', label: 'Fence Corner Box', default: 'Antidote' }) %> 
+                        <%- include('../item_dropdown', { id: 'loc-f10', label: 'Inn - Upstairs Jar', default: 'Sleep Bomb' }) %> 
+                        <%- include('../item_dropdown', { id: 'loc-f11', label: 'Left Cave House - Jar', default: 'Elixir' }) %> 
+                        <%- include('../item_dropdown', { id: 'loc-f0e', label: 'Small Central House - Barrel', default: 'Smoke Bomb' }) %> 
+                        <%- include('../item_dropdown', { id: 'loc-f0f', label: 'Mayor\'s House - Box', default: '15 Coins' }) %> 
+                        <%- include('../item_dropdown', { id: 'loc-918', label: 'Mayor\'s Gift', default: 'Cyclone Chip' }) %> 
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade mx-2" id="tabdiv-loc-indra-dungeons">
+                <div class="mb-4">
+                    <h2>Kandorean Temple</h2>
+                    <div class="my-2 ms-4 row">
+                        <%- include('../item_dropdown', { id: 'loc-e70', label: 'Mimic', default: 'Mimic' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-f06', label: 'Halfway Chest', default: 'Mysterious Card' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-84a', label: 'Lash Pebble', default: 'Lash Pebble' }) %>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <h2>Shrine of the Sea God</h2>
+                    <div class="my-2 ms-4 row">
+                        <%- include('../item_dropdown', { id: 'loc-f59', label: 'River Room Chest', default: 'Rusty Staff (Glower Staff)' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-8c7', label: 'Right Prong', default: 'Right Prong' }) %>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <h2>Dehkan Plateau</h2>
+                    <div class="my-2 ms-4 row">
+                        <%- include('../item_dropdown', { id: 'loc-f07', label: 'First Screen', default: 'Full Metal Vest' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-f08', label: 'Second Screen Ledge', default: 'Elixir' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-f09', label: 'Second Screen Drop-down', default: 'Mint' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-f0a', label: 'Third Screen', default: 'Themis\' Axe' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-f0b', label: 'Lash Ledge Chest', default: 'Nut' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-878', label: 'Pound Cube', default: 'Pound Cube' }) %>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <h2>Lemurian Ship</h2>
+                    <div class="my-2 ms-4 row">
+                        <%- include('../item_dropdown', { id: 'loc-f55', label: 'Entrance - Barrel', default: 'Elixir' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-f54', label: 'First Frost Pillar', default: 'Potion' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-f56', label: 'Large Hold - Box', default: 'Antidote' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-f57', label: 'Aqua Hydra Room - Barrel', default: 'Oil Drop' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-f58', label: 'Submerged Chest', default: 'Mist Potion' }) %>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <h2>Madra Catacombs</h2>
+                    <div class="my-2 ms-4 row">
+                        <%- include('../item_dropdown', { id: 'loc-f13', label: 'Main Cave East', default: 'Apple' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-f42', label: 'Main Cave South', default: 'Mist Potion' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-f16', label: 'Tremor Bit', default: 'Tremor Bit' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-f14', label: 'Ruins West Room', default: 'Lucky Medal' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-f15', label: 'Ruin Key', default: 'Ruin Key' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-13', label: 'Moloch Tablet', default: 'Moloch' }) %>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <h2>Indra Cavern</h2>
+                    <div class="my-2 ms-4 row">
+                        <%- include('../item_dropdown', { id: 'loc-10', label: 'Zagan Tablet', default: 'Zagan' }) %>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade mx-2" id="tabdiv-loc-osenia-towns">
+                <div class="mb-4">
+                    <h2>Alhafra</h2>
+                    <div class="my-2 ms-4 row">
+                        <%- include('../item_dropdown', { id: 'loc-f1d', label: 'Reveal Circle', default: 'Psy Crystal' }) %> 
+                        <%- include('../item_dropdown', { id: 'loc-f1e', label: 'West Jar', default: 'Sleep Bomb' }) %> 
+                        <%- include('../item_dropdown', { id: 'loc-f1f', label: 'North-East Jar', default: 'Lucky Medal' }) %> 
+                        <%- include('../item_dropdown', { id: 'loc-f21', label: 'Eastern Alhafra - Jar', default: 'Smoke Bomb' }) %> 
+                        <%- include('../item_dropdown', { id: 'loc-f24', label: 'Inn - Upstairs Jar', default: 'Apple' }) %> 
+                        <%- include('../item_dropdown', { id: 'loc-f23', label: 'Upper Connected House - Barrel', default: 'Elixir' }) %> 
+                        <%- include('../item_dropdown', { id: 'loc-f20', label: 'Jail - Jar', default: '32 Coins' }) %> 
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <h2>Mikasalla</h2>
+                    <div class="my-2 ms-4 row">
+                        <%- include('../item_dropdown', { id: 'loc-f28', label: 'Ledge Chest', default: '82 Coins' }) %> 
+                        <%- include('../item_dropdown', { id: 'loc-f29', label: 'South-West Box', default: 'Nut' }) %> 
+                        <%- include('../item_dropdown', { id: 'loc-f2a', label: 'South-East Barrel', default: 'Elixir' }) %> 
+                        <%- include('../item_dropdown', { id: 'loc-f2b', label: 'Inn - Barrel', default: 'Lucky Pepper' }) %> 
+                        <%- include('../item_dropdown', { id: 'loc-f2c', label: 'South-East House - Jar', default: 'Herb' }) %> 
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <h2>Garoh</h2>
+                    <div class="my-2 ms-4 row">
+                        <%- include('../item_dropdown', { id: 'loc-f2d', label: 'Ledge Chest', default: 'Hypnos\' Sword' }) %> 
+                        <%- include('../item_dropdown', { id: 'loc-f2e', label: 'North-West Ledge Barrel', default: 'Nut' }) %> 
+                        <%- include('../item_dropdown', { id: 'loc-f2f', label: 'South-East Barrel', default: 'Smoke Bomb' }) %> 
+                        <%- include('../item_dropdown', { id: 'loc-f30', label: 'Ledge House - Jar', default: 'Sleep Bomb' }) %> 
+                        <%- include('../item_dropdown', { id: 'loc-f31', label: 'Inn - Jar', default: 'Elixir' }) %> 
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <h2>Yallam</h2>
+                    <div class="my-2 ms-4 row">
+                        <%- include('../item_dropdown', { id: 'loc-f95', label: 'Masamune', default: 'Masamune' }) %> 
+                        <%- include('../item_dropdown', { id: 'loc-f61', label: 'North Jar', default: '16 Coins' }) %> 
+                        <%- include('../item_dropdown', { id: 'loc-f62', label: 'Central Ledge Weeds', default: 'Antidote' }) %> 
+                        <%- include('../item_dropdown', { id: 'loc-f60', label: 'East Weeds', default: 'Nut' }) %> 
+                        <%- include('../item_dropdown', { id: 'loc-f96', label: 'Inn - Box', default: 'Elixir' }) %> 
+                        <%- include('../item_dropdown', { id: 'loc-f97', label: 'Sunshine\'s Smithy - Barrel', default: 'Oil Drop' }) %> 
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade mx-2" id="tabdiv-loc-osenia-dungeons">
+                <div class="mb-4">
+                    <h2>Osenia Cliffs</h2>
+                    <div class="my-2 ms-4 row">
+                        <%- include('../item_dropdown', { id: 'loc-f17', label: 'Pirate\'s Sword', default: 'Pirate\'s Sword' }) %> 
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <h2>Yampi Desert</h2>
+                    <div class="my-2 ms-4 row">
+                        <%- include('../item_dropdown', { id: 'loc-f18', label: 'West Entrance Chest', default: 'Guardian Ring' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-f19', label: 'Djinni Room Chest', default: 'Antidote' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-88c', label: 'King Scorpion', default: 'Scoop Gem' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-f89', label: 'Buried Item', default: '315 Coins' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-f1b', label: 'Sand Flow Cave - South', default: 'Hard Nut' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-f1c', label: 'Sand Flow Cave - North', default: 'Blow Mace' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-f1a', label: 'East Entrance Chest', default: 'Trainer\'s Whip' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-88e', label: 'Reveal Circle', default: 'Lucky Medal' }) %>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <h2>Yampi Desert Cave</h2>
+                    <div class="my-2 ms-4 row">
+                        <%- include('../item_dropdown', { id: 'loc-f8a', label: 'Entrance Chest', default: 'Water of Life' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-f8b', label: 'Half-Buried Item', default: 'Mythril Silver' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-f8c', label: 'Halfway Chest', default: 'Dark Matter' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-f8d', label: 'Shortcut Room Chest', default: 'Orihalcon' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-18', label: 'Daedalus Tablet', default: 'Daedalus' }) %>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <h2>Air's Rock</h2>
+                    <div class="my-2 ms-4 row">
+                        <%- include('../item_dropdown', { id: 'loc-f32', label: 'First Room - Lower Left', default: 'Smoke Bomb' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-e71', label: 'First Room - Mimic', default: 'Mimic' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-f33', label: 'First Room - Center', default: 'Cookie' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-f34', label: 'First Room - Top Right', default: 'Storm Brand' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-f35', label: 'Frost Ledge', default: 'Vial' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-f36', label: 'Exterior Ascent', default: 'Sleep Bomb' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-f37', label: 'Exterior Summit', default: 'Fujin Shield' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-f3b', label: 'Right Path - Blue 4', default: 'Elixir' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-f38', label: 'Top Floor Chest', default: 'Vial' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-12', label: 'Flora Tablet', default: 'Flora' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-f39', label: 'Left Path - Blue 2', default: 'Clarity Circlet' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-f3d', label: 'Left Path - Blue 4', default: '666 Coins' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-f3a', label: 'Left Path - Blue 5', default: 'Vial' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-f3c', label: 'Reveal Room Chest', default: 'Psy Crystal' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-8d4', label: 'Reveal Tablet', default: 'Reveal' }) %>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <h2>Alhafran Cave</h2>
+                    <div class="my-2 ms-4 row">
+                        <%- include('../item_dropdown', { id: 'loc-f27', label: 'North - Left Chest', default: 'Lucky Medal' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-f26', label: 'North - Middle Chest', default: 'Ixion Mail' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-f25', label: 'North - Right Chest', default: '123 Coins' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-f8f', label: 'South - Left Chest', default: '777 Coins' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-f90', label: 'South - Middle Chest', default: 'Potion' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-f91', label: 'South - Right Chest', default: 'Psy Crystal' }) %>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <h2>Taopo Swamp</h2>
+                    <div class="my-2 ms-4 row">
+                        <%- include('../item_dropdown', { id: 'loc-f98', label: 'Entrance Chest', default: 'Cookie' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-f63', label: 'Top Left Cave - Half-Buried Item', default: 'Tear Stone' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-f64', label: 'Djinni Cave - Half-Buried Item', default: 'Tear Stone' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-f99', label: 'Djinni Cave - Weeds', default: 'Bramble Seed' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-f65', label: 'Magma Chamber Chest', default: 'Vial' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-f66', label: 'Star Dust', default: 'Star Dust' }) %>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <h2>Osenia Cavern</h2>
+                    <div class="my-2 ms-4 row">
+                        <%- include('../item_dropdown', { id: 'loc-11', label: 'Megaera Tablet', default: 'Megaera' }) %> 
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade mx-2" id="tabdiv-loc-gondowan-towns">
+                <div class="mb-4">
+                    <h2>Naribwe</h2>
+                    <div class="my-2 ms-4 row">
+                        <%- include('../item_dropdown', { id: 'loc-f44', label: 'South-East Chest', default: 'Thorn Crown' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-f45', label: 'Reveal Circle', default: 'Unicorn Ring' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-f46', label: 'South-West Jar', default: 'Elixir' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-f47', label: 'North-West House - Jar', default: '18 Coins' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-f48', label: 'Inn - Jar', default: 'Sleep Bomb' }) %>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <h2>Kibombo</h2>
+                    <div class="my-2 ms-4 row">
+                        <%- include('../item_dropdown', { id: 'loc-f4e', label: 'West Jar', default: 'Lucky Pepper' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-f4f', label: 'North-West House - Jar', default: 'Lucky Medal' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-f50', label: 'Inn - Upstairs Barrel', default: 'Nut' }) %>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <h2>Gondowan Settlement</h2>
+                    <div class="my-2 ms-4 row">
+                        <%- include('../item_dropdown', { id: 'loc-fc0', label: 'Hidden Cave', default: 'Star Dust' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-fc1', label: 'Graveyard Item', default: 'Lucky Medal' }) %>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade mx-2" id="tabdiv-loc-gondowan-dungeons">
+                <div class="mb-4">
+                    <h2>Gondowan Cliffs</h2>
+                    <div class="my-2 ms-4 row">
+                        <%- include('../item_dropdown', { id: 'loc-41', label: 'East Ledge', default: 'Laughing Fungus' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-40', label: 'Middle Ledge', default: 'Healing Fungus' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-43', label: 'North-West Ledge', default: 'Sleep Bomb' }) %>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <h2>Kibombo Mountains</h2>
+                    <div class="my-2 ms-4 row">
+                        <%- include('../item_dropdown', { id: 'loc-f4b', label: 'South - Chest', default: 'Disk Axe' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-f49', label: 'North - Bottom Chest', default: 'Power Bread' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-f4a', label: 'North - Top Chest', default: 'Tear Stone' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-f4c', label: 'North - Cave Box', default: 'Smoke Bomb' }) %>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <h2>Gabomba Statue</h2>
+                    <div class="my-2 ms-4 row">
+                        <%- include('../item_dropdown', { id: 'loc-e72', label: 'Maze Room - Mimic', default: 'Mimic' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-f51', label: 'Maze Room - Top Right Chest', default: 'Bone Armlet' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-f52', label: 'East Side Corridor Chest', default: 'Elixir' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-8ff', label: 'Black Crystal', default: 'Black Crystal' }) %>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <h2>Gabomba Catacombs</h2>
+                    <div class="my-2 ms-4 row">
+                        <%- include('../item_dropdown', { id: 'loc-f53', label: 'B2F - North Room Weeds', default: 'Mint' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-f93', label: 'Tomegathericon', default: 'Tomegathericon' }) %>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <h2>Magma Rock</h2>
+                    <div class="my-2 ms-4 row">
+                        <%- include('../item_dropdown', { id: 'loc-e77', label: 'Entrance Mimic', default: 'Mimic' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-fed', label: 'Ext. 1F - Ledge', default: 'Oil Drop' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-fee', label: 'Ext. 2F - Drop-down Ledge', default: '383 Coins' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-fef', label: 'Ext. 2F - Top Ledge', default: 'Salamander Tail' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-ff0', label: 'Int. 4F - West Side', default: 'Lucky Medal' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-ff1', label: 'Int. 3F - West Side', default: 'Mist Potion' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-ff2', label: 'Int. 2F - Center', default: 'Salamander Tail' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-ff4', label: 'Int. 2F - North Sluice', default: 'Golem Core' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-9fa', label: 'Blaze Tablet', default: 'Blaze' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-9f9', label: 'Magma Ball', default: 'Magma Ball' }) %>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade mx-2" id="tabdiv-loc-eastsea-towns">
+                <div class="mb-4">
+                    <h2>Apojii Islands</h2>
+                    <div class="my-2 ms-4 row">
+                        <%- include('../item_dropdown', { id: 'loc-f9a', label: 'South-East Weeds', default: 'Mint' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-f9b', label: 'South Weeds', default: 'Herb' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-f9c', label: 'South-West Jar', default: '182 Coins' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-f9d', label: 'North-East House - Barrel', default: '32 Coins' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-f9e', label: 'Gaia Falls Weeds', default: 'Bramble Seed' }) %>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <h2>Izumo</h2>
+                    <div class="my-2 ms-4 row">
+                        <%- include('../item_dropdown', { id: 'loc-fa2', label: 'North Ledge Jar', default: 'Elixir' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-fa3', label: 'North Hidden Jar', default: 'Water of Life' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-f9f', label: 'South-East Weeds (1)', default: 'Antidote' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-fa0', label: 'South-East Weeds (2)', default: 'Antidote' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-fa1', label: 'Ledge Weeds', default: 'Lucky Medal' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-fa4', label: 'East House - Jar', default: 'Smoke Bomb' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-fa5', label: 'South House - Box', default: 'Festival Coat' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-fa6', label: 'Ruins Ledge Chest', default: 'Phantasmal Mail' }) %>
+                        <%- include('../item_dropdown', { id: 'loc-14', label: 'Ulysses Tablet', default: 'Ulysses' }) %>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <h2>Champa</h2>
+                    <div class="my-2 ms-4 row">
+                        
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <h2>Lemuria</h2>
+                    <div class="my-2 ms-4 row">
+                        
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <h2>N Osenia Islet</h2>
+                    <div class="my-2 ms-4 row">
+                        
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <h2>E Tundaria Islet</h2>
+                    <div class="my-2 ms-4 row">
+                        
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <h2>W Indra Islet</h2>
+                    <div class="my-2 ms-4 row">
+                        
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <h2>SE Angara Islet</h2>
+                    <div class="my-2 ms-4 row">
+                        
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <h2>Sea of Time Islet</h2>
+                    <div class="my-2 ms-4 row">
+                        
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade mx-2" id="tabdiv-loc-eastsea-dungeons">
+                <div class="mb-4">
+                    <h2>Aqua Rock</h2>
+                    <div class="my-2 ms-4 row">
+                        
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <h2>Gaia Rock</h2>
+                    <div class="my-2 ms-4 row">
+                        
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <h2>Ankohl Ruins</h2>
+                    <div class="my-2 ms-4 row">
+                        
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <h2>Tundaria Tower</h2>
+                    <div class="my-2 ms-4 row">
+                        
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <h2>Islet Cave</h2>
+                    <div class="my-2 ms-4 row">
+                        
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <h2>Treasure Isle</h2>
+                    <div class="my-2 ms-4 row">
+                        
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade mx-2" id="tabdiv-loc-westsea-towns">
+                <div class="mb-4">
+                    <h2>Contigo</h2>
+                    <div class="my-2 ms-4 row">
+                        
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <h2>Shaman Village</h2>
+                    <div class="my-2 ms-4 row">
+                        
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <h2>Loho</h2>
+                    <div class="my-2 ms-4 row">
+                        
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <h2>Prox</h2>
+                    <div class="my-2 ms-4 row">
+                        
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <h2>Atteka Inlet</h2>
+                    <div class="my-2 ms-4 row">
+                        
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <h2>Hesperia Settlement</h2>
+                    <div class="my-2 ms-4 row">
+                        
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <h2>SW Atteka Islet</h2>
+                    <div class="my-2 ms-4 row">
+                        
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade mx-2" id="tabdiv-loc-westsea-dungeons">
+                <div class="mb-4">
+                    <h2>Jupiter Lighthouse</h2>
+                    <div class="my-2 ms-4 row">
+                        
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <h2>Mars Lighthouse</h2>
+                    <div class="my-2 ms-4 row">
+                        
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <h2>Anemos Inner Sanctum</h2>
+                    <div class="my-2 ms-4 row">
+                        
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <h2>Atteka Cavern</h2>
+                    <div class="my-2 ms-4 row">
+                        
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <h2>Angara Cavern</h2>
+                    <div class="my-2 ms-4 row">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const itemSelection = {
+        "1": "Long Sword", "2": "Broad Sword", "3": "Claymore", "4": "Great Sword", "5": "Shamshir", "6": "Silver Blade", "7": "Fire Brand", 
+        "8": "Arctic Blade", "9": "Gaia Blade", "10": "Sol Blade", "11": "Muramasa", "16": "Short Sword", "17": "Hunter's Sword", "18": "Battle Rapier", 
+        "19": "Master Rapier", "20": "Ninja Blade", "21": "Swift Sword", "22": "Elven Rapier", "23": "Assassin Blade", "24": "Mystery Blade", 
+        "25": "Kikuichimonji", "26": "Masamune", "27": "Bandit's Sword", "31": "Battle Axe", "32": "Broad Axe", "33": "Great Axe", "34": "Dragon Axe", 
+        "35": "Giant Axe", "36": "Vulcan Axe", "37": "Burning Axe", "38": "Demon Axe", "43": "Mace", "44": "Heavy Mace", "45": "Battle Mace", 
+        "46": "War Mace", "47": "Righteous Mace", "48": "Grievous Mace", "49": "Blessed Mace", "50": "Wicked Mace", "55": "Wooden Stick", "56": "Magic Rod", 
+        "57": "Witch's Wand", "58": "Blessed Ankh", "59": "Psynergy Rod", "60": "Frost Wand", "61": "Angelic Ankh", "62": "Demonic Staff", 
+        "63": "Crystal Rod", "64": "Zodiac Wand", "65": "Shaman's Rod", "75": "Leather Armor", "76": "Psynergy Armor", "77": "Chain Mail", 
+        "78": "Armored Shell", "79": "Plate Mail", "80": "Steel Armor", "81": "Spirit Armor", "82": "Dragon Scales", "83": "Demon Mail", 
+        "84": "Asura's Armor", "85": "Spiked Armor", "89": "Cotton Shirt", "90": "Travel Vest", "91": "Fur Coat", "92": "Adept's Clothes", 
+        "93": "Elven Shirt", "94": "Silver Vest", "95": "Water Jacket", "96": "Storm Gear", "97": "Kimono", "98": "Ninja Garb", "103": "OnePiece Dress", 
+        "104": "Travel Robe", "105": "Silk Robe", "106": "China Dress", "107": "Jerkin", "108": "Cocktail Dress", "109": "Blessed Robe", 
+        "110": "Magical Cassock", "111": "Mysterious Robe", "112": "Feathered Robe", "113": "Oracle's Robe", "118": "Wooden Shield", "119": "Bronze Shield", 
+        "120": "Iron Shield", "121": "Knight's Shield", "122": "Mirrored Shield", "123": "Dragon Shield", "124": "Earth Shield", "127": "Padded Gloves", 
+        "128": "Leather Gloves", "129": "Gauntlets", "130": "Vambrace", "131": "War Gloves", "132": "Spirit Gloves", "133": "Battle Gloves", 
+        "134": "Aura Gloves", "136": "Leather Armlet", "137": "Armlet", "138": "Heavy Armlet", "139": "Silver Armlet", "140": "Spirit Armlet", 
+        "141": "Virtuous Armlet", "142": "Guardian Armlet", "145": "Open Helm", "146": "Bronze Helm", "147": "Iron Helm", "148": "Steel Helm", 
+        "149": "Silver Helm", "150": "Knight's Helm", "151": "Warrior's Helm", "152": "Adept's Helm", "156": "Leather Cap", "157": "Wooden Cap", 
+        "158": "Mail Cap", "159": "Jeweled Crown", "160": "Ninja Hood", "161": "Lucky Cap", "162": "Thunder Crown", "163": "Prophet's Hat", 
+        "164": "Lure Cap", "166": "Circlet", "167": "Silver Circlet", "168": "Guardian Circlet", "169": "Platinum Circlet", "170": "Mythril Circlet", 
+        "171": "Glittering Tiara", "180": "Herb", "181": "Nut", "182": "Vial", "183": "Potion", "186": "Psy Crystal", "187": "Antidote", "188": "Elixir", 
+        "189": "Water of Life", "190": "Mist Potion", "191": "Power Bread", "192": "Cookie", "193": "Apple", "194": "Hard Nut", "195": "Mint", 
+        "196": "Lucky Pepper", "222": "Mars Star", "226": "Smoke Bomb", "227": "Sleep Bomb", "228": "Game Ticket", "229": "Lucky Medal", "233": "Corn", 
+        "236": "Sacred Feather", "238": "Oil Drop", "239": "Weasel's Claw", "240": "Bramble Seed", "241": "Crystal Powder", "242": "Black Crystal", 
+        "243": "Red Key", "244": "Blue Key", "250": "Mythril Shirt", "251": "Silk Shirt", "252": "Running Shirt", "256": "Hyper Boots", "257": "Quick Boots", 
+        "258": "Fur Boots", "259": "Turtle Boots", "262": "Adept Ring", "263": "War Ring", "264": "Sleep Ring", "265": "Healing Ring", "266": "Unicorn Ring", 
+        "267": "Fairy Ring", "268": "Cleric's Ring", "272": "Huge Sword", "273": "Mythril Blade", "274": "Levatine", "275": "Darksword", "276": "Excalibur", 
+        "277": "Robber's Blade", "278": "Soul Brand", "279": "Storm Brand", "280": "Hestia Blade", "281": "Lightning Sword", "282": "Rune Blade", 
+        "283": "Cloud Brand", "285": "Sylph Rapier", "286": "Burning Sword", "287": "Pirate's Sword", "288": "Corsair's Edge", "289": "Pirate's Sabre", 
+        "290": "Hypnos' Sword", "291": "Mist Sabre", "292": "Phaeton's Blade", "293": "Tisiphone Edge", "295": "Apollo's Axe", "296": "Gaia's Axe", 
+        "297": "Stellar Axe", "298": "Captain's Axe", "299": "Viking Axe", "300": "Disk Axe", "301": "Themis' Axe", "302": "Mighty Axe", 
+        "303": "Tartarus Axe", "305": "Comet Mace", "306": "Tungsten Mace", "307": "Demon Mace", "308": "Hagbone Mace", "309": "Blow Mace", 
+        "310": "Rising Mace", "311": "Thanatos Mace", "313": "Cloud Wand", "314": "Salamander Rod", "315": "Nebula Wand", "316": "Dracomace", 
+        "317": "Glower Staff", "318": "Goblin's Rod", "319": "Meditation Rod", "320": "Fireman's Pole", "321": "Atropos' Rod", "322": "Lachesis' Rule", 
+        "323": "Clotho's Distaff", "324": "Staff of Anubis", "326": "Trident", "328": "Planet Armor", "329": "Dragon Mail", "330": "Chronos Mail", 
+        "331": "Stealth Armor", "332": "Xylion Armor", "333": "Ixion Mail", "334": "Phantasmal Mail", "335": "Erebus Armor", "336": "Valkyrie Mail", 
+        "338": "Faery Vest", "339": "Mythril Clothes", "340": "Full Metal Vest", "341": "Wild Coat", "342": "Floral Dress", "343": "Festival Coat", 
+        "344": "Erinyes Tunic", "345": "Triton's Ward", "347": "Dragon Robe", "348": "Ardagh Robe", "349": "Muni Robe", "350": "Aeolian Cassock", 
+        "351": "Iris Robe", "353": "Luna Shield", "354": "Dragon Shield", "355": "Flame Shield", "356": "Terra Shield", "357": "Cosmos Shield", 
+        "358": "Fujin Shield", "359": "Aegis Shield", "361": "Aerial Gloves", "362": "Titan Gloves", "363": "Big Bang Gloves", "364": "Crafted Gloves", 
+        "365": "Riot Gloves", "366": "Spirit Gloves", "368": "Clear Bracelet", "369": "Mythril Armlet", "370": "Bone Armlet", "371": "Jester's Armlet", 
+        "372": "Leda's Bracelet", "374": "Dragon Helm", "375": "Mythril Helm", "376": "Fear Helm", "377": "Millenium Helm", "378": "Viking Helm", 
+        "379": "Gloria Helm", "380": "Minerva Helm", "382": "Floating Hat", "383": "Nurse's Cap", "384": "Thorn Crown", "385": "Otafuku Mask", 
+        "386": "Hiotoko Mask", "387": "Crown of Glory", "388": "Alastor's Hood", "390": "Pure Circlet", "391": "Astral Circlet", "392": "Psychic Circlet", 
+        "393": "Demon Circlet", "394": "Clarity Circlet", "395": "Brilliant Circlet", "396": "Berserker Band", "398": "Divine Camisole", 
+        "399": "Herbed Shirt", "400": "Golden Shirt", "401": "Casual Shirt", "402": "Leather Boots", "403": "Dragon Boots", "404": "Safety Boots", 
+        "405": "Knight's Greave", "406": "Silver Greave", "407": "Ninja Sandals", "408": "Golden Boots", "409": "Spirit Ring", "410": "Stardust Ring", 
+        "411": "Aroma Ring", "412": "Rainbow Ring", "413": "Soul Ring", "414": "Guardian Ring", "415": "Golden Ring", "417": "Rusty Sword (1)", 
+        "418": "Rusty Sword (2)", "419": "Rusty Sword (3)", "420": "Rusty Sword (4)", "421": "Rusty Axe (1)", "422": "Rusty Axe (2)", 
+        "423": "Rusty Mace (1)", "424": "Rusty Mace (2)", "425": "Rusty Staff (1)", "426": "Rusty Staff (Glower Staff)", "427": "Rusty Staff (3)", "429": "Tear Stone", 
+        "430": "Star Dust", "431": "Sylph Feather", "432": "Dragon Skin", "433": "Salamander Tail", "434": "Golem Core", "435": "Mythril Silver", 
+        "436": "Dark Matter", "437": "Orihalcon", "439": "Right Prong", "440": "Left Prong", "441": "Center Prong", "443": "Mysterious Card", 
+        "444": "Trainer's Whip", "445": "Tomegathericon", "448": "Healing Fungus", "449": "Laughing Fungus", "451": "Dancing Idol", "452": "Pretty Stone", 
+        "453": "Red Cloth", "454": "Milk", "455": "Li'l Turtle", "456": "Aquarius Stone", "458": "Sea God's Tear", "459": "Ruin Key", "460": "Magma Ball", 
+        "3596": "Growth", "3608": "Frost Jewel", "3617": "Douse Drop", "3662": "Whirlwind", "3717": "Lash Pebble", "3718": "Pound Cube", 
+        "3719": "Tremor Bit", "3720": "Scoop Gem", "3721": "Cyclone Chip", "3722": "Parch", "3723": "Sand", "3725": "Mind Read", "3726": "Orb of Force", 
+        "3727": "Lifting Gem", "3728": "Reveal", "3731": "Carry Stone", "3732": "Catch Beads", "3735": "Burst Brooch", "3736": "Grindstone", 
+        "3737": "Hover Jade", "3738": "Blaze", "3740": "Teleport Lapis", "3856": "Zagan", "3857": "Megaera", "3858": "Flora", "3859": "Moloch", 
+        "3860": "Ulysses", "3861": "Haures", "3862": "Eclipse", "3863": "Coatlique", "3864": "Daedalus", "3865": "Azul", "3866": "Catastrophe", 
+        "3867": "Charon", "3868": "Iris", "32768": "Coins"
+    }
+
+    $('.item-dropdown').selectize({
+        plugins: ['auto_position', 'clear_button', 'auto_select_on_type'],
+        valueField: 'id',
+        labelField: 'name',
+        searchField: 'name',
+        options: Object.keys(itemSelection).map((id) => { return { id, name: itemSelection[id] }; })
+    });
+    $('.item-dropdown').on('change', function() {
+        if ($(this).val() == '32768') {
+            $(this).parent().parent().find('.div-coin').removeClass('d-none');
+        } else {
+            $(this).parent().parent().find('.div-coin').addClass('d-none');
+        }
+    })
+</script>

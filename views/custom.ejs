@@ -3,6 +3,19 @@
 <head>
     <%- include("partials/head_common") %>
 
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/css/selectize.bootstrap5.min.css"
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer"
+    />
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/js/selectize.min.js"
+        integrity="sha512-IOebNkvA/HZjMM7MxL0NYeLYEalloZ8ckak+NDtOViP7oiYzG5vn6WVXyrJDiJPhl4yRdmNAG49iuLmhkUdVsQ=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer"
+    ></script>
+
     <meta property="og:title" content="Custom Seed Creator">
     <link rel="canonical" href="https://gs2randomiser.com/custom.html">
     <title>GS2 Randomiser - Custom Seed Creator</title>
@@ -39,7 +52,7 @@
 
             <div class="col-12 mb-4 px-lg-5">
                 <div class="card mt-4">
-                    <div class="card-body">
+                    <div class="card-body rounded">
                         <ul class="nav nav-tabs">
                             <li class="nav-item">
                                 <button class="nav-link active" id="tab-home" data-bs-toggle="tab" data-bs-target="#tabdiv-home">Home</button>
@@ -102,8 +115,7 @@
                             </div>
 
                             <div class="tab-pane fade mx-4" id="tabdiv-locs">
-                                <div class="accordion" id="accordion-locs">
-                                </div>
+                                <%- include('partials/custom/tab_location') %>
                             </div>
                         
                             <div class="tab-pane fade mx-4" id="tabdiv-equip">

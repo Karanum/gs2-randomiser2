@@ -53,7 +53,7 @@
     --gs2r-inp-bg: #322419;
 }
 
-.dark .form-select {
+.dark .form-select:not(.selectize-dropdown) {
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23b49a60' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e") !important;
 }
 
@@ -120,6 +120,7 @@ body {
 .card {
     border: .5px solid var(--gs2r-card-border) !important;
     background-color: var(--gs2r-card-border) !important;
+    box-shadow: 2px 2px 6px #0003;
 }
 
 .card-body {
@@ -140,7 +141,7 @@ body {
     color: var(--gs2r-text) !important;
 }
 
-.form-select, .form-control, .form-check-input {
+.form-select, .form-control, .form-check-input, .selectize-input {
     border-color: var(--gs2r-inp-border) !important;
     background-color: var(--gs2r-inp-bg) !important;
     color: var(--gs2r-text) !important;
@@ -176,8 +177,16 @@ body {
     box-shadow: 0 0 0 .25rem #e9b02e40 !important;
 }
 
-option {
+option, .selectize-input > input {
     color: var(--gs2r-text) !important;
+}
+.selectize-control > a.clear {
+    color: var(--gs2r-text) !important;
+    padding-bottom: .25rem;
+}
+
+.selectize-input::after {
+    border-color: var(--gs2r-text) transparent transparent transparent !important;
 }
 
 .form-check-input:checked {
