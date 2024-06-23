@@ -112,6 +112,11 @@
                 [
                     "Ship",
                     "Boss_Poseidon"
+                ],
+                [
+                    "Ship",
+                    "ShipWings",
+                    "Hover Jade"
                 ]
             ]
         }
