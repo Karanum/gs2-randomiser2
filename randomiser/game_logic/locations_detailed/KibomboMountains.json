@@ -1,0 +1,17 @@
+{
+    "nodes": {
+        "entrances": [],
+
+        "treasure": [],
+        "djinn": [],
+        "flags": []
+    },
+
+    "edges": {
+        "external": [
+        ],
+
+        "internal": [
+        ]
+    }
+}
