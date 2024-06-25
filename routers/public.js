@@ -86,7 +86,9 @@ router.get(['/permalink/:id', '/:lang/permalink/:id'], validateLanguage, (req, r
                 var keyval = line.split('=');
                 meta[keyval[0]] = keyval[1];
             });
-            res.render('permalink.ejs', {settings: meta.settings, version: meta.version, time: meta.time, lang: locales[req.mwLang]});
+            res.render('permalink.ejs', {
+                settings: meta.settings, version: meta.version, time: meta.time, desc: meta.desc, lang: locales[req.mwLang]
+            });
         }
     });
 });

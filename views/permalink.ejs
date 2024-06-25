@@ -60,6 +60,11 @@
                                 <%= (new Date(Number(time))).toUTCString() %><br>
                                 <%= version %>
                             </div>
+                            <%_ if (locals.desc) { _%>
+                            <div class="col-6 mt-4 mb-1">
+                                <%- desc %>
+                            </div>
+                            <%_ } _%>
                         </div>
                         <hr>
 
