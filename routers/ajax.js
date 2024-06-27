@@ -50,35 +50,41 @@ function generatePermalink() {
 }
 
 //==================================================
-// AJAX endpoint for randomising a normal seed
+// Middleware
 //==================================================
-router.get('/randomise_ajax', (req, res) => {
+function requireValidParams(req, res, next) {
     if (!req.xhr) return res.redirect('/');
     res.type('application/octet-stream');
 
-    var seed = req.query.seed;
-    var settings = req.query.settings;
-    if (isNaN(Number(seed)) || !settings.match(/^[a-f0-9]+$/i)) {
+    res.locals.seed = req.query.seed;
+    res.locals.settings = req.query.settings;
+    if (isNaN(Number(res.locals.seed)) || !res.locals.settings.match(/^[a-f0-9]+$/i)) {
         res.status(403);
         return res.send();
     }
 
-    var filename = `./output_cache/${seed}-${settings}-${versionSuffix}`;
+    res.locals.filename = `./output_cache/${res.locals.seed}-${res.locals.settings}-${versionSuffix}`;
+    next();
+}
 
-    fs.readFile(filename + ".ups", (err, data) => {
+//==================================================
+// AJAX endpoint for randomising a normal seed
+//==================================================
+router.get('/randomise_ajax', requireValidParams, (req, res) => {
+    fs.readFile(res.locals.filename + ".ups", (err, data) => {
         if (!err) {
             res.send(data);
         } else {
             try {
-                randomiser.randomise(seed, parseSettings(settings), filename + ".log", (patch) => {
-                    fs.writeFile(filename + ".ups", patch, (err) => { 
+                randomiser.randomise(res.locals.seed, parseSettings(res.locals.settings), res.locals.filename + ".log", (patch) => {
+                    fs.writeFile(res.locals.filename + ".ups", patch, (err) => { 
                         if (err) console.log(err); 
                     });
                     res.send(Buffer.from(patch));
                 });
             } catch (error) {
                 console.log("=== RANDOMISATION ERROR ===");
-                console.log(`Parameters: settings=${settings}; seed=${seed}`);
+                console.log(`Parameters: settings=${res.locals.settings}; seed=${res.locals.seed}`);
                 console.log(error);
             }
         }
@@ -88,20 +94,8 @@ router.get('/randomise_ajax', (req, res) => {
 //==================================================
 // AJAX endpoint for fetching the spoiler log
 //==================================================
-router.get('/spoiler_ajax', (req, res) => {
-    if (!req.xhr) return res.redirect('/');
-    res.type('application/octet-stream');
-
-    var seed = req.query.seed;
-    var settings = req.query.settings;
-    if (isNaN(Number(seed)) || !settings.match(/^[a-f0-9]+$/i)) {
-        res.status(403);
-        return res.send();
-    }
-
-    var filename = `./output_cache/${seed}-${settings}-${versionSuffix}`;
-
-    fs.readFile(filename + ".log", (err, data) => {
+router.get('/spoiler_ajax', requireValidParams, (req, res) => {
+    fs.readFile(res.locals.filename + ".log", (err, data) => {
         if (err) {
             res.type('application/json');
             res.send({error: "Spoiler log not found"});
@@ -114,22 +108,14 @@ router.get('/spoiler_ajax', (req, res) => {
 //==================================================
 // AJAX endpoint for randomising a permalink seed
 //==================================================
-router.get('/create_perma_ajax', (req, res) => {
-    if (!req.xhr) return res.redirect('/');
+router.get('/create_perma_ajax', requireValidParams, (req, res) => {
     res.type('application/json');
-
-    var seed = req.query.seed;
-    var settings = req.query.settings;
-    if (isNaN(Number(seed)) || !settings.match(/^[a-f0-9]+$/i)) {
-        res.status(403);
-        return res.send();
-    }
 
     var permalink = generatePermalink();
     var logPath = `./temp/${permalink}.log`;
 
     try {
-        randomiser.randomise(seed, parseSettings(settings), logPath, (patch) => {
+        randomiser.randomise(res.locals.seed, parseSettings(res.locals.settings), logPath, (patch) => {
             fs.writeFile(`./permalinks/${permalink}.ups`, patch, (err) => { 
                 if (err) 
                     console.log(err); 
@@ -138,7 +124,7 @@ router.get('/create_perma_ajax', (req, res) => {
                     if (!config.get("production"))
                         version += ' (dev-env)';
 
-                    var meta = `settings=${settings}\nversion=v${version}\ntime=${new Date().getTime()}`;
+                    var meta = `settings=${res.locals.settings}\nversion=v${version}\ntime=${new Date().getTime()}`;
                     fs.writeFile(`./permalinks/${permalink}.meta`, meta, (err) => {
                         if (err) 
                             console.log(err);
@@ -160,7 +146,7 @@ router.get('/create_perma_ajax', (req, res) => {
         });
     } catch (error) {
         console.log("=== RANDOMISATION ERROR ===");
-        console.log(`Parameters: settings=${settings}; seed=${seed}`);
+        console.log(`Parameters: settings=${res.locals.settings}; seed=${res.locals.seed}`);
         console.log(error);
     }
 });
