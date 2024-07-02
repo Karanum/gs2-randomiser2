@@ -1,4 +1,4 @@
-const enemyData = require('./../game_data/enemies.js');
+const enemyData = require('../../game_data/enemies.js');
 
 function apply(rom, enemyInst, abilityInst) {
     enemyData.loadFullBossData(rom, enemyInst);

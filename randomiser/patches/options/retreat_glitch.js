@@ -1,4 +1,4 @@
-const textutil = require('./../game_logic/textutil.js');
+const textutil = require('../../game_logic/textutil.js');
 
 function apply(rom, text) {
     rom[0xCE7C1] = 0x68;

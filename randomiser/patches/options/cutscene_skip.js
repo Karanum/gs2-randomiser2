@@ -1,4 +1,4 @@
-const textutil = require('./../game_logic/textutil.js');
+const textutil = require('../../game_logic/textutil.js');
 
 /**
  * Applies this patch to the map code
