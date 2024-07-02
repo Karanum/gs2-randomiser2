@@ -220,6 +220,7 @@ function randomise(seed, rawSettings, spoilerFilePath, callback) {
     fastForgingPatch.apply(mapCodeClone, textClone);
     tutorialNpcPatch.apply(mapCodeClone, textClone, settings);
     endgameShortcutPatch.apply(mapCodeClone);
+    if (settings['show-items']) fixLemurianShipPatch.applyChestFix(mapCodeClone);
 
     // Applying settings
     if (settings['free-avoid']) abilityClone[150].cost = 0;
@@ -245,7 +246,7 @@ function randomise(seed, rawSettings, spoilerFilePath, callback) {
         if (settings['ship'] == 2) {
             defaultFlags = defaultFlags.concat([0x982, 0x983, 0x8de, 0x907]);
         } else if (settings['ship'] == 1) {
-            fixLemurianShipPatch.apply(mapCodeClone);
+            fixLemurianShipPatch.applyEntranceFix(mapCodeClone);
         }
     }
     if (settings['ship-wings']) defaultFlags = defaultFlags.concat([0x8df]);
