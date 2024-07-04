@@ -25,17 +25,19 @@ const enemyData = require('./game_data/enemies.js');
 const elementData = require('./game_data/elem_tables.js');
 const musicData = require('./game_data/music.js');
 
-const cutsceneSkipPatch = require('./patches/options/cutscene_skip.js');
-const easierBossesPatch = require('./patches/options/easier_bosses.js');
+const endgameShortcutPatch = require('./patches/innate/endgame_shortcuts.js');
 const fastForgingPatch = require('./patches/innate/fast_forging.js');
-const gabombaPuzzlePatch = require('./patches/innate/gabomba_puzzle.js');
-const tutorialNpcPatch = require('./patches/innate/tutorial_npcs.js');
 const fixCharPatch = require('./patches/innate/fix_char.js');
 const fixLemurianShipPatch = require('./patches/innate/fix_lemurian_ship.js');
+const gabombaPuzzlePatch = require('./patches/innate/gabomba_puzzle.js');
+const tutorialNpcPatch = require('./patches/innate/tutorial_npcs.js');
+const backEntrancePatch = require('./patches/innate/register_back_entrances.js');
+
+const avoidPatch = require('./patches/options/avoid.js');
+const cutsceneSkipPatch = require('./patches/options/cutscene_skip.js');
+const easierBossesPatch = require('./patches/options/easier_bosses.js');
 const puzzlesPatch = require('./patches/options/puzzles.js');
 const retreatGlitchPatch = require('./patches/options/retreat_glitch.js');
-const backEntrancePatch = require('./patches/innate/register_back_entrances.js');
-const endgameShortcutPatch = require('./patches/innate/endgame_shortcuts.js');
 
 // List of in-game flags to turn on when cutscene skip is enabled
 const cutsceneSkipFlags = [0xf22, 0x890, 0x891, 0x892, 0x893, 0x894, 0x895, 0x896, 0x848, 0x86c, 0x86d, 0x86e, 0x86f,
@@ -44,7 +46,7 @@ const cutsceneSkipFlags = [0xf22, 0x890, 0x891, 0x892, 0x893, 0x894, 0x895, 0x89
         0x8f6, 0x8fc, 0x8fe, 0x910, 0x911, 0x913, 0x980, 0x981, 0x961, 0x964, 0x965, 0x966, 0x968, 0x962, 0x969,
         0x96a, 0xa8c, 0x88f, 0x8f0, 0x9b1, 0xa78, 0x90c, 0xa2e, 0x9c0, 0x9c1, 0x9c2, 0x908, 0x94F, 0x8bd];
 
-var upsDjinnScaling, upsAvoid, upsTeleport, upsRandomiser;
+var upsDjinnScaling, upsTeleport, upsRandomiser;
 
 var vanillaRom = new Uint8Array(fs.readFileSync("./randomiser/rom/gs2.gba"));
 var rom = Uint8Array.from(vanillaRom);
@@ -76,7 +78,6 @@ function writeByteSequence(target, start, bytes) {
  */
 function initialise() {
     doTiming("Loading UPS patches...", () => {
-        upsAvoid = fs.readFileSync("./randomiser/ups/avoid.ups");
         upsTeleport = fs.readFileSync("./randomiser/ups/teleport.ups");
         upsRandomiser = fs.readFileSync("./randomiser/ups/randomiser_general.ups");
         upsDjinnScaling = fs.readFileSync("./randomiser/ups/djinn_scaling.ups");
@@ -239,7 +240,7 @@ function randomise(seed, rawSettings, spoilerFilePath, callback) {
     if (settings['sanc-revive'] == 1) applyCheapRevivePatch(target);
     if (settings['sanc-revive'] == 2) applyFixedRevivePatch(target);
     if (settings['halve-enc']) applyHalvedRatePatch(target);
-    if (settings['avoid-patch']) target = ups.applyPatch(target, upsAvoid);
+    if (settings['avoid-patch']) avoidPatch.apply(target);
 
     if (settings['ship'] >= 1) {
         defaultFlags = defaultFlags.concat([0x985]);

@@ -1,5 +1,5 @@
 const abilityData = require('./abilities.js');
-const weightedPicker = require('./../../modules/weightedPicker.js');
+const weightedPicker = require('../../util/weightedPicker.js');
 
 const textStart = 2915;
 const textEnd = 3158;

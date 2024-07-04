@@ -1,7 +1,7 @@
 const express = require('express');
 const fs = require('fs');
 const nodePackage = require('./../package.json');
-const config = require('./../modules/config.js');
+const config = require('./../util/config.js');
 
 const router = express.Router();
 
