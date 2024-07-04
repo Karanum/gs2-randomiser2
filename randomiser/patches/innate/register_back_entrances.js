@@ -4,11 +4,7 @@
  * which causes user friction when trying to Teleport back to these places and them not being unlocked.
  */
 
-function writeBytes(rom, addr, bytes) {
-    for (let i = 0; i < bytes.length; ++i) {
-        rom[addr + i] = bytes[i];
-    }
-}
+const { writeArray } = require('../../../util/binary.js');
 
 /**
  * Applies this patch to the map code
@@ -17,7 +13,7 @@ function writeBytes(rom, addr, bytes) {
 function apply(rom) {
     // Fix the Dehkan Plateau back exit
     rom[0xF1190] = 0x6;
-    writeBytes(rom, 0xF119C, [0x24, 0x0, 0xFF, 0xFF]);
+    writeArray(rom, 0xF119C, [0x24, 0x0, 0xFF, 0xFF]);
 
     // Fix the Yampi Desert exits
     rom[0xF123C] = 0x4B;
