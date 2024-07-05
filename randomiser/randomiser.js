@@ -35,6 +35,7 @@ const backEntrancePatch = require('./patches/innate/register_back_entrances.js')
 
 const avoidPatch = require('./patches/options/avoid.js');
 const cutsceneSkipPatch = require('./patches/options/cutscene_skip.js');
+const djinnScalingPatch = require('./patches/options/djinn_scaling.js');
 const easierBossesPatch = require('./patches/options/easier_bosses.js');
 const puzzlesPatch = require('./patches/options/puzzles.js');
 const retreatGlitchPatch = require('./patches/options/retreat_glitch.js');
@@ -46,7 +47,7 @@ const cutsceneSkipFlags = [0xf22, 0x890, 0x891, 0x892, 0x893, 0x894, 0x895, 0x89
         0x8f6, 0x8fc, 0x8fe, 0x910, 0x911, 0x913, 0x980, 0x981, 0x961, 0x964, 0x965, 0x966, 0x968, 0x962, 0x969,
         0x96a, 0xa8c, 0x88f, 0x8f0, 0x9b1, 0xa78, 0x90c, 0xa2e, 0x9c0, 0x9c1, 0x9c2, 0x908, 0x94F, 0x8bd];
 
-var upsDjinnScaling, upsTeleport, upsRandomiser;
+var upsTeleport, upsRandomiser;
 
 var vanillaRom = new Uint8Array(fs.readFileSync("./randomiser/rom/gs2.gba"));
 var rom = Uint8Array.from(vanillaRom);
@@ -80,7 +81,6 @@ function initialise() {
     doTiming("Loading UPS patches...", () => {
         upsTeleport = fs.readFileSync("./randomiser/ups/teleport.ups");
         upsRandomiser = fs.readFileSync("./randomiser/ups/randomiser_general.ups");
-        upsDjinnScaling = fs.readFileSync("./randomiser/ups/djinn_scaling.ups");
     });
 
     doTiming("Applying innate UPS patches...", () => {
@@ -230,7 +230,7 @@ function randomise(seed, rawSettings, spoilerFilePath, callback) {
         abilityClone[156].cost = 0;
     }
 
-    if (settings['djinn-scale']) target = ups.applyPatch(target, upsDjinnScaling);
+    if (settings['djinn-scale']) djinnScalingPatch.apply(target);
     if (settings['qol-fastship']) applyShipSpeedPatch(target);
     if (settings['qol-tickets']) applyGameTicketPatch(target);
     if (settings['qol-cutscenes']) {

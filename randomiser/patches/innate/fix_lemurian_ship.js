@@ -10,6 +10,10 @@ function applyEntranceFix(mapCode) {
     mapCode[1623][1][0x1DA3] = 0xBD;
 }
 
+/**
+ * This patch fixes the disappearing item sprite in the Aqua Hydra room.
+ * @param {MapCodeData} mapCode The map code data instance
+ */
 function applyChestFix(mapCode) {
     mapCode[1622][0] = true;
     mapCode[1622][1][0x130C] = 0x1;
