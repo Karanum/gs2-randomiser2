@@ -30,6 +30,7 @@ const fastForgingPatch = require('./patches/innate/fast_forging.js');
 const fixCharPatch = require('./patches/innate/fix_char.js');
 const fixLemurianShipPatch = require('./patches/innate/fix_lemurian_ship.js');
 const gabombaPuzzlePatch = require('./patches/innate/gabomba_puzzle.js');
+const teleportPatch = require('./patches/innate/teleport.js');
 const tutorialNpcPatch = require('./patches/innate/tutorial_npcs.js');
 const backEntrancePatch = require('./patches/innate/register_back_entrances.js');
 
@@ -47,7 +48,7 @@ const cutsceneSkipFlags = [0xf22, 0x890, 0x891, 0x892, 0x893, 0x894, 0x895, 0x89
         0x8f6, 0x8fc, 0x8fe, 0x910, 0x911, 0x913, 0x980, 0x981, 0x961, 0x964, 0x965, 0x966, 0x968, 0x962, 0x969,
         0x96a, 0xa8c, 0x88f, 0x8f0, 0x9b1, 0xa78, 0x90c, 0xa2e, 0x9c0, 0x9c1, 0x9c2, 0x908, 0x94F, 0x8bd];
 
-var upsTeleport, upsRandomiser;
+var upsRandomiser;
 
 var vanillaRom = new Uint8Array(fs.readFileSync("./randomiser/rom/gs2.gba"));
 var rom = Uint8Array.from(vanillaRom);
@@ -79,12 +80,11 @@ function writeByteSequence(target, start, bytes) {
  */
 function initialise() {
     doTiming("Loading UPS patches...", () => {
-        upsTeleport = fs.readFileSync("./randomiser/ups/teleport.ups");
         upsRandomiser = fs.readFileSync("./randomiser/ups/randomiser_general.ups");
     });
 
-    doTiming("Applying innate UPS patches...", () => {
-        rom = ups.applyPatch(rom, upsTeleport);
+    doTiming("Applying innate patches...", () => {
+        teleportPatch.apply(rom);
         rom = ups.applyPatch(rom, upsRandomiser);
 
         // Quick fix to remove part of the Champa map code injection
