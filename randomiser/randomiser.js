@@ -30,8 +30,10 @@ const fastForgingPatch = require('./patches/innate/fast_forging.js');
 const fixCharPatch = require('./patches/innate/fix_char.js');
 const fixLemurianShipPatch = require('./patches/innate/fix_lemurian_ship.js');
 const gabombaPuzzlePatch = require('./patches/innate/gabomba_puzzle.js');
+const generalPatch = require('./patches/innate/randomiser_general.js');
 const teleportPatch = require('./patches/innate/teleport.js');
 const tutorialNpcPatch = require('./patches/innate/tutorial_npcs.js');
+const trialRoadPatch = require('./patches/innate/trial_road.js');
 const backEntrancePatch = require('./patches/innate/register_back_entrances.js');
 
 const avoidPatch = require('./patches/options/avoid.js');
@@ -84,14 +86,12 @@ function initialise() {
     });
 
     doTiming("Applying innate patches...", () => {
-        teleportPatch.apply(rom);
-        rom = ups.applyPatch(rom, upsRandomiser);
+        // Adjust ROM size to accomodate for added data
+        rom = generalPatch.changeRomSize(rom);
 
-        // Quick fix to remove part of the Champa map code injection
-        // TODO: Update randomiser_general.ups with this fix 
-        //   (though honestly, exorcise the whole injection system, it's a monstrosity of an if-else chain)
-        rom[0x0100771e] = 0x70;
-        rom[0x0100771f] = 0x47;
+        teleportPatch.apply(rom);
+        generalPatch.apply(rom);
+        trialRoadPatch.apply(rom);
     });
     credits.writeToRom(rom);
 
@@ -111,10 +111,6 @@ function initialise() {
     doTiming("Loading map code...", () => mapCode.initialise(rom));
 
     textutil.writeLine(undefined, 1504, "Starburst");
-
-    // Trial Road inventory snapshotting fix
-    rom[0xB10A4] = 0x8C;
-    rom[0xB10A5] = 0xE0;
 
     // Change critical boost display
     textutil.writeLine(undefined, 4226, "Crit Rate");
