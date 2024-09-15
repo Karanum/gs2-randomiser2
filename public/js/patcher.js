@@ -132,11 +132,13 @@ class UPSPatcher {
         this.add(0x26361, [0x01]);
         this.add(0x270A5, [0x01]);
         this.add(0x279DD, [0x01]);
+        this.add(0x1007900, [0x01]);
     }
 
     disableAutoRunPatch() {
         this.remove(0x26361);
         this.remove(0x270A5);
         this.remove(0x279DD);
+        this.remove(0x1007900);
     }
 }
