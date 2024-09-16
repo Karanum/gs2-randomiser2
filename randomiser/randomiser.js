@@ -42,6 +42,7 @@ const djinnScalingPatch = require('./patches/options/djinn_scaling.js');
 const easierBossesPatch = require('./patches/options/easier_bosses.js');
 const puzzlesPatch = require('./patches/options/puzzles.js');
 const retreatGlitchPatch = require('./patches/options/retreat_glitch.js');
+const teleportEverywherePatch = require('./patches/options/teleport_everywhere.js');
 
 // List of in-game flags to turn on when cutscene skip is enabled
 const cutsceneSkipFlags = [0xf22, 0x890, 0x891, 0x892, 0x893, 0x894, 0x895, 0x896, 0x848, 0x86c, 0x86d, 0x86e, 0x86f,
@@ -237,6 +238,7 @@ function randomise(seed, rawSettings, spoilerFilePath, callback) {
     if (settings['sanc-revive'] == 2) applyFixedRevivePatch(target);
     if (settings['halve-enc']) applyHalvedRatePatch(target);
     if (settings['avoid-patch']) avoidPatch.apply(target);
+    if (settings['teleport-everywhere']) teleportEverywherePatch.apply(target);
 
     if (settings['ship'] >= 1) {
         defaultFlags = defaultFlags.concat([0x985]);

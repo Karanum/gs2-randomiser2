@@ -101,17 +101,17 @@ function getDefaultPresets() {
         "easy": {
             name: "Easy",
             desc: "Key Items and Djinn shuffled, starting with healing Psynergy and Revive.",
-            settings: "6610890007030e1105041000"
+            settings: "6610890007030e1105041040"
         },
         "open_mode": {
             name: "Open Mode",
             desc: "Most items and Djinn shuffled with the Lemurian Ship unlocked from the start. Starting levels are increased to compensate.",
-            settings: "9facc8904f83c81112040000"
+            settings: "9facc8904f83c81112040040"
         },
         "example_race_preset": {
             name: "Example Race Preset",
             desc: "The original race preset. Check Discord for more up-to-date racing presets.",
-            settings: "9fefde988f82584292441200"
+            settings: "9fefde988f82584292441240"
         }
     };
 }

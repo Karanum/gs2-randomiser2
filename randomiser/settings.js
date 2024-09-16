@@ -77,7 +77,8 @@ function parse(settings) {
         'manual-rg': (settings[10] >> 1) & 0b1,
         'ship-wings': settings[10] & 0b1,
 
-        'music-shuffle': (settings[11] >> 7) & 0b1
+        'music-shuffle': (settings[11] >> 7) & 0b1,
+        'teleport-everywhere': (settings[11] >> 6) & 0b1
     };
 }
 

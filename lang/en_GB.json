@@ -301,6 +301,7 @@
         "qol_item_hints": "Add item hints",
         "qol_faster_ship": "Faster overworld ship movement",
         "qol_avoid_toggle": "Make Avoid toggleable and always work",
+        "qol_teleport_everywhere": "Allow Teleport to dungeons and small towns",
         "qol_hard_mode": "Enable Hard mode from the start",
         "qol_half_encounters": "Halve encounter rate",
         "qol_easier_bosses": "Easier bosses",
