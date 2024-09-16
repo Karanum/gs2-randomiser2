@@ -167,7 +167,6 @@ function getMaxSphereDepth(spheres, itemLocs, itemList) {
  * Returns a random item location ID based on the given sphere depth.
  */
 function pickRandomSlot(prng, spheres, itemLocs, depth, attempt = 0) {
-    console.log('getting hint for depth', depth);
     var targetDepth = undefined;
     if (depth + 3 >= spheres.length) --depth;
     for (var i = depth + 2; i < spheres.length; ++i) {
@@ -175,7 +174,6 @@ function pickRandomSlot(prng, spheres, itemLocs, depth, attempt = 0) {
         if (prng.random() < (0.4 + (3 - Math.min(3, spheres.length - i - 2)) * 0.2) / (1 + attempt * 0.2)) break;
     }
     if (!targetDepth) targetDepth = spheres.length - 1;
-    console.log('item hint in sphere', targetDepth);
     var sphere = spheres[targetDepth];
     var weightedSphere = [];
     sphere.forEach((slot) => {
@@ -205,13 +203,10 @@ function getItemHint(prng, spheres, itemLocs, depth, seen) {
     var slot = pickRandomSlot(prng, spheres, itemLocs, depth, 0);
     var attempts = 0;
     while (seen.includes(slot) && attempts < 10) {
-        console.log('duplicate hint, reroll');
         slot = pickRandomSlot(prng, spheres, itemLocs, depth, attempts + 1);
         ++attempts;
-        if (attempts >= 10) console.log("!! - GIVING UP");
     }
     seen.push(slot);
-    console.log('hint:', slot);
     return itemLocs[slot][0];
 }
 
@@ -388,7 +383,6 @@ function randomHintType(prng) {
  * Write randomly chosen hints into the text of the game.
  */
 function writeHints(prng, lines, spheres, itemLocs) {
-    console.log('-----');
     var seen = [];
 
     var hint = getHintIndra(prng, randomHintType(prng), spheres, itemLocs, seen);
