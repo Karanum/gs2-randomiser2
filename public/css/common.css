@@ -232,6 +232,15 @@ table {
     --bs-table-accent-bg: var(--bs-table-active-bg) !important;
 }
 
+.table td, .table th {
+    color: var(--gs2r-text);
+    background-color: inherit;
+}
+
+.table th, .table thead td {
+    border-bottom-color: currentColor;
+}
+
 .dropdown-item {
     color: var(--gs2r-link-nav) !important;
 }
