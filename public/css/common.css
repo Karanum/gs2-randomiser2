@@ -121,6 +121,7 @@ body {
     border: .5px solid var(--gs2r-card-border) !important;
     background-color: var(--gs2r-card-border) !important;
     box-shadow: 2px 2px 6px #0003;
+    color: var(--gs2r-text) !important;
 }
 
 .card-body {
@@ -133,6 +134,25 @@ body {
 
 .card-body .card-header {
     background-color: var(--gs2r-card-header2) !important;
+}
+
+.modal-body {
+    background-color: var(--gs2r-card-bg) !important;
+    border: solid 1px var(--gs2r-card-border) !important;
+    border-bottom: none !important;
+    padding-bottom: 0 !important;
+}
+
+.modal-header {
+    background-color: var(--gs2r-card-header1) !important;
+    border: solid 1px var(--gs2r-card-border) !important;
+    border-bottom: none !important;
+}
+
+.modal-footer {
+    background-color: var(--gs2r-card-bg) !important;
+    border: solid 1px var(--gs2r-card-border) !important;
+    border-top: none !important;
 }
 
 .input-group-text {

@@ -29,7 +29,11 @@
         "subheader_qol": "Quality of Life",
 
         "preset": "Preset",
-        "apply": "Apply Preset",
+        "apply_preset": "Apply selected preset",
+        "export_preset": "Export selected preset",
+        "delete_preset": "Delete selected preset",
+        "load_preset": "Import preset",
+        "save_preset": "Save new preset",
 
         "tab_items": "Items",
         "tab_djinn": "Djinn/Summons",
@@ -391,6 +395,30 @@
             "open": "A mix of Intermediate and Hard with the Lemurian Ship unlocked from the start. Starting levels are increased to compensate.",
             "chaos": "Everything is randomised. Possibly very hard and unfair.",
             "race": "The official GS:TLA Randomiser race preset. Check our Discord for more information."
+        },
+
+        "preset_name": "Name",
+        "preset_desc": "Description (max. 1000 characters)",
+
+        "modals": {
+            "close": "Close",
+
+            "export_title": "Share preset",
+            "export_copy": "Copy to clipboard",
+
+            "import_title": "Load preset",
+            "import_text": "Paste the preset string here",
+            "import_button": "Import",
+            "import_error": "Invalid preset string",
+
+            "save_title": "Save preset",
+            "save_button": "Save",
+            "save_name_empty": "Name may not be empty",
+            "save_desc_error": "Description is too long",
+
+            "delete_title": "Delete preset",
+            "delete_text": "Are you sure you want to delete the preset \"%1\"?",
+            "delete_button": "Yes, delete it"
         }
     },
 

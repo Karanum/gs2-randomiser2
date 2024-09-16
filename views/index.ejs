@@ -85,29 +85,16 @@
                                         <div class="input-group mb-3">
                                             <label class="input-group-text"><%= lang.index.preset %></label>
                                             <select class="form-select" id="inp-preset">
-                                                <option value='0' selected><%= lang.presets.name.easy %></option>
-                                                <option value='1'><%= lang.presets.name.intermediate %></option>
-                                                <option value='2'><%= lang.presets.name.hard %></option>
-                                                <option value='3'><%= lang.presets.name.vanilla %></option>
-                                                <option value='4'><%= lang.presets.name.open %></option>
-                                                <option value='5'><%= lang.presets.name.chaos %></option>
-                                                <option value='6'><%= lang.presets.name.race %></option>
+                                                <option value='' selected></option>
                                             </select>
                                         </div>
-
-                                        <button class="btn btn-primary mb-2" id="btn-preset"><%= lang.index.apply %></button>
                                     </div>
 
                                     <div class="col-12 col-lg-6">
                                         <p class="mt-1" id="p-preset"></p>
-                                        <p hidden id="preset-desc-0"><%= lang.presets.desc.easy %></p>
-                                        <p hidden id="preset-desc-1"><%= lang.presets.desc.intermediate %></p>
-                                        <p hidden id="preset-desc-2"><%= lang.presets.desc.hard %></p>
-                                        <p hidden id="preset-desc-3"><%= lang.presets.desc.vanilla %></p>
-                                        <p hidden id="preset-desc-4"><%= lang.presets.desc.open %></p>
-                                        <p hidden id="preset-desc-5"><%= lang.presets.desc.chaos %></p>
-                                        <p hidden id="preset-desc-6"><%= lang.presets.desc.race %></p>
                                     </div>
+
+                                    <%- include("partials/preset_buttons") %>
                                 </div>
                             </div>
                         </div>
@@ -384,5 +371,10 @@
             </div> 
         </div>
     </main>
+
+    <%- include("partials/modals/delete_preset") %>
+    <%- include("partials/modals/export_preset") %>
+    <%- include("partials/modals/import_preset") %>
+    <%- include("partials/modals/save_preset") %>
 </body>
 </html>
