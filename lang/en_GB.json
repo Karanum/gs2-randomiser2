@@ -256,6 +256,8 @@
         "armour_effect_shuffle": "Shuffle armour effects",
         "curse_random": "Randomise curses",
         "curse_remove": "Remove all curses",
+        "force_boss_drops": "Force boss-locked items to be key items",
+        "force_superboss_minors": "Prevent superboss-locked items being key items",
 
         "djinn_shuffle": "Shuffle Djinn",
         "djinn_stats_shuffle": "Shuffle Djinni stat boosts",

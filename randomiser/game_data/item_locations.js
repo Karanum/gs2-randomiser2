@@ -72,6 +72,8 @@ function loadTreasure(rom, mapId, addr) {
     treasure['isKeyItem'] = false;
     treasure['isMajorItem'] = false;
     treasure['isHidden'] = false;
+    treasure['forcedMajor'] = false;
+    treasure['forcedMinor'] = false;
     return treasure;
 }
 
@@ -195,6 +197,29 @@ function prepItemLocations(locations, settings) {
         locations['0xe06'].forEach((t) => setLocked(t));
         locations['0x1b'].forEach((t) => setLocked(t));
         locations['0x1c'].forEach((t) => setLocked(t));
+    }
+
+    if (settings['force-boss-drops']) {
+        if (!settings['force-superboss-minors']) {
+            locations['0x18'].forEach((t) => t['forcedMajor'] = true);
+            locations['0x19'].forEach((t) => t['forcedMajor'] = true);
+            locations['0x1a'].forEach((t) => t['forcedMajor'] = true);
+            locations['0x1c'].forEach((t) => t['forcedMajor'] = true);
+        }
+        locations['0x101'].forEach((t) => t['forcedMajor'] = true);
+        locations['0x88c'].forEach((t) => t['forcedMajor'] = true);
+        locations['0x94d'].forEach((t) => t['forcedMajor'] = true);
+        locations['0x978'].forEach((t) => t['forcedMajor'] = true);
+        locations['0x9ba'].forEach((t) => t['forcedMajor'] = true);
+        locations['0xa3a'].forEach((t) => t['forcedMajor'] = true);
+        locations['0xe41'].forEach((t) => t['forcedMajor'] = true);
+        locations['0xf58'].forEach((t) => t['forcedMajor'] = true);
+    }
+    if (settings['force-superboss-minors']) {
+        locations['0x18'].forEach((t) => t['forcedMinor'] = true);
+        locations['0x19'].forEach((t) => t['forcedMinor'] = true);
+        locations['0x1a'].forEach((t) => t['forcedMinor'] = true);
+        locations['0x1c'].forEach((t) => t['forcedMinor'] = true);
     }
 }
 

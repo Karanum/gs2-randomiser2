@@ -73,6 +73,8 @@ const randomiserSettings = {
     'halve-enc': [10, 6, 1],
     'hard-mode': [10, 7, 1],
 
+    'force-superboss-minors': [11, 4, 1],
+    'force-boss-drops': [11, 5, 1],
     'teleport-everywhere': [11, 6, 1],
     'music-shuffle': [11, 7, 1],
 };

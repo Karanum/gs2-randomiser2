@@ -36,22 +36,31 @@ class ItemRandomiser {
 
         var accessibleSlots = [];
         var totalWeight = 0;
+        var forcedSlot = undefined;
         this.accessibleItems.forEach((slot) => {
             if (this.settings['major-shuffle'] && (item['isMajorItem'] != this.instItemLocations[slot][0]['isMajorItem']))
                 return;
 
             var weight = this.slotWeights[slot];
             if (weight != undefined) {
+                if (item['isKeyItem'] && this.instItemLocations[slot][0]['forcedMajor'] && !forcedSlot) {
+                    forcedSlot = slot;
+                }
+
                 accessibleSlots.push(slot);
                 totalWeight += weight;
             }
         });
 
         var slot;
-        var rand = this.prng.random() * totalWeight;
-        for (var i = 0; i < accessibleSlots.length && rand > 0; ++i) {
-            slot = accessibleSlots[i];
-            rand -= this.slotWeights[slot];
+        if (forcedSlot) {
+            slot = forcedSlot;
+        } else {
+            var rand = this.prng.random() * totalWeight;
+            for (var i = 0; i < accessibleSlots.length && rand > 0; ++i) {
+                slot = accessibleSlots[i];
+                rand -= this.slotWeights[slot];
+            }
         }
 
         this.instItemLocations[slot].forEach((t) => {
@@ -61,7 +70,7 @@ class ItemRandomiser {
             t['isKeyItem'] = item['isKeyItem'];
         });
 
-        accessibleSlots.forEach((slot) => this.slotWeights[slot] *= (0.65 * Math.max(this.prng.random(), 0.1)));
+        accessibleSlots.forEach((slot) => this.slotWeights[slot] *= ((forcedSlot ? 0.95 : 0.65) * Math.max(this.prng.random(), 0.1)));
         delete this.slotWeights[slot];
         delete this.availableItems['0x' + item['id'].toString(16)];
     }
@@ -86,6 +95,7 @@ class ItemRandomiser {
         if (this.settings['major-shuffle']) {
             if (item['isMajorItem'] != slotItem['isMajorItem']) return false;
         }
+        if (item['isKeyItem'] && slotItem['forcedMinor']) return false;
 
         if (item['isSummon']) {
             if (this.hasRestriction('no-summon', slotItem) && this.settings['item-shuffle'] > 1) return false;
@@ -109,14 +119,24 @@ class ItemRandomiser {
             this.flagSet.push(item['vanillaName']);
 
         var accessibleSlots = [];
+        var forcedSlot = undefined;
         this.accessibleItems.forEach((slot) => {
-            if (this.slotWeights[slot] != undefined)
+            if (this.slotWeights[slot] != undefined) {
                 accessibleSlots.push(slot);
+                if (item['isKeyItem'] && this.instItemLocations[slot][0]['forcedMajor'] && this.isSlotCompatible(slot, item) && !forcedSlot) {
+                    forcedSlot = slot;
+                }
+            }
         });
 
-        var slot = accessibleSlots[Math.floor(this.prng.random() * accessibleSlots.length)];
-        while (!this.isSlotCompatible(slot, item)) {
+        var slot;
+        if (forcedSlot) {
+            slot = forcedSlot
+        } else {
             slot = accessibleSlots[Math.floor(this.prng.random() * accessibleSlots.length)];
+            while (!this.isSlotCompatible(slot, item)) {
+                slot = accessibleSlots[Math.floor(this.prng.random() * accessibleSlots.length)];
+            }
         }
 
         this.instItemLocations[slot].forEach((t) => {
