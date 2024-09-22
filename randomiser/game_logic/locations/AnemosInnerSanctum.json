@@ -3,15 +3,13 @@
         [
             "Ship",
             "Grindstone",
-            "Teleport Lapis",
-            "AnyDjinn_72"
+            "Teleport Lapis"
         ],
         [
             "Ship",
             "ShipWings",
             "Hover Jade",
-            "Teleport Lapis",
-            "AnyDjinn_72"
+            "Teleport Lapis"
         ]
     ],
     "Treasure": [
@@ -49,7 +47,8 @@
                 [
                     "Lifting Gem",
                     "Sand",
-                    "Hover Jade"
+                    "Hover Jade",
+                    "AnyDjinn_72"
                 ]
             ]
         }

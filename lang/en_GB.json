@@ -314,6 +314,7 @@
 
         "puzzles_fixed": "Make name-based puzzles fixed",
         "puzzles_random": "Make name-based puzzles random",
+        "anemos_access": "Anemos Inner Sanctum door",
 
         "manual_retreat_glitch": "Hold SELECT to always trigger Retreat glitch"
     },
@@ -376,6 +377,12 @@
             "vanilla": "Vanilla (20x level)",
             "reduced": "Reduced (2x level)",
             "fixed": "Fixed at 100 coins"
+        },
+
+        "anemos_access": {
+            "vanilla": "Vanilla",
+            "random": "Randomised (16 to 28 Djinn)",
+            "open": "Always open"
         }
     },
 

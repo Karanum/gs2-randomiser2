@@ -80,7 +80,8 @@ function parse(settings) {
         'music-shuffle': (settings[11] >> 7) & 0b1,
         'teleport-everywhere': (settings[11] >> 6) & 0b1,
         'force-boss-drops': (settings[11] >> 5) & 0b1,
-        'force-superboss-minors': (settings[11] >> 4) & 0b1
+        'force-superboss-minors': (settings[11] >> 4) & 0b1,
+        'anemos-access': (settings[11] >> 2) & 0b11
     };
 }
 

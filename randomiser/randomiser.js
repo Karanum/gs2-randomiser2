@@ -36,6 +36,7 @@ const tutorialNpcPatch = require('./patches/innate/tutorial_npcs.js');
 const trialRoadPatch = require('./patches/innate/trial_road.js');
 const backEntrancePatch = require('./patches/innate/register_back_entrances.js');
 
+const anemosRequirementsPatch = require('./patches/options/anemos_requirements.js');
 const avoidPatch = require('./patches/options/avoid.js');
 const cutsceneSkipPatch = require('./patches/options/cutscene_skip.js');
 const djinnScalingPatch = require('./patches/options/djinn_scaling.js');
@@ -252,10 +253,28 @@ function randomise(seed, rawSettings, spoilerFilePath, callback) {
 
     if (settings['hard-mode']) defaultFlags = defaultFlags.concat([0x2E]);
 
+    // Set Anemos Inner Sanctum Djinn requirement
+    var anemosDjinnReq = 72;
+    if (settings['anemos-access'] == 1) {
+        anemosRequirementsPatch.apply(mapCodeClone, textClone);
+        anemosDjinnReq = Math.min(Math.floor(prng.random() * 13) + 16, Math.floor(prng.random() * 13) + 16);
+        target[0x1007902] = anemosDjinnReq;
+    } else if (settings['anemos-access'] == 2) {
+        anemosDjinnReq = 0;
+        defaultFlags = defaultFlags.concat([0xa87, 0xa88, 0xa89, 0xa8a, 0xa8b]);
+    }
+
+    var locationsClone = locations.clone();
+    if (anemosDjinnReq > 0) {
+        locationsClone[0].filter((loc) => loc.Origin == 'Anemos Inner Sanctum').forEach((loc) => {
+            loc.Reqs.forEach((req) => req.push(`AnyDjinn_${anemosDjinnReq}`));
+        });
+    }
+
     writeStoryFlags(target, defaultFlags);
 
     // Performing randomisation until a valid seed is found, or too many randomisations have been performed
-    var randomiser = new itemRandomiser.ItemRandomiser(prng, locations.clone(), settings);
+    var randomiser = new itemRandomiser.ItemRandomiser(prng, locationsClone, settings);
     if (settings['item-shuffle'] > 0) {
         var attempts = 0;
         var success = false;

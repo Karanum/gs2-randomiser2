@@ -302,6 +302,14 @@
                                         <%- include('partials/setting_switch', { id: 'inp-random-puzzles', label: lang.settings.puzzles_random, tooltip: 16 }) %>
                                         <%- include('partials/setting_switch', { id: 'inp-fixed-puzzles', label: lang.settings.puzzles_fixed, tooltip: 15, margin: 3 }) %>
                                     </div>
+
+                                    <div class="col-12 col-lg-6">
+                                        <%- include('partials/setting_dropdown', { id: 'inp-anemos-access', label: lang.settings.anemos_access, selected: '0', data: [
+                                            ['0', lang.options.anemos_access.vanilla], 
+                                            ['1', lang.options.anemos_access.random], 
+                                            ['2', lang.options.anemos_access.open]
+                                        ] }) %>
+                                    </div>
                                 </div>
                             </div>
                         </div>
