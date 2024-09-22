@@ -11,7 +11,7 @@
 
     "index": {
         "site_name": "Golden Sun: Die vergessene Epoche Randomisierer",
-        "intro": "Wilkommen auf die webbasierten Golden Sun: Die vergessene Epoche Randomisierer von Karanum, basierten auf dem originalen \"GS2 Randomizer\" von MarvinXLII. Um zu beginnen, wählst du einfach eine Vorinstellung aus und/oder passt du die Einstellungen frei an, um das gewünschte Spielerlebnis zu schaffen.",
+        "intro": "Wilkommen auf die webbasierten Golden Sun: Die vergessene Epoche Randomisierer von Karanum, basierten auf dem originalen \"GS2 Randomizer\" von MarvinXLII. Um zu beginnen, wählst du einfach eine Preset aus und/oder passt du die Einstellungen frei an, um das gewünschte Spielerlebnis zu schaffen.",
         "new_players": "Wenn du neu bist, wird empfohlen die %1 zu lesen, um zu erfahren was der Randomisierer tun kann, und die %2 um dir in schwierigen Situationen zu helfen. Für weitere Informationen trittst du unserem %3 bei.",
         "translation": "Bitte beachtest du dass der Randomisierer nur auf der englischen Version des Spiels funktioniert. Außerdem ist der größte Teil dieser Seite maschinell übersetzt. Wenn es also irgendwelche Fehler gibt, lass es mich bitte auf Discord oder durch der GitHub Issue Tracker wissen.",
         "discord": "Discord-Server",
@@ -23,13 +23,17 @@
         "generate_permalink": "Erzeuge Dauerlink",
 
         "header_settings": "Randomisierer-Einstellungen",
-        "subheader_preset": "Vorinstellungen",
+        "subheader_preset": "Presets",
         "subheader_rando": "Randomisierung",
         "subheader_logic": "Logikeinstellungen",
         "subheader_qol": "Lebensqualität",
 
-        "preset": "Instellung",
-        "apply": "Vorinstellung anwenden",
+        "preset": "Preset",
+        "apply_preset": "Ausgewählte Preset anwenden",
+        "export_preset": "Ausgewählte Preset exportieren",
+        "delete_preset": "Ausgewählte Preset löschen",
+        "load_preset": "Preset importieren",
+        "save_preset": "Neues Preset speichern",
 
         "tab_items": "Items",
         "tab_djinn": "Dschinn/Beschw.",
@@ -252,6 +256,8 @@
         "armour_effect_shuffle": "Effekte aus Rüstung mischen",
         "curse_random": "Flüche randomisieren",
         "curse_remove": "Alle Flüche entfernen",
+        "force_boss_drops": "Boss-gesperrte Items immer wichtig machen",
+        "force_superboss_minors": "Superboss-gesperrte Items nicht erlauben wichtig zu sein",
 
         "djinn_shuffle": "Dschinn mischen",
         "djinn_stats_shuffle": "Statistiken auf Dschinn mischen",
@@ -297,6 +303,7 @@
         "qol_item_hints": "Itemhinweise zufügen",
         "qol_faster_ship": "Schnellere Schiffsbewegung auf Weltkarte",
         "qol_avoid_toggle": "Vermeidung umschaltbar und immer funktionieren machen",
+        "qol_teleport_everywhere": "Teleport nach Dungeons und kleinen Städten erlauben",
         "qol_hard_mode": "Schwer Schwierigkeit im Spiel aktivieren",
         "qol_half_encounters": "Kampfrate halbieren",
         "qol_easier_bosses": "Einfachere Bosse",
@@ -307,6 +314,7 @@
 
         "puzzles_fixed": "Mach namenbasierte Puzzles fixiert",
         "puzzles_random": "Mach namenbasierte Puzzles zufällig",
+        "anemos_access": "Inneres Anemos Tür",
 
         "manual_retreat_glitch": "Halt SELECT um immer Rückzugglitch zu aktivieren"
     },
@@ -369,6 +377,12 @@
             "vanilla": "Vanilla (20x Level)",
             "reduced": "Reduziert (2x Level)",
             "fixed": "Fest auf 100 Münzen"
+        },
+
+        "anemos_access": {
+            "vanilla": "Vanilla",
+            "random": "Randomisiert (16 bis 28 Dschinn)",
+            "open": "Immer offen"
         }
     },
 
@@ -390,7 +404,31 @@
             "vanilla": "So nah wie möglich am Original, abzüglich der vom Randomisierer vorgenommenen Änderungen.",
             "open": "Zwischen Mittlerer und Schwierig, und das Schiff ist von Anfang an freigeschaltet. Zum Ausgleich werden die Anfangslevels erhöht.",
             "chaos": "Alles ist randomisiert. Möglich sehr schwierig und unfair.",
-            "race": "Das offizielle GS:TLA Wetstreittvorinstellung. Weitere Informationen in unserem Discord."
+            "race": "Das offizielle GS:TLA Wetstreitt-Preset. Weitere Informationen in unserem Discord."
+        },
+
+        "preset_name": "Name",
+        "preset_desc": "Beschreibung (max. 1000 Zeichen)",
+
+        "modals": {
+            "close": "Schließen",
+
+            "export_title": "Preset teilen",
+            "export_copy": "In Zwischenablage kopieren",
+
+            "import_title": "Preset laden",
+            "import_text": "Fügen Sie hier die Presetcode ein",
+            "import_button": "Importieren",
+            "import_error": "Ungültige Presetcode",
+
+            "save_title": "Preset speichern",
+            "save_button": "Speichern",
+            "save_name_empty": "Name darf nicht leer sein",
+            "save_desc_error": "Beschreibung ist zu lang",
+
+            "delete_title": "Preset löschen",
+            "delete_text": "Preset \"%1\" wirklich löschen?",
+            "delete_button": "Ja, löschen"
         }
     },
 

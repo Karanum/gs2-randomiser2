@@ -29,7 +29,11 @@
         "subheader_qol": "Qualité de Vie",
 
         "preset": "Préréglage",
-        "apply": "Appliquer",
+        "apply_preset": "Appliquer préréglage choisi",
+        "export_preset": "Exporter préréglage choisi",
+        "delete_preset": "Supprimer préréglage choisi",
+        "load_preset": "Importer préréglage",
+        "save_preset": "Enregistrer nouveau préréglage",
 
         "tab_items": "Objets",
         "tab_djinn": "Djinn/Invoc.",
@@ -252,6 +256,8 @@
         "armour_effect_shuffle": "Mélanger effets d'armures",
         "curse_random": "Randomiser objets maudit",
         "curse_remove": "Supprimer tous maudits",
+        "force_boss_drops": "Forcer objets verrouillés par un boss à être importants",
+        "force_superboss_minors": "Empêcher objets verrouillés par un superboss d'être importants",
 
         "djinn_shuffle": "Mélanger Djinn",
         "djinn_stats_shuffle": "Mélanger statistiques des Djinn",
@@ -297,6 +303,7 @@
         "qol_item_hints": "Ajouter indices d'objets",
         "qol_faster_ship": "Bateau plus rapide sur carte du monde",
         "qol_avoid_toggle": "Faites Esquive soit basculable et fonctionne toujours",
+        "qol_teleport_everywhere": "Permettre Téléporter vers donjons et petites villes",
         "qol_hard_mode": "Activer le mode difficile",
         "qol_half_encounters": "Réduire moitié le taux de combat",
         "qol_easier_bosses": "Des boss plus faciles",
@@ -307,6 +314,7 @@
 
         "puzzles_fixed": "Changer puzzles basés sur nom pour qu'ils déterminé",
         "puzzles_random": "Changer puzzles basés sur nom pour qu'ils random",
+        "anemos_access": "Porte Intérieur d'Anémos",
 
         "manual_retreat_glitch": "Maintenez SELECT pour toujours activer Fuir glitch"
     },
@@ -369,6 +377,12 @@
             "vanilla": "Inchangé (20x niveau)",
             "reduced": "Réduit (2x niveau)",
             "fixed": "Fixé à 100 Pièces"
+        },
+
+        "anemos_access": {
+            "vanilla": "Inchangé",
+            "random": "Randomisé (16 à 28 Djinn)",
+            "open": "Toujours ouvert"
         }
     },
 
@@ -391,6 +405,30 @@
             "open": "Un milieu entre Intermédiaire et Difficile avec le Bateau Lémurien disponible dès le départ. Les niveaux de départ sont augmentés pour compenser.",
             "chaos": "Tout est randomisé. Peut-être très difficile et injuste.",
             "race": "La préréglage officiel du tournoi GS:TLA Randomisateur. Consultez notre Discord pour plus d'informations."
+        },
+
+        "preset_name": "Nom",
+        "preset_desc": "Description (max. 1000 caractères)",
+
+        "modals": {
+            "close": "Fermer",
+
+            "export_title": "Exporter préréglage",
+            "export_copy": "Copier dans presse-papiers",
+
+            "import_title": "Charger préréglage",
+            "import_text": "Entrez ici la séquence de préréglage",
+            "import_button": "Importer",
+            "import_error": "Séquence préréglage n'est pas valide",
+
+            "save_title": "Enregistrer préréglage",
+            "save_button": "Enregistrer",
+            "save_name_empty": "Nom ne peut pas rester vide",
+            "save_desc_error": "Description est trop longue",
+
+            "delete_title": "Supprimer préréglage",
+            "delete_text": "Vraiment supprimer le préréglage \"%1\"?",
+            "delete_button": "Oui, supprimer"
         }
     },
 

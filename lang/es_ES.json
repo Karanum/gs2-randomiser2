@@ -29,7 +29,11 @@
         "subheader_qol": "Calidad de Vida",
 
         "preset": "Preajuste",
-        "apply": "Aplicar Preajuste",
+        "apply_preset": "Aplicar preajuste seleccionado",
+        "export_preset": "Exportar preajuste seleccionado",
+        "delete_preset": "Eliminar preajuste seleccionado",
+        "load_preset": "Importar preajuste",
+        "save_preset": "Guardar nuevo preajuste",
 
         "tab_items": "Objeto",
         "tab_djinn": "Djinn/Invoc.",
@@ -252,6 +256,8 @@
         "armour_effect_shuffle": "Intercambiar efectos de armaduras",
         "curse_random": "Intercambiar objetos malditos",
         "curse_remove": "Quitar todas maldiciones",
+        "force_boss_drops": "Obligar objetos bloqueado por jefe a ser importantes",
+        "force_superboss_minors": "Evitar objetos bloqueado por superjefe sean importantes",
 
         "djinn_shuffle": "Intercambiar Djinn",
         "djinn_stats_shuffle": "Intercambiar aumentos de estadísticas de Djinn",
@@ -297,6 +303,7 @@
         "qol_item_hints": "Agregar sugerencias de objetos",
         "qol_faster_ship": "Barco más rápido en mapa del mundo",
         "qol_avoid_toggle": "Hacer que Esquivar sea conmutable",
+        "qol_teleport_everywhere": "Permitir Teletransporte a todos tipos de ubicaciones",
         "qol_hard_mode": "Habilitar la dificultad Difícil en juego",
         "qol_half_encounters": "Reducir a la mitad la tasa de batalla",
         "qol_easier_bosses": "Jefes más fáciles",
@@ -307,6 +314,7 @@
 
         "puzzles_fixed": "Haz que puzzles basados en nombre fijado",
         "puzzles_random": "Haz que puzzles basados en nombre aleatorios",
+        "anemos_access": "Puerta al Anemos interior",
 
         "manual_retreat_glitch": "Mantenga SELECT para activar siempre Huir glitch"
     },
@@ -369,6 +377,12 @@
             "vanilla": "Vanilla (20x nivel)",
             "reduced": "Reducio (2x nivel)",
             "fixed": "Fijado en 100 Monedas"
+        },
+
+        "anemos_access": {
+            "vanilla": "Vanilla",
+            "random": "Aleatoria (16 a 28 Djinn)",
+            "open": "Siempre abierta"
         }
     },
 
@@ -391,6 +405,30 @@
             "open": "Una mezcla de Intermedio y Difícil con el Barco Lemuriano desbloqueado desde el principio. Los niveles iniciales aumentan para compensar.",
             "chaos": "Todo es aleatorio. Posiblemente muy difícil e injusto.",
             "race": "El preajuste oficial del torneos randomizador GS:TLA. Consulte nuestro Discord para obtener más información."
+        },
+
+        "preset_name": "Nombre",
+        "preset_desc": "Descripción (máx. 1000 caracteres)",
+
+        "modals": {
+            "close": "Cerrar",
+
+            "export_title": "Exportar preajuste",
+            "export_copy": "Copiar al portapapeles",
+
+            "import_title": "Cargar preajuste",
+            "import_text": "Ingrese la secuencia preajuste aquí",
+            "import_button": "Importar",
+            "import_error": "Secuencia preajuste no válida",
+
+            "save_title": "Guardar preajuste",
+            "save_button": "Guardar",
+            "save_name_empty": "Nombre no puede estar vacío",
+            "save_desc_error": "Descripción es demasiado larga",
+
+            "delete_title": "Eliminar preajuste",
+            "delete_text": "¿Realmente quieres eliminar el preajuste \"%1\"?",
+            "delete_button": "Si, eliminar"
         }
     },
 
