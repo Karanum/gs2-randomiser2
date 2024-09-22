@@ -288,7 +288,7 @@ function initialise(rom, textutil, itemData) {
                             if (treasure['eventType'] < 0x80 || treasure['eventType'] == 0x85 
                                     || (treasure['eventType'] == 0x83 && treasure['id'] != 0xFC6)) {
                                 var id = treasure['id'];
-                                if (id != 0xF63 && id != 0xF64 && id != 0xF8B && id != 0xFF6 && id != 0xFF9)
+                                if (id != 0xF63 && id != 0xF64 && id != 0xF8B && id != 0xFF6 && id != 0xFF7 && id != 0xFF9)
                                     treasure['isHidden'] = true;
                             } 
                             if (itemData.isIdEquipment(treasure['vanillaContents']) || (item >= 0x1AD && item <= 0x1B5)) {
