@@ -41,6 +41,9 @@ class ItemRandomiser {
             if (this.settings['major-shuffle'] && (item['isMajorItem'] != this.instItemLocations[slot][0]['isMajorItem']))
                 return;
 
+            if (item['isMajorItem'] && this.instItemLocations[slot][0]['forcedMinor'])
+                return;
+
             var weight = this.slotWeights[slot];
             if (weight != undefined) {
                 if (item['isKeyItem'] && this.instItemLocations[slot][0]['forcedMajor'] && !forcedSlot) {
