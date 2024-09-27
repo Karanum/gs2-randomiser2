@@ -25,7 +25,7 @@ function read16b(buffer, location) {
 }
 
 function read32b(buffer, location) {
-    return buffer[location] + (buffer[location + 1] << 8) + (buffer[location + 2] << 16) + (buffer[location + 3] << 24);
+    return (buffer[location] + (buffer[location + 1] << 8) + (buffer[location + 2] << 16) + (buffer[location + 3] << 24)) >>> 0;
 }
 
 module.exports = {write8b, write16b, write32b, writeArray, read16b, read32b};

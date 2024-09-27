@@ -36,6 +36,7 @@ const tutorialNpcPatch = require('./patches/innate/tutorial_npcs.js');
 const trialRoadPatch = require('./patches/innate/trial_road.js');
 const backEntrancePatch = require('./patches/innate/register_back_entrances.js');
 
+const addCharacterIconsPatch = require('./patches/options/add_character_items.js');
 const anemosRequirementsPatch = require('./patches/options/anemos_requirements.js');
 const avoidPatch = require('./patches/options/avoid.js');
 const cutsceneSkipPatch = require('./patches/options/cutscene_skip.js');
@@ -295,6 +296,10 @@ function randomise(seed, rawSettings, spoilerFilePath, callback) {
     } else {
         randomiser.shuffleItems(itemLocClone);
     }
+
+    // TEST
+    // addCharacterIconsPatch.apply(target);
+    // itemLocClone['0xa20'][0].contents = 0xD00;
 
     // Applying more settings
     if (settings['easier-bosses']) easierBossesPatch.apply(rom, enemyClone, abilityClone);
