@@ -212,6 +212,17 @@ class ItemRandomiser {
         this.flagSet = this.getInitialFlagSet();
         this.updateAccessibleItems();
 
+        if (this.settings['shuffle-characters']) {
+            var flag = `0xd0${Math.floor(this.prng.random() * 8)}`;
+            while (flag == '0xd04') flag = `0xd0${Math.floor(this.prng.random() * 8)}`;
+
+            this.fixedFill(this.availableItems[flag], '0xd05');
+            this.updateAccessibleItems();
+            if (biasEarly.includes(flag)) {
+                biasEarly.splice(biasEarly.indexOf(flag), 1);
+            }
+        }
+
         if (this.settings['start-reveal']) {
             this.fixedFill(this.availableItems['0x8d4'], '0x1');
             this.updateAccessibleItems();

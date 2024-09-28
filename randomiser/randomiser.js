@@ -293,6 +293,7 @@ function randomise(seed, rawSettings, spoilerFilePath, callback) {
                 randomiser.shuffleItems(itemLocClone);
                 success = true;
             } catch (e) {
+                console.error(e);
                 ++attempts;
             }
         }
