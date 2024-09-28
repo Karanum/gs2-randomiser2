@@ -125,7 +125,7 @@ function adjustStartingLevels(instance, level, isDynamic, spheres, itemLocations
                 }
             }
             char.level = Math.floor(newLevel + (depth / (maxDepth - 1)) * (maxLevel - newLevel));
-            console.log(char.id, depth, maxDepth, char.level);
+            console.log(char.id, '|', depth, '/', maxDepth - 1, '=> Lv', char.level);
         } else {
             char.level = Math.max(char.level, newLevel);
         }

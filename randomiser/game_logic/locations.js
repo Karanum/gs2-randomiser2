@@ -188,14 +188,23 @@ function markLocationMapNames(itemLocations) {
     });
 }
 
-function prepCharacterShuffleLocations(itemLocations) {
-    const mapping = {
+function prepCharacterShuffleLocations(locations, itemLocations) {
+    const itemMapping = {
         '0x2': 'Sheba', '0x3': 'Sheba', '0x101': 'Mia', '0x102': 'Ivan', '0x103': 'Garet', '0x104': 'Isaac', '0x105': 'Piers', '0x106': 'Piers'
     }
+    const djinnMapping = {
+
+    }
     
-    itemLocations[0].filter((loc) => Object.keys(mapping).includes(loc.Addr)).forEach((loc) => {
-        loc.Origin = mapping[loc.Addr];
+    locations[0].filter((loc) => Object.keys(itemMapping).includes(loc.Addr)).forEach((loc) => {
+        loc.Origin = itemMapping[loc.Addr];
         loc.Reqs = [[loc.Origin]];
+        itemLocations[loc.Addr].forEach((t) => t['mapName'] = loc.Origin);
+    });
+    locations[1].filter((loc) => Object.keys(djinnMapping).includes(loc.Addr)).forEach((loc) => {
+        loc.Origin = djinnMapping[loc.Addr];
+        loc.Reqs = [[loc.Origin]];
+        itemLocations[loc.Addr].forEach((t) => t['mapName'] = loc.Origin);
     });
 }
 

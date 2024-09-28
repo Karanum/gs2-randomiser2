@@ -278,7 +278,7 @@ function randomise(seed, rawSettings, spoilerFilePath, callback) {
     // Apply character shuffle
     if (settings['shuffle-characters']) {
         addCharacterShufflePatch.apply(target);
-        locations.prepCharacterShuffleLocations(locationsClone);
+        locations.prepCharacterShuffleLocations(locationsClone, itemLocClone);
     }
 
     writeStoryFlags(target, defaultFlags);
