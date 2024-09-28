@@ -197,7 +197,7 @@ function randomise(seed, rawSettings, spoilerFilePath, callback) {
     var settings = settingsParser.parse(rawSettings);
 
     //DEBUG
-    // settings['shuffle-characters'] = 1;
+    settings['shuffle-characters'] = 1;
 
     // Cloning the (mostly) vanilla data containers
     var textClone = textutil.clone();
@@ -358,7 +358,7 @@ function randomise(seed, rawSettings, spoilerFilePath, callback) {
 
     if (settings['qol-hints']) hintSystem.writeHints(prng, textClone, spheres, itemLocClone);
     
-    characterData.adjustStartingLevels(characterClone, settings['start-levels']);
+    characterData.adjustStartingLevels(characterClone, settings['start-levels'], settings['shuffle-characters'], spheres, itemLocClone);
     enemyData.scaleBattleRewards(enemyClone, settings['scale-coins'], settings['scale-exp']);
     abilityData.setStartingPsynergy(target, settings, prng);
 

@@ -446,6 +446,7 @@ class ItemRandomiser {
             });
 
             spheres.push(sphere);
+            accessibleItems = locations.getAccessibleItems(this.instLocations, flagSet);
             ++i;
         }
         return spheres;
