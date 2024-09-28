@@ -36,7 +36,7 @@ const tutorialNpcPatch = require('./patches/innate/tutorial_npcs.js');
 const trialRoadPatch = require('./patches/innate/trial_road.js');
 const backEntrancePatch = require('./patches/innate/register_back_entrances.js');
 
-const addCharacterIconsPatch = require('./patches/options/add_character_items.js');
+const addCharacterShufflePatch = require('./patches/options/add_character_items.js');
 const anemosRequirementsPatch = require('./patches/options/anemos_requirements.js');
 const avoidPatch = require('./patches/options/avoid.js');
 const cutsceneSkipPatch = require('./patches/options/cutscene_skip.js');
@@ -196,6 +196,9 @@ function randomise(seed, rawSettings, spoilerFilePath, callback) {
     var defaultFlags = [0xf22, 0x873, 0x844, 0x863, 0x864, 0x865, 0x867];
     var settings = settingsParser.parse(rawSettings);
 
+    //DEBUG
+    // settings['shuffle-characters'] = 1;
+
     // Cloning the (mostly) vanilla data containers
     var textClone = textutil.clone();
     var itemLocClone = itemLocations.clone();
@@ -272,6 +275,12 @@ function randomise(seed, rawSettings, spoilerFilePath, callback) {
         });
     }
 
+    // Apply character shuffle
+    if (settings['shuffle-characters']) {
+        addCharacterShufflePatch.apply(target);
+        locations.prepCharacterShuffleLocations(locationsClone);
+    }
+
     writeStoryFlags(target, defaultFlags);
 
     // Performing randomisation until a valid seed is found, or too many randomisations have been performed
@@ -296,10 +305,6 @@ function randomise(seed, rawSettings, spoilerFilePath, callback) {
     } else {
         randomiser.shuffleItems(itemLocClone);
     }
-
-    // TEST
-    // addCharacterIconsPatch.apply(target);
-    // itemLocClone['0xa20'][0].contents = 0xD00;
 
     // Applying more settings
     if (settings['easier-bosses']) easierBossesPatch.apply(rom, enemyClone, abilityClone);

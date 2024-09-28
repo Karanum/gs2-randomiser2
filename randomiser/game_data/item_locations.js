@@ -3,6 +3,7 @@ const locations = require('../game_logic/locations.js');
 const addrFrom = 0xF2204;
 const addrUntil = 0xF2E98;
 const specialLocOffset = 0xFA00A0;
+const characterLocOffset = 0xFA0180;
 const itemNameOffset = 607;
 
 const summonData = {
@@ -50,6 +51,16 @@ const specialLocations = [
     [0x104, 0x80, 237, "Catch Beads"],
     [0x105, 0x80, 111, "Douse Drop"],
     [0x106, 0x80, 111, "Frost Jewel"]
+];
+
+const characterLocations = [
+    [0xD00, 237, "Isaac"],
+    [0xD01, 237, "Garet"],
+    [0xD02, 237, "Ivan"],
+    [0xD03, 237, "Mia"],
+    [0xD05, 9, "Jenna"],
+    [0xD06, 9, "Sheba"],
+    [0xD07, 111, "Piers"],
 ];
 
 const replacePool = [
@@ -207,6 +218,7 @@ function prepItemLocations(locations, settings) {
             locations['0x1c'].forEach((t) => t['forcedMajor'] = true);
         }
         locations['0x101'].forEach((t) => t['forcedMajor'] = true);
+        locations['0xd00'].forEach((t) => t['forcedMajor'] = true);
         locations['0x88c'].forEach((t) => t['forcedMajor'] = true);
         locations['0x94d'].forEach((t) => t['forcedMajor'] = true);
         locations['0x978'].forEach((t) => t['forcedMajor'] = true);
@@ -220,6 +232,12 @@ function prepItemLocations(locations, settings) {
         locations['0x19'].forEach((t) => t['forcedMinor'] = true);
         locations['0x1a'].forEach((t) => t['forcedMinor'] = true);
         locations['0x1c'].forEach((t) => t['forcedMinor'] = true);
+    }
+
+    if (!settings['shuffle-characters']) {
+        ['0xd00', '0xd01', '0xd02', '0xd03', '0xd05', '0xd06', '0xd07'].forEach((loc) => {
+            locations[loc].forEach(setLocked);
+        });
     }
 }
 
@@ -318,6 +336,22 @@ function initialise(rom, textutil, itemData) {
         if (entry[0] == 0x90B) treasure['isSummon'] = true;
         
         var flag = "0x" + entry[0].toString(16);   
+        if (treasureMap.hasOwnProperty(flag)) {
+            treasureMap[flag].splice(0, 0, treasure);
+        } else {
+            treasureMap[flag] = [treasure];
+        }
+    });
+
+    characterLocations.forEach((entry, i) => {
+        var treasure = {'mapId': entry[1], 'locked': false, 'isSummon': false, 'isKeyItem': true, 'isMajorItem': true, 'isHidden': false, 'eventType': 0x84};
+        treasure['addr'] = characterLocOffset + (2 * i);
+        treasure['locationId'] = -1;
+        treasure['id'] = entry[0];
+        treasure['vanillaContents'] = entry[0];
+        treasure['vanillaName'] = entry[2];
+
+        var flag = "0x" + entry[0].toString(16);
         if (treasureMap.hasOwnProperty(flag)) {
             treasureMap[flag].splice(0, 0, treasure);
         } else {

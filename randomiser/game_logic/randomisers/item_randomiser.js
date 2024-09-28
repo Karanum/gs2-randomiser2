@@ -38,6 +38,9 @@ class ItemRandomiser {
         var totalWeight = 0;
         var forcedSlot = undefined;
         this.accessibleItems.forEach((slot) => {
+            if ((item.vanillaContents & 0xF00) == 0xD00 && this.hasRestriction('no-summon', this.instItemLocations[slot][0]))
+                return;
+
             if (this.settings['major-shuffle'] && (item['isMajorItem'] != this.instItemLocations[slot][0]['isMajorItem']))
                 return;
 
@@ -94,6 +97,7 @@ class ItemRandomiser {
         var isMimic = item['eventType'] == 0x81;
         var isEmpty = item['vanillaContents'] == 0;
         var isMoney = item['vanillaContents'] > 0x8000;
+        var isCharacter = (item['vanillaContents'] & 0xF00) == 0xD00;
 
         if (this.settings['major-shuffle']) {
             if (item['isMajorItem'] != slotItem['isMajorItem']) return false;
@@ -103,6 +107,7 @@ class ItemRandomiser {
         if (item['isSummon']) {
             if (this.hasRestriction('no-summon', slotItem) && this.settings['item-shuffle'] > 1) return false;
         }
+        if (isCharacter && this.hasRestriction('no-summon', slotItem)) return false;
 
         if (isMimic || isEmpty) {
             if (slotItem['eventType'] != 0x80 && slotItem['eventType'] != 0x84) return false;
@@ -180,6 +185,7 @@ class ItemRandomiser {
             if (this.settings['item-shuffle'] == 1) {
                 biasEarly = biasEarly.concat(['0x918', '0xf67']);
                 if (!this.settings['start-reveal']) biasEarly.push('0x8d4');
+                if (this.settings['shuffle-characters']) biasEarly = biasEarly.concat(['0xd05', '0xd06', '0xd07', '0xd00', '0xd01', '0xd02', '0xd03']);
             }
             if (this.settings['ship'] == 0)
                 biasEarly.push('0x8ff');
@@ -395,21 +401,51 @@ class ItemRandomiser {
         var i = 0;
         while (true) {
             var sphere = [];
+            var characterItems = [];
+
             accessibleItems.forEach((slot) => {
                 if (checkedItems.includes(slot)) return;
                 if (allItems || this.instItemLocations[slot][0]['isKeyItem']) {
                     sphere.push(slot);
                     checkedItems.push(slot);
                     flagSet.push(this.instItemLocations[slot][0]['name']);
-                    if (!this.instItemLocations[slot][0]['name'])
-                        console.log(this.instItemLocations[slot]);
+                }
+
+                if (this.instItemLocations[slot][0]['contents'] == 0xD00) {
+                    characterItems.push('0x104');
+                }
+                if (this.instItemLocations[slot][0]['contents'] == 0xD01) {
+                    characterItems.push('0x103');
+                }
+                if (this.instItemLocations[slot][0]['contents'] == 0xD02) {
+                    characterItems.push('0x102');
+                }
+                if (this.instItemLocations[slot][0]['contents'] == 0xD03) {
+                    characterItems.push('0x101');
+                }
+                if (this.instItemLocations[slot][0]['contents'] == 0xD06) {
+                    characterItems.push('0x2');
+                    characterItems.push('0x3');
+                }
+                if (this.instItemLocations[slot][0]['contents'] == 0xD07) {
+                    characterItems.push('0x105');
+                    characterItems.push('0x106');
                 }
             });
 
             if (sphere.length == 0) break;
-            spheres.push(sphere);
-
             accessibleItems = locations.getAccessibleItems(this.instLocations, flagSet);
+
+            characterItems.forEach((slot) => {
+                if (checkedItems.includes(slot) || !accessibleItems.includes(slot)) return;
+                if (allItems || this.instItemLocations[slot][0]['isKeyItem']) {
+                    sphere.push(slot);
+                    checkedItems.push(slot);
+                    flagSet.push(this.instItemLocations[slot][0]['name']);
+                }
+            });
+
+            spheres.push(sphere);
             ++i;
         }
         return spheres;

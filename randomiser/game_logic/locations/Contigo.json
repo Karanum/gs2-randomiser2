@@ -60,6 +60,22 @@
             ]
         },
         {
+            "Addr": "0xd00",
+            "Reqs": [["Reunion"]]
+        },
+        {
+            "Addr": "0xd01",
+            "Reqs": [["Reunion"]]
+        },
+        {
+            "Addr": "0xd02",
+            "Reqs": [["Reunion"]]
+        },
+        {
+            "Addr": "0xd03",
+            "Reqs": [["Reunion"]]
+        },
+        {
             "Addr": "0xe04",
             "Reqs": [
                 [

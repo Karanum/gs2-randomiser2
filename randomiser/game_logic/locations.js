@@ -188,6 +188,17 @@ function markLocationMapNames(itemLocations) {
     });
 }
 
+function prepCharacterShuffleLocations(itemLocations) {
+    const mapping = {
+        '0x2': 'Sheba', '0x3': 'Sheba', '0x101': 'Mia', '0x102': 'Ivan', '0x103': 'Garet', '0x104': 'Isaac', '0x105': 'Piers', '0x106': 'Piers'
+    }
+    
+    itemLocations[0].filter((loc) => Object.keys(mapping).includes(loc.Addr)).forEach((loc) => {
+        loc.Origin = mapping[loc.Addr];
+        loc.Reqs = [[loc.Origin]];
+    });
+}
+
 initialise();
 
-module.exports = {clone, getAccessibleItems, markLocationMapNames};
+module.exports = {clone, getAccessibleItems, markLocationMapNames, prepCharacterShuffleLocations};
