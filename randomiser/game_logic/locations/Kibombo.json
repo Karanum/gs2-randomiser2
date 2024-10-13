@@ -26,7 +26,8 @@
         },
         {
             "Addr": "0xd07",
-            "Reqs": [["FlagPiers"]]
+            "Reqs": [["FlagPiers"]],
+            "Restriction": ["no-empty", "no-mimic"]
         },
         {
             "Addr": "0xf4e",

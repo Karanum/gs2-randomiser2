@@ -23,11 +23,13 @@
         },
         {
             "Addr": "0xd05",
-            "Reqs": []
+            "Reqs": [],
+            "Restriction": ["no-empty", "no-mimic"]
         },
         {
             "Addr": "0xd06",
-            "Reqs": []
+            "Reqs": [],
+            "Restriction": ["no-empty", "no-mimic"]
         }
     ],
     "Djinn": [],
