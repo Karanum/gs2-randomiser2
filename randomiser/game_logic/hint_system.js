@@ -5,6 +5,7 @@ const textutil = require ('./textutil.js');
  */
 const multiHints = {
     "Alhafra": "in a port city\x03ruled through schemes",
+    "Character": "A scattered companion",
     "Cliffs": "on cliffs that\x03divide the land",
     "Eastern Sea": "on an island in\x03the Eastern Sea",
     "Gabomba": "within the bowels\x03of a revered statue",
@@ -65,7 +66,8 @@ const itemHints = {
     "Azul": multiHints["Summon"], "Catastrophe": multiHints["Summon"], "Charon": multiHints["Summon"], "Coatlicue": multiHints["Summon"],
     "Daedalus": multiHints["Summon"], "Eclipse": multiHints["Summon"], "Flora": multiHints["Summon"], "Haures": multiHints["Summon"],
     "Iris": multiHints["Summon"], "Megaera": multiHints["Summon"], "Moloch": multiHints["Summon"], "Ulysses": multiHints["Summon"],
-    "Zagan": multiHints["Summon"]
+    "Zagan": multiHints["Summon"], "Isaac": multiHints["Character"], "Garet": multiHints["Character"], "Ivan": multiHints["Character"],
+    "Mia": multiHints["Character"], "Jenna": multiHints["Character"], "Sheba": multiHints["Character"], "Piers": multiHints["Character"]
 };
 
 /**
