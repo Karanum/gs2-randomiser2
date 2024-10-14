@@ -153,6 +153,24 @@ function getAccessibleItems(instance, progressFlags) {
         }
     }
 
+    var charNum = 0;
+    for (var i = progressFlags.length - 1; i >= 0; --i) {
+        if (['Isaac', 'Garet', 'Ivan', 'Mia', 'Jenna', 'Sheba', 'Piers'].includes(progressFlags[i])) {
+            ++charNum;
+        }
+        if (progressFlags[i].startsWith('PC_')) {
+            var lastPcNum = Number(progressFlags[i].substring(3));
+            charNum += lastPcNum;
+            while (charNum > lastPcNum) {
+                progressFlags.push('PC_' + ++lastPcNum);
+            }
+            break;
+        }
+    }
+    if (charNum == 0) {
+        progressFlags.push('PC_1');
+    }
+
     var updated = true;
     while (updated) {
         updated = false;
@@ -192,20 +210,21 @@ function prepCharacterShuffleLocations(locations, itemLocations) {
     const itemMapping = {
         '0x2': 'Sheba', '0x3': 'Sheba', '0x101': 'Mia', '0x102': 'Ivan', '0x103': 'Garet', '0x104': 'Isaac', '0x105': 'Piers', '0x106': 'Piers'
     }
-    // const djinnMapping = {
-
-    // }
+    const djinnMapping = {
+        '0x30': 'PC_4', '0x31': 'PC_5', '0x32': 'PC_6', '0x33': 'PC_7', '0x34': 'PC_7', '0x35': 'PC_8', '0x44': 'PC_5', '0x45': 'PC_6', '0x46': 'PC_6',
+        '0x47': 'PC_7', '0x48': 'PC_7', '0x49': 'PC_8', '0x4d': 'PC_3', '0x4e': 'PC_3', '0x58': 'PC_4', '0x59': 'PC_5', '0x5a': 'PC_6', '0x5b': 'PC_7',
+        '0x5c': 'PC_8', '0x5d': 'PC_8', '0x6c': 'PC_4', '0x6d': 'PC_5', '0x6e': 'PC_6', '0x6f': 'PC_7', '0x70': 'PC_8', '0x71': 'PC_8'
+    }
     
     locations[0].filter((loc) => Object.keys(itemMapping).includes(loc.Addr)).forEach((loc) => {
         loc.Origin = itemMapping[loc.Addr];
         loc.Reqs = [[loc.Origin]];
         itemLocations[loc.Addr].forEach((t) => t['mapName'] = loc.Origin);
     });
-    // locations[1].filter((loc) => Object.keys(djinnMapping).includes(loc.Addr)).forEach((loc) => {
-    //     loc.Origin = djinnMapping[loc.Addr];
-    //     loc.Reqs = [[loc.Origin]];
-    //     itemLocations[loc.Addr].forEach((t) => t['mapName'] = loc.Origin);
-    // });
+    locations[1].filter((loc) => Object.keys(djinnMapping).includes(loc.Addr)).forEach((loc) => {
+        loc.Origin = '???';
+        loc.Reqs = [[djinnMapping[loc.Addr]]];
+    });
 }
 
 initialise();
