@@ -95,7 +95,7 @@ function updateEnemyData(instance) {
 }
 
 function updateAbilityData(instance) {
-    instance[644].power = 120;
+    instance[644].power = 110;
     instance[645].power = 130;
     instance[647].power = 180;
     instance[666].power = 20;
@@ -103,7 +103,7 @@ function updateAbilityData(instance) {
     instance[672].addedEffect = 0;
     instance[673].power = 25;
     instance[675].power = 30;
-    instance[676].power = 110;
+    instance[676].power = 100;
     instance[676].addedEffect = 0;
     instance[679].power = 14;
     instance[680].power = 13;
