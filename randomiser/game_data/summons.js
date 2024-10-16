@@ -62,6 +62,9 @@ function randomiseCost(instance, abilityData, prng) {
             abilityData[summonIds[i]].element = element;
         }
     });
+
+    // Daedalus follow-up attack
+    abilityData[403].element = abilityData[402].element;
 }
 
 module.exports = {initialise, clone, writeToRom, randomiseCost};
