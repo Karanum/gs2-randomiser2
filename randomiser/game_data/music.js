@@ -1,4 +1,11 @@
+const { read32b, read16b } = require("../../util/binary");
+
 const addrOffset = 0x1C4530;
+
+const fieldBGM = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 34, 35, 36, 37, 38, 39, 
+    41, 42, 43, 44, 60, 61, 62, 63, 64, 65, 67, 74, 76, 700, 701, 702, 703, 704, 705, 706, 707, 708, 709, 710, 720, 721, 722, 723, 724, 725, 726, 
+    727, 728, 729, 730, 741, 742, 743];
+const battleBGM = [49, 50, 51, 52, 53, 54, 55, 56, 57, 750, 751, 752, 753, 754];
 
 var musicData = [];
 
@@ -11,23 +18,18 @@ function shuffleBGM(instance, prng) {
 }
 
 function initialise(rom) {
-    var addr = addrOffset;
-    var i = 0;
-    while (i < 799) {
-        var pointer = rom[addr] + (rom[addr + 1] << 8) + (rom[addr + 2] << 16) + (rom[addr + 3] << 24);
-        var type = rom[addr + 4] + (rom[addr + 5] << 8);
-
-        if (pointer == 0) {
-            break;
-        }
-
-        if (pointer != 0x081C5E30 && type == 1) {
-            musicData.push({ i, addr, pointer, type });
-        }
-
-        ++i;
-        addr += 8;
-    }
+    fieldBGM.forEach((i) => {
+        var addr = addrOffset + (i * 8);
+        var pointer = read32b(rom, addr);
+        var type = read16b(rom, addr + 4);
+        musicData.push({ addr, pointer, type, forBattle: false });
+    });
+    battleBGM.forEach((i) => {
+        var addr = addrOffset + (i * 8);
+        var pointer = read32b(rom, addr);
+        var type = read16b(rom, addr + 4);
+        musicData.push({ addr, pointer, type, forBattle: true });
+    });
 }
 
 function clone() {
