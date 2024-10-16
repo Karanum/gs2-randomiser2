@@ -103,7 +103,7 @@ function shuffleElements(instance, prng, unique) {
 
 function adjustStartingLevels(instance, level, isDynamic, spheres, itemLocations) {
     var newLevel = Math.max(Math.min(level, 99), 5);
-    var maxLevel = Math.max(newLevel, 28);
+    var maxLevel = Math.max(newLevel, 24);
     var maxDepth = spheres.length;
     var mappedSpheres = [];
 
