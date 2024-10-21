@@ -1,0 +1,149 @@
+@ offset = 090060BC
+
+
+push {r5, r6, r7, lr}
+
+adds r7, r0, #0x0
+bl thunkReadFlag
+cmp r0, #0x0
+bne djinnDone
+adds r0, r7, #0x0
+
+cmp r0, #3
+bgt next1
+ldr r5, ptrGs1Items
+b continue
+
+next1:
+cmp r0, #0x7
+beq next2
+ldr r5, ptrGs2Items
+b continue
+
+next2:
+ldr r5, ptrPiersItems
+
+continue:
+ldrh r0, [r5, #0x0]
+ldrh r1, [r5, #0x2]
+cmp r1, #0x0
+beq itemsDone
+cmp r0, r7
+bne skipItem
+bl 0x09000966
+
+skipItem:
+adds r5, #0x4
+b continue
+
+itemsDone:
+bl thunkGetPartySize
+lsls r0, r0, #0x2
+ldr r1, ptrDjinnMapping
+ldr r5, [r1, r0]
+movs r6, #0x0
+
+continueDjinn:
+ldrb r0, [r5, r6]
+cmp r0, #0xFF
+beq djinnDone
+adds r6, #0x1
+ldrb r1, [r5, r6]
+bl 0x09000924
+adds r6, #0x1
+b continueDjinn
+
+djinnDone:
+adds r0, r7, #0x0
+bl 0x0900096A
+adds r0, r7, #0x0
+movs r1, #0x1
+bl thunkAddCharacter
+
+pop {r5, r6, r7, pc}
+
+
+ptrGs1Items:
+.word 0x08FA010C
+
+ptrGs2Items:
+.word 0x08FA00E0
+
+ptrPiersItems:
+.word 0x08FA0100
+
+thunkAddCharacter:
+ldr r4, #0
+bx r4
+.word 0x080D23D9
+
+thunkGetPartySize:
+ldr r4, #0
+bx r4
+.word 0x080AFDBD
+
+thunkReadFlag:
+ldr r4, #0
+bx r4
+.word 0x08016CE5
+
+ptrDjinnMapping:
+.word dataDjinnMapping
+
+dataDjinnMapping:
+.word dataDjinnChar1
+.word dataDjinnChar1
+.word dataDjinnChar2
+.word dataDjinnChar3
+.word dataDjinnChar4
+.word dataDjinnChar5
+.word dataDjinnChar6
+.word dataDjinnChar7
+.word dataDjinnChar1
+
+dataDjinnChar1:
+.hword 0xFFFF
+
+dataDjinnChar2:
+.hword 0x0901
+.hword 0x0A01
+.hword 0xFFFF
+
+dataDjinnChar3:
+.hword 0x0000
+.hword 0x0002
+.hword 0x0003
+.hword 0xFFFF
+
+dataDjinnChar4:
+.hword 0x0100
+.hword 0x0001
+.hword 0x0102
+.hword 0x0103
+.hword 0xFFFF
+
+dataDjinnChar5:
+.hword 0x0101
+.hword 0x0200
+.hword 0x0201
+.hword 0x0202
+.hword 0x0203
+.hword 0xFFFF
+
+dataDjinnChar6:
+.hword 0x0300
+.hword 0x0301
+.hword 0x0302
+.hword 0x0303
+.hword 0x0400
+.hword 0x0401
+.hword 0xFFFF
+
+dataDjinnChar7:
+.hword 0x0402
+.hword 0x0403
+.hword 0x0500
+.hword 0x0501
+.hword 0x0502
+.hword 0x0503
+.hword 0xFFFF

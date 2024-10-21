@@ -1,0 +1,37 @@
+@offset = 020087C8
+@caller = 0200D5DE
+
+push {lr}
+bl 0x0200D38C
+
+movs r0, #0xD0
+lsls r0, r0, #0x4
+adds r0, #0x7
+bl 0x0200DA0C
+cmp r0, #0x0
+bne skip
+
+movs r0, #0x1A
+bl 0x0200DAC4
+movs r1, #0xD0
+lsls r1, #0x4
+adds r1, #0x7
+bl thunkSetItemDisplay
+
+movs r0, #0x1A
+bl 0x0200DAC4
+movs r1, #0x0
+bl 0x0200DA74
+
+skip:
+movs r0, #0x7
+movs r1, #0x0
+movs r2, #0x0
+bl 0x0200DB0C
+
+pop {pc}
+
+thunkSetItemDisplay:
+ldr r4, #0x0
+bx r4
+.word 0x08020301

@@ -1,0 +1,57 @@
+.offset 0x0200AFD4
+
+push {r5, r6, lr}
+subs sp, #0x8
+movs r0, #0xD0
+lsls r0, r0, #0x4
+adds r0, #0x5
+movs r5, r0
+bl 0x0200B150	@ readFlag
+cmp r0, #0x0
+bne end
+
+bl 0x0200B1B8	@ startCutscene
+bl 0x0200B2F8	@ startTransition
+bl 0x0200B308	@ waitForTransition
+
+ldr r0, ptrMappedCharacter
+movs r1, #0x0
+ldrb r0, [r0, r1]
+bl thunkAddPartyMember
+
+movs r0, r5
+bl 0x0200B158	@ writeFlag
+ldr r5, ptrStartingItems
+
+loop:
+ldrh r0, [r5, #0x0]
+ldrh r1, [r5, #0x2]
+cmp r1, #0x0
+beq endLoop
+adds r5, #0x4
+cmp r0, #0x4
+bne loop
+bl thunkAddItem
+b loop
+
+loopEnd:
+bl 0x0200B1C0
+
+end:
+b 0x0200B10A
+
+ptrMappedCharacter:
+.word 0x08FA0188
+
+ptrStartingItems:
+.word 0x08FA00E0
+
+thunkAddPartyMember:
+ldr r4, #0x0
+bx r4
+.word 0x090060BD
+
+thunkAddItem:
+ldr r4, #0x0
+bx r4
+.word 0x09005039

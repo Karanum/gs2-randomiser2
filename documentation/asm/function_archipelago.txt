@@ -1,0 +1,6 @@
+@offset = 09006300
+
+
+push {lr}
+
+pop {pc}

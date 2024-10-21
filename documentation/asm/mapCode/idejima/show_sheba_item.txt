@@ -1,0 +1,35 @@
+@offset = 0x020080F0
+@caller = 0x0200AECA
+
+push {r5, lr}
+bl 0x0200953C
+
+movs r0, #0xD0
+lsls r0, r0, #0x4
+adds r0, #0x6
+bl 0x0200B150 @readFlag
+cmp r0, #0x0
+bne skip
+
+movs r5, #0xFF
+movs r0, r5
+bl 0x0200B1D8 @getObjectPointer
+ldr r1, ptrMappedItem
+ldrh r1, [r1, #0x0]
+bl thunkSetItemDisplay
+
+movs r0, r5
+bl 0x0200B1D8 @getObjectPointer
+movs r1, #0x0
+bl 0x0200B198 @setObjectShadow
+
+skip:
+pop {r5, pc}
+
+thunkSetItemDisplay:
+ldr r4, #0x0
+bx r4
+.word 0x08020301
+
+ptrMappedItem:
+.word 0x08FA018A
