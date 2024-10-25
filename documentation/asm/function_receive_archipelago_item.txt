@@ -1,0 +1,87 @@
+@offset = t.b.d.
+@caller = t.b.d.
+@  string[0xE38] <- "An item appears before you..."
+
+
+push {r5, lr}
+
+ldr r1, ptrReceivedItemStatus
+ldrb r0, [r1, #0x0]
+cmp r0, #0x0
+bne end
+ldr r1, ptrItemBuffer
+ldrh r0, [r1, #0x0]
+cmp r0, #0x0
+beq end
+
+movs r5, r0
+bl thunkStartCutscene
+movs r0, #0xE
+lsls r0, #0x8
+adds r0, #0x38
+movs r1, #0x0
+bl thunkShowStatusBox
+
+movs r0, r5
+bl 0x09006000
+cmp r0, #0x1
+beq skip
+
+movs r0, #0x53
+bl thunkPlaySound
+bl 0x09000206
+cmp r0, #0x0
+blt invFull
+
+skip:
+ldr r1, ptrReceivedItemCount
+ldrb r0, [r1, #0x0]
+adds r0, #0x1
+strb r0, [r1, #0x0]
+ldr r1, ptrItemBuffer
+movs r0, #0x0
+strh r0, [r1, #0x0]
+bl thunkEndCutscene
+b end
+
+invFull:
+ldr r1, ptrReceivedItemStatus
+movs r0, #0x1
+str r0, [r1, #0x0]
+movs r0, #0xE2
+lsls r0, #0x4
+movs r1, #0x0
+bl thunkShowStatusBox
+
+end:
+pop {r5, pc}
+
+
+thunkStartCutscene:
+ldr r4, #0x0
+bx r4
+.word 0x080D22A9
+
+thunkEndCutscene:
+ldr r4, #0x0
+bx r4
+.word 0x080D2351
+
+thunkPlaySound:
+ldr r4, #0x0
+bx r4
+.word 0x081C0CB1
+
+thunkShowStatusBox:
+ldr r4, #0x0
+bx r4
+.word 0x08038041
+
+ptrItemBuffer:
+.word 0x02000A96
+
+ptrReceivedItemCount:
+.word 0x02000A72
+
+ptrReceivedItemStatus:
+.word 0x0
