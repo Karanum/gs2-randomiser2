@@ -282,6 +282,7 @@
         "class_stats_random": "Randomiser statistiques des classes",
 
         "music_shuffle": "Mélanger musique du jeu",
+        "character_shuffle": "Mélanger personnages dans le pool d'objets",
 
         "skips_basic": "Nécessite pépins/sauts de base",
         "skips_oob_easy": "Nécessite sauts hors-limites de base",

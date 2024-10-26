@@ -282,6 +282,7 @@
         "class_stats_random": "Aleatorizar estadísticas de clases",
 
         "music_shuffle": "Intercambiar música del juego",
+        "character_shuffle": "Intercambriar personajes en el grupo de objetos",
 
         "skips_basic": "Requerir fallas/saltos básicos",
         "skips_oob_easy": "Requerir saltos fuera-límites fáciles",

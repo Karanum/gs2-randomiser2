@@ -73,6 +73,7 @@ const randomiserSettings = {
     'halve-enc': [10, 6, 1],
     'hard-mode': [10, 7, 1],
 
+    'shuffle-characters': [11, 1, 1],
     'anemos-access': [11, 2, 2],
     'force-superboss-minors': [11, 4, 1],
     'force-boss-drops': [11, 5, 1],

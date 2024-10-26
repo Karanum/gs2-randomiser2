@@ -282,6 +282,7 @@
         "class_stats_random": "Randomise class stat boosts",
 
         "music_shuffle": "Shuffle in-game music",
+        "character_shuffle": "Shuffle characters into the item pool",
 
         "skips_basic": "Require basic glitches/skips",
         "skips_oob_easy": "Require easy OOB skips",
