@@ -1,0 +1,72 @@
+@ Alternate version of the Djinn overflow function for character shuffle
+@offset = 09006D00
+
+
+mov r0, r8
+push {r0, r7}
+bl thunkGetPartySize
+cmp r0, #0x8
+beq giveDjinni
+
+movs r5, #0x9
+muls r5, r0, r5
+mov r8, r0
+movs r6, #0x0
+movs r7, #0x30
+
+loop:
+adds r0, r7, #0x0
+bl thunkReadFlag
+adds r6, r6, r0
+adds r7, #0x1
+cmp r7, #0x80
+blt loop
+cmp r6, r5
+blt giveDjinni
+
+ldr r0, ptrOverflowDjinn
+ldrb r1, [r0, #0x0]
+adds r1, r1, #0x1
+strb r1, [r0, #0x0]
+lsls r1, r1, #0x1
+adds r0, r0, r1
+
+addToQueue:
+pop {r1, r7}
+mov r8, r1
+movs r1, r7
+mov r2, r10
+strb r1, [r0, #0x0]
+strb r2, [r0, #0x1]
+b end
+
+giveDjinni:
+pop {r0, r7}
+mov r8, r0
+adds r1, r7, #0x0
+mov r2, r10
+mov r0, r9
+bl thunkAddDjinni
+
+end:
+ldr r4, #0x0
+bx r4
+.word 0x080B0B55
+
+thunkGetPartySize:
+ldr r4, #0x0
+bx r4
+.word 0x080AFDBD
+
+thunkAddDjinni:
+ldr r4, #0x0
+bx r4
+.word 0x080B0B79
+
+thunkReadFlag:
+ldr r4, #0x0
+bx r4
+.word 0x08016CE5
+
+ptrOverflowDjinn:
+.word 0x02002980

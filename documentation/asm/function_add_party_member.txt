@@ -44,16 +44,37 @@ ldr r5, [r1, r0]
 movs r6, #0x0
 
 continueDjinn:
-ldrb r0, [r5, r6]
+ldrb r0, [r5, #0x0]
 cmp r0, #0xFF
 beq djinnDone
-adds r6, #0x1
-ldrb r1, [r5, r6]
+adds r5, #0x1
+ldrb r1, [r5, #0x0]
 bl 0x09000924
+adds r5, #0x1
 adds r6, #0x1
 b continueDjinn
 
 djinnDone:
+ldr r5, ptrOverflowDjinn
+
+continueOverflowDjinn:
+ldrb r3, [r5, #0x0]
+cmp r3, #0x0
+beq overflowDjinnDone
+cmp r6, #0x9
+beq overflowDjinnDone
+
+lsls r2, r3, #0x1
+ldrb r1, [r5, r2]
+ldrb r2, [r5, r2]
+subs r3, #0x1
+strb r3, [r5, #0x0]
+mov r0, r7
+bl thunkAddDjinni
+adds r6, #0x1
+b continueOverflowDjinn
+
+overflowDjinnDone:
 adds r0, r7, #0x0
 bl 0x0900096A
 adds r0, r7, #0x0
@@ -86,6 +107,14 @@ thunkReadFlag:
 ldr r4, #0
 bx r4
 .word 0x08016CE5
+
+thunkAddDjinni:
+ldr r4, #0x0
+bx r4
+.word 0x080B0B79
+
+ptrOverflowDjinn:
+.word 0x02002980
 
 ptrDjinnMapping:
 .word dataDjinnMapping
