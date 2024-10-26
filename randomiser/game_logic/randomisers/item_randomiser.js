@@ -102,7 +102,7 @@ class ItemRandomiser {
         if (this.settings['major-shuffle']) {
             if (item['isMajorItem'] != slotItem['isMajorItem']) return false;
         }
-        if (item['isKeyItem'] && slotItem['forcedMinor']) return false;
+        if (item['isKeyItem'] && slotItem['forcedMinor'] && this.settings['item-shuffle'] > 1) return false;
 
         if (item['isSummon']) {
             if (this.hasRestriction('no-summon', slotItem) && this.settings['item-shuffle'] > 1) return false;

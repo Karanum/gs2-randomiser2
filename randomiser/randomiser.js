@@ -196,9 +196,6 @@ function randomise(seed, rawSettings, spoilerFilePath, callback) {
     var defaultFlags = [0xf22, 0x873, 0x844, 0x863, 0x864, 0x865, 0x867];
     var settings = settingsParser.parse(rawSettings);
 
-    //DEBUG
-    settings['shuffle-characters'] = 1;
-
     // Cloning the (mostly) vanilla data containers
     var textClone = textutil.clone();
     var itemLocClone = itemLocations.clone();
