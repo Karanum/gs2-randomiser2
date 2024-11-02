@@ -66,6 +66,7 @@ beq overflowDjinnDone
 
 lsls r2, r3, #0x1
 ldrb r1, [r5, r2]
+adds r2, r2, #0x1
 ldrb r2, [r5, r2]
 subs r3, #0x1
 strb r3, [r5, #0x0]

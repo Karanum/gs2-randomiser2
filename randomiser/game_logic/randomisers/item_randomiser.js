@@ -445,7 +445,7 @@ class ItemRandomiser {
             });
 
             if (sphere.length == 0) break;
-            accessibleItems = locations.getAccessibleItems(this.instLocations, flagSet);
+            accessibleItems = locations.getAccessibleItems(this.instLocations, flagSet.filter((flag) => flag != undefined));
 
             characterItems.forEach((slot) => {
                 if (checkedItems.includes(slot) || !accessibleItems.includes(slot)) return;
@@ -457,7 +457,7 @@ class ItemRandomiser {
             });
 
             spheres.push(sphere);
-            accessibleItems = locations.getAccessibleItems(this.instLocations, flagSet);
+            accessibleItems = locations.getAccessibleItems(this.instLocations, flagSet.filter((flag) => flag != undefined));
             ++i;
         }
         return spheres;

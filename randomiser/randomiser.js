@@ -8,6 +8,7 @@ const spoilerLog = require('./spoiler_log.js');
 const locations = require('./game_logic/locations.js');
 const textutil = require('./game_logic/textutil.js');
 const itemRandomiser = require('./game_logic/randomisers/item_randomiser.js');
+const archipelagoFiller = require('./game_logic/randomisers/archipelago_filler.js');
 const hintSystem = require('./game_logic/hint_system.js');
 const credits = require('./game_logic/credits.js');
 const mapCode = require('./game_logic/map_code.js');
@@ -184,33 +185,10 @@ function writeStoryFlags(target, flags) {
 }
 
 /**
- * Generates a randomised ROM
- * @param {number} seed The PRNG initialisation seed
- * @param {byte[]} rawSettings The binary encoded randomiser settings
- * @param {string} spoilerFilePath The file path to save the spoiler log to
- * @param {(patch : Uint8Array) => void} callback Callback function upon completion, passing the UPS patch data as a parameter
+ * Applies patches and edits that should occur before the item randomisation step
  */
-function randomise(seed, rawSettings, spoilerFilePath, callback) {
-    var target = rom.slice(0);
-    var prng = mersenne(seed);
+function applyPreRandomisation(target, prng, settings, abilityClone, itemLocClone, mapCodeClone, textClone) {
     var defaultFlags = [0xf22, 0x873, 0x844, 0x863, 0x864, 0x865, 0x867];
-    var settings = settingsParser.parse(rawSettings);
-
-    // Cloning the (mostly) vanilla data containers
-    var textClone = textutil.clone();
-    var itemLocClone = itemLocations.clone();
-    var classClone = classData.clone();
-    var abilityClone = abilityData.clone();
-    var djinnClone = djinnData.clone();
-    var summonClone = summonData.clone();
-    var itemClone = itemData.clone();
-    var shopClone = shopData.clone();
-    var forgeClone = forgeData.clone();
-    var characterClone = characterData.clone();
-    var enemyClone = enemyData.clone();
-    var elementClone = elementData.clone();
-    var musicClone = musicData.clone();
-    var mapCodeClone = mapCode.clone();
 
     // Preparing item locations for randomisation and determining which locations to shuffle
     itemLocations.prepItemLocations(itemLocClone, settings);
@@ -280,30 +258,13 @@ function randomise(seed, rawSettings, spoilerFilePath, callback) {
 
     writeStoryFlags(target, defaultFlags);
 
-    // Performing randomisation until a valid seed is found, or too many randomisations have been performed
-    var randomiser = new itemRandomiser.ItemRandomiser(prng, locationsClone, settings);
-    if (settings['item-shuffle'] > 0) {
-        var attempts = 0;
-        var success = false;
-        while (attempts < 10 && !success) {
-            try {
-                randomiser.shuffleItems(itemLocClone);
-                success = true;
-            } catch (e) {
-                console.error(e);
-                ++attempts;
-            }
-        }
-        if (!success) {
-            console.log("RANDOMISATION FAILED AFTER 10 ATTEMPTS!");
-            console.log("  > Seed: " + seed);
-            console.log("  > Settings: " + rawSettings);
-            return;
-        }
-    } else {
-        randomiser.shuffleItems(itemLocClone);
-    }
+    return locationsClone;
+}
 
+/**
+ * Applies patches and edits that should occur after the item randomisation step
+ */
+function applyPostRandomisation(prng, target, randomiser, settings, abilityClone, characterClone, classClone, djinnClone, elementClone, enemyClone, forgeClone, itemClone, mapCodeClone, musicClone, shopClone, summonClone, textClone) {
     // Applying more settings
     if (settings['easier-bosses']) easierBossesPatch.apply(rom, enemyClone, abilityClone);
 
@@ -352,11 +313,7 @@ function randomise(seed, rawSettings, spoilerFilePath, callback) {
     if (settings['equip-sort']) randomiser.sortEquipment(itemClone);
     if (settings['summon-sort']) randomiser.sortSummons();
     if (!settings['boss-logic']) randomiser.sortMimics();
-    var spheres = randomiser.getSpheres();
-
-    if (settings['qol-hints']) hintSystem.writeHints(prng, textClone, spheres, itemLocClone);
     
-    characterData.adjustStartingLevels(characterClone, settings['start-levels'], settings['shuffle-characters'], spheres, itemLocClone);
     enemyData.scaleBattleRewards(enemyClone, settings['scale-coins'], settings['scale-exp']);
     abilityData.setStartingPsynergy(target, settings, prng);
 
@@ -369,6 +326,69 @@ function randomise(seed, rawSettings, spoilerFilePath, callback) {
     } else if (settings['random-puzzles']) {
         puzzlesPatch.applyRandom(mapCodeClone, prng);
     }
+}
+
+/**
+ * Generates a randomised ROM
+ * @param {number} seed The PRNG initialisation seed
+ * @param {byte[]} rawSettings The binary encoded randomiser settings
+ * @param {string} spoilerFilePath The file path to save the spoiler log to
+ * @param {(patch : Uint8Array) => void} callback Callback function upon completion, passing the UPS patch data as a parameter
+ */
+function randomise(seed, rawSettings, spoilerFilePath, callback) {
+    var target = rom.slice(0);
+    var prng = mersenne(seed);
+    var settings = settingsParser.parse(rawSettings);
+
+    // Cloning the (mostly) vanilla data containers
+    var textClone = textutil.clone();
+    var itemLocClone = itemLocations.clone();
+    var classClone = classData.clone();
+    var abilityClone = abilityData.clone();
+    var djinnClone = djinnData.clone();
+    var summonClone = summonData.clone();
+    var itemClone = itemData.clone();
+    var shopClone = shopData.clone();
+    var forgeClone = forgeData.clone();
+    var characterClone = characterData.clone();
+    var enemyClone = enemyData.clone();
+    var elementClone = elementData.clone();
+    var musicClone = musicData.clone();
+    var mapCodeClone = mapCode.clone();
+
+    var locationsClone = applyPreRandomisation(target, prng, settings, abilityClone, itemLocClone, mapCodeClone, textClone);
+
+    // Performing randomisation until a valid seed is found, or too many randomisations have been performed
+    var randomiser = new itemRandomiser.ItemRandomiser(prng, locationsClone, settings);
+    if (settings['item-shuffle'] > 0) {
+        var attempts = 0;
+        var success = false;
+        while (attempts < 10 && !success) {
+            try {
+                randomiser.shuffleItems(itemLocClone);
+                success = true;
+            } catch (e) {
+                console.error(e);
+                ++attempts;
+            }
+        }
+        if (!success) {
+            console.log("RANDOMISATION FAILED AFTER 10 ATTEMPTS!");
+            console.log("  > Seed: " + seed);
+            console.log("  > Settings: " + rawSettings);
+            return;
+        }
+    } else {
+        randomiser.shuffleItems(itemLocClone);
+    }
+
+    // Post-randomisation
+    applyPostRandomisation(prng, target, randomiser, settings, abilityClone, characterClone, classClone, djinnClone, elementClone, enemyClone, 
+        forgeClone, itemClone, mapCodeClone, musicClone, shopClone, summonClone, textClone);
+
+    var spheres = randomiser.getSpheres();
+    characterData.adjustStartingLevels(characterClone, settings['start-levels'], settings['shuffle-characters'], spheres, itemLocClone);
+    if (settings['qol-hints']) hintSystem.writeHints(prng, textClone, spheres, itemLocClone);
 
     // Writing the modified data containers to the new ROM file
     itemLocations.writeToRom(itemLocClone, prng, target, settings['show-items']);
@@ -392,6 +412,83 @@ function randomise(seed, rawSettings, spoilerFilePath, callback) {
         classClone, shopClone, forgeClone, itemClone, () => {callback(ups.createPatch(vanillaRom, target));});
 }
 
+/**
+ * Generates an Archipelago ROM
+ * @param {Uint8Array} seed 
+ * @param {Uint8Array} rawSettings 
+ * @param {string} userName 
+ * @param {any} itemMapping 
+ * @param {any} djinnMapping 
+ * @param {(patch : Uint8Array) => void} callback 
+ */
+function randomiseArchipelago(seed, rawSettings, userName, itemMapping, djinnMapping, callback) {
+    var target = rom.slice(0);
+    var prng = mersenne(seed);
+    var settings = settingsParser.parse(rawSettings);
+
+    //DEBUG
+    console.log(settings);
+
+    // Cloning the (mostly) vanilla data containers
+    var textClone = textutil.clone();
+    var itemLocClone = itemLocations.clone();
+    var classClone = classData.clone();
+    var abilityClone = abilityData.clone();
+    var djinnClone = djinnData.clone();
+    var summonClone = summonData.clone();
+    var itemClone = itemData.clone();
+    var shopClone = shopData.clone();
+    var forgeClone = forgeData.clone();
+    var characterClone = characterData.clone();
+    var enemyClone = enemyData.clone();
+    var elementClone = elementData.clone();
+    var musicClone = musicData.clone();
+    var mapCodeClone = mapCode.clone();
+
+    var locationsClone = applyPreRandomisation(target, prng, settings, abilityClone, itemLocClone, mapCodeClone, textClone);
+
+    var i = 0;
+    while (i < userName.length && i < 64) {
+        target[0xFFF000 + i] = (userName.charCodeAt(i) & 0xFF);
+        ++i;
+    }
+
+    // Apply fixed locations
+    var randomiser = new archipelagoFiller.ArchipelagoFiller(prng, locationsClone, settings);
+    randomiser.placeItems(itemMapping, itemLocClone);
+    randomiser.placeDjinn(djinnMapping, djinnClone);
+
+    // Post-randomisation
+    applyPostRandomisation(prng, target, randomiser, settings, abilityClone, characterClone, classClone, djinnClone, elementClone, enemyClone, 
+        forgeClone, itemClone, mapCodeClone, musicClone, shopClone, summonClone, textClone);
+
+    //var spheres = randomiser.getSpheres();
+    //var spheres = [['Isaac', 'Garet', 'Ivan', 'Mia', 'Jenna', 'Sheba', 'Piers']];
+    characterData.adjustStartingLevels(characterClone, settings['start-levels'], false, [], itemLocClone);
+
+    // Writing the modified data containers to the new ROM file
+    itemLocations.writeToRom(itemLocClone, prng, target, settings['show-items']);
+    classData.writeToRom(classClone, target);
+    abilityData.writeToRom(abilityClone, target);
+    djinnData.writeToRom(djinnClone, target);
+    summonData.writeToRom(summonClone, target);
+    itemData.writeToRom(itemClone, target, textClone);
+    shopData.writeToRom(shopClone, target);
+    forgeData.writeToRom(forgeClone, target);
+    characterData.writeToRom(characterClone, target);
+    enemyData.writeToRom(enemyClone, target);
+    elementData.writeToRom(elementClone, target);
+    musicData.writeToRom(musicClone, target);
+
+    textutil.writeToRom(textClone, target);
+    mapCode.writeToRom(mapCodeClone, target);
+
+    //DEBUG
+    fs.writeFileSync('./debug/ap.gba', target);
+
+    callback(ups.createPatch(vanillaRom, target));
+}
+
 initialise();
 
-module.exports = {randomise};
+module.exports = {randomise, randomiseArchipelago};
