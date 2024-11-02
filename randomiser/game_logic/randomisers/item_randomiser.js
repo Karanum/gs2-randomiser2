@@ -172,6 +172,7 @@ class ItemRandomiser {
         if (this.settings['skips-oob-easy']) set.push('SkipOobEasy');
         if (this.settings['skips-oob-hard']) set.push('SkipOobHard');
         if (this.settings['skips-maze']) set.push('SkipMaze');
+        if (!this.settings['shuffle-characters']) set.push('VanillaCharacters');
         return set;
     }
 
