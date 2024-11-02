@@ -188,8 +188,10 @@ class ItemRandomiser {
                 if (!this.settings['start-reveal']) biasEarly.push('0x8d4');
                 if (this.settings['shuffle-characters']) biasEarly = biasEarly.concat(['0xd05', '0xd06', '0xd07', '0xd00', '0xd01', '0xd02', '0xd03']);
             }
-            if (this.settings['ship'] == 0)
+            if (this.settings['ship'] == 0) {
                 biasEarly.push('0x8ff');
+                if (this.settings['shuffle-characters'] && !biasEarly.includes('0xd07')) biasEarly.push('0xd07');
+            }
         }
 
         this.availableItems = itemLocations.getUnlockedItems(instItemLocations);

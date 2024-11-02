@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html prefix="og: https://ogp.me/ns#" lang="<%= lang.lang %>">
+<head>
+    <%- include("partials/head_common") %>
+
+    <!-- <script src="/js/settings.js"></script>
+    <script src="/js/generate.js"></script> -->
+
+    <script src="/js/patcher.js"></script>
+
+    <meta property="og:title" content="Import Archipelago Seed">
+    <link rel="canonical" href="https://gs2randomiser.com/archipelago/generate.html">
+    <link ref="alternate" hreflang="en" href="https://gs2randomiser.com/en/archipelago/generate.html">
+    <link ref="alternate" hreflang="de" href="https://gs2randomiser.com/de/archipelago/generate.html">
+    <link ref="alternate" hreflang="fr" href="https://gs2randomiser.com/fr/archipelago/generate.html">
+    <link ref="alternate" hreflang="es" href="https://gs2randomiser.com/es/archipelago/generate.html">
+    <link ref="alternate" hreflang="x-default" href="https://gs2randomiser.com/en/archipelago/generate.html">
+    <title>GS2 Randomiser - Import AP Seed</title>
+</head>
+
+<body>
+    <% locals.path = "/archipelago/generate" %>
+    <%- include("partials/top_nav") %>
+
+    <main class="container-fluid">
+        <div class="row mt-3 mx-lg-5">
+            <div class="col-12 mx-lg-2 px-lg-5 mb-2">
+                <center>
+                    <a href="/<%= lang.lang %>/index.html"><img class="logo" src="/img/gstlar-logo.webp" alt="Randomiser logo"></a>
+                    <img class="logo mt-3" src="/img/ap-logo.svg" alt="Archipelago Multiworld logo">
+                </center>
+            </div>
+
+            <div class="col-12 mb-4 px-lg-5">
+                <div class="card mt-4">
+                    <h2 class="card-header">Import Archipelago File</h2>
+                    <div class="card-body">
+                        <div class="row px-lg-5 my-2" id="div-apfile">
+                            <div class="col-12 my-3">
+                                <input type="file" accept=".gstlarando" class="form-control" id="inp-apfile">
+                                <p class="ms-2 mt-1 mb-0 text-danger d-none" id="err-apfile">The server rejected the Archipelago file, please contact us on Discord for support.</p>
+                                <div class="mt-3 float-end">
+                                    <button type="button" class="btn btn-primary" id="btn-import" disabled>Import file</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-none" id="div-patch">
+                    <hr />
+
+                    <div class="card">
+                        <h2 class="card-header">Patch ROM</h2>
+                        <div class="card-body">
+                            <div class="row px-lg-5 mt-2">
+                                <div class="col-6 col-sm-4 col-md-3 col-lg-4 col-xl-3 col-xxl-2 mb-1">
+                                    <b>Name:</b><br>
+                                </div>
+                                <div class="col-6 mb-1" id="div-info"></div>
+                            </div>
+                            <hr>
+
+                            <div class="row px-lg-5 my-2">
+                                <div class="col-12 my-1">
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input cache-setting" type="checkbox" id="inp-qol-autorun">
+                                        <label class="form-check-label"><%= lang.randomised.setting_autorun %></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+
+                            <div class="row px-lg-5 my-2" id="div-rom">
+                                <div class="col-12 my-3">
+                                    <div class="card">
+                                        <h3 class="card-header"><%= lang.randomised.select_rom %></h3>
+                                        <div class="card-body py-3 px-lg-5">
+                                            <input type="file" class="form-control" id="inp-rom">
+                                            <p class="ms-2 mt-1 mb-0 text-danger d-none" id="err-rom"><%= lang.randomised.invalid_rom %></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+    
+                            <div class="row px-lg-5 mt-2 mb-4" id="div-result">
+                                <div class="col-12 col-lg-6 mb-1">
+                                    <div class="d-block">
+                                        <span class="d-inline-block" tabindex="0" data-bs-toggle="tooltip" title="<%= lang.randomised.no_rom %>">
+                                            <button class="btn btn-primary me-3" id="btn-patch">
+                                                <%= lang.randomised.btn_patch %>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
+
+<script>
+    var patcher = new UPSPatcher();
+    var loading = false;
+    var romData, upsData, slotName;
+
+    function saveCachedSetting(elem) {
+        if (elem.type == "checkbox") {
+            localStorage.setItem(elem.id, elem.checked);
+        } else {
+            localStorage.setItem(elem.id, elem.value);
+        }
+    }
+
+    function loadCachedSetting(elem) {
+        var val = localStorage.getItem(elem.id);
+        if (val == null) return;
+
+        if (elem.type == "checkbox") {
+            $(elem).prop('checked', (val == "true"));
+        } else {
+            $(elem).val(val);
+        }
+    }
+
+    $('#inp-apfile').on('change', function() {
+        var fileList = $(this).prop('files');
+        $('#btn-import').prop('disabled', fileList.length == 0 || loading);
+    });
+
+    $('#btn-import').on('click', function() {
+        var fileList = $('#inp-apfile').prop('files');
+        if (fileList.length == 0 || loading) {
+            return;
+        }
+
+        loading = true;
+        $(this).prop('disabled', true);
+        $('#err-apfile').addClass('d-none');
+
+        var req = new XMLHttpRequest();
+        req.open('POST', `/import_ap_ajax`, true);
+        req.setRequestHeader('X-Requested-With', "XMLHttpRequest");
+        req.setRequestHeader('content-type', 'application/octet-stream');
+
+        req.onload = (e) => {
+            var response = JSON.parse(req.response);
+            if (response.success) {
+                upsData = response.patch;
+                patcher.explodePatch(new Uint8Array(upsData));
+
+                slotName = response.userName;
+                $('#div-info').html(`${slotName}`);
+                $('#div-patch').removeClass('d-none');
+            } else {
+                $('#err-apfile').removeClass('d-none');
+            }
+
+            loading = false;
+            $('#btn-import').prop('disabled', false);
+        };
+
+        req.send(fileList[0]);
+    });
+
+    $("#btn-patch").on('click', () => {
+        if (!romData || !upsData) return;
+
+        if ($("#inp-qol-autorun").prop('checked')) {
+            patcher.enableAutoRunPatch();
+        } else {
+            patcher.disableAutoRunPatch();
+        }
+
+        var romCopy = new Uint8Array(romData);
+        romCopy = patcher.patchRom(romCopy);
+
+        var blob = new Blob([romCopy], { type: 'application/octet-stream' });
+
+        var downloadAnchor = document.createElement('a');
+        downloadAnchor.href = URL.createObjectURL(blob);
+        downloadAnchor.download = `gs2r_ap_${slotName}.gba`;
+        downloadAnchor.click();
+        downloadAnchor.remove();
+    });
+
+    $("#inp-rom").on('change', () => {
+        var files = $("#inp-rom")[0].files;
+        if (files.length == 0) return;
+
+        var reader = new FileReader();
+
+        reader.onload = ((e) => {
+            $("#err-rom").addClass('d-none');
+
+            var data = new Uint8Array(e.target.result);
+            if (data.length < 0x1000000) {
+                $("#err-rom").removeClass('d-none');
+                return;
+            }
+
+            var fingerprint = data[1128] + (data[1129] << 8) + (data[1130] << 16) + (data[1131] << 24);
+            if (fingerprint != 0x801319d && fingerprint != 0x8f9ee50) {
+                $("#err-rom").removeClass('d-none');
+            }
+            romData = data;
+
+            if (upsData) {
+                $("#btn-patch").prop('disabled', false);
+            }
+        });
+
+        reader.readAsArrayBuffer(files[0]);
+    });
+
+    $(".cache-setting").each((_, elem) => {
+        loadCachedSetting(elem);
+    }).on('change', (e) => {
+        saveCachedSetting(e.target);
+    });
+</script>
