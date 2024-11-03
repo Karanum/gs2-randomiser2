@@ -6,6 +6,7 @@ const textutil = require ('./textutil.js');
 const multiHints = {
     "Alhafra": "in a port city\x03ruled through schemes",
     "Character": "A scattered companion",
+    "Character_Loc": "in the hands of\x03a scattered friend",
     "Cliffs": "on cliffs that\x03divide the land",
     "Eastern Sea": "on an island in\x03the Eastern Sea",
     "Gabomba": "within the bowels\x03of a revered statue",
@@ -119,7 +120,9 @@ const mapHints = {
     "SE Angara Islet": multiHints["Eastern Sea"], "Sea of Time Islet": multiHints["Eastern Sea"], "W Indra Islet": multiHints["Eastern Sea"],
     "Gabomba Catacombs": multiHints["Gabomba"], "Gabomba Statue": multiHints["Gabomba"], "Gondowan Settlement": multiHints["Settlement"], 
     "Hesperia Settlement": multiHints["Settlement"], "Kalt Island": multiHints["Western Sea"], "SW Atteka Islet": multiHints["Western Sea"],
-    "Madra": multiHints["Madra"], "Madra Catacombs": multiHints["Madra"]
+    "Madra": multiHints["Madra"], "Madra Catacombs": multiHints["Madra"], "Isaac": multiHints["Character_Loc"], "Garet": multiHints["Character_Loc"], 
+    "Ivan": multiHints["Character_Loc"], "Mia": multiHints["Character_Loc"], "Jenna": multiHints["Character_Loc"], 
+    "Sheba": multiHints["Character_Loc"], "Piers": multiHints["Character_Loc"]
 };
 
 /** Helper array to convert numbers to their text representation. */
