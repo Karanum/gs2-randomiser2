@@ -27,6 +27,7 @@ const elementData = require('./game_data/elem_tables.js');
 const musicData = require('./game_data/music.js');
 
 const endgameShortcutPatch = require('./patches/innate/endgame_shortcuts.js');
+const extraIconsPatch = require('./patches/innate/extra_icons.js');
 const fastForgingPatch = require('./patches/innate/fast_forging.js');
 const fixCharPatch = require('./patches/innate/fix_char.js');
 const fixLemurianShipPatch = require('./patches/innate/fix_lemurian_ship.js');
@@ -39,6 +40,7 @@ const backEntrancePatch = require('./patches/innate/register_back_entrances.js')
 
 const addCharacterShufflePatch = require('./patches/options/add_character_items.js');
 const anemosRequirementsPatch = require('./patches/options/anemos_requirements.js');
+const archipelagoPatch = require('./patches/options/archipelago.js');
 const avoidPatch = require('./patches/options/avoid.js');
 const cutsceneSkipPatch = require('./patches/options/cutscene_skip.js');
 const djinnScalingPatch = require('./patches/options/djinn_scaling.js');
@@ -96,6 +98,7 @@ function initialise() {
         teleportPatch.apply(rom);
         generalPatch.apply(rom);
         trialRoadPatch.apply(rom);
+        extraIconsPatch.apply(rom);
     });
     credits.writeToRom(rom);
 
@@ -425,8 +428,8 @@ function randomiseArchipelago(seed, rawSettings, userName, itemMapping, djinnMap
     var prng = mersenne(seed);
     var settings = settingsParser.parse(rawSettings);
 
-    //DEBUG
-    console.log(settings);
+    // Apply the Archipelago patch
+    archipelagoPatch.apply(target, settings);
 
     // Cloning the (mostly) vanilla data containers
     var textClone = textutil.clone();

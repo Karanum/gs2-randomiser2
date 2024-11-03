@@ -171,25 +171,25 @@ router.get('/fetch_perma_ajax', (req, res) => {
 //==================================================
 // AJAX endpoint for loading an Archipelago file
 //==================================================
-// router.post('/import_ap_ajax', bodyParser.raw({ type: 'application/octet-stream' }), (req, res) => {
-//     if (!req.xhr) return res.redirect('/');
-//     res.type('application/json');
+router.post('/import_ap_ajax', bodyParser.raw({ type: 'application/octet-stream' }), (req, res) => {
+    if (!req.xhr) return res.redirect('/');
+    res.type('application/json');
 
-//     if (req.body.length <= 33) {
-//         return res.send({ success: false, error: 'invalid-header' })
-//     }
+    if (req.body.length <= 33) {
+        return res.send({ success: false, error: 'invalid-header' })
+    }
 
-//     try {
-//         const {seed, settings, userName, itemMap, djinniMap} = archipelago.parseAPFile(req.body);
-//         randomiser.randomiseArchipelago(seed, settings, userName, itemMap, djinniMap, (patch) => {
-//             res.send({ success: true, patch: Array.from(patch), seed, userName });
-//         });
-//     } catch (error) {
-//         console.log("=== RANDOMISATION ERROR ===");
-//         console.log(`[ARCHIPELAGO MODE]`);
-//         console.log(error);
-//         res.send({ success: false });
-//     }
-// });
+    try {
+        const {seed, settings, userName, itemMap, djinniMap} = archipelago.parseAPFile(req.body);
+        randomiser.randomiseArchipelago(seed, settings, userName, itemMap, djinniMap, (patch) => {
+            res.send({ success: true, patch: Array.from(patch), seed, userName });
+        });
+    } catch (error) {
+        console.log("=== RANDOMISATION ERROR ===");
+        console.log(`[ARCHIPELAGO MODE]`);
+        console.log(error);
+        res.send({ success: false });
+    }
+});
 
 module.exports = router;
