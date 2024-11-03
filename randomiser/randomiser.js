@@ -187,7 +187,7 @@ function writeStoryFlags(target, flags) {
 /**
  * Applies patches and edits that should occur before the item randomisation step
  */
-function applyPreRandomisation(target, prng, settings, abilityClone, itemLocClone, mapCodeClone, textClone) {
+function applyPreRandomisation(target, prng, settings, abilityClone, enemyClone, itemLocClone, mapCodeClone, textClone) {
     var defaultFlags = [0xf22, 0x873, 0x844, 0x863, 0x864, 0x865, 0x867];
 
     // Preparing item locations for randomisation and determining which locations to shuffle
@@ -207,7 +207,7 @@ function applyPreRandomisation(target, prng, settings, abilityClone, itemLocClon
         abilityClone[156].cost = 0;
     }
 
-    if (settings['djinn-scale']) djinnScalingPatch.apply(target);
+    if (settings['djinn-scale']) djinnScalingPatch.apply(target, enemyClone, textClone);
     if (settings['qol-fastship']) applyShipSpeedPatch(target);
     if (settings['qol-tickets']) applyGameTicketPatch(target);
     if (settings['qol-cutscenes']) {
@@ -303,7 +303,6 @@ function applyPostRandomisation(prng, target, randomiser, settings, abilityClone
     if (settings['char-element'] == 1) characterData.shuffleElements(characterClone, prng, true);
     if (settings['char-element'] == 2) characterData.shuffleElements(characterClone, prng, false);
 
-    if (settings['djinn-scale']) enemyData.sortDjinn(enemyClone);
     if (settings['enemy-eres'] == 1) elementData.shuffleResistances(elementClone, prng);
     if (settings['enemy-eres'] == 2) elementData.randomiseResistances(elementClone, prng);
 
@@ -356,7 +355,7 @@ function randomise(seed, rawSettings, spoilerFilePath, callback) {
     var musicClone = musicData.clone();
     var mapCodeClone = mapCode.clone();
 
-    var locationsClone = applyPreRandomisation(target, prng, settings, abilityClone, itemLocClone, mapCodeClone, textClone);
+    var locationsClone = applyPreRandomisation(target, prng, settings, abilityClone, enemyClone, itemLocClone, mapCodeClone, textClone);
 
     // Performing randomisation until a valid seed is found, or too many randomisations have been performed
     var randomiser = new itemRandomiser.ItemRandomiser(prng, locationsClone, settings);
@@ -445,7 +444,7 @@ function randomiseArchipelago(seed, rawSettings, userName, itemMapping, djinnMap
     var musicClone = musicData.clone();
     var mapCodeClone = mapCode.clone();
 
-    var locationsClone = applyPreRandomisation(target, prng, settings, abilityClone, itemLocClone, mapCodeClone, textClone);
+    var locationsClone = applyPreRandomisation(target, prng, settings, abilityClone, enemyClone, itemLocClone, mapCodeClone, textClone);
 
     var i = 0;
     while (i < userName.length && i < 64) {
