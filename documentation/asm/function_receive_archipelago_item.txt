@@ -1,12 +1,69 @@
-@offset = t.b.d.
-@caller = t.b.d.
+@offset = 09006300
 @  string[0xE38] <- "An item appears before you..."
 
 
+_dataScriptx19:
+push {r0, lr}
+bl funcCheckBuffer
+pop {r0}
+bl _thunkDataScriptx19
+pop {pc}
+
+.hword 0x0
+
+_thunkDataScriptx19:
+ldr r4, #0x0
+bx r4
+.word 0x08027065
+
+_dataScriptx1A:
+push {r0, lr}
+bl funcCheckBuffer
+pop {r0}
+bl _thunkDataScriptx1A
+pop {pc}
+
+.hword 0x0
+
+_thunkDataScriptx1A:
+ldr r4, #0x0
+bx r4
+.word 0x080279B1
+
+_dataScriptx1F:
+push {r0, lr}
+bl funcCheckBuffer
+pop {r0}
+bl _thunkDataScriptx1F
+pop {pc}
+
+.hword 0x0
+
+_thunkDataScriptx1F:
+ldr r4, #0x0
+bx r4
+.word 0x08027E21
+
+_dataScriptx20:
+push {r0, lr}
+bl funcCheckBuffer
+pop {r0}
+bl _thunkDataScriptx20
+pop {pc}
+
+.hword 0x0
+
+_thunkDataScriptx20:
+ldr r4, #0x0
+bx r4
+.word 0x08028535
+
+
+funcCheckBuffer:
 push {r5, lr}
 
-ldr r1, ptrReceivedItemStatus
-ldrb r0, [r1, #0x0]
+ldr r1, ptrReceivedItemCount
+ldrb r0, [r1, #0x1]
 cmp r0, #0x0
 bne end
 ldr r1, ptrItemBuffer
@@ -16,6 +73,10 @@ beq end
 
 movs r5, r0
 bl thunkStartCutscene
+ldr r1, ptrReceivedItemCount
+movs r0, #0x1
+strb r0, [r1, #0x1]
+
 movs r0, #0xE
 lsls r0, #0x8
 adds r0, #0x38
@@ -31,27 +92,19 @@ movs r0, #0x53
 bl thunkPlaySound
 bl 0x09000206
 cmp r0, #0x0
-blt invFull
+movs r0, r5
+bl thunkForceAddItem
 
 skip:
 ldr r1, ptrReceivedItemCount
 ldrb r0, [r1, #0x0]
 adds r0, #0x1
 strb r0, [r1, #0x0]
-ldr r1, ptrItemBuffer
 movs r0, #0x0
+strb r0, [r1, #0x1]
+ldr r1, ptrItemBuffer
 strh r0, [r1, #0x0]
 bl thunkEndCutscene
-b end
-
-invFull:
-ldr r1, ptrReceivedItemStatus
-movs r0, #0x1
-str r0, [r1, #0x0]
-movs r0, #0xE2
-lsls r0, #0x4
-movs r1, #0x0
-bl thunkShowStatusBox
 
 end:
 pop {r5, pc}
@@ -77,11 +130,13 @@ ldr r4, #0x0
 bx r4
 .word 0x08038041
 
+thunkForceAddItem:
+ldr r4, #0x0
+bx r4
+.word 0x080D260D
+
 ptrItemBuffer:
 .word 0x02000A96
 
 ptrReceivedItemCount:
 .word 0x02000A72
-
-ptrReceivedItemStatus:
-.word 0x0

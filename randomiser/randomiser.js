@@ -428,9 +428,6 @@ function randomiseArchipelago(seed, rawSettings, userName, itemMapping, djinnMap
     var prng = mersenne(seed);
     var settings = settingsParser.parse(rawSettings);
 
-    // Apply the Archipelago patch
-    archipelagoPatch.apply(target, settings);
-
     // Cloning the (mostly) vanilla data containers
     var textClone = textutil.clone();
     var itemLocClone = itemLocations.clone();
@@ -454,6 +451,9 @@ function randomiseArchipelago(seed, rawSettings, userName, itemMapping, djinnMap
         target[0xFFF000 + i] = (userName.charCodeAt(i) & 0xFF);
         ++i;
     }
+
+    // Apply the Archipelago patch
+    archipelagoPatch.apply(target, settings, textClone);
 
     // Apply fixed locations
     var randomiser = new archipelagoFiller.ArchipelagoFiller(prng, locationsClone, settings);
