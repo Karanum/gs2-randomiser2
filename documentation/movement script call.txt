@@ -1,3 +1,0 @@
-Tested with movement script 0x19 (0x08027064)
-
-- Is called with a lr of 0x08024025
