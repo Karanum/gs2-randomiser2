@@ -9,11 +9,19 @@ class ArchipelagoFiller extends ItemRandomiser {
         this.instItemLocations = instItemLocations;
 
         Object.keys(this.instItemLocations).forEach((slot) => {
-            var mapping = itemMapping[slot] ?? this.instItemLocations[slot][0]['vanillaContents'];
+            let mapping = itemMapping[slot] ?? this.instItemLocations[slot][0]['vanillaContents'];
 
-            this.instItemLocations[slot].forEach((t) => {
-                t['contents'] = mapping;
-            });
+            if ((mapping & 0xFFF0) == 0xA00 && mapping != 0xA00) {
+                mapping -= 0xA00;
+                this.instItemLocations[slot].forEach((t) => {
+                    t['eventType'] = 0x81;
+                    t['contents'] = mapping;
+                });
+            } else {
+                this.instItemLocations[slot].forEach((t) => {
+                    t['contents'] = mapping;
+                });
+            }
         });
     }
 
