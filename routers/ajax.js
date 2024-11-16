@@ -172,7 +172,6 @@ router.get('/fetch_perma_ajax', (req, res) => {
 // AJAX endpoint for loading an Archipelago file
 //==================================================
 router.post('/import_ap_ajax', bodyParser.raw({ type: 'application/octet-stream' }), (req, res) => {
-    if (!req.xhr) return res.redirect('/');
     res.type('application/json');
 
     if (req.body.length <= 33) {
