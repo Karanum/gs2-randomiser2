@@ -94,8 +94,8 @@ router.get(['/permalink/:id', '/:lang/permalink/:id'], (req, res) => {
     });
 });
 
-router.get(['/archipelago/generate.html', '/:lang/archipelago/generate.html', '/archipelago', '/:lang/archipelago'], (_, res) => {
-    res.render('ap_generate.ejs');
-});
+// router.get(['/archipelago/generate.html', '/:lang/archipelago/generate.html', '/archipelago', '/:lang/archipelago'], (_, res) => {
+//     res.render('ap_generate.ejs');
+// });
 
 module.exports = router;
