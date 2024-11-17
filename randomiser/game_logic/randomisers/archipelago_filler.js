@@ -20,6 +20,7 @@ class ArchipelagoFiller extends ItemRandomiser {
             } else {
                 this.instItemLocations[slot].forEach((t) => {
                     t['contents'] = mapping;
+                    if (t['eventType'] == 0x81) t['eventType'] = 0x80;
                 });
             }
         });
