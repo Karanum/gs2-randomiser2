@@ -485,9 +485,6 @@ function randomiseArchipelago(seed, rawSettings, userName, itemMapping, djinnMap
     textutil.writeToRom(textClone, target);
     mapCode.writeToRom(mapCodeClone, target);
 
-    //DEBUG
-    fs.writeFileSync('./debug/ap.gba', target);
-
     callback(ups.createPatch(vanillaRom, target));
 }
 
