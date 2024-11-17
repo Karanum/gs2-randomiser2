@@ -282,7 +282,6 @@ function applyPostRandomisation(prng, target, randomiser, settings, abilityClone
     if (settings['class-stats']) classData.randomiseStats(classClone, prng);
     if (settings['no-learning']) classData.removeUtilityPsynergy(classClone);
 
-    if (settings['djinn-shuffle']) djinnData.shuffleDjinn(djinnClone, prng);
     if (settings['djinn-stats']) djinnData.shuffleStats(djinnClone, prng);
     if (settings['djinn-power']) abilityData.adjustAbilityPower(abilityClone, "Djinn", prng);
     if (settings['djinn-aoe']) abilityData.randomiseAbilityRange(abilityClone, "Djinn", prng);
@@ -385,6 +384,7 @@ function randomise(seed, rawSettings, spoilerFilePath, callback) {
     }
 
     // Post-randomisation
+    if (settings['djinn-shuffle']) djinnData.shuffleDjinn(djinnClone, prng);
     applyPostRandomisation(prng, target, randomiser, settings, abilityClone, characterClone, classClone, djinnClone, elementClone, enemyClone, 
         forgeClone, itemClone, mapCodeClone, musicClone, shopClone, summonClone, textClone);
 
