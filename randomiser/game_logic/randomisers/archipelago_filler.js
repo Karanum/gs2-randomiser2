@@ -12,7 +12,7 @@ class ArchipelagoFiller extends ItemRandomiser {
             let mapping = itemMapping[slot] ?? this.instItemLocations[slot][0]['vanillaContents'];
 
             if ((mapping & 0xFFF0) == 0xA00 && mapping != 0xA00) {
-                mapping -= 0xA00;
+                mapping -= 0xA01;
                 this.instItemLocations[slot].forEach((t) => {
                     t['eventType'] = 0x81;
                     t['contents'] = mapping;
