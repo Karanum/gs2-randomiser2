@@ -30,9 +30,9 @@ function apply(rom, settings, text) {
 
     // Redirect valid mainLoop scripts to the receiving function
     write32b(rom, 0x2F268, 0x09006300);
-    write32b(rom, 0x2F26C, 0x09006318);
+    //write32b(rom, 0x2F26C, 0x09006318);
     write32b(rom, 0x2F280, 0x09006330);
-    write32b(rom, 0x2F284, 0x09006348);
+    //write32b(rom, 0x2F284, 0x09006348);
 }
 
 module.exports = {apply};

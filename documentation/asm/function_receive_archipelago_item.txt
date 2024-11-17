@@ -62,10 +62,6 @@ bx r4
 funcCheckBuffer:
 push {r5, lr}
 
-ldr r1, ptrReceivedItemCount
-ldrb r0, [r1, #0x1]
-cmp r0, #0x0
-bne end
 ldr r1, ptrItemBuffer
 ldrh r0, [r1, #0x0]
 cmp r0, #0x0
@@ -75,10 +71,6 @@ movs r5, r0
 bl thunkStartCutscene
 bl thunkGetPartyLeader
 bl thunkSetNpcStateIdle
-
-ldr r1, ptrReceivedItemCount
-movs r0, #0x1
-strb r0, [r1, #0x1]
 
 movs r0, #0xE
 lsls r0, #0x8
