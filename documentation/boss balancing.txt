@@ -85,7 +85,7 @@ No changes from vanilla
 - HP: 8736 -> 6236
 - Attack: 608 -> 508
 - Defense: 217 -> 167
-- HP regen changed from 200 to 100
+- HP regen changed from 200 to 50
 
 === Valukar ===
 - HP: 12960 -> 8960

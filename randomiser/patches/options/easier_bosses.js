@@ -81,6 +81,7 @@ function updateEnemyData(instance) {
     instance["Sentinel"][0].hp = 6236;
     instance["Sentinel"][0].attack = 508;
     instance["Sentinel"][0].defense = 167;
+    instance["Sentinel"][0].hpRegen = 50;
 
     instance["Valukar"][0].hp = 8960;
     instance["Valukar"][0].attack = 450;
