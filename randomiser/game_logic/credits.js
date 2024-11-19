@@ -3,9 +3,13 @@ const NEWLINE = 0x1A0C;
 const nodePackage = require('../../package.json');
 
 function writeString(target, pos, string) {
+    let addr = pos.addr;
     for (var i = 0; i < string.length; ++i) {
-        target[pos + i] = string.charCodeAt(i);
+        target[addr + i] = string.charCodeAt(i);
     }
+
+    pos.addr += string.length + 1;
+    return addr;
 }
 
 function writePointer(target, pos, pointer) {
@@ -38,34 +42,47 @@ function writeToRom(target) {
     target[0x1A0F60] = 0x00;
     target[0x1A0F61] = 0x34;
 
-    writeString(target, 0x1A3000, "GS2 RANDOMISER");
-    writeString(target, 0x1A300F, "Version " + nodePackage.version);
-    writeString(target, 0x1A3020, "Development");
-    writeString(target, 0x1A302C, "Original Randomiser");
-    writeString(target, 0x1A3040, "Special Thanks");
-    writeString(target, 0x1A304F, "Karanum");
-    writeString(target, 0x1A3057, "MarvinXLII");
-    writeString(target, 0x1A3062, "Teawater");
-    writeString(target, 0x1A306B, "Salanewt");
-    writeString(target, 0x1A3074, "Atrius (GS2 Editor)");
-    writeString(target, 0x1A3088, "And everyone over at the");
-    writeString(target, 0x1A30A1, "GS Speedrunning Discord");
-    writeString(target, 0x1A30B9, "Visit us at:");
-    writeString(target, 0x1A30C6, "gs2randomiser.com");
-    writeString(target, 0x1A30D8, "(discord.gg/QWwxrmN)");
-    writeString(target, 0x1A30ED, "Aile / FlameUser64");
-    writeString(target, 0x1A3100, "pokemariosun");
-    writeString(target, 0x1A310D, "Cougars");
+    let pos = { addr: 0x1A3000 };
+    
+    const randoTitle = writeString(target, pos, "GS2 RANDOMISER");
+    const randoVersion = writeString(target, pos, "Version " + nodePackage.version);
+    const headerDevelopment = writeString(target, pos, "Development");
+    const headerOriginalDev = writeString(target, pos, "Original Randomiser");
+    const headerSpecialThanks = writeString(target, pos, "Special Thanks");
+    const headerArchipelago = writeString(target, pos, "Archipelago Support");
+    const headerTracker = writeString(target, pos, "Tracker Development");
+
+    const nameKaranum = writeString(target, pos, "Karanum");
+    const nameMarvin = writeString(target, pos, "MarvinXLII");
+    const nameTeawater = writeString(target, pos, "Teawater");
+    const nameSalanewt = writeString(target, pos, "Salanewt");
+    const nameAtrius = writeString(target, pos, "Atrius (GS2 Editor)");
+    const nameAile = writeString(target, pos, "Aile / FlameUser64");
+    const namePokemario = writeString(target, pos, "pokemariosun");
+    const nameCougars = writeString(target, pos, "Cougars");
+    const nameDragion = writeString(target, pos, "Dragion");
+    const namePlatano = writeString(target, pos, "Platano Bailando");
+    const nameNeo = writeString(target, pos, "Neomatamune");
+    const namePlexa = writeString(target, pos, "Plexa");
+    // TODO: Contact other AP contributors about whether they would like to be added
+
+    const lineDiscord1 = writeString(target, pos, "And everyone over at the");
+    const lineDiscord2 = writeString(target, pos, "GS Speedrunning Discord");
+    const lineDiscord3 = writeString(target, pos, "(discord.gg/QWwxrmN)");
+    const lineWebsite1 = writeString(target, pos, "Visit us at:");
+    const lineWebsite2 = writeString(target, pos, "gs2randomiser.com");    
 
     copyCredits(target, 0x1A20BC, 0x1A3400, 828);
     writePointers(target, 0x1A373C, [
         NEWLINE, NEWLINE, NEWLINE, NEWLINE, NEWLINE,
-        0x3000, 0x300F, NEWLINE, NEWLINE,
-        0x302C, NEWLINE, 0x3057, NEWLINE, NEWLINE,
-        0x3020, NEWLINE, 0x304F, NEWLINE, NEWLINE,
-        0x3040, NEWLINE, 0x3057, 0x3062, 0x306B, 0x3074, 0x30ED, 0x3100, 0x310D, NEWLINE,
-        0x3088, 0x30A1, 0x30D8, NEWLINE, NEWLINE, NEWLINE,
-        0x30B9, 0x30C6, NEWLINE
+        randoTitle, randoVersion, NEWLINE, NEWLINE,
+        headerDevelopment, NEWLINE, nameKaranum, NEWLINE, NEWLINE,
+        headerOriginalDev, NEWLINE, nameMarvin, NEWLINE, NEWLINE,
+        headerArchipelago, NEWLINE, nameDragion, namePlatano, NEWLINE, NEWLINE,
+        headerTracker, NEWLINE, nameCougars, nameKaranum, nameNeo, NEWLINE, NEWLINE,
+        headerSpecialThanks, NEWLINE, nameAile, nameAtrius, namePokemario, namePlexa, nameSalanewt, nameTeawater, NEWLINE,
+        lineDiscord1, lineDiscord2, lineDiscord3, NEWLINE, NEWLINE, NEWLINE,
+        lineWebsite1, lineWebsite2, NEWLINE
     ]);
 }
 
