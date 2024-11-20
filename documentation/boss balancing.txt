@@ -82,10 +82,10 @@ No changes from vanilla
 - (Thunder Ball) Shine Plasma changed to Plasma
 
 === Sentinel ===
-- HP: 8736 -> 6236
+- HP: 8736 -> 6836
 - Attack: 608 -> 508
 - Defense: 217 -> 167
-- HP regen changed from 200 to 50
+- HP regen changed from 200 to 0
 
 === Valukar ===
 - HP: 12960 -> 8960

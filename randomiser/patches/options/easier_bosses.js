@@ -78,10 +78,10 @@ function updateEnemyData(instance) {
     instance["Refresh Ball"][0].attacks = [94, 94, 94, 94, 94, 99, 100, 1];
     instance["Thunder Ball"][0].attacks = [67, 70, 72, 67, 70, 72, 1, 1];
 
-    instance["Sentinel"][0].hp = 6236;
+    instance["Sentinel"][0].hp = 6836;
     instance["Sentinel"][0].attack = 508;
     instance["Sentinel"][0].defense = 167;
-    instance["Sentinel"][0].hpRegen = 50;
+    instance["Sentinel"][0].hpRegen = 0;
 
     instance["Valukar"][0].hp = 8960;
     instance["Valukar"][0].attack = 450;
