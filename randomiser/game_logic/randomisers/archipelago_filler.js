@@ -11,6 +11,9 @@ class ArchipelagoFiller extends ItemRandomiser {
         Object.keys(this.instItemLocations).forEach((slot) => {
             let mapping = itemMapping[slot] ?? this.instItemLocations[slot][0]['vanillaContents'];
 
+            // Temporary mapping of 0xA0A to 0xA00 until the alternate AP sprite is in
+            if (mapping == 0xA0A) mapping = 0xA00;
+
             if ((mapping & 0xFFF0) == 0xA00 && mapping != 0xA00) {
                 mapping -= 0xA01;
                 this.instItemLocations[slot].forEach((t) => {
