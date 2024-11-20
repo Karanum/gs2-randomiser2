@@ -41,7 +41,7 @@ const randomiserSettings = {
     'free-avoid': [5, 1, 1],
     'boss-logic': [5, 2, 1],
     'skips-maze': [5, 3, 1],
-    'skips-oob-easy': [5, 4, 1],
+    'skips-sq': [5, 4, 1],
     'skips-basic': [5, 5, 1],
     'ship': [5, 6, 2],
 
@@ -50,7 +50,7 @@ const randomiserSettings = {
     'start-heal': [6, 2, 1],
     'qol-hints': [6, 3, 1],
     'equip-attack': [6, 4, 1],
-    'skips-oob-hard': [6, 5, 1],
+    'skips-sanctum': [6, 5, 1],
     'dummy-items': [6, 6, 1],
     'adv-equip': [6, 7, 1],
 
@@ -60,6 +60,8 @@ const randomiserSettings = {
     'start-levels': [8, 0, 7],
     'equip-defense': [8, 7, 1],
 
+    'skips-missable': [9, 0, 1],
+    'skips-wiggle': [9, 1, 1],
     'patch-avoid': [9, 2, 1],
     'curse-disable': [9, 3, 1],
     'sanc-cost': [9, 4, 2],
@@ -73,12 +75,16 @@ const randomiserSettings = {
     'halve-enc': [10, 6, 1],
     'hard-mode': [10, 7, 1],
 
+    'skips-oob': [11, 0, 1],
     'shuffle-characters': [11, 1, 1],
     'anemos-access': [11, 2, 2],
     'force-superboss-minors': [11, 4, 1],
     'force-boss-drops': [11, 5, 1],
     'teleport-everywhere': [11, 6, 1],
     'music-shuffle': [11, 7, 1],
+
+    'skips-storage': [12, 6, 1],
+    'skips-sand': [12, 7, 1]
 };
 
-const randomiserSettingsLength = 12;
+const randomiserSettingsLength = 13;

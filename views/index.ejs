@@ -281,10 +281,18 @@
                             <div class="card-body">  
                                 <div class="row">
                                     <div class="col-12 col-lg-6">
-                                        <%- include('partials/setting_switch', { id: 'inp-skips-basic', label: lang.settings.skips_basic, tooltip: 6 }) %>
-                                        <%- include('partials/setting_switch', { id: 'inp-skips-oob-easy', label: lang.settings.skips_oob_easy, tooltip: 7 }) %>
-                                        <%- include('partials/setting_switch', { id: 'inp-skips-oob-hard', label: lang.settings.skips_oob_hard, tooltip: 12 }) %>
-                                        <%- include('partials/setting_switch', { id: 'inp-skips-maze', label: lang.settings.skips_gaia_maze, margin: 3 }) %>
+                                        <%- include('partials/setting_switch', { id: 'inp-skips-sanctum', label: lang.settings.skips_sanc_warp }) %>
+                                        <%- include('partials/setting_switch', { id: 'inp-skips-basic', label: lang.settings.skips_basic }) %>
+                                        <%- include('partials/setting_switch', { id: 'inp-skips-sq', label: lang.settings.skips_sq }) %>
+                                        <%- include('partials/setting_switch', { id: 'inp-skips-oob', label: lang.settings.skips_oob }) %>
+                                        <%- include('partials/setting_switch', { id: 'inp-skips-wiggle', label: lang.settings.skips_wiggle }) %>
+                                        <%- include('partials/setting_switch', { id: 'inp-skips-sand', label: lang.settings.skips_sand }) %>
+                                        <%- include('partials/setting_switch', { id: 'inp-skips-storage', label: lang.settings.skips_death_storage }) %>
+                                        <%- include('partials/setting_switch', { id: 'inp-skips-missable', label: lang.settings.skips_missable, margin: 3 }) %>
+
+                                        <div class="ms-2 mb-3">
+                                            <%- lang.settings.skips_info.replace('%1', '<a href="/help.html#skips">').replace('%2', '</a>') %>
+                                        </div>
                                     </div>
 
                                     <div class="col-12 col-lg-6">
@@ -293,23 +301,18 @@
                                             ['1', lang.options.ship_mode.open], 
                                             ['2', lang.options.ship_mode.unlocked]
                                         ] }) %>
-                                        <%- include('partials/setting_switch', { id: 'inp-ship-wings', label: lang.settings.logic_ship_wings }) %>
-                                        <%- include('partials/setting_switch', { id: 'inp-boss-logic', label: lang.settings.logic_bosses, tooltip: 8, margin: 3 }) %>
-                                    </div>
-
-                                    <hr class="mt-1 mb-3">
-
-                                    <div class="col-12 col-lg-6">
-                                        <%- include('partials/setting_switch', { id: 'inp-random-puzzles', label: lang.settings.puzzles_random, tooltip: 16 }) %>
-                                        <%- include('partials/setting_switch', { id: 'inp-fixed-puzzles', label: lang.settings.puzzles_fixed, tooltip: 15, margin: 3 }) %>
-                                    </div>
-
-                                    <div class="col-12 col-lg-6">
                                         <%- include('partials/setting_dropdown', { id: 'inp-anemos-access', label: lang.settings.anemos_access, selected: '0', data: [
                                             ['0', lang.options.anemos_access.vanilla], 
                                             ['1', lang.options.anemos_access.random], 
                                             ['2', lang.options.anemos_access.open]
                                         ] }) %>
+                                        <%- include('partials/setting_switch', { id: 'inp-ship-wings', label: lang.settings.logic_ship_wings }) %>
+                                        <%- include('partials/setting_switch', { id: 'inp-boss-logic', label: lang.settings.logic_bosses, tooltip: 8, margin: 3 }) %>
+
+                                        <hr>
+                                        <%- include('partials/setting_switch', { id: 'inp-random-puzzles', label: lang.settings.puzzles_random, tooltip: 16 }) %>
+                                        <%- include('partials/setting_switch', { id: 'inp-fixed-puzzles', label: lang.settings.puzzles_fixed, tooltip: 15 }) %>
+                                        <%- include('partials/setting_switch', { id: 'inp-skips-maze', label: lang.settings.skips_gaia_maze, margin: 3 }) %>
                                     </div>
                                 </div>
                             </div>

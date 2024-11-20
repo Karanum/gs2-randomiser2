@@ -47,13 +47,13 @@
             "3": "Macht es wahrscheinlicher frühzeitig schwächere Ausrüstung zu finden.",
             "4": "Passt die Dschinn-Kampfschwierigkeit basierend auf der Anzahl der eigenen Dschinn an.",
             "5": "Macht es wahrscheinlicher frühzeitig Beschwörungen mit geringeren Dschinn-Kosten zu finden.",
-            "6": "Einfache Sprünge und Rückzugsglitches können erforderlich sein. Deaktiviert die \"0 PP Rückzug\"-Einstellung.",
-            "7": "Einfache OOB-Sprünge können erforderlich sein. Deaktiviert die \"0 PP Rückzug\"-Einstellung.",
+            "6": "Einfache Skips und Rückzugsglitches können erforderlich sein. Deaktiviert die \"0 PP Rückzug\"-Einstellung.",
+            "7": "Einfache OOB-Skips können erforderlich sein. Deaktiviert die \"0 PP Rückzug\"-Einstellung.",
             "8": "Entfernt logische Dschinn-Anforderungen, sodass du möglicherweise früh gegen Bosse kämpfen müsst.",
             "9": "Stellt sicher dass Heilung, Gebet, Aura oder Wunsch von Anfang an gelernt wird.",
             "10": "Dies verhindert die Verwendung von Rückzugsglitches.",
             "11": "Erhöht nur das Anfangslevel von Charakteren die niedriger anfangen.",
-            "12": "OOB-Sprünge mit präziser oder komplexen Bewegung können erforderlich sein. Deaktiviert die \"0 PP-Rückzug\"-Einstellung.",
+            "12": "OOB-Skips mit präziser oder komplexen Bewegung können erforderlich sein. Deaktiviert die \"0 PP-Rückzug\"-Einstellung.",
             "13": "Vermeidung schaltet ein/aus. Es verhindert alle Kämpfe, unabhängig von der Truppenlevel.",
             "14": "Feinde erhalten +50% KP und +25% Attacke und Verteidigung.",
             "15": "Puzzles in Gabomba-Statue, Gaia-Felsen und Straße der Prüfungen werden zum Namen \"Felix\" generiert.",
@@ -64,7 +64,7 @@
     "help": {
         "headers": {
             "settings": "Einstellungen",
-            "skips": "Sprünge und Glitches",
+            "skips": "Skips und Glitches",
             "boss_logic": "Boss-Logik",
             "hints": "Itemhinweise"
         },
@@ -125,35 +125,95 @@
             "character_stats_help": "Zwischen 50% und 150% auf Level 1, zwischen 75% und 125% auf Level 99"
         },
 
-        "skips_basic": {
-            "name": "Einfache Glitches/Sprünge",
-            "help": "Diese Sprünge sind logisch durch die Einstellung \"Einfache Glitches/Sprünge erfordern\":",
+        "skips_info": "Diese sind alle Skips und Glitches die mit den Einstellungen in Logik sind. Skips mit einem * erfordern die Einstellung \"Verpassbare Glitches einschließen\"",
+
+        "skips_sanc_warp": {
+            "name": "Heiligtum-Warp Skips",
             "content": [
-                "Kibombo Heiligtum-Warp",
-                "Turm von Tundaria Pfeiler-wackel (umgeht Hammer)",
-                "Schamanendorf Rückzug-Warp für Aroma",
-                "Mars-Leuchtturm Flammenwerfer Sprünge",
-                "Mars-Leuchtturm Venus-Anbau Sprung"
+                "Apojii-Archipel - Anreisen von Mikasalla ohne das Schiff",
+                "Kibombo - Ohne Seiltänzer auf den Felsvorsprung kommen",
+                "Yallam - Anreisen von Mikasalla ohne das Schiff"
             ]
         },
 
-        "oob_easy": {
-            "name": "Einfache OOB-Sprünge",
-            "help": "Diese Sprünge sind logisch durch die Einstellung \"Einfache OOB-Sprünge erfordern\":",
+        "skips_basic": {
+            "name": "Einfache Rückzugsglitches",
             "content": [
-                "Schrein des Meeresgottes OOB",
-                "Umgekehrte Yampi-Wüste",
-                "Eiland-Höhle OOB"
-            ],
-            "video": "Video"
+                "Alhafra - Das Enthüller-gesperrte Item *",
+                "Apojii-Archipel - Dschinn",
+                "Berge von Kibombo - Die zwei Items auf der Nordseite",
+                "Champa - Das Enthüller-gesperrte Item *",
+                "Höhlen von Alhafra - Die drei Frost-gesperrte Items *",
+                "Inneres Anemos - Das Iris-Tafel von der Enthüller-gesperrte Eingang *",
+                "Inneres Anemos - Das Iris-Tafel von der Teleporter-gesperrte Eingang",
+                "Madra - Das Geschenk des Bürgermeisters *",
+                "Magma-Felsen - Die Magma-Kugel ohne Brand *",
+                "Mars-Leuchtturm - Venus-Anbau Skip",
+                "Naribwe - Das Seiltänzer-gesperrte Item und das Wirbelwind + Enthüller-gesperrte Item *",
+                "Plateau von Dehkan - Das Seiltänzer-gesperrte Item *",
+                "Schamanendorf - Das Wachstum-gesperrte Item *",
+                "Schamanendorf - Dschinn",
+                "Schrein des Meeresgottes - Das Seil am Eingang überspringen",
+                "Yampi-Wüste - Das Hammer-gesperrte Item am Ausgang auf der Madra-Seite *",
+                "Yampi-Wüste- Beide Items am Ausgang auf der Alhafra-Seite *",
+                "Yampi-Wüstenhöhle - Eintreten ohne Versanden"
+            ]
         },
 
-        "oob_hard": {
-            "name": "Schwerige OOB-Sprünge",
-            "help": "Diese Sprünge sind logisch durch die Einstellung \"Schwerige OOB-Sprünge erfordern\":",
+        "skips_sq": {
+            "name": "Spiel-Reset Rückzugsglitches",
             "content": [
-                "Klippen von Gondowan OOB",
-                "Schiff der Lemurianer OOB (sowohl zu Aqua-Hydra als auch die unterste Stufe)"
+                "Alhafra - Den Felsbrocken brechen",
+                "Atteka-Flussarm - Dschinn",
+                "Berge von Kibombo - Dschinn",
+                "Daila - Das Frost-gesperrte Item im Heiligtum",
+                "Gabomba-Statue - Eintritten durch die Vorderseite bei geschlossenem Mund",
+                "Loho - Hinter die Mauer kommen, ohne die Kanone abzufeuern",
+                "Mikasalla - Dschinn",
+                "Plateau von Dehkan - Das Seiltänzer-gesperrte Item *",
+                "Schiff der Lemurianer - Das Frost-gesperrte Item *",
+                "Yallam - Das Kraftwelle + Zyklon-gesperrte Item"
+            ]
+        },
+
+        "skips_oob": {
+            "name": "OOB Rückzugsglitches",
+            "content": [
+                "Eiland-Höhle - Der Sentinel-Korridor erreichen ohne Teleporter",
+                "Hesperia-Siedlung - Das Wachstum-gesperrte Item und Dschinn",
+                "Klippen von Gondowan - Das Gondowan-Seite erreichen von der Höhle",
+                "Ruinen von Ankohl - Das Ende erreichen, ohne den Sand im Hauptraum zu aktivieren",
+                "Schiff der Lemurianer - Der Aqua-Hydra Boss erreichen ohne Frost",
+                "Schrein des Meeresgottes - Das Meerestränenzimmer erreichen",
+                "Yampi-Wüste - Das Ausgang auf der Alhafra-Seite erreichen von der Garoh-Seite"
+            ]
+        },
+
+        "skips_wiggle": {
+            "name": "Kollisionsbedingte Glitches",
+            "content": [
+                "Höhle von Atteka - Die Höhle erreichen ohne die Flügel von Anemos",
+                "Mars-Leuchtturm - Der Feuerstrom entfernen im Jupiter-Anbau",
+                "Rauhreif-Insel - Die Dschinn erreichen ohne Seiltänzer",
+                "Turm von Tundaria - Das Ende erreichen ohne Hammer"
+            ]
+        },
+
+        "skips_sand": {
+            "name": "Versanden-Glitches",
+            "content": [
+                "Alhafra - Den Felsbrocken von OOB brechen",
+                "Magma-Felsen - Eintreten ohne Telekinese",
+                "Yampi-Wüste - Auf die Hammer-Pfeiler steigen"
+            ]
+        },
+
+        "skips_death_storage": {
+            "name": "Todesspeicherung-Skips",
+            "content": [
+                "Magma-Felsen - Eintreten ohne Telekinese",
+                "Meer der Zeit - Lemuria erreichen ohne Mörser oder der Dreizack",
+                "Nördliche Regionen - Prox erreichen ohne die Kanone"
             ]
         },
 
@@ -221,8 +281,8 @@
 
         "tip_sancwarp": "Halte L + Start gedrückt während du dein Spiel lade, um zum Heiligtum der zuletzt besuchten Stadt zurückzukehren, auch bekannt als eine Heiligtum-Warp. Dies kann verwendet werden falls du nicht weiterkommen.",
         "tip_retreat": "Rückzug kann in allen Gebieten, einschließlich Städten, verwendet werden. Dies kann dazu führen dass du in einigen Situationen stecken bleibt. Heiligtum-Warp wird dein Ausweg sein.",
-        "tip_teleport": "Rückzug kann auf der Weltkarte verwendet werden, wo es sich wie Teleport verhält. Dadurch kann es trotz der Angaben im Menü mit weiniger als 6 PP verwendet werden.",
-        "tip_madrawarp": "Wenn du Teleport verwendt, wählt du dein aktuellen Standord oder dein Schiff aus und brengt du stattdessen zum Strand westlich von Madra.",
+        "tip_teleport": "Rückzug kann auf der Weltkarte verwendet werden, wo es sich wie Teleporter verhält. Dadurch kann es trotz der Angaben im Menü mit weiniger als 6 PP verwendet werden.",
+        "tip_madrawarp": "Wenn du Teleporter verwendt, wählt du dein aktuellen Standord oder dein Schiff aus und brengt du stattdessen zum Strand westlich von Madra.",
         "tip_avoid": "Wenn die Einstellung für umschaltbare Vermeidung aktiviert ist, verhindert es Kämpfe unabhängig vom Level und bleibt aktiv bis sie erneut verwendet wird.",
         "tip_psylearn": "Nutze-Psynergy geht zum Charakter ganz links. Sobald ein Charakter 15 Nutze-Psynergy gelernt hat, werden sie übersprungen und die Psynergy geht an das nächste Charakter.",
         "tip_djinnlimit": "Charaktere sind auf jeweils 9 Dschinn beschränkt. Wenn in der aktuellen Truppe kein Platz mehr ist, wird Dschinn zu einem Charakter geschickt das noch nicht beigetreten ist.",
@@ -284,10 +344,17 @@
         "music_shuffle": "In-Game Musik mischen",
         "character_shuffle": "Charaktere in den Itempool mischen",
 
-        "skips_basic": "Einfache Glitches/Sprünge erfordern",
-        "skips_oob_easy": "Einfache OOB-Sprünge erfordern",
-        "skips_oob_hard": "Schwerige OOB-Sprünge erfordern",
-        "skips_gaia_maze": "Gaia-Felsenlabyrinth ohne Wachstum erfordern",
+        "skips_info": "%1Klicken Sie hier%2 um eine Liste der Glitches anzuzeigen die diese Erstellungen zutreffen",
+        "skips_basic": "Einfache Rückzugsglitches zur Logik hinzufügen",
+        "skips_sq": "Spiel-Reset Rückzugsglitches zur Logik hinzufügen",
+        "skips_gaia_maze": "Gaia-Felsenlabyrinth ohne Wachstum zur Logik hinzufügen",
+        "skips_sanc_warp": "Heiligtum-Warps zur Logik hinzufügen",
+        "skips_wiggle": "Kollisionsbedingte Glitches zur Logik hinzufügen",
+        "skips_oob": "OOB Rückzugsglitches zur Logik hinzufügen",
+        "skips_sand": "Versanden-Glitches zur Logik hinzufügen",
+        "skips_death_storage": "Todesspeicherung-Skips zur Logik hinzufügen",
+        "skips_missable": "Verpassbare Glitches einschließen",
+
         "logic_ship_mode": "Schiff der Lemurianer",
         "logic_ship_wings": "Mit die Flügel von Anemos beginnen",
         "logic_bosses": "Boss-Logik deaktivieren",
@@ -304,7 +371,7 @@
         "qol_item_hints": "Itemhinweise zufügen",
         "qol_faster_ship": "Schnellere Schiffsbewegung auf Weltkarte",
         "qol_avoid_toggle": "Vermeidung umschaltbar und immer funktionieren machen",
-        "qol_teleport_everywhere": "Teleport nach Dungeons und kleinen Städten erlauben",
+        "qol_teleport_everywhere": "Teleporter nach Dungeons und kleinen Städten erlauben",
         "qol_hard_mode": "Schwer Schwierigkeit im Spiel aktivieren",
         "qol_half_encounters": "Kampfrate halbieren",
         "qol_easier_bosses": "Einfachere Bosse",

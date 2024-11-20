@@ -168,11 +168,20 @@ class ItemRandomiser {
         if (this.settings['ship'] == 1) set.push('ShipOpen');
         if (this.settings['ship'] == 2) set.push('Ship');
         if (this.settings['ship-wings']) set.push('ShipWings');
-        if (this.settings['skips-basic']) set.push('SkipBasic');
-        if (this.settings['skips-oob-easy']) set.push('SkipOobEasy');
-        if (this.settings['skips-oob-hard']) set.push('SkipOobHard');
-        if (this.settings['skips-maze']) set.push('SkipMaze');
         if (!this.settings['shuffle-characters']) set.push('VanillaCharacters');
+
+        if (this.settings['skips-basic']) set.push('Skips_BasicRG');
+        if (this.settings['skips-sq']) set.push('Skips_SaveQuitRG');
+        if (this.settings['skips-maze']) set.push('Skips_Maze');
+        if (this.settings['skips-sanctum']) set.push('Skips_SanctumWarp');
+        if (this.settings['skips-wiggle']) set.push('Skips_WiggleClip');
+        if (this.settings['skips-missable']) set.push('Skips_Missable');
+        if (this.settings['skips-oob']) set.push('Skips_OOBRG');
+        if (this.settings['skips-sand']) set.push('Skips_SandGlitch');
+        if (this.settings['skips-storage']) set.push('Skips_DeathStorage');
+
+        console.log(this.settings);
+
         return set;
     }
 

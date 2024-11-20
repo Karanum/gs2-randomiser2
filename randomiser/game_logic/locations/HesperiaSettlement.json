@@ -16,6 +16,9 @@
             "Reqs": [
                 [
                     "Growth"
+                ],
+                [
+                    "Skips_OOBRG"
                 ]
             ]
         }
@@ -26,6 +29,9 @@
             "Reqs": [
                 [
                     "Growth"
+                ],
+                [
+                    "Skips_OOBRG"
                 ]
             ]
         }

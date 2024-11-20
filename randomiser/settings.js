@@ -40,7 +40,7 @@ function parse(settings) {
 
         'ship': settings[5] >> 6,
         'skips-basic': (settings[5] >> 5) & 0b1,
-        'skips-oob-easy': (settings[5] >> 4) & 0b1,
+        'skips-sq': (settings[5] >> 4) & 0b1,
         'skips-maze': (settings[5] >> 3) & 0b1,
         'boss-logic': (settings[5] >> 2) & 0b1,
         'free-avoid': (settings[5] >> 1) & 0b1,
@@ -48,7 +48,7 @@ function parse(settings) {
 
         'adv-equip': settings[6] >> 7,
         'dummy-items': (settings[6] >> 6) & 0b1,
-        'skips-oob-hard': (settings[6] >> 5) & 0b1,
+        'skips-sanctum': (settings[6] >> 5) & 0b1,
         'equip-attack': (settings[6] >> 4) & 0b1,
         'qol-hints': (settings[6] >> 3) & 0b1,
         'start-heal': (settings[6] >> 2) & 0b1,
@@ -65,8 +65,8 @@ function parse(settings) {
         'sanc-revive': (settings[9] >> 4) & 0b11,
         'curse-disable': (settings[9] >> 3) & 0b1,
         'avoid-patch': (settings[9] >> 2) & 0b1,
-        'retreat-patch': (settings[9] >> 1) & 0b1,
-        'teleport-patch': settings[9] & 0b1,
+        'skips-wiggle': (settings[9] >> 1) & 0b1,
+        'skips-missable': settings[9] & 0b1,
 
         'hard-mode': (settings[10] >> 7) & 0b1,
         'halve-enc': (settings[10] >> 6) & 0b1,
@@ -82,7 +82,11 @@ function parse(settings) {
         'force-boss-drops': (settings[11] >> 5) & 0b1,
         'force-superboss-minors': (settings[11] >> 4) & 0b1,
         'anemos-access': (settings[11] >> 2) & 0b11,
-        'shuffle-characters': (settings[11] >> 1) & 0b1
+        'shuffle-characters': (settings[11] >> 1) & 0b1,
+        'skips-oob': settings[11] & 0b1,
+
+        'skips-sand': (settings[12] >> 7) & 0b1,
+        'skips-storage': (settings[12] >> 6) & 0b1
     };
 }
 

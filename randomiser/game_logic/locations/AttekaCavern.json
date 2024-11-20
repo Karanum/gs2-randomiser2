@@ -1,12 +1,18 @@
 {
     "Access": [
         [
-            "Reunion"
+            "Reunion",
+            "Hover Jade"
         ],
         [
             "Ship",
             "ShipWings",
             "Hover Jade"
+        ],
+        [
+            "Ship",
+            "Grindstone",
+            "Skips_WiggleClip"
         ]
     ],
     "Treasure": [

@@ -61,7 +61,7 @@ function applySettings(arr) {
 }
 
 function getSettingsArray() {
-    var arr = new Uint8Array(12).fill(0);
+    var arr = new Uint8Array(randomiserSettingsLength).fill(0);
     Object.keys(randomiserSettings).forEach((key) => {
         let elem = $(`#inp-${key}`);
         if (!elem) {

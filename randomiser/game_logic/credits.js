@@ -64,7 +64,7 @@ function writeToRom(target) {
     const namePlatano = writeString(target, pos, "Platano Bailando");
     const nameNeo = writeString(target, pos, "Neomatamune");
     const namePlexa = writeString(target, pos, "Plexa");
-    // TODO: Contact other AP contributors about whether they would like to be added
+    const nameYutski = writeString(target, pos, "YutskiLGC");
 
     const lineDiscord1 = writeString(target, pos, "And everyone over at the");
     const lineDiscord2 = writeString(target, pos, "GS Speedrunning Discord");
@@ -78,7 +78,7 @@ function writeToRom(target) {
         randoTitle, randoVersion, NEWLINE, NEWLINE,
         headerDevelopment, NEWLINE, nameKaranum, NEWLINE, NEWLINE,
         headerOriginalDev, NEWLINE, nameMarvin, NEWLINE, NEWLINE,
-        headerArchipelago, NEWLINE, nameDragion, namePlatano, NEWLINE, NEWLINE,
+        headerArchipelago, NEWLINE, nameDragion, namePlatano, nameYutski, NEWLINE, NEWLINE,
         headerTracker, NEWLINE, nameCougars, nameKaranum, nameNeo, NEWLINE, NEWLINE,
         headerSpecialThanks, NEWLINE, nameAile, nameAtrius, namePokemario, namePlexa, nameSalanewt, nameTeawater, NEWLINE,
         lineDiscord1, lineDiscord2, lineDiscord3, NEWLINE, NEWLINE, NEWLINE,

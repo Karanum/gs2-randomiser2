@@ -51,6 +51,10 @@
             "Reqs": [
                 [
                     "Growth"
+                ],
+                [
+                    "Skips_BasicRG",
+                    "Skips_Missable"
                 ]
             ]
         },
@@ -61,7 +65,7 @@
                     "Boss_Moapa"
                 ],
                 [
-                    "SkipBasic"
+                    "Skips_BasicRG"
                 ]
             ]
         },
@@ -70,6 +74,9 @@
             "Reqs": [
                 [
                     "Shaman's Rod"
+                ],
+                [
+                    "Skips_BasicRG"
                 ]
             ]
         },
@@ -95,7 +102,7 @@
                     "Lash Pebble"
                 ],
                 [
-                    "SkipBasic"
+                    "Skips_BasicRG"
                 ]
             ]
         },

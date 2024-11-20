@@ -10,6 +10,17 @@
             "ShipWings",
             "Hover Jade",
             "Magma Ball"
+        ],
+        [
+            "Ship",
+            "Grindstone",
+            "Skips_DeathStorage"
+        ],
+        [
+            "Ship",
+            "ShipWings",
+            "Hover Jade",
+            "Skips_DeathStorage"
         ]
     ],
     "Treasure": [

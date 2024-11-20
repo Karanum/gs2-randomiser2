@@ -21,7 +21,11 @@
             "Addr": "0xe41",
             "Reqs": [
                 [
-                    "Boss_Serpent",
+                    "Growth",
+                    "Sand"
+                ],
+                [
+                    "Skips_Maze",
                     "Sand"
                 ]
             ]
@@ -33,7 +37,7 @@
                     "Growth"
                 ],
                 [
-                    "SkipMaze"
+                    "Skips_Maze"
                 ]
             ]
         },
@@ -69,7 +73,7 @@
                     "Growth"
                 ],
                 [
-                    "SkipMaze"
+                    "Skips_Maze"
                 ]
             ]
         }
@@ -89,7 +93,7 @@
                 ],
                 [
                     "AnyDjinn_16",
-                    "SkipMaze",
+                    "Skips_Maze",
                     "Dancing Idol",
                     "Cyclone Chip",
                     "Whirlwind"
@@ -102,7 +106,7 @@
                 ],
                 [
                     "AnyDjinn_24",
-                    "SkipMaze",
+                    "Skips_Maze",
                     "Dancing Idol",
                     "Cyclone Chip"
                 ]

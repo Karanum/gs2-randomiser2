@@ -125,35 +125,95 @@
             "character_stats_help": "Entre 50% y 150% a nivel 1, entre 75% y 125% a nivel 99"
         },
 
-        "skips_basic": {
-            "name": "Fallos/saltos básicos",
-            "help": "Estos saltos están en la lógica a través de la configuración \"Requerir fallas/saltos básicos\":",
+        "skips_info": "These are all the skips and glitches that are in logic with the corresponding settings. Skips marked with a * require the \"Include missable glitches\" setting.",
+
+        "skips_sanc_warp": {
+            "name": "Sanctum warp skips",
             "content": [
-                "Santuario-warp en Kibombo",
-                "Tundaria Tower move pillar wiggle (se salta Aplastar)",
-                "Huir-warps de Aldea Chamán para Aroma",
-                "Faro de Marte saltos lanzallamas",
-                "Faro de Marte saltos ala de Venus"
+                "Apojii Islands - Getting there from Mikasalla without the ship",
+                "Kibombo - Getting up on the ledge without Lash",
+                "Yallam - Getting there from Mikasalla without the ship"
             ]
         },
 
-        "oob_easy": {
-            "name": "Saltos fuera-límites fáciles",
-            "help": "Estos saltos están en la lógica a través de la configuración \"Requerir saltos fuera-límites fáciles\":",
+        "skips_basic": {
+            "name": "Basic Retreat glitches",
             "content": [
-                "Fuera-límites en Lugar Sagrado del Mar",
-                "Desierto de Yampi inverso",
-                "Fuera-límites en Cueva de la Isla"
-            ],
-            "video": "Vídeo"
+                "Alhafra - The Reveal-locked item *",
+                "Alhafran Cave - The three Frost-locked items *",
+                "Anemos Inner Sanctum - The Iris tablet from the Reveal-locked side *",
+                "Anemos Inner Sanctum - The Iris tablet from the Teleport-locked side",
+                "Apojii Islands - Djinni",
+                "Champa - The Reveal-locked item *",
+                "Dehkan Plateau - The Lash-locked item *",
+                "Kibombo Mountains - The two items on the northern screen",
+                "Madra - The mayor's gift *",
+                "Magma Rock - Magma Ball without Blaze *",
+                "Mars Lighthouse - Venus Wing skip",
+                "Naribwe - The Lash-locked item and the Whirlwind + Reveal-locked item *",
+                "Shaman Village - The Growth-locked item *",
+                "Shaman Village - Djinni",
+                "Shrine of the Sea God - Skipping the Lash rope at the entrance",
+                "Yampi Desert - The Pound-locked item at the Madra-side exit *",
+                "Yampi Desert - Both items at the Alhafra-side exit *",
+                "Yampi Desert Cave - Entering without Sand"
+            ]
         },
 
-        "oob_hard": {
-            "name": "Saltos fuera-límites difíciles",
-            "help": "Estos saltos están en la lógica a través de la configuración \"Requerir saltos fuera-límites difíciles\":",
+        "skips_sq": {
+            "name": "Save & quit Retreat glitches",
             "content": [
-                "Fuera-límites en Riscos de Gondowan",
-                "Fuera-límites en Barco Lemurio (tanto a Aquahidra como a la planta baja)"
+                "Alhafra - Breaking the boulder",
+                "Atteka Inlet - Djinni",
+                "Daila - The Frost-locked item in the sanctum",
+                "Dehkan Plateau - The Lash-locked item *",
+                "Gabomba Statue - Entering through the front while the mouth is closed",
+                "Kibombo Mountains - Djinni",
+                "Lemurian Ship - The Frost-locked item *",
+                "Loho - Getting behind the wall without firing the cannon",
+                "Mikasalla - Djinni",
+                "Yallam - The Force + Cyclone-locked item"
+            ]
+        },
+
+        "skips_oob": {
+            "name": "OOB Retreat glitches",
+            "content": [
+                "Ankohl Ruins - Getting to the end without activating the sand in the main room",
+                "Gondowan Cliffs - Getting to the Gondowan-side exit from the cave",
+                "Hesperia Settlement - The Growth-locked item and Djinni",
+                "Islet Cave - Getting to the Sentinel corridor without Teleport",
+                "Lemurian Ship - Getting to the Aqua Hydra boss without Frost",
+                "Shrine of the Sea God - Getting to the Sea God's Tear room",
+                "Yampi Desert - Getting to the Alhafra-side exit from the Garoh-side exit"
+            ]
+        },
+
+        "skips_wiggle": {
+            "name": "Collision-related glitches",
+            "content": [
+                "Atteka Cavern - Getting to the cave without the Wings of Anemos",
+                "Kalt Island - Getting the Djinni by clipping into the slope",
+                "Mars Lighthouse - Unloading the fire jets in the Jupiter Wing",
+                "Tundaria Tower - Getting to the end without Pound"
+            ]
+        },
+
+        "skips_sand": {
+            "name": "Sand glitches",
+            "content": [
+                "Alhafra - Breaking the boulder from OOB",
+                "Magma Rock - Entering without Lift",
+                "Yampi Desert - Getting on top of the Pound pillars"
+            ]
+        },
+
+        "skips_death_storage": {
+            "name": "Death storage skips",
+            "content": [
+                "Magma Rock - Entering without Lift",
+                "Northern Reaches - Getting to Prox without the cannon",
+                "Sea of Time - Getting to Lemuria without Grind/Trident"
             ]
         },
 
@@ -284,10 +344,17 @@
         "music_shuffle": "Intercambiar música del juego",
         "character_shuffle": "Intercambriar personajes en el grupo de objetos",
 
-        "skips_basic": "Requerir fallas/saltos básicos",
-        "skips_oob_easy": "Requerir saltos fuera-límites fáciles",
-        "skips_oob_hard": "Requerir saltos fuera-límites difíciles",
-        "skips_gaia_maze": "Laberinto de Roca del Tierra sin Planta",
+        "skips_info": "%1Click here%2 to see a list of glitches to which these settings apply",
+        "skips_basic": "Add basic Retreat glitches into logic",
+        "skips_sq": "Add save & quit Retreat glitches into logic",
+        "skips_gaia_maze": "Add Gaia Rock maze w/o Growth into logic",
+        "skips_sanc_warp": "Add sanctum warps into logic",
+        "skips_wiggle": "Add collision-related glitches into logic",
+        "skips_oob": "Add OOB Retreat glitches into logic",
+        "skips_sand": "Add Sand glitches into logic",
+        "skips_death_storage": "Add death storage skips into logic",
+        "skips_missable": "Include missable glitches",
+
         "logic_ship_mode": "Barco Lemurio",
         "logic_ship_wings": "Comienzo con las Alas de Anemos",
         "logic_bosses": "Deshabilitar la lógica de jefes",

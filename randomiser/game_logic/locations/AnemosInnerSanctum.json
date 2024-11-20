@@ -2,37 +2,54 @@
     "Access": [
         [
             "Ship",
-            "Grindstone",
-            "Teleport Lapis"
+            "Grindstone"
         ],
         [
             "Ship",
             "ShipWings",
-            "Hover Jade",
-            "Teleport Lapis"
+            "Hover Jade"
         ]
     ],
     "Treasure": [
         {
             "Addr": "0x1b",
-            "Reqs": []
+            "Reqs": [
+                [
+                    "Teleport Lapis"
+                ]
+            ]
         },
         {
             "Addr": "0x1c",
             "Reqs": [
                 [
+                    "Teleport Lapis",
                     "Boss_Dullahan"
+                ],
+                [
+                    "Reveal",
+                    "Skips_BasicRG",
+                    "Skips_Missable"
+                ],
+                [
+                    "Teleport Lapis",
+                    "Skips_BasicRG"
                 ]
             ]
         },
         {
             "Addr": "0xe05",
-            "Reqs": []
+            "Reqs": [
+                [
+                    "Teleport Lapis"
+                ]
+            ]
         },
         {
             "Addr": "0xe06",
             "Reqs": [
                 [
+                    "Teleport Lapis",
                     "Lifting Gem"
                 ]
             ]
@@ -45,6 +62,7 @@
             "Type": "Boss",
             "Reqs": [
                 [
+                    "Teleport Lapis",
                     "Lifting Gem",
                     "Sand",
                     "Hover Jade",

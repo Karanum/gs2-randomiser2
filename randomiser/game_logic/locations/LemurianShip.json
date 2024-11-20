@@ -52,6 +52,11 @@
                 [
                     "ShipRevisit",
                     "Frost Jewel"
+                ],
+                [
+                    "ShipRevisit",
+                    "Skips_SaveQuitRG",
+                    "Skips_Missable"
                 ]
             ]
         },
@@ -64,7 +69,7 @@
                 ],
                 [
                     "ShipRevisit",
-                    "SkipOobHard"
+                    "Skips_OOBRG"
                 ]
             ]
         },
@@ -94,7 +99,7 @@
                 ],
                 [
                     "AnyDjinn_10",
-                    "SkipOobHard"
+                    "Skips_OOBRG"
                 ]
             ]
         },

@@ -10,6 +10,17 @@
             "ShipWings",
             "Hover Jade",
             "Magma Ball"
+        ],
+        [
+            "Ship",
+            "Grindstone",
+            "Skips_DeathStorage"
+        ],
+        [
+            "Ship",
+            "ShipWings",
+            "Hover Jade",
+            "Skips_DeathStorage"
         ]
     ],
     "Treasure": [
@@ -180,7 +191,7 @@
                     "Boss_FlameDragons",
                     "Mars Star",
                     "Cyclone Chip",
-                    "SkipBasic",
+                    "Skips_WiggleClip",
                     "Reveal",
                     "Blaze"
                 ]
@@ -222,15 +233,15 @@
                 ],
                 [
                     "MarsWing",
-                    "SkipBasic"
+                    "Skips_BasicRG"
                 ],
                 [
                     "MercuryWing",
-                    "SkipBasic"
+                    "Skips_BasicRG"
                 ],
                 [
                     "JupiterWing",
-                    "SkipBasic"
+                    "Skips_BasicRG"
                 ]
             ]
         }

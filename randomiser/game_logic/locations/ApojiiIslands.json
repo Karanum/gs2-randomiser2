@@ -2,6 +2,9 @@
     "Access": [
         [
             "Ship"
+        ],
+        [
+            "Skips_SanctumWarp"
         ]
     ],
     "Treasure": [
@@ -45,6 +48,14 @@
                 [
                     "Sand",
                     "Whirlwind"
+                ],
+                [
+                    "Whirlwind",
+                    "Skips_BasicRG"
+                ],
+                [
+                    "Lash Pebble",
+                    "Skips_BasicRG"
                 ]
             ]
         }

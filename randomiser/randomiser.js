@@ -56,8 +56,6 @@ const cutsceneSkipFlags = [0xf22, 0x890, 0x891, 0x892, 0x893, 0x894, 0x895, 0x89
         0x8f6, 0x8fc, 0x8fe, 0x910, 0x911, 0x913, 0x980, 0x981, 0x961, 0x964, 0x965, 0x966, 0x968, 0x962, 0x969,
         0x96a, 0xa8c, 0x88f, 0x8f0, 0x9b1, 0xa78, 0x90c, 0xa2e, 0x9c0, 0x9c1, 0x9c2, 0x908, 0x94F, 0x8bd, 0x8dd];
 
-var upsRandomiser;
-
 var vanillaRom = new Uint8Array(fs.readFileSync("./randomiser/rom/gs2.gba"));
 var rom = Uint8Array.from(vanillaRom);
 
@@ -87,10 +85,6 @@ function writeByteSequence(target, start, bytes) {
  * Initialises the randomiser
  */
 function initialise() {
-    doTiming("Loading UPS patches...", () => {
-        upsRandomiser = fs.readFileSync("./randomiser/ups/randomiser_general.ups");
-    });
-
     doTiming("Applying innate patches...", () => {
         // Adjust ROM size to accomodate for added data
         rom = generalPatch.changeRomSize(rom);
@@ -205,9 +199,11 @@ function applyPreRandomisation(target, prng, settings, abilityClone, enemyClone,
 
     // Applying settings
     if (settings['free-avoid']) abilityClone[150].cost = 0;
-    if (settings['free-retreat'] && !(settings['skips-basic'] || settings['skips-oob-easy'] || settings['skips-oob-hard'])) {
-        abilityClone[149].cost = 0;
-        abilityClone[156].cost = 0;
+    if (settings['free-retreat']) {
+        if (!(settings['skips-basic'] || settings['skips-sq'] || settings['skips-oob']) || settings['manual-rg']) {
+            abilityClone[149].cost = 0;
+            abilityClone[156].cost = 0;
+        }
     }
 
     if (settings['djinn-scale']) djinnScalingPatch.apply(target, enemyClone, textClone);

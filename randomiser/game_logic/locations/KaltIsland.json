@@ -17,6 +17,9 @@
             "Reqs": [
                 [
                     "Lash Pebble"
+                ],
+                [
+                    "Skips_WiggleClip"
                 ]
             ]
         }

@@ -6,6 +6,10 @@
             "Reqs": [
                 [
                     "GabombaCleared"
+                ],
+                [
+                    "Skips_BasicRG",
+                    "Skips_Missable"
                 ]
             ],
             "Restriction": [
