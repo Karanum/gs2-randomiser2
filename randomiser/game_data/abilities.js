@@ -63,6 +63,9 @@ function writeToRom(instance, rom) {
         rom[addr + 10] = (ability.power & 0xFF);
         rom[addr + 11] = (ability.power >> 8);
     }
+
+    // Overwrite hardcoded element for Daedalus follow-up
+    rom[0x11D828] = (instance[403].element & 0xFF);
 }
 
 function getAbilityElement(id) {
