@@ -8,6 +8,7 @@ bl thunkReadFlag
 cmp r0, #0x0
 bne djinnDone
 adds r0, r7, #0x0
+movs r6, #0x0
 
 cmp r0, #3
 bgt next1
@@ -37,6 +38,13 @@ adds r5, #0x4
 b continue
 
 itemsDone:
+cmp r6, #0x0
+bne extraItemsDone
+movs r6, #0x1
+ldr r5, ptrExtraItems
+b continue
+
+extraItemsDone:
 bl thunkGetPartySize
 lsls r0, r0, #0x2
 ldr r1, ptrDjinnMapping
@@ -93,6 +101,9 @@ ptrGs2Items:
 
 ptrPiersItems:
 .word 0x08FA0100
+
+ptrExtraItems:
+.word 0x08FA0130
 
 thunkAddCharacter:
 ldr r4, #0

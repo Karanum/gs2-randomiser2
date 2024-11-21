@@ -73,12 +73,12 @@ function getAbilityElement(id) {
     return abilityData[id].element;
 }
 
-function setStartingPsynergy(rom, settings, prng) {
+function setStartingPsynergy(rom, settings, prng, characters) {
     var psynergy = [];
     if (settings['start-heal']) 
-        psynergy = psynergy.concat([Math.floor(prng.random() * 3) + 4, 0, Math.floor(prng.random() * 4) * 3 + 0x57, 0x0E]);
+        psynergy = psynergy.concat([characters[Math.floor(prng.random() * characters.length)], 0, Math.floor(prng.random() * 4) * 3 + 0x57, 0x0E]);
     if (settings['start-revive'])
-        psynergy = psynergy.concat([Math.floor(prng.random() * 3) + 4, 0, 0x65, 0x0E]);
+        psynergy = psynergy.concat([characters[Math.floor(prng.random() * characters.length)], 0, 0x65, 0x0E]);
 
     psynergy.forEach((byte, i) => {
         rom[0xFA0130 + i] = byte;

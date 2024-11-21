@@ -180,8 +180,6 @@ class ItemRandomiser {
         if (this.settings['skips-sand']) set.push('Skips_SandGlitch');
         if (this.settings['skips-storage']) set.push('Skips_DeathStorage');
 
-        console.log(this.settings);
-
         return set;
     }
 

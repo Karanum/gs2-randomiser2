@@ -263,7 +263,7 @@ function applyPreRandomisation(target, prng, settings, abilityClone, enemyClone,
 /**
  * Applies patches and edits that should occur after the item randomisation step
  */
-function applyPostRandomisation(prng, target, randomiser, settings, abilityClone, characterClone, classClone, djinnClone, elementClone, enemyClone, forgeClone, itemClone, mapCodeClone, musicClone, shopClone, summonClone, textClone) {
+function applyPostRandomisation(prng, target, randomiser, settings, abilityClone, characterClone, classClone, djinnClone, elementClone, enemyClone, forgeClone, itemClone, itemLocClone, mapCodeClone, musicClone, shopClone, summonClone, textClone) {
     // Applying more settings
     if (settings['easier-bosses']) easierBossesPatch.apply(rom, enemyClone, abilityClone);
 
@@ -312,7 +312,12 @@ function applyPostRandomisation(prng, target, randomiser, settings, abilityClone
     if (!settings['boss-logic']) randomiser.sortMimics();
     
     enemyData.scaleBattleRewards(enemyClone, settings['scale-coins'], settings['scale-exp']);
-    abilityData.setStartingPsynergy(target, settings, prng);
+
+    let characters = [4, 5, 6];
+    if (settings['shuffle-characters']) {
+        characters = [4, itemLocClone['0xd05'][0].contents - 0xD00];
+    }
+    abilityData.setStartingPsynergy(target, settings, prng, characters);
 
     if (settings['manual-rg']) retreatGlitchPatch.apply(target, textClone);
 
@@ -382,7 +387,7 @@ function randomise(seed, rawSettings, spoilerFilePath, callback) {
     // Post-randomisation
     if (settings['djinn-shuffle']) djinnData.shuffleDjinn(djinnClone, prng);
     applyPostRandomisation(prng, target, randomiser, settings, abilityClone, characterClone, classClone, djinnClone, elementClone, enemyClone, 
-        forgeClone, itemClone, mapCodeClone, musicClone, shopClone, summonClone, textClone);
+        forgeClone, itemClone, itemLocClone, mapCodeClone, musicClone, shopClone, summonClone, textClone);
 
     var spheres = randomiser.getSpheres();
     characterData.adjustStartingLevels(characterClone, settings['start-levels'], settings['shuffle-characters'], spheres, itemLocClone);
@@ -458,7 +463,7 @@ function randomiseArchipelago(seed, rawSettings, userName, itemMapping, djinnMap
 
     // Post-randomisation
     applyPostRandomisation(prng, target, randomiser, settings, abilityClone, characterClone, classClone, djinnClone, elementClone, enemyClone, 
-        forgeClone, itemClone, mapCodeClone, musicClone, shopClone, summonClone, textClone);
+        forgeClone, itemClone, itemLocClone, mapCodeClone, musicClone, shopClone, summonClone, textClone);
 
     //var spheres = randomiser.getSpheres();
     //var spheres = [['Isaac', 'Garet', 'Ivan', 'Mia', 'Jenna', 'Sheba', 'Piers']];
