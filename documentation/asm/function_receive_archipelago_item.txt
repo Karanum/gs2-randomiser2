@@ -79,6 +79,9 @@ movs r0, #0x0
 strb r0, [r1, #0x1]
 ldr r1, ptrItemBuffer
 strh r0, [r1, #0x0]
+movs r0, 0x2
+ldr r1, ptrEncounterFlags
+strb r0, [r1, #0x0]
 bl thunkEndCutscene
 movs r0, #0x1
 b end
