@@ -96,22 +96,34 @@ function randomiseSeed() {
     $("#inp-seed").val(seed);
 }
 
+function updatePreset(preset) {
+    let version = preset.version ?? 0;
+    if (version < 1) {
+        let settings = parseSettingsString(preset.settings);
+        preset.settings += (settings[0] & 4 != 0) ? '20' : '00';
+    }
+    preset.version = 1;
+}
+
 function getDefaultPresets() {
     return {
         "easy": {
             name: "Easy",
             desc: "Key Items and Djinn shuffled, starting with healing Psynergy and Revive.",
-            settings: "6610890007030e1105041040"
+            settings: "6610890007030e110504104000",
+            version: 1
         },
         "open_mode": {
             name: "Open Mode",
             desc: "Most items and Djinn shuffled with the Lemurian Ship unlocked from the start. Starting levels are increased to compensate.",
-            settings: "9facc8904f83c81112040040"
+            settings: "9facc8904f83c8111204004020",
+            version: 1
         },
         "example_race_preset": {
             name: "Example Race Preset",
             desc: "The original race preset. Check Discord for more up-to-date racing presets.",
-            settings: "9fefde988f82584292441240"
+            settings: "9fefde988f8258429244124020",
+            version: 1
         }
     };
 }
@@ -153,6 +165,8 @@ $(document).ready(() => {
         localStorage.setItem("presets", JSON.stringify(presetData));
     } else {
         presetData = JSON.parse(presetData);
+        Object.keys(presetData).forEach((id) => updatePreset(presetData[id]));
+        localStorage.setItem("presets", JSON.stringify(presetData));
     }
 
     const presetDropdown = $("#inp-preset");
@@ -225,7 +239,7 @@ $(document).ready(() => {
         }
 
         var preset = presetData[val];
-        var presetStr = `${strToBase64(preset.name)};${strToBase64(preset.desc)};${preset.settings}`;
+        var presetStr = `${strToBase64(preset.name)};${strToBase64(preset.desc)};${preset.version};${preset.settings}`;
 
         $('#ro-preset-export').val(presetStr);
         bootstrap.Modal.getOrCreateInstance($('#modal-preset-export').get(0)).show();
@@ -262,14 +276,14 @@ $(document).ready(() => {
         }
 
         let fragments = val.split(';');
-        if (fragments.length != 3 || fragments[0].length == 0) {
+        if (fragments.length < 3) {
             $('#error-import').removeClass('d-none');
             return;
         }
 
         let name = base64ToStr(fragments[0]);
         let desc = base64ToStr(fragments[1]);
-        let settings = validateSettings(fragments[2]);
+        let settings = validateSettings(fragments.length >= 4 ? fragments[3] : fragments[2]);
 
         if (desc.length > 1000 || settings == undefined) {
             $('#error-import').removeClass('d-none');
@@ -288,19 +302,22 @@ $(document).ready(() => {
         }
 
         let fragments = val.split(';');
-        if (fragments.length != 3 || fragments[0].length == 0) {
+        if (fragments.length < 3) {
+            $('#error-import').removeClass('d-none');
             return;
         }
 
         let name = base64ToStr(fragments[0]);
         let desc = base64ToStr(fragments[1]);
-        let settings = validateSettings(fragments[2]);
+        let version = Number(fragments.length >= 4 ? fragments[2] : 0);
+        let settings = validateSettings(fragments.length >= 4 ? fragments[3] : fragments[2]);
         if (desc.length > 1000 || settings == undefined) {
             return;
         }
 
         let id = makePresetId(name);
-        presetData[id] = { name, desc, settings };
+        presetData[id] = { name, desc, settings, version };
+        updatePreset(presetData[id]);
         localStorage.setItem("presets", JSON.stringify(presetData));
 
         presetDropdown.append($("<option>").text(name).attr("value", id));
@@ -323,7 +340,7 @@ $(document).ready(() => {
         }
 
         let id = makePresetId(name);
-        presetData[id] = { name, desc, settings: getSettingsString() };
+        presetData[id] = { name, desc, settings: getSettingsString(), version: 1 };
         localStorage.setItem("presets", JSON.stringify(presetData));
 
         presetDropdown.append($("<option>").text(name).attr("value", id));
