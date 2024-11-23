@@ -86,7 +86,8 @@ function parse(settings) {
         'skips-oob': settings[11] & 0b1,
 
         'skips-sand': (settings[12] >> 7) & 0b1,
-        'skips-storage': (settings[12] >> 6) & 0b1
+        'skips-storage': (settings[12] >> 6) & 0b1,
+        'remove-mimics': (settings[12] >> 5) & 0b1
     };
 }
 

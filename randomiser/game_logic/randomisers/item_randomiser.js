@@ -114,6 +114,8 @@ class ItemRandomiser {
             if (!this.settings['show-items']) {
                 if (isMimic && this.hasRestriction('no-mimic', slotItem)) return false;
                 if (isEmpty && this.hasRestriction('no-empty', slotItem)) return false;
+            } else if (!this.settings['remove-mimics']) {
+                if (isMimic && this.hasRestriction('no-mimic', slotItem)) return false;
             }
         }
 
