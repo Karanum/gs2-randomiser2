@@ -1,0 +1,48 @@
+/**
+ * This patch changes the way Mimics are handled when chest sprites are off.
+ * Instead of removing them entirely, they are instead disguised as key items.
+ */
+
+const { writeArray, write16b } = require("../../../util/binary");
+const { writeLine } = require("../../game_logic/textutil");
+
+const allowedDisguises = [0xA, 0x41, 0xF3, 0xF4, 0x1C3, 0x1C4, 0x1C5, 0x1C6, 0x1C7, 0x1C8, 0x1CB, 0x1CC, 
+    0xE0C, 0xE18, 0xE21, 0xE4E, 0xE85, 0xE86, 0xE88, 0xE89, 0xE8A, 0xE8B, 0xE8D, 0xE90, 0xE97, 0xE98, 0xE99, 0xE9C, 0xF16];
+
+function apply(rom, text, prng, isArchipelago, isCharacterShuffle) {
+    // Replace text lines for Mimic interactions
+    writeLine(text, 0xDC5, "\x10 checked on the ground...\x01");
+    writeLine(text, 0xE1A, "The item suddenly\x03lunges forward!\x02");
+
+    // Determine a disguise for each Mimic
+    let disguiseList = allowedDisguises;
+    if (isCharacterShuffle && !isArchipelago) {
+        disguiseList = disguiseList.concat([0xD00, 0xD01, 0xD02, 0xD03, 0xD05, 0xD06, 0xD07]);
+    }
+
+    let iconList = [0, 0, 0, 0, 0, 0, 0, 0, 0].map(() => {
+        if (isArchipelago) {
+            if (prng.random() > 0.25) {
+                return 0xA0A;
+            }
+        }
+        let i = Math.floor(prng.random() * disguiseList.length);
+        return disguiseList[i];
+    });
+
+    // Replace Mimic chest icons with ground item icons
+    rom[0xCECBA] = 0xEA;
+
+    writeArray(rom, 0xCEDF2, [0x48, 0x46, 0x0, 0x99, 0x1, 0x4C, 0x20, 0x47, 0x0, 0x0, 0x81, 0x0, 0x0, 0x9]);
+    writeArray(rom, 0x1000080, [0x40, 0x30, 0x83, 0x2F, 0x4, 0xD0, 0x81, 0x2F, 0x4, 0xD1, 0x89, 0x0, 0x5, 0x4C, 0x61, 0x5A, 0x0, 0xF0, 0x4, 0xF8, 0x0, 
+        0x4C, 0x20, 0x47, 0x1, 0xEE, 0xC, 0x8, 0x0, 0x4C, 0x20, 0x47, 0x29, 0x3B, 0xD, 0x8, 0xA8, 0x0, 0x0, 0x9]);
+
+    for (let i = 0; i < iconList.length; ++i) {
+        write16b(rom, 0x10000A8 + 2 * i, iconList[i]);
+    }
+
+    // Cancel part of the Mimic interact animation
+    writeArray(rom, 0xCEF92, [0x20, 0xBD]);
+}
+
+module.exports = {apply};

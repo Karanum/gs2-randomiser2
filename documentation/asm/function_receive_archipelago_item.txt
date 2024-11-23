@@ -30,8 +30,6 @@ pop {pc}
 _abortScript:
 pop {r0, pc}
 
-.hword 0x0
-
 _thunkDataScriptx1F:
 ldr r4, #0x0
 bx r4
@@ -197,3 +195,6 @@ ptrReceivedItemCount:
 
 ptrEncounter:
 .word 0x02030164
+
+ptrEncounterFlags:
+.word 0x0200048B

@@ -45,6 +45,7 @@ const avoidPatch = require('./patches/options/avoid.js');
 const cutsceneSkipPatch = require('./patches/options/cutscene_skip.js');
 const djinnScalingPatch = require('./patches/options/djinn_scaling.js');
 const easierBossesPatch = require('./patches/options/easier_bosses.js');
+const mimicDisguisePatch = require('./patches/options/mimic_disguise.js');
 const puzzlesPatch = require('./patches/options/puzzles.js');
 const retreatGlitchPatch = require('./patches/options/retreat_glitch.js');
 const teleportEverywherePatch = require('./patches/options/teleport_everywhere.js');
