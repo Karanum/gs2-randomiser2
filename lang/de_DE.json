@@ -343,6 +343,7 @@
 
         "music_shuffle": "In-Game Musik mischen",
         "character_shuffle": "Charaktere in den Itempool mischen",
+        "remove_mimics": "Mimics durch ihren Item-Drop ersetzen",
 
         "skips_info": "%1Klicken Sie hier%2 um eine Liste der Glitches anzuzeigen die diese Erstellungen zutreffen",
         "skips_basic": "Einfache Rückzugsglitches zur Logik hinzufügen",

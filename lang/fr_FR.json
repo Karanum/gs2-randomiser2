@@ -343,6 +343,7 @@
 
         "music_shuffle": "Mélanger musique du jeu",
         "character_shuffle": "Mélanger personnages dans le pool d'objets",
+        "remove_mimics": "Remplacez Mimics par leur objet drop",
 
         "skips_info": "%1Cliquez ici%2 pour une liste des glitches auxquels ces paramètres s'appliquent",
         "skips_basic": "Ajoutez Fuir glitches de base à la logique",

@@ -387,6 +387,8 @@ function randomise(seed, rawSettings, spoilerFilePath, callback) {
 
     // Post-randomisation
     if (settings['djinn-shuffle']) djinnData.shuffleDjinn(djinnClone, prng);
+    if (settings['show-items'] && !settings['remove-mimics']) mimicDisguisePatch.apply(target, textClone, prng, false, settings['shuffle-characters']);
+
     applyPostRandomisation(prng, target, randomiser, settings, abilityClone, characterClone, classClone, djinnClone, elementClone, enemyClone, 
         forgeClone, itemClone, itemLocClone, mapCodeClone, musicClone, shopClone, summonClone, textClone);
 
@@ -395,7 +397,7 @@ function randomise(seed, rawSettings, spoilerFilePath, callback) {
     if (settings['qol-hints']) hintSystem.writeHints(prng, textClone, spheres, itemLocClone);
 
     // Writing the modified data containers to the new ROM file
-    itemLocations.writeToRom(itemLocClone, prng, target, settings['show-items']);
+    itemLocations.writeToRom(itemLocClone, prng, target, settings['show-items'], settings['remove-mimics']);
     classData.writeToRom(classClone, target);
     abilityData.writeToRom(abilityClone, target);
     djinnData.writeToRom(djinnClone, target);
@@ -463,6 +465,8 @@ function randomiseArchipelago(seed, rawSettings, userName, itemMapping, djinnMap
     randomiser.placeDjinn(djinnMapping, djinnClone);
 
     // Post-randomisation
+    if (settings['show-items'] && !settings['remove-mimics']) mimicDisguisePatch.apply(target, textClone, prng, true, false);
+
     applyPostRandomisation(prng, target, randomiser, settings, abilityClone, characterClone, classClone, djinnClone, elementClone, enemyClone, 
         forgeClone, itemClone, itemLocClone, mapCodeClone, musicClone, shopClone, summonClone, textClone);
 
@@ -471,7 +475,7 @@ function randomiseArchipelago(seed, rawSettings, userName, itemMapping, djinnMap
     characterData.adjustStartingLevels(characterClone, settings['start-levels'], false, [], itemLocClone);
 
     // Writing the modified data containers to the new ROM file
-    itemLocations.writeToRom(itemLocClone, prng, target, settings['show-items']);
+    itemLocations.writeToRom(itemLocClone, prng, target, settings['show-items'], settings['remove-mimics']);
     classData.writeToRom(classClone, target);
     abilityData.writeToRom(abilityClone, target);
     djinnData.writeToRom(djinnClone, target);

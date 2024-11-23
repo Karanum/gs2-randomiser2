@@ -343,6 +343,7 @@
 
         "music_shuffle": "Shuffle in-game music",
         "character_shuffle": "Shuffle characters into the item pool",
+        "remove_mimics": "Replace Mimics with their item drop",
 
         "skips_info": "%1Click here%2 to see a list of glitches to which these settings apply",
         "skips_basic": "Add basic Retreat glitches into logic",

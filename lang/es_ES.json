@@ -343,6 +343,7 @@
 
         "music_shuffle": "Intercambiar música del juego",
         "character_shuffle": "Intercambriar personajes en el grupo de objetos",
+        "remove_mimics": "Reemplaza Mimics con sus objetos",
 
         "skips_info": "%1Click here%2 to see a list of glitches to which these settings apply",
         "skips_basic": "Add basic Retreat glitches into logic",

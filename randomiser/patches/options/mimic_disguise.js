@@ -22,7 +22,7 @@ function apply(rom, text, prng, isArchipelago, isCharacterShuffle) {
 
     let iconList = [0, 0, 0, 0, 0, 0, 0, 0, 0].map(() => {
         if (isArchipelago) {
-            if (prng.random() > 0.25) {
+            if (prng.random() > 0.33) {
                 return 0xA0A;
             }
         }
@@ -42,7 +42,7 @@ function apply(rom, text, prng, isArchipelago, isCharacterShuffle) {
     }
 
     // Cancel part of the Mimic interact animation
-    writeArray(rom, 0xCEF92, [0x20, 0xBD]);
+    writeArray(rom, 0xCEFAA, [0x20, 0xBD]);
 }
 
 module.exports = {apply};

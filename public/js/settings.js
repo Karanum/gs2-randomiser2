@@ -83,6 +83,7 @@ const randomiserSettings = {
     'teleport-everywhere': [11, 6, 1],
     'music-shuffle': [11, 7, 1],
 
+    'remove-mimics': [12, 5, 1],
     'skips-storage': [12, 6, 1],
     'skips-sand': [12, 7, 1]
 };

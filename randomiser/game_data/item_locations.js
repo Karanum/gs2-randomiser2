@@ -389,9 +389,9 @@ function fixEventType(treasure, vanillaType) {
     treasure['eventType'] = type;
 }
 
-function replaceMimic(treasure) {
+function replaceMimic(treasure, showItems) {
     var mimicId = treasure['contents'];
-    treasure['eventType'] = 0x83;
+    treasure['eventType'] = showItems ? 0x83 : 0x80;
     treasure['contents'] = mimicPool[mimicId][0];
     treasure['name'] = mimicPool[mimicId][1] + " (Mimic)";
 }
@@ -408,8 +408,6 @@ function applyShowItemsSetting(prng, treasure, setting) {
         if (treasure['eventType'] == 0x80 || treasure['eventType'] == 0x84) {
             treasure['eventType'] = 0x83;
             if (treasure['contents'] == 0) replaceEmptyChest(prng, treasure);
-        } else if (treasure['eventType'] == 0x81) {
-            replaceMimic(treasure);
         }
     } else {
         if (treasure['eventType'] == 0x80 || treasure['eventType'] == 0x84) {
@@ -422,7 +420,7 @@ function applyShowItemsSetting(prng, treasure, setting) {
     }
 }
 
-function writeToRom(instance, prng, target, showItems) {
+function writeToRom(instance, prng, target, showItems, removeMimics) {
     for (var flag in instance) {
         if (!instance.hasOwnProperty(flag)) continue;
         instance[flag].forEach((t, i) => {
@@ -430,6 +428,10 @@ function writeToRom(instance, prng, target, showItems) {
 
             fixEventType(t, vanillaEventType);
             applyShowItemsSetting(prng, t, showItems);
+            if (t['eventType'] == 0x81 && removeMimics) {
+                replaceMimic(t, showItems);
+            }
+
             if ((t['eventType'] < 0x80 || t['eventType'] == 0x83) && t['contents'] == 0) {
                 t['contents'] = 228;
                 t['name'] = "Game Ticket";
