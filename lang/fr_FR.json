@@ -140,80 +140,80 @@
             "name": "Fuir glitches de base",
             "content": [
                 "Alhafra - L'objet verrouillé par Vision *",
+                "Archipel d'Apojii - Djinn",
                 "Caverne d'Alhafra - Les trois objets verrouillés par Frimas *",
-                "Anemos Inner Sanctum - The Iris tablet from the Reveal-locked side *",
-                "Anemos Inner Sanctum - The Iris tablet from the Teleport-locked side",
-                "Apojii Islands - Djinni",
-                "Champa - The Reveal-locked item *",
-                "Dehkan Plateau - The Lash-locked item *",
-                "Kibombo Mountains - The two items on the northern screen",
-                "Madra - The mayor's gift *",
-                "Magma Rock - Magma Ball without Blaze *",
-                "Mars Lighthouse - Venus Wing skip",
-                "Naribwe - The Lash-locked item and the Whirlwind + Reveal-locked item *",
-                "Shaman Village - The Growth-locked item *",
-                "Shaman Village - Djinni",
-                "Shrine of the Sea God - Skipping the Lash rope at the entrance",
-                "Yampi Desert - The Pound-locked item at the Madra-side exit *",
-                "Yampi Desert - Both items at the Alhafra-side exit *",
-                "Yampi Desert Cave - Entering without Sand"
+                "Caverne Yampi - Entrer sans Sable",
+                "Champa - L'objet verrouillé par Vision *",
+                "Désert Yampi - L'objet verrouillé par Enfoncer à la sortie du côté Madra *",
+                "Désert Yampi - Les deux objets à la sortie du côté Alhafra *",
+                "Intérieur d'Anémos - La stèle d'Iris sur le côté verrouillé par Vision *",
+                "Intérieur d'Anémos - La stèle d'Iris sur le côté verrouillé par Téléporter",                
+                "Madra - Le cadeau du maire *",
+                "Mausolée du Dieu des Mers - Skip la corde Relier à l'entrée",
+                "Mont Magma - Boule magma sans Embraser *",
+                "Monts de Kibombo - Les deux objets sur la zone nord",
+                "Naribwe - L'objet verrouillé par Relier et l'objet verrouillé par Tourbillon + Vision *",
+                "Phare de Mars - L'aile de Vénus skip",
+                "Plateau du Dehkan - L'objet verrouillé par Relier *",
+                "Village de Shaman - L'objet verrouillé par Bourgeon *",
+                "Village de Shaman - Djinn"
             ]
         },
 
         "skips_sq": {
-            "name": "Save & quit Retreat glitches",
+            "name": "Fuir glitches de sauver et quitter",
             "content": [
-                "Alhafra - Breaking the boulder",
-                "Atteka Inlet - Djinni",
-                "Daila - The Frost-locked item in the sanctum",
-                "Dehkan Plateau - The Lash-locked item *",
-                "Gabomba Statue - Entering through the front while the mouth is closed",
-                "Kibombo Mountains - Djinni",
-                "Lemurian Ship - The Frost-locked item *",
-                "Loho - Getting behind the wall without firing the cannon",
-                "Mikasalla - Djinni",
-                "Yallam - The Force + Cyclone-locked item"
+                "Alhafra - Briser le rocher",
+                "Bateau Lémurian - L'objet verrouillé par Frimas *",
+                "Daila - L'objet verrouillé par Frimas dans le sanctuaire",
+                "Ilót d'Attéka - Djinn",
+                "Loho - Passer derrière le mur sans tirer le canon",
+                "Mikasalla - Djinn",
+                "Monts de Kibombo - Djinn",
+                "Plateau du Dehkan - L'objet verrouillé par Relier *",
+                "Statue de Gabomba - Entrée par l'avant avec la bouche fermée",
+                "Yallam - L'objet verrouillé par Force + Cyclone"
             ]
         },
 
         "skips_oob": {
-            "name": "OOB Retreat glitches",
+            "name": "Fuir glitches de OOB",
             "content": [
-                "Ankohl Ruins - Getting to the end without activating the sand in the main room",
-                "Gondowan Cliffs - Getting to the Gondowan-side exit from the cave",
-                "Hesperia Settlement - The Growth-locked item and Djinni",
-                "Islet Cave - Getting to the Sentinel corridor without Teleport",
-                "Lemurian Ship - Getting to the Aqua Hydra boss without Frost",
-                "Shrine of the Sea God - Getting to the Sea God's Tear room",
-                "Yampi Desert - Getting to the Alhafra-side exit from the Garoh-side exit"
+                "Bateau Lémurian - Arriver au Aqua-hydra boss sans Frimas",
+                "Colonie d'Hespéria - L'objet et Djinn verrouillé par Bourgeon",
+                "Désert Yampi - Accès à Alhafra depuis l'entrée de Garoh",
+                "Falaises de Gondowan - Accès à Gondowan en utilisant la grotte",
+                "Grotte Insulaire - Accéder au corridor Sentinelle sans Téléporter",
+                "Mausolée du Dieu des Mers - Arriver au chambre de Larme Divine",
+                "Ruines d'Ankohl - Arriver au bout sans activer le sable dans la salle principale"
             ]
         },
 
         "skips_wiggle": {
-            "name": "Collision-related glitches",
+            "name": "Glitches liés aux collisions",
             "content": [
-                "Atteka Cavern - Getting to the cave without the Wings of Anemos",
-                "Kalt Island - Getting the Djinni by clipping into the slope",
-                "Mars Lighthouse - Unloading the fire jets in the Jupiter Wing",
-                "Tundaria Tower - Getting to the end without Pound"
+                "Caverne d'Attéka - Arriver à la caverne sans les Ailes d'Anemos",
+                "Ilot de Glace - Obtenir le Djinn en se clip dans la pente",
+                "Tour de Toundra - Arriver au bout sans Enfoncer",
+                "Phare de Mars - Skip les jets de feu dans l'aile de Jupiter"
             ]
         },
 
         "skips_sand": {
-            "name": "Sand glitches",
+            "name": "Glitches de Sable",
             "content": [
-                "Alhafra - Breaking the boulder from OOB",
-                "Magma Rock - Entering without Lift",
-                "Yampi Desert - Getting on top of the Pound pillars"
+                "Alhafra - Briser le rocher de OOB",
+                "Désert Yampi - Clip sur les piliers Enfoncer",
+                "Mont Magma - Entrée sans Soulever"
             ]
         },
 
         "skips_death_storage": {
-            "name": "Death storage skips",
+            "name": "Skips de \"death storage\"",
             "content": [
-                "Magma Rock - Entering without Lift",
-                "Northern Reaches - Getting to Prox without the cannon",
-                "Sea of Time - Getting to Lemuria without Grind/Trident"
+                "Contrées Nord - Arriver à Prox sans le canon",
+                "Mer du Temps - Arriver à Lémuria sans Pulvériser ou le Trident",
+                "Mont Magma - Entrée sans Soulever"
             ]
         },
 
