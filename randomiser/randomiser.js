@@ -429,7 +429,7 @@ function randomise(seed, rawSettings, spoilerFilePath, callback) {
  */
 function randomiseArchipelago(seed, rawSettings, userName, itemMapping, djinnMapping, callback) {
     var target = rom.slice(0);
-    var prng = mersenne(seed);
+    var prng = mersenne(Array.from(seed));
     var settings = settingsParser.parse(rawSettings);
 
     // Cloning the (mostly) vanilla data containers
@@ -465,7 +465,7 @@ function randomiseArchipelago(seed, rawSettings, userName, itemMapping, djinnMap
     randomiser.placeDjinn(djinnMapping, djinnClone);
 
     // Post-randomisation
-    if (settings['show-items'] && !settings['remove-mimics']) mimicDisguisePatch.apply(target, textClone, prng, true, false);
+    if (settings['show-items'] && !settings['remove-mimics']) mimicDisguisePatch.apply(target, textClone, prng, randomiser.isMultiworld, false);
 
     applyPostRandomisation(prng, target, randomiser, settings, abilityClone, characterClone, classClone, djinnClone, elementClone, enemyClone, 
         forgeClone, itemClone, itemLocClone, mapCodeClone, musicClone, shopClone, summonClone, textClone);

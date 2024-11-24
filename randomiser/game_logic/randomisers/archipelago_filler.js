@@ -3,6 +3,7 @@ const { ItemRandomiser } = require('./item_randomiser.js');
 class ArchipelagoFiller extends ItemRandomiser {
     constructor(prng, instLocations, settings) {
         super(prng, instLocations, settings);
+        this.isMultiworld = false;
     }
 
     placeItems(itemMapping, instItemLocations) {
@@ -18,6 +19,10 @@ class ArchipelagoFiller extends ItemRandomiser {
                     t['contents'] = mapping;
                 });
             } else {
+                if (mapping == 0xA00 || mapping == 0xA0A) {
+                    this.isMultiworld = true;
+                }
+
                 this.instItemLocations[slot].forEach((t) => {
                     t['contents'] = mapping;
                     if (t['eventType'] == 0x81) t['eventType'] = 0x80;
