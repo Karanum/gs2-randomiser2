@@ -7,7 +7,7 @@ beq doSetIcon
 cmp r7, #0x81
 bne end
 
-lsls r1, r1, #0x2
+lsls r1, r1, #0x1
 ldr r4, ptrIcons
 ldrh r1, [r4, r1]
 
