@@ -100,7 +100,7 @@ function updatePreset(preset) {
     let version = preset.version ?? 0;
     if (version < 1) {
         let settings = parseSettingsString(preset.settings);
-        preset.settings += (settings[0] & 4 != 0) ? '20' : '00';
+        preset.settings = preset.settings.substring(0, 24) + ((settings[0] & 4 != 0) ? '20' : '00');
     }
     preset.version = 1;
 }
@@ -152,10 +152,10 @@ function base64ToStr(b64) {
 
 function validateSettings(settings) {
     var clean = settings.toLowerCase().replaceAll(/[^a-f0-9]/g, '');
-    if (clean.length < randomiserSettingsLength * 2) {
-        return undefined;
+    while (clean.length < randomiserSettingsLength * 2) {
+        clean += '0';
     }
-    return clean;
+    return clean.substring(0, randomiserSettingsLength * 2);
 }
 
 $(document).ready(() => {

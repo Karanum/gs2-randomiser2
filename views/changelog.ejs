@@ -32,14 +32,19 @@
                         <div class="row">
                             <div class="col my-3">
                                 <h3 class="mb-0">v1.2.9</h3>
-                                <span>(unreleased)</span>
+                                <span><%= lang.versions.date_format
+                                    .replace("%d", "24")
+                                    .replace("%s", lang.versions.num_suffixes[4])
+                                    .replace("%m", lang.versions.months[10])
+                                    .replace("%y", "2024")
+                                %></span>
                                 <ul class="mt-3">
                                     <li>Added <a href="https://archipelago.gg">Archipelago Multiworld</a> support (coming soon!)</li>
                                     <li>Added a setting to remove Mimics from the item pool</li>
-                                    <li>Changed the "Show items outside chest" setting to no longer remove Mimics and disguise them instead</li>
                                     <ul>
-                                        <li>Old presets will have this setting set based on "Show items outside chest"</li>
+                                        <li>Old presets will automatically have this enabled if they have "Show items outside chest" on</li>
                                     </ul>
+                                    <li>Changed the "Show items outside chest" setting to no longer remove Mimics and disguise them instead</li>
                                     <li>Updated the settings for glitches being in logic</li>
                                     <li>Updated the randomiser logic:</li>
                                     <ul>
