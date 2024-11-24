@@ -11,6 +11,10 @@
                 [
                     "Burst Brooch"
                 ]
+            ],
+            "Restriction": [
+                "no-empty",
+                "no-mimic"
             ]
         },
         {
