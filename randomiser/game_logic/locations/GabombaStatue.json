@@ -3,9 +3,6 @@
         [
             "FlagPiers",
             "Scoop Gem"
-        ],
-        [
-            "Skips_SaveQuitRG"
         ]
     ],
     "Treasure": [
@@ -36,7 +33,9 @@
                     "Lash Pebble"
                 ],
                 [
-                    "Skips_SaveQuitRG"
+                    "Skips_SaveQuitRG",
+                    "FlagPiers",
+                    "Scoop Gem"
                 ]
             ]
         }
@@ -51,6 +50,8 @@
                 ],
                 [
                     "Skips_SaveQuitRG",
+                    "FlagPiers",
+                    "Scoop Gem",
                     "Pound Cube"
                 ]
             ]
@@ -67,6 +68,8 @@
                 ],
                 [
                     "Skips_SaveQuitRG",
+                    "FlagPiers",
+                    "Scoop Gem",
                     "Pound Cube"
                 ]
             ]
