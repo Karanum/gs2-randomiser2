@@ -1,11 +1,18 @@
 const { writeArray } = require('../../../util/binary.js');
 const { setTalkObject } = require('../../../util/npcWriter');
 const textutil = require('../../game_logic/textutil.js');
+const { isaacIcon, garetIcon, ivanIcon, miaIcon, felixIcon, jennaIcon, shebaIcon, piersIcon } = require('../../icons/character_icons.js');
 
-function apply(rom, mapCode, settings, text) {
-    // Add icon mappings for the character pseudo-items to be displayed as
-    writeArray(rom, 0x0100311C, [0x0, 0xD, 0x4, 0x1, 0x1, 0xD, 0x5, 0x1, 0x2, 0xD, 0x6, 0x1, 0x3, 0xD, 0x7, 0x1,
-        0x4, 0xD, 0x8, 0x1, 0x5, 0xD, 0x9, 0x1, 0x6, 0xD, 0xA, 0x1, 0x7, 0xD, 0xB, 0x1]);
+function apply(rom, mapCode, settings, text, iconManager) {
+    // Insert character icons
+    iconManager.insertIconWithMapping(isaacIcon, 0xD00);
+    iconManager.insertIconWithMapping(garetIcon, 0xD01);
+    iconManager.insertIconWithMapping(ivanIcon, 0xD02);
+    iconManager.insertIconWithMapping(miaIcon, 0xD03);
+    iconManager.insertIconWithMapping(felixIcon, 0xD04);
+    iconManager.insertIconWithMapping(jennaIcon, 0xD05);
+    iconManager.insertIconWithMapping(shebaIcon, 0xD06);
+    iconManager.insertIconWithMapping(piersIcon, 0xD07);
 
     // Replace Djinni overflow function with a queue variant
     writeArray(rom, 0x01006D00, [0x40, 0x46, 0x81, 0xB4, 0x0, 0xF0, 0x28, 0xF8, 0x8, 0x28, 0x1A, 0xD0, 0x9, 0x25, 0x45, 0x43, 0x80, 0x46, 0x0, 0x26, 0x30, 

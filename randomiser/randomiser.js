@@ -12,6 +12,7 @@ const archipelagoFiller = require('./game_logic/randomisers/archipelago_filler.j
 const hintSystem = require('./game_logic/hint_system.js');
 const credits = require('./game_logic/credits.js');
 const mapCode = require('./game_logic/map_code.js');
+const { IconManager } = require('./game_logic/icons.js');
 
 const itemLocations = require('./game_data/item_locations.js');
 const classData = require('./game_data/classes.js');
@@ -27,7 +28,6 @@ const elementData = require('./game_data/elem_tables.js');
 const musicData = require('./game_data/music.js');
 
 const endgameShortcutPatch = require('./patches/innate/endgame_shortcuts.js');
-const extraIconsPatch = require('./patches/innate/extra_icons.js');
 const fastForgingPatch = require('./patches/innate/fast_forging.js');
 const fixCharPatch = require('./patches/innate/fix_char.js');
 const fixLemurianShipPatch = require('./patches/innate/fix_lemurian_ship.js');
@@ -93,7 +93,7 @@ function initialise() {
         teleportPatch.apply(rom);
         generalPatch.apply(rom);
         trialRoadPatch.apply(rom);
-        extraIconsPatch.apply(rom);
+        //extraIconsPatch.apply(rom);
     });
     credits.writeToRom(rom);
 
@@ -185,7 +185,7 @@ function writeStoryFlags(target, flags) {
 /**
  * Applies patches and edits that should occur before the item randomisation step
  */
-function applyPreRandomisation(target, prng, settings, abilityClone, enemyClone, itemLocClone, mapCodeClone, textClone) {
+function applyPreRandomisation(target, prng, settings, abilityClone, enemyClone, itemLocClone, mapCodeClone, textClone, iconManager) {
     var defaultFlags = [0xf22, 0x873, 0x844, 0x863, 0x864, 0x865, 0x867];
 
     // Preparing item locations for randomisation and determining which locations to shuffle
@@ -252,7 +252,7 @@ function applyPreRandomisation(target, prng, settings, abilityClone, enemyClone,
 
     // Apply character shuffle
     if (settings['shuffle-characters']) {
-        addCharacterShufflePatch.apply(target, mapCodeClone, settings, textClone);
+        addCharacterShufflePatch.apply(target, mapCodeClone, settings, textClone, iconManager);
         locations.prepCharacterShuffleLocations(locationsClone, itemLocClone);
     }
 
@@ -343,6 +343,8 @@ function randomise(seed, rawSettings, spoilerFilePath, callback) {
     var prng = mersenne(seed);
     var settings = settingsParser.parse(rawSettings);
 
+    var iconManager = new IconManager();
+
     // Cloning the (mostly) vanilla data containers
     var textClone = textutil.clone();
     var itemLocClone = itemLocations.clone();
@@ -359,7 +361,7 @@ function randomise(seed, rawSettings, spoilerFilePath, callback) {
     var musicClone = musicData.clone();
     var mapCodeClone = mapCode.clone();
 
-    var locationsClone = applyPreRandomisation(target, prng, settings, abilityClone, enemyClone, itemLocClone, mapCodeClone, textClone);
+    var locationsClone = applyPreRandomisation(target, prng, settings, abilityClone, enemyClone, itemLocClone, mapCodeClone, textClone, iconManager);
 
     // Performing randomisation until a valid seed is found, or too many randomisations have been performed
     var randomiser = new itemRandomiser.ItemRandomiser(prng, locationsClone, settings);
@@ -413,6 +415,8 @@ function randomise(seed, rawSettings, spoilerFilePath, callback) {
     textutil.writeToRom(textClone, target);
     mapCode.writeToRom(mapCodeClone, target);
 
+    iconManager.writeToRom(target);
+
     // Creating the spoiler log and calling the callback function with the patch data
     spoilerLog.generate(spoilerFilePath, settings, spheres, itemLocClone, djinnClone, characterClone,
         classClone, shopClone, forgeClone, itemClone, () => {callback(ups.createPatch(vanillaRom, target));});
@@ -432,6 +436,8 @@ function randomiseArchipelago(seed, rawSettings, userName, itemMapping, djinnMap
     var prng = mersenne(Array.from(seed));
     var settings = settingsParser.parse(rawSettings);
 
+    var iconManager = new IconManager();
+
     // Cloning the (mostly) vanilla data containers
     var textClone = textutil.clone();
     var itemLocClone = itemLocations.clone();
@@ -448,7 +454,7 @@ function randomiseArchipelago(seed, rawSettings, userName, itemMapping, djinnMap
     var musicClone = musicData.clone();
     var mapCodeClone = mapCode.clone();
 
-    var locationsClone = applyPreRandomisation(target, prng, settings, abilityClone, enemyClone, itemLocClone, mapCodeClone, textClone);
+    var locationsClone = applyPreRandomisation(target, prng, settings, abilityClone, enemyClone, itemLocClone, mapCodeClone, textClone, iconManager);
 
     var i = 0;
     while (i < userName.length && i < 64) {
@@ -457,7 +463,7 @@ function randomiseArchipelago(seed, rawSettings, userName, itemMapping, djinnMap
     }
 
     // Apply the Archipelago patch
-    archipelagoPatch.apply(target, settings, textClone);
+    archipelagoPatch.apply(target, textClone, iconManager);
 
     // Apply fixed locations
     var randomiser = new archipelagoFiller.ArchipelagoFiller(prng, locationsClone, settings);
@@ -490,6 +496,8 @@ function randomiseArchipelago(seed, rawSettings, userName, itemMapping, djinnMap
 
     textutil.writeToRom(textClone, target);
     mapCode.writeToRom(mapCodeClone, target);
+
+    iconManager.writeToRom(target);
 
     callback(ups.createPatch(vanillaRom, target));
 }

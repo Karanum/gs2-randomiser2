@@ -1,1 +1,2 @@
 - The G. Ring item in Yampi is non-missable with S&Q
+- Figure out how to classify the S&Q warps from Mikasalla

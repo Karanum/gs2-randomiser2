@@ -1,9 +1,12 @@
 const { writeArray, write32b } = require('../../../util/binary.js');
 const textutil = require('../../game_logic/textutil.js');
+const { fillerItemIcon, usefulItemIcon, progressionItemIcon } = require('../../icons/archipelago_icons.js');
 
-function apply(rom, settings, text) {
-    // Add an icon mapping for the multiworld pseudo-item
-    writeArray(rom, 0x0100311C + (settings['shuffle-characters'] ? 0x20 : 0x0), [0x0, 0xA, 0xC, 0x1, 0xA, 0xA, 0xD, 0x1]);
+function apply(rom, text, iconManager) {
+    // Insert multiworld pseudo-item icons
+    iconManager.insertIconWithMapping(usefulItemIcon, 0xA00);
+    iconManager.insertIconWithMapping(progressionItemIcon, 0xA0A);
+    iconManager.insertIconWithMapping(fillerItemIcon, 0xA0B);
 
     // Add a custom function for picking up multiworld pseudo-items
     writeArray(rom, 0x10061F0, [0x0, 0xB5, 0x4, 0x20, 0x1, 0x21, 0x0, 0xF0, 0x6, 0xF8, 0xB5, 0x20, 0x40, 0x1, 0x0, 0x21, 0x0, 0xF0, 0x5, 0xF8, 0x0, 0xBD, 
