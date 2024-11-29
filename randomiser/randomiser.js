@@ -4,6 +4,7 @@ const mersenne = require('../modules/mersenne.js');
 const ups = require('./ups.js');
 const settingsParser = require('./settings.js');
 const spoilerLog = require('./spoiler_log.js');
+const { VanillaData, GameData } = require('./game_data.js');
 
 const locations = require('./game_logic/locations.js');
 const textutil = require('./game_logic/textutil.js');
@@ -11,21 +12,7 @@ const itemRandomiser = require('./game_logic/randomisers/item_randomiser.js');
 const archipelagoFiller = require('./game_logic/randomisers/archipelago_filler.js');
 const hintSystem = require('./game_logic/hint_system.js');
 const credits = require('./game_logic/credits.js');
-const mapCode = require('./game_logic/map_code.js');
 const { IconManager } = require('./game_logic/icons.js');
-
-const itemLocations = require('./game_data/item_locations.js');
-const classData = require('./game_data/classes.js');
-const abilityData = require('./game_data/abilities.js');
-const djinnData = require('./game_data/djinn.js');
-const summonData = require('./game_data/summons.js');
-const itemData = require('./game_data/items.js');
-const shopData = require('./game_data/shops.js');
-const forgeData = require('./game_data/forgeables.js');
-const characterData = require('./game_data/characters.js');
-const enemyData = require('./game_data/enemies.js');
-const elementData = require('./game_data/elem_tables.js');
-const musicData = require('./game_data/music.js');
 
 const endgameShortcutPatch = require('./patches/innate/endgame_shortcuts.js');
 const fastForgingPatch = require('./patches/innate/fast_forging.js');
@@ -50,6 +37,8 @@ const puzzlesPatch = require('./patches/options/puzzles.js');
 const retreatGlitchPatch = require('./patches/options/retreat_glitch.js');
 const teleportEverywherePatch = require('./patches/options/teleport_everywhere.js');
 
+const {applyGameTicketPatch, applyShipSpeedPatch, applyCheapRevivePatch, applyFixedRevivePatch, applyHalvedRatePatch} = require('./patches/mini_patches.js');
+
 // List of in-game flags to turn on when cutscene skip is enabled
 const cutsceneSkipFlags = [0xf22, 0x890, 0x891, 0x892, 0x893, 0x894, 0x895, 0x896, 0x848, 0x86c, 0x86d, 0x86e, 0x86f,
         0x916, 0x844, 0x863, 0x864, 0x865, 0x867, 0x872, 0x873, 0x84b, 0x91b, 0x91c, 0x91d, 0x8b2, 0x8b3, 0x8b4,
@@ -60,57 +49,20 @@ const cutsceneSkipFlags = [0xf22, 0x890, 0x891, 0x892, 0x893, 0x894, 0x895, 0x89
 var vanillaRom = new Uint8Array(fs.readFileSync("./randomiser/rom/gs2.gba"));
 var rom = Uint8Array.from(vanillaRom);
 
-/**
- * Perform a timing on the specified function
- * @param {string} msg The message to show in console when starting the task
- * @param {Function} callback The function to execute
- */
-function doTiming(msg, callback) {
-    var timing = Date.now();
-    process.stdout.write(msg + ' ');
-    callback();
-    console.log(Date.now() - timing + "ms");
-}
-
-/**
- * Write a sequence of bytes to the target
- * @param {Uint8Array} target 
- * @param {uint} start 
- * @param {byte[]} bytes 
- */
-function writeByteSequence(target, start, bytes) {
-    bytes.forEach((byte) => target[start++] = byte);
-}
+var vanillaData;
 
 /**
  * Initialises the randomiser
  */
 function initialise() {
-    doTiming("Applying innate patches...", () => {
-        // Adjust ROM size to accomodate for added data
-        rom = generalPatch.changeRomSize(rom);
+    rom = generalPatch.changeRomSize(rom);
 
-        teleportPatch.apply(rom);
-        generalPatch.apply(rom);
-        trialRoadPatch.apply(rom);
-        //extraIconsPatch.apply(rom);
-    });
+    teleportPatch.apply(rom);
+    generalPatch.apply(rom);
+    trialRoadPatch.apply(rom);
+    backEntrancePatch.apply(rom);
+
     credits.writeToRom(rom);
-
-    doTiming("Decoding text data...", () => textutil.initialise(rom));
-    doTiming("Loading ability data...", () => abilityData.initialise(rom, textutil));
-    doTiming("Loading class data...", () => classData.initialise(rom, textutil));
-    doTiming("Loading Djinn data...", () => djinnData.initialise(rom, textutil));
-    doTiming("Loading summon data...", () => summonData.initialise(rom));
-    doTiming("Loading item data...", () => itemData.initialise(rom));
-    doTiming("Loading shop data...", () => shopData.initialise(rom));
-    doTiming("Loading forgeable data...", () => forgeData.initialise(rom));
-    doTiming("Loading character data...", () => characterData.initialise(rom));
-    doTiming("Loading enemy data...", () => enemyData.initialise(rom, textutil));
-    doTiming("Loading elemental tables...", () => elementData.initialise(rom));
-    doTiming("Loading music data...", () => musicData.initialise(rom));
-    doTiming("Loading item location data...", () => itemLocations.initialise(rom, textutil, itemData));
-    doTiming("Loading map code...", () => mapCode.initialise(rom));
 
     textutil.writeLine(undefined, 1504, "Starburst");
 
@@ -123,49 +75,7 @@ function initialise() {
     rom[0x4D62E] = 0x0;
     rom[0x4D62F] = 0xE0;
 
-    // Apply the back entrance patch
-    backEntrancePatch.apply(rom);
-}
-
-/**
- * Applies Game Ticket removal patch to the ROM
- * @param {Uint8Array} target 
- */
-function applyGameTicketPatch(target) {
-    target[0xAFED4] = 0x70;
-    target[0xAFED5] = 0x47;
-}
-
-/**
- * Applies ship overworld speed patch to the ROM
- * @param {Uint8Array} target 
- */
-function applyShipSpeedPatch(target) {
-    target[0x285A4] = 0xF0;
-}
-
-/**
- * Applies revive cost reduction to the ROM
- * @param {Uint8Array} target 
- */
-function applyCheapRevivePatch(target) {
-    writeByteSequence(target, 0x10A874, [0x50, 0x00, 0xC0, 0x46, 0xC0, 0x46]);
-}
-
-/**
- * Applies fixed revive cost to the ROM
- * @param {Uint8Array} target 
- */
-function applyFixedRevivePatch(target) {
-    writeByteSequence(target, 0x10A874, [0x64, 0x20, 0xC0, 0x46, 0xC0, 0x46]);
-}
-
-/**
- * Applies encounter rate halving to the ROM
- * @param {Uint8Array} target 
- */
-function applyHalvedRatePatch(target) {
-    target[0xCA0B8] = 0x78;
+    vanillaData = new VanillaData(rom);
 }
 
 /**
@@ -185,33 +95,33 @@ function writeStoryFlags(target, flags) {
 /**
  * Applies patches and edits that should occur before the item randomisation step
  */
-function applyPreRandomisation(target, prng, settings, abilityClone, enemyClone, itemLocClone, mapCodeClone, textClone, iconManager) {
+function applyPreRandomisation(target, prng, settings, gameData, iconManager) {
     var defaultFlags = [0xf22, 0x873, 0x844, 0x863, 0x864, 0x865, 0x867];
 
     // Preparing item locations for randomisation and determining which locations to shuffle
-    itemLocations.prepItemLocations(itemLocClone, settings);
+    vanillaData.itemLocations.prepItemLocations(gameData.itemLocations, settings);
 
     // Applying innate map code patches
-    gabombaPuzzlePatch.apply(mapCodeClone, textClone);
-    fastForgingPatch.apply(mapCodeClone, textClone);
-    tutorialNpcPatch.apply(mapCodeClone, textClone, settings);
-    endgameShortcutPatch.apply(mapCodeClone);
-    if (settings['show-items']) fixLemurianShipPatch.applyChestFix(mapCodeClone);
+    gabombaPuzzlePatch.apply(gameData.mapCode, gameData.text);
+    fastForgingPatch.apply(gameData.mapCode, gameData.text);
+    tutorialNpcPatch.apply(gameData.mapCode, gameData.text, settings);
+    endgameShortcutPatch.apply(gameData.mapCode);
+    if (settings['show-items']) fixLemurianShipPatch.applyChestFix(gameData.mapCode);
 
     // Applying settings
-    if (settings['free-avoid']) abilityClone[150].cost = 0;
+    if (settings['free-avoid']) gameData.abilities[150].cost = 0;
     if (settings['free-retreat']) {
         if (!(settings['skips-basic'] || settings['skips-sq'] || settings['skips-oob']) || settings['manual-rg']) {
-            abilityClone[149].cost = 0;
-            abilityClone[156].cost = 0;
+            gameData.abilities[149].cost = 0;
+            gameData.abilities[156].cost = 0;
         }
     }
 
-    if (settings['djinn-scale']) djinnScalingPatch.apply(target, enemyClone, textClone);
+    if (settings['djinn-scale']) djinnScalingPatch.apply(target, gameData.enemies, gameData.text);
     if (settings['qol-fastship']) applyShipSpeedPatch(target);
     if (settings['qol-tickets']) applyGameTicketPatch(target);
     if (settings['qol-cutscenes']) {
-        cutsceneSkipPatch.apply(mapCodeClone, textClone);
+        cutsceneSkipPatch.apply(gameData.mapCode, gameData.text);
         defaultFlags = cutsceneSkipFlags;
     }
     if (settings['sanc-revive'] == 1) applyCheapRevivePatch(target);
@@ -225,7 +135,7 @@ function applyPreRandomisation(target, prng, settings, abilityClone, enemyClone,
         if (settings['ship'] == 2) {
             defaultFlags = defaultFlags.concat([0x982, 0x983, 0x8de, 0x907]);
         } else if (settings['ship'] == 1) {
-            fixLemurianShipPatch.applyEntranceFix(mapCodeClone);
+            fixLemurianShipPatch.applyEntranceFix(gameData.mapCode);
         }
     }
     if (settings['ship-wings']) defaultFlags = defaultFlags.concat([0x8df]);
@@ -235,7 +145,7 @@ function applyPreRandomisation(target, prng, settings, abilityClone, enemyClone,
     // Set Anemos Inner Sanctum Djinn requirement
     var anemosDjinnReq = 72;
     if (settings['anemos-access'] == 1) {
-        anemosRequirementsPatch.apply(mapCodeClone, textClone);
+        anemosRequirementsPatch.apply(gameData.mapCode, gameData.text);
         anemosDjinnReq = Math.min(Math.floor(prng.random() * 13) + 16, Math.floor(prng.random() * 13) + 16);
         target[0x1007902] = anemosDjinnReq;
     } else if (settings['anemos-access'] == 2) {
@@ -252,8 +162,8 @@ function applyPreRandomisation(target, prng, settings, abilityClone, enemyClone,
 
     // Apply character shuffle
     if (settings['shuffle-characters']) {
-        addCharacterShufflePatch.apply(target, mapCodeClone, settings, textClone, iconManager);
-        locations.prepCharacterShuffleLocations(locationsClone, itemLocClone);
+        addCharacterShufflePatch.apply(target, gameData.mapCode, settings, gameData.text, iconManager);
+        locations.prepCharacterShuffleLocations(locationsClone, gameData.itemLocations);
     }
 
     writeStoryFlags(target, defaultFlags);
@@ -264,70 +174,70 @@ function applyPreRandomisation(target, prng, settings, abilityClone, enemyClone,
 /**
  * Applies patches and edits that should occur after the item randomisation step
  */
-function applyPostRandomisation(prng, target, randomiser, settings, abilityClone, characterClone, classClone, djinnClone, elementClone, enemyClone, forgeClone, itemClone, itemLocClone, mapCodeClone, musicClone, shopClone, summonClone, textClone) {
+function applyPostRandomisation(prng, target, randomiser, settings, gameData) {
     // Applying more settings
-    if (settings['easier-bosses']) easierBossesPatch.apply(rom, enemyClone, abilityClone);
+    if (settings['easier-bosses']) easierBossesPatch.apply(rom, gameData.enemies, gameData.abilities);
 
-    if (settings['psynergy-power']) abilityData.adjustAbilityPower(abilityClone, "Psynergy", prng);
-    if (settings['psynergy-cost']) abilityData.adjustPsynergyCost(abilityClone, prng);
-    if (settings['psynergy-aoe']) abilityData.randomiseAbilityRange(abilityClone, "Psynergy", prng);
-    if (settings['enemypsy-power']) abilityData.adjustAbilityPower(abilityClone, "Enemy", prng);
-    if (settings['enemypsy-aoe']) abilityData.randomiseAbilityRange(abilityClone, "Enemy", prng);
+    if (settings['psynergy-power']) vanillaData.abilities.adjustAbilityPower(gameData.abilities, "Psynergy", prng);
+    if (settings['psynergy-cost']) vanillaData.abilities.adjustPsynergyCost(gameData.abilities, prng);
+    if (settings['psynergy-aoe']) vanillaData.abilities.randomiseAbilityRange(gameData.abilities, "Psynergy", prng);
+    if (settings['enemypsy-power']) vanillaData.abilities.adjustAbilityPower(gameData.abilities, "Enemy", prng);
+    if (settings['enemypsy-aoe']) vanillaData.abilities.randomiseAbilityRange(gameData.abilities, "Enemy", prng);
 
-    classData.randomisePsynergy(classClone, settings['class-psynergy'], prng);
-    classData.randomiseLevels(classClone, settings['class-levels'], prng);
-    if (settings['class-stats']) classData.randomiseStats(classClone, prng);
-    if (settings['no-learning']) classData.removeUtilityPsynergy(classClone);
+    vanillaData.classes.randomisePsynergy(gameData.classes, settings['class-psynergy'], prng);
+    vanillaData.classes.randomiseLevels(gameData.classes, settings['class-levels'], prng);
+    if (settings['class-stats']) vanillaData.classes.randomiseStats(gameData.classes, prng);
+    if (settings['no-learning']) vanillaData.classes.removeUtilityPsynergy(gameData.classes);
 
-    if (settings['djinn-stats']) djinnData.shuffleStats(djinnClone, prng);
-    if (settings['djinn-power']) abilityData.adjustAbilityPower(abilityClone, "Djinn", prng);
-    if (settings['djinn-aoe']) abilityData.randomiseAbilityRange(abilityClone, "Djinn", prng);
-    if (settings['summon-power']) abilityData.adjustAbilityPower(abilityClone, "Summon", prng);
-    if (settings['summon-cost']) summonData.randomiseCost(summonClone, abilityClone, prng);
+    if (settings['djinn-stats']) vanillaData.djinn.shuffleStats(gameData.djinn, prng);
+    if (settings['djinn-power']) vanillaData.abilities.adjustAbilityPower(gameData.abilities, "Djinn", prng);
+    if (settings['djinn-aoe']) vanillaData.abilities.randomiseAbilityRange(gameData.abilities, "Djinn", prng);
+    if (settings['summon-power']) vanillaData.abilities.adjustAbilityPower(gameData.abilities, "Summon", prng);
+    if (settings['summon-cost']) vanillaData.summons.randomiseCost(gameData.summons, gameData.abilities, prng);
 
-    if (settings['equip-shuffle']) itemData.randomiseCompatibility(itemClone, prng);
-    if (settings['equip-stats']) itemData.adjustStats(itemClone, prng);
-    if (settings['equip-cost']) itemData.adjustEquipPrices(itemClone, prng);
-    if (settings['equip-unleash']) itemData.shuffleWeaponEffects(itemClone, prng);
-    if (settings['equip-effect']) itemData.shuffleArmourEffects(itemClone, prng);
-    if (settings['curse-disable'])
-        itemData.disableCurses(itemClone);
-    else if (settings['equip-curse']) 
-        itemData.shuffleCurses(itemClone, prng);
-    if (settings['equip-attack']) itemData.shuffleWeaponStats(itemClone, prng);
-    if (settings['equip-defense']) itemData.shuffleArmourStats(itemClone, prng);
+    if (settings['equip-shuffle']) vanillaData.items.randomiseCompatibility(gameData.items, prng);
+    if (settings['equip-stats']) vanillaData.items.adjustStats(gameData.items, prng);
+    if (settings['equip-cost']) vanillaData.items.adjustEquipPrices(gameData.items, prng);
+    if (settings['equip-unleash']) vanillaData.items.shuffleWeaponEffects(gameData.items, prng);
+    if (settings['equip-effect']) vanillaData.items.shuffleArmourEffects(gameData.items, prng);
 
-    if (settings['char-stats'] == 1) characterData.shuffleStats(characterClone, prng);
-    if (settings['char-stats'] == 2) characterData.adjustStats(characterClone, prng);
-    if (settings['char-element'] == 1) characterData.shuffleElements(characterClone, prng, true);
-    if (settings['char-element'] == 2) characterData.shuffleElements(characterClone, prng, false);
+    if (settings['curse-disable']) vanillaData.items.disableCurses(gameData.items);
+    else if (settings['equip-curse']) vanillaData.items.shuffleCurses(gameData.items, prng);
 
-    if (settings['enemy-eres'] == 1) elementData.shuffleResistances(elementClone, prng);
-    if (settings['enemy-eres'] == 2) elementData.randomiseResistances(elementClone, prng);
+    if (settings['equip-attack']) vanillaData.items.shuffleWeaponStats(gameData.items, prng);
+    if (settings['equip-defense']) vanillaData.items.shuffleArmourStats(gameData.items, prng);
 
-    if (settings['adv-equip']) randomiser.shuffleEquipmentAdvanced(prng, itemClone, shopClone, forgeClone);
-    if (settings['music-shuffle']) musicData.shuffleBGM(musicClone, prng);
+    if (settings['char-stats'] == 1) vanillaData.characters.shuffleStats(gameData.characters, prng);
+    if (settings['char-stats'] == 2) vanillaData.characters.adjustStats(gameData.characters, prng);
+    if (settings['char-element'] == 1) vanillaData.characters.shuffleElements(gameData.characters, prng, true);
+    if (settings['char-element'] == 2) vanillaData.characters.shuffleElements(gameData.characters, prng, false);
 
-    if (settings['equip-sort']) randomiser.sortEquipment(itemClone);
+    if (settings['enemy-eres'] == 1) vanillaData.elements.shuffleResistances(gameData.elements, prng);
+    if (settings['enemy-eres'] == 2) vanillaData.elements.randomiseResistances(gameData.elements, prng);
+
+    if (settings['adv-equip']) randomiser.shuffleEquipmentAdvanced(prng, gameData.items, gameData.shops, gameData.forge);
+    if (settings['music-shuffle']) vanillaData.music.shuffleBGM(gameData.music, prng);
+
+    if (settings['equip-sort']) randomiser.sortEquipment(gameData.items);
     if (settings['summon-sort']) randomiser.sortSummons();
     if (!settings['boss-logic']) randomiser.sortMimics();
     
-    enemyData.scaleBattleRewards(enemyClone, settings['scale-coins'], settings['scale-exp']);
+    vanillaData.enemies.scaleBattleRewards(gameData.enemies, settings['scale-coins'], settings['scale-exp']);
 
     let characters = [4, 5, 6];
     if (settings['shuffle-characters']) {
-        characters = [4, itemLocClone['0xd05'][0].contents - 0xD00];
+        characters = [4, gameData.itemLocations['0xd05'][0].contents - 0xD00];
     }
-    abilityData.setStartingPsynergy(target, settings, prng, characters);
+    vanillaData.abilities.setStartingPsynergy(target, settings, prng, characters);
 
-    if (settings['manual-rg']) retreatGlitchPatch.apply(target, textClone);
+    if (settings['manual-rg']) retreatGlitchPatch.apply(target, gameData.text);
 
-    fixCharPatch.apply(mapCodeClone, djinnClone);
+    fixCharPatch.apply(gameData.mapCode, gameData.djinn);
 
     if (settings['fixed-puzzles']) {
-        puzzlesPatch.applyFixed(mapCodeClone);
+        puzzlesPatch.applyFixed(gameData.mapCode);
     } else if (settings['random-puzzles']) {
-        puzzlesPatch.applyRandom(mapCodeClone, prng);
+        puzzlesPatch.applyRandom(gameData.mapCode, prng);
     }
 }
 
@@ -344,24 +254,9 @@ function randomise(seed, rawSettings, spoilerFilePath, callback) {
     var settings = settingsParser.parse(rawSettings);
 
     var iconManager = new IconManager();
+    var gameData = new GameData(vanillaData);
 
-    // Cloning the (mostly) vanilla data containers
-    var textClone = textutil.clone();
-    var itemLocClone = itemLocations.clone();
-    var classClone = classData.clone();
-    var abilityClone = abilityData.clone();
-    var djinnClone = djinnData.clone();
-    var summonClone = summonData.clone();
-    var itemClone = itemData.clone();
-    var shopClone = shopData.clone();
-    var forgeClone = forgeData.clone();
-    var characterClone = characterData.clone();
-    var enemyClone = enemyData.clone();
-    var elementClone = elementData.clone();
-    var musicClone = musicData.clone();
-    var mapCodeClone = mapCode.clone();
-
-    var locationsClone = applyPreRandomisation(target, prng, settings, abilityClone, enemyClone, itemLocClone, mapCodeClone, textClone, iconManager);
+    var locationsClone = applyPreRandomisation(target, prng, settings, gameData, iconManager);
 
     // Performing randomisation until a valid seed is found, or too many randomisations have been performed
     var randomiser = new itemRandomiser.ItemRandomiser(prng, locationsClone, settings);
@@ -370,7 +265,7 @@ function randomise(seed, rawSettings, spoilerFilePath, callback) {
         var success = false;
         while (attempts < 10 && !success) {
             try {
-                randomiser.shuffleItems(itemLocClone);
+                randomiser.shuffleItems(gameData.itemLocations);
                 success = true;
             } catch (e) {
                 console.error(e);
@@ -384,42 +279,26 @@ function randomise(seed, rawSettings, spoilerFilePath, callback) {
             return;
         }
     } else {
-        randomiser.shuffleItems(itemLocClone);
+        randomiser.shuffleItems(gameData.itemLocations);
     }
 
     // Post-randomisation
-    if (settings['djinn-shuffle']) djinnData.shuffleDjinn(djinnClone, prng);
-    if (settings['show-items'] && !settings['remove-mimics']) mimicDisguisePatch.apply(target, textClone, prng, false, settings['shuffle-characters']);
+    if (settings['djinn-shuffle']) vanillaData.djinn.shuffleDjinn(gameData.djinn, prng);
+    if (settings['show-items'] && !settings['remove-mimics']) mimicDisguisePatch.apply(target, gameData.text, prng, false, settings['shuffle-characters']);
 
-    applyPostRandomisation(prng, target, randomiser, settings, abilityClone, characterClone, classClone, djinnClone, elementClone, enemyClone, 
-        forgeClone, itemClone, itemLocClone, mapCodeClone, musicClone, shopClone, summonClone, textClone);
+    applyPostRandomisation(prng, target, randomiser, settings, gameData);
 
     var spheres = randomiser.getSpheres();
-    characterData.adjustStartingLevels(characterClone, settings['start-levels'], settings['shuffle-characters'], spheres, itemLocClone);
-    if (settings['qol-hints']) hintSystem.writeHints(prng, textClone, spheres, itemLocClone);
+    vanillaData.characters.adjustStartingLevels(gameData.characters, settings['start-levels'], settings['shuffle-characters'], spheres, gameData.itemLocations);
+    if (settings['qol-hints']) hintSystem.writeHints(prng, gameData.text, spheres, gameData.itemLocations);
 
     // Writing the modified data containers to the new ROM file
-    itemLocations.writeToRom(itemLocClone, prng, target, settings['show-items'], settings['remove-mimics']);
-    classData.writeToRom(classClone, target);
-    abilityData.writeToRom(abilityClone, target);
-    djinnData.writeToRom(djinnClone, target);
-    summonData.writeToRom(summonClone, target);
-    itemData.writeToRom(itemClone, target, textClone);
-    shopData.writeToRom(shopClone, target);
-    forgeData.writeToRom(forgeClone, target);
-    characterData.writeToRom(characterClone, target);
-    enemyData.writeToRom(enemyClone, target);
-    elementData.writeToRom(elementClone, target);
-    musicData.writeToRom(musicClone, target);
-
-    textutil.writeToRom(textClone, target);
-    mapCode.writeToRom(mapCodeClone, target);
-
+    gameData.writeToRom(target, prng, settings);
     iconManager.writeToRom(target);
 
     // Creating the spoiler log and calling the callback function with the patch data
-    spoilerLog.generate(spoilerFilePath, settings, spheres, itemLocClone, djinnClone, characterClone,
-        classClone, shopClone, forgeClone, itemClone, () => {callback(ups.createPatch(vanillaRom, target));});
+    spoilerLog.generate(spoilerFilePath, settings, spheres, gameData.itemLocations, gameData.djinn, gameData.characters,
+        gameData.classes, gameData.shops, gameData.forge, gameData.items, () => {callback(ups.createPatch(vanillaRom, target));});
 }
 
 /**
@@ -437,24 +316,9 @@ function randomiseArchipelago(seed, rawSettings, userName, itemMapping, djinnMap
     var settings = settingsParser.parse(rawSettings);
 
     var iconManager = new IconManager();
+    var gameData = new GameData(vanillaData);
 
-    // Cloning the (mostly) vanilla data containers
-    var textClone = textutil.clone();
-    var itemLocClone = itemLocations.clone();
-    var classClone = classData.clone();
-    var abilityClone = abilityData.clone();
-    var djinnClone = djinnData.clone();
-    var summonClone = summonData.clone();
-    var itemClone = itemData.clone();
-    var shopClone = shopData.clone();
-    var forgeClone = forgeData.clone();
-    var characterClone = characterData.clone();
-    var enemyClone = enemyData.clone();
-    var elementClone = elementData.clone();
-    var musicClone = musicData.clone();
-    var mapCodeClone = mapCode.clone();
-
-    var locationsClone = applyPreRandomisation(target, prng, settings, abilityClone, enemyClone, itemLocClone, mapCodeClone, textClone, iconManager);
+    var locationsClone = applyPreRandomisation(target, prng, settings, gameData, iconManager);
 
     var i = 0;
     while (i < userName.length && i < 64) {
@@ -463,40 +327,22 @@ function randomiseArchipelago(seed, rawSettings, userName, itemMapping, djinnMap
     }
 
     // Apply the Archipelago patch
-    archipelagoPatch.apply(target, textClone, iconManager);
+    archipelagoPatch.apply(target, gameData.text, iconManager);
 
     // Apply fixed locations
     var randomiser = new archipelagoFiller.ArchipelagoFiller(prng, locationsClone, settings);
-    randomiser.placeItems(itemMapping, itemLocClone);
-    randomiser.placeDjinn(djinnMapping, djinnClone);
+    randomiser.placeItems(itemMapping, gameData.itemLocations);
+    randomiser.placeDjinn(djinnMapping, gameData.djinn);
 
     // Post-randomisation
-    if (settings['show-items'] && !settings['remove-mimics']) mimicDisguisePatch.apply(target, textClone, prng, randomiser.isMultiworld, false);
+    if (settings['show-items'] && !settings['remove-mimics']) mimicDisguisePatch.apply(target, gameData.text, prng, randomiser.isMultiworld, false);
 
-    applyPostRandomisation(prng, target, randomiser, settings, abilityClone, characterClone, classClone, djinnClone, elementClone, enemyClone, 
-        forgeClone, itemClone, itemLocClone, mapCodeClone, musicClone, shopClone, summonClone, textClone);
+    applyPostRandomisation(prng, target, randomiser, settings, gameData);
 
-    //var spheres = randomiser.getSpheres();
-    //var spheres = [['Isaac', 'Garet', 'Ivan', 'Mia', 'Jenna', 'Sheba', 'Piers']];
-    characterData.adjustStartingLevels(characterClone, settings['start-levels'], false, [], itemLocClone);
+    vanillaData.characters.adjustStartingLevels(gameData.characters, settings['start-levels'], false, [], gameData.itemLocations);
 
     // Writing the modified data containers to the new ROM file
-    itemLocations.writeToRom(itemLocClone, prng, target, settings['show-items'], settings['remove-mimics']);
-    classData.writeToRom(classClone, target);
-    abilityData.writeToRom(abilityClone, target);
-    djinnData.writeToRom(djinnClone, target);
-    summonData.writeToRom(summonClone, target);
-    itemData.writeToRom(itemClone, target, textClone);
-    shopData.writeToRom(shopClone, target);
-    forgeData.writeToRom(forgeClone, target);
-    characterData.writeToRom(characterClone, target);
-    enemyData.writeToRom(enemyClone, target);
-    elementData.writeToRom(elementClone, target);
-    musicData.writeToRom(musicClone, target);
-
-    textutil.writeToRom(textClone, target);
-    mapCode.writeToRom(mapCodeClone, target);
-
+    gameData.writeToRom(target, prng, settings);
     iconManager.writeToRom(target);
 
     callback(ups.createPatch(vanillaRom, target));
