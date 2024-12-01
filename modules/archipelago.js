@@ -36,7 +36,7 @@ function parseAPFile(buffer) {
 
     // Extract djinni data
     let djinniMap = {};
-    while (pos < arr.length - 3) {
+    while (pos < arr.length - 1) {
         let location = arr[pos++];
         let djinni = arr[pos++];
         if (location == 0xFF && djinni == 0xFF) break;
