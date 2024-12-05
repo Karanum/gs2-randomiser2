@@ -43,7 +43,17 @@ function parseAPFile(buffer) {
         djinniMap['0x' + location.toString('16')] = djinni;
     }
 
-    return {seed, settings, userName, itemMap, djinniMap};
+    // Get character level scaling
+    let startingLevels = [0, 0, 0, 0, 0, 0, 0, 0];
+    while (pos < arr.length - 1) {
+        let char = arr[pos++];
+        let level = arr[pos++];
+        if (char == 0xFF) break;
+        if (char >= 8) continue;
+        startingLevels[char] = level;
+    }
+
+    return {seed, settings, userName, itemMap, djinniMap, startingLevels};
 }
 
 module.exports = {parseAPFile};

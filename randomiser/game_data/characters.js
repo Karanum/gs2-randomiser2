@@ -131,4 +131,12 @@ function adjustStartingLevels(instance, level, isDynamic, spheres, itemLocations
     });
 }
 
-module.exports = {initialise, clone, writeToRom, shuffleStats, adjustStats, shuffleElements, adjustStartingLevels};
+function setStartingLevels(instance, minLevel, levels) {
+    instance.forEach((char) => {
+        if (levels[char.id] > minLevel) {
+            char.level = Math.min(levels[char.id], 99);
+        }
+    });
+}
+
+module.exports = {initialise, clone, writeToRom, shuffleStats, adjustStats, shuffleElements, adjustStartingLevels, setStartingLevels};

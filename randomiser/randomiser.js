@@ -310,7 +310,7 @@ function randomise(seed, rawSettings, spoilerFilePath, callback) {
  * @param {any} djinnMapping 
  * @param {(patch : Uint8Array) => void} callback 
  */
-function randomiseArchipelago(seed, rawSettings, userName, itemMapping, djinnMapping, callback) {
+function randomiseArchipelago(seed, rawSettings, userName, itemMapping, djinnMapping, startingLevels, callback) {
     var target = rom.slice(0);
     var prng = mersenne(Array.from(seed));
     var settings = settingsParser.parse(rawSettings);
@@ -340,6 +340,7 @@ function randomiseArchipelago(seed, rawSettings, userName, itemMapping, djinnMap
     applyPostRandomisation(prng, target, randomiser, settings, gameData);
 
     vanillaData.characters.adjustStartingLevels(gameData.characters, settings['start-levels'], false, [], gameData.itemLocations);
+    vanillaData.characters.setStartingLevels(gameData.characters, settings['start-levels'], startingLevels);
 
     // Writing the modified data containers to the new ROM file
     gameData.writeToRom(target, prng, settings);

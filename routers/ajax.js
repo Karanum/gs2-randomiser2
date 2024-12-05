@@ -179,8 +179,8 @@ router.post('/import_ap_ajax', bodyParser.raw({ type: 'application/octet-stream'
     }
 
     try {
-        const {seed, settings, userName, itemMap, djinniMap} = archipelago.parseAPFile(req.body);
-        randomiser.randomiseArchipelago(seed, settings, userName, itemMap, djinniMap, (patch) => {
+        const {seed, settings, userName, itemMap, djinniMap, startingLevels} = archipelago.parseAPFile(req.body);
+        randomiser.randomiseArchipelago(seed, settings, userName, itemMap, djinniMap, startingLevels, (patch) => {
             res.send({ success: true, patch: Array.from(patch), seed, userName });
         });
     } catch (error) {
