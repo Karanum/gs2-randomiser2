@@ -340,7 +340,7 @@ function randomiseArchipelago(seed, rawSettings, userName, itemMapping, djinnMap
     applyPostRandomisation(prng, target, randomiser, settings, gameData);
 
     vanillaData.characters.adjustStartingLevels(gameData.characters, settings['start-levels'], false, [], gameData.itemLocations);
-    vanillaData.characters.setStartingLevels(gameData.characters, settings['start-levels'], startingLevels);
+    vanillaData.characters.setStartingLevels(gameData.characters, startingLevels);
 
     // Writing the modified data containers to the new ROM file
     gameData.writeToRom(target, prng, settings);

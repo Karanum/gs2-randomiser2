@@ -131,9 +131,9 @@ function adjustStartingLevels(instance, level, isDynamic, spheres, itemLocations
     });
 }
 
-function setStartingLevels(instance, minLevel, levels) {
+function setStartingLevels(instance, levels) {
     instance.forEach((char) => {
-        if (levels[char.id] > minLevel) {
+        if (levels[char.id] > 0) {
             char.level = Math.min(levels[char.id], 99);
         }
     });
