@@ -16,7 +16,7 @@ const summonData = {
 
 const keyItems = [0x8C7, 0x949, 0xF06, 0xF15, 0xF16, 0xF1A, 0xF40, 0xF41, 0xF67, 0xF6D, 0xF74, 0xF80, 0xF93, 0xFE7, 0xFE8, 0xFFE];
 
-const unusedMaps = [5, 43, 97, 247];
+const unusedMaps = [5, 43, 97];
 const unusedFlags = [0xF5D, 0xFA7, 0xFB6, 0xFB7, 0xFB8, 0xFBE, 0xFF3];
 
 const specialLocations = [
@@ -197,6 +197,17 @@ function prepItemLocations(locations, settings) {
             }
         });
     }
+
+    locations['0xe50'].forEach((t) => setLocked(t));
+    locations['0xe51'].forEach((t) => setLocked(t));
+    locations['0xe52'].forEach((t) => setLocked(t));
+    locations['0xe53'].forEach((t) => setLocked(t));
+    locations['0xe54'].forEach((t) => setLocked(t));
+    locations['0xe55'].forEach((t) => setLocked(t));
+    locations['0xe56'].forEach((t) => setLocked(t));
+    locations['0xe57'].forEach((t) => setLocked(t));
+    locations['0xe58'].forEach((t) => setLocked(t));
+    locations['0xe59'].forEach((t) => setLocked(t));
 
     if(omitSetting > 0) {
         if (omitSetting > 1) {

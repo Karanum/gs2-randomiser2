@@ -126,6 +126,7 @@ function clone() {
 }
 
 function isAccessible(location, progressFlags) {
+    if (location.Restriction && location.Restriction.includes("locked")) return false;
     if (location.Reqs.length == 0) return true;
 
     var result = false;

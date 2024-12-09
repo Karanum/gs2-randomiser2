@@ -91,6 +91,106 @@
                     "Boss_Moapa"
                 ]
             ]
+        },
+        {
+            "Addr": "0xe50",
+            "Reqs": [
+                [
+                    "Shaman's Rod",
+                    "Whirlwind"
+                ]
+            ],
+            "Restriction": ["locked"]
+        },
+        {
+            "Addr": "0xe51",
+            "Reqs": [
+                [
+                    "Shaman's Rod",
+                    "Whirlwind"
+                ]
+            ],
+            "Restriction": ["locked"]
+        },
+        {
+            "Addr": "0xe52",
+            "Reqs": [
+                [
+                    "Shaman's Rod",
+                    "Whirlwind"
+                ]
+            ],
+            "Restriction": ["locked"]
+        },
+        {
+            "Addr": "0xe53",
+            "Reqs": [
+                [
+                    "Shaman's Rod",
+                    "Whirlwind"
+                ]
+            ],
+            "Restriction": ["locked"]
+        },
+        {
+            "Addr": "0xe54",
+            "Reqs": [
+                [
+                    "Shaman's Rod",
+                    "Whirlwind"
+                ]
+            ],
+            "Restriction": ["locked"]
+        },
+        {
+            "Addr": "0xe55",
+            "Reqs": [
+                [
+                    "Shaman's Rod",
+                    "Whirlwind"
+                ]
+            ],
+            "Restriction": ["locked"]
+        },
+        {
+            "Addr": "0xe56",
+            "Reqs": [
+                [
+                    "Shaman's Rod",
+                    "Whirlwind"
+                ]
+            ],
+            "Restriction": ["locked"]
+        },
+        {
+            "Addr": "0xe57",
+            "Reqs": [
+                [
+                    "Shaman's Rod",
+                    "Whirlwind"
+                ]
+            ],
+            "Restriction": ["locked"]
+        },
+        {
+            "Addr": "0xe58",
+            "Reqs": [
+                [
+                    "Shaman's Rod",
+                    "Whirlwind"
+                ]
+            ],
+            "Restriction": ["locked"]
+        },
+        {
+            "Addr": "0xe59",
+            "Reqs": [
+                [
+                    "Shaman's Rod",
+                    "Whirlwind"
+                ]
+            ],
+            "Restriction": ["locked"]
         }
     ],
     "Djinn": [
