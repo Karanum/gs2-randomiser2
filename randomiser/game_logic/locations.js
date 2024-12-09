@@ -3,6 +3,7 @@ const fs = require("fs");
 var globalTreasure = [];
 var globalDjinn = [];
 var globalFlags = [];
+var lockedLocations = [];
 
 function loadLocation(file, name) {
     console.log("Loading location data for " + name);
@@ -21,6 +22,10 @@ function loadLocation(file, name) {
         e.Reqs = reqs;
         e.Origin = name;
         globalTreasure.push(e);
+
+        if (e.Restriction && e.Restriction.includes('locked')) {
+            lockedLocations.push(e.Addr);
+        }
     });
 
     data.Djinn.forEach((e) => {
@@ -126,7 +131,6 @@ function clone() {
 }
 
 function isAccessible(location, progressFlags) {
-    if (location.Restriction && location.Restriction.includes("locked")) return false;
     if (location.Reqs.length == 0) return true;
 
     var result = false;
@@ -199,6 +203,10 @@ function getAccessibleItems(instance, progressFlags) {
     return slots;
 }
 
+function isLocked(flag) {
+    return lockedLocations.includes(flag);
+}
+
 function markLocationMapNames(itemLocations) {
     globalTreasure.forEach((treasure) => {
         itemLocations[treasure.Addr].forEach((loc) => {
@@ -238,4 +246,4 @@ function prepCharacterShuffleLocations(locations, itemLocations) {
 
 initialise();
 
-module.exports = {clone, getAccessibleItems, markLocationMapNames, prepCharacterShuffleLocations};
+module.exports = {clone, getAccessibleItems, isLocked, markLocationMapNames, prepCharacterShuffleLocations};

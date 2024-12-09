@@ -198,17 +198,6 @@ function prepItemLocations(locations, settings) {
         });
     }
 
-    locations['0xe50'].forEach((t) => setLocked(t));
-    locations['0xe51'].forEach((t) => setLocked(t));
-    locations['0xe52'].forEach((t) => setLocked(t));
-    locations['0xe53'].forEach((t) => setLocked(t));
-    locations['0xe54'].forEach((t) => setLocked(t));
-    locations['0xe55'].forEach((t) => setLocked(t));
-    locations['0xe56'].forEach((t) => setLocked(t));
-    locations['0xe57'].forEach((t) => setLocked(t));
-    locations['0xe58'].forEach((t) => setLocked(t));
-    locations['0xe59'].forEach((t) => setLocked(t));
-
     if(omitSetting > 0) {
         if (omitSetting > 1) {
             locations['0x18'].forEach((t) => setLocked(t));
@@ -332,6 +321,10 @@ function initialise(rom, textutil, itemData) {
                     }
             }
         });
+
+        if (locations.isLocked(flag)) {
+            treasureMap[flag].forEach(setLocked);
+        }
     }
 
     specialLocations.forEach((entry, i) => {
