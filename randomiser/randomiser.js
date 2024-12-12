@@ -102,33 +102,33 @@ function applyPreRandomisation(target, prng, settings, gameData, iconManager) {
     vanillaData.itemLocations.prepItemLocations(gameData.itemLocations, settings);
 
     // Applying innate map code patches
-    gabombaPuzzlePatch.apply(gameData.mapCode, gameData.text);
-    fastForgingPatch.apply(gameData.mapCode, gameData.text);
-    tutorialNpcPatch.apply(gameData.mapCode, gameData.text, settings);
-    endgameShortcutPatch.apply(gameData.mapCode);
+    // gabombaPuzzlePatch.apply(gameData.mapCode, gameData.text);
+    // fastForgingPatch.apply(gameData.mapCode, gameData.text);
+    // tutorialNpcPatch.apply(gameData.mapCode, gameData.text, settings);
+    // endgameShortcutPatch.apply(gameData.mapCode);
     if (settings['show-items']) fixLemurianShipPatch.applyChestFix(gameData.mapCode);
 
     // Applying settings
-    if (settings['free-avoid']) gameData.abilities[150].cost = 0;
-    if (settings['free-retreat']) {
-        if (!(settings['skips-basic'] || settings['skips-sq'] || settings['skips-oob']) || settings['manual-rg']) {
-            gameData.abilities[149].cost = 0;
-            gameData.abilities[156].cost = 0;
-        }
-    }
+    // if (settings['free-avoid']) gameData.abilities[150].cost = 0;
+    // if (settings['free-retreat']) {
+    //     if (!(settings['skips-basic'] || settings['skips-sq'] || settings['skips-oob']) || settings['manual-rg']) {
+    //         gameData.abilities[149].cost = 0;
+    //         gameData.abilities[156].cost = 0;
+    //     }
+    // }
 
-    if (settings['djinn-scale']) djinnScalingPatch.apply(target, gameData.enemies, gameData.text);
-    if (settings['qol-fastship']) applyShipSpeedPatch(target);
-    if (settings['qol-tickets']) applyGameTicketPatch(target);
-    if (settings['qol-cutscenes']) {
-        cutsceneSkipPatch.apply(gameData.mapCode, gameData.text);
-        defaultFlags = cutsceneSkipFlags;
-    }
-    if (settings['sanc-revive'] == 1) applyCheapRevivePatch(target);
-    if (settings['sanc-revive'] == 2) applyFixedRevivePatch(target);
-    if (settings['halve-enc']) applyHalvedRatePatch(target);
-    if (settings['avoid-patch']) avoidPatch.apply(target);
-    if (settings['teleport-everywhere']) teleportEverywherePatch.apply(target);
+    // if (settings['djinn-scale']) djinnScalingPatch.apply(target, gameData.enemies, gameData.text);
+    // if (settings['qol-fastship']) applyShipSpeedPatch(target);
+    // if (settings['qol-tickets']) applyGameTicketPatch(target);
+    // if (settings['qol-cutscenes']) {
+    //     cutsceneSkipPatch.apply(gameData.mapCode, gameData.text);
+    //     defaultFlags = cutsceneSkipFlags;
+    // }
+    // if (settings['sanc-revive'] == 1) applyCheapRevivePatch(target);
+    // if (settings['sanc-revive'] == 2) applyFixedRevivePatch(target);
+    // if (settings['halve-enc']) applyHalvedRatePatch(target);
+    // if (settings['avoid-patch']) avoidPatch.apply(target);
+    // if (settings['teleport-everywhere']) teleportEverywherePatch.apply(target);
 
     if (settings['ship'] >= 1) {
         defaultFlags = defaultFlags.concat([0x985]);
@@ -162,11 +162,11 @@ function applyPreRandomisation(target, prng, settings, gameData, iconManager) {
 
     // Apply character shuffle
     if (settings['shuffle-characters']) {
-        addCharacterShufflePatch.apply(target, gameData.mapCode, settings, gameData.text, iconManager);
+        // addCharacterShufflePatch.apply(target, gameData.mapCode, settings, gameData.text, iconManager);
         locations.prepCharacterShuffleLocations(locationsClone, gameData.itemLocations);
     }
 
-    writeStoryFlags(target, defaultFlags);
+    // writeStoryFlags(target, defaultFlags);
 
     return locationsClone;
 }
@@ -176,7 +176,7 @@ function applyPreRandomisation(target, prng, settings, gameData, iconManager) {
  */
 function applyPostRandomisation(prng, target, randomiser, settings, gameData) {
     // Applying more settings
-    if (settings['easier-bosses']) easierBossesPatch.apply(rom, gameData.enemies, gameData.abilities);
+    // if (settings['easier-bosses']) easierBossesPatch.apply(rom, gameData.enemies, gameData.abilities);
 
     if (settings['psynergy-power']) vanillaData.abilities.adjustAbilityPower(gameData.abilities, "Psynergy", prng);
     if (settings['psynergy-cost']) vanillaData.abilities.adjustPsynergyCost(gameData.abilities, prng);
@@ -230,15 +230,15 @@ function applyPostRandomisation(prng, target, randomiser, settings, gameData) {
     }
     vanillaData.abilities.setStartingPsynergy(target, settings, prng, characters);
 
-    if (settings['manual-rg']) retreatGlitchPatch.apply(target, gameData.text);
+    // if (settings['manual-rg']) retreatGlitchPatch.apply(target, gameData.text);
 
-    fixCharPatch.apply(gameData.mapCode, gameData.djinn);
+    // fixCharPatch.apply(gameData.mapCode, gameData.djinn);
 
-    if (settings['fixed-puzzles']) {
-        puzzlesPatch.applyFixed(gameData.mapCode);
-    } else if (settings['random-puzzles']) {
-        puzzlesPatch.applyRandom(gameData.mapCode, prng);
-    }
+    // if (settings['fixed-puzzles']) {
+    //     puzzlesPatch.applyFixed(gameData.mapCode);
+    // } else if (settings['random-puzzles']) {
+    //     puzzlesPatch.applyRandom(gameData.mapCode, prng);
+    // }
 }
 
 /**
@@ -289,16 +289,29 @@ function randomise(seed, rawSettings, spoilerFilePath, callback) {
     applyPostRandomisation(prng, target, randomiser, settings, gameData);
 
     var spheres = randomiser.getSpheres();
-    vanillaData.characters.adjustStartingLevels(gameData.characters, settings['start-levels'], settings['shuffle-characters'], spheres, gameData.itemLocations);
-    if (settings['qol-hints']) hintSystem.writeHints(prng, gameData.text, spheres, gameData.itemLocations);
+    // vanillaData.characters.adjustStartingLevels(gameData.characters, settings['start-levels'], settings['shuffle-characters'], spheres, gameData.itemLocations);
+    // if (settings['qol-hints']) hintSystem.writeHints(prng, gameData.text, spheres, gameData.itemLocations);
 
     // Writing the modified data containers to the new ROM file
-    gameData.writeToRom(target, prng, settings);
-    iconManager.writeToRom(target);
+    // gameData.writeToRom(target, prng, settings);
+    // iconManager.writeToRom(target);
+
+    // Map items to sphere depth for analysis
+    let sphereDepths = { spheres: spheres.length, items: {} };
+    spheres.forEach((sphere, i) => {
+        let depth = i / (spheres.length - 1);
+        sphere.forEach((flag) => {
+            let item = gameData.itemLocations[flag][0];
+            sphereDepths.items[item.name] = depth;
+        });
+    });
+
+    //callback(sphereDepths);
+    return sphereDepths;
 
     // Creating the spoiler log and calling the callback function with the patch data
-    spoilerLog.generate(spoilerFilePath, settings, spheres, gameData.itemLocations, gameData.djinn, gameData.characters,
-        gameData.classes, gameData.shops, gameData.forge, gameData.items, () => {callback(ups.createPatch(vanillaRom, target));});
+    // spoilerLog.generate(spoilerFilePath, settings, spheres, gameData.itemLocations, gameData.djinn, gameData.characters,
+    //     gameData.classes, gameData.shops, gameData.forge, gameData.items, () => {callback(ups.createPatch(vanillaRom, target));});
 }
 
 /**

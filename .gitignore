@@ -5,6 +5,7 @@ permalinks/
 temp/
 debug/
 map_code_cache/
+analysis/
 
 config.json
 
