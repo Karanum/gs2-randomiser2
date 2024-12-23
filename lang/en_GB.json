@@ -545,6 +545,7 @@
         "fetching": "Fetching patch data...",
 
         "invalid_rom": "The selected ROM appears to be invalid. Please select another ROM file.",
+        "megaroms": "The selected ROM appears to be the MegaROMs version, which breaks when randomised. Please select another ROM file.",
         "no_rom": "Load a ROM file first",
 
         "log_warning": "The spoiler log for this seed will be inaccessible once you leave this page. Make sure to save a copy if you want to refer to it later."

@@ -133,6 +133,9 @@ $(document).ready(() => {
 
         reader.onload = ((e) => {
             $("#err-rom").addClass('d-none');
+            $("#err-megaroms").addClass('d-none');
+
+            romData = undefined;
 
             var data = new Uint8Array(e.target.result);
             if (data.length < 0x1000000) {
@@ -141,12 +144,15 @@ $(document).ready(() => {
             }
 
             var fingerprint = data[1128] + (data[1129] << 8) + (data[1130] << 16) + (data[1131] << 24);
-            if (fingerprint != 0x801319d && fingerprint != 0x8f9ee50) {
+            if (fingerprint == 0x8f9ee50) {
+                $("#err-megaroms").removeClass('d-none');
+            } else if (fingerprint != 0x801319d) {
                 $("#err-rom").removeClass('d-none');
+            } else {
+                romData = data;
             }
-            romData = data;
 
-            if (upsData) {
+            if (romData && upsData) {
                 $("#btn-patch").prop('disabled', false);
                 romTooltip.dispose();
             }

@@ -545,6 +545,7 @@
         "fetching": "Obtener datos del parche...",
 
         "invalid_rom": "La ROM seleccionada parece no ser válida. Seleccione otro archivo.",
+        "megaroms": "La ROM seleccionada parece ser la versión MegaROMs, que se rompe cuando se aleatoriza. Seleccione otro archivo.",
         "no_rom": "Primero carga una ROM",
 
         "log_warning": "El registro de ubicaciones para esta semilla será inaccesible una vez que salga de esta página. Asegúrese de guardar una copia si desea consultarla más tarde."

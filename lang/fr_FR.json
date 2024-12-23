@@ -545,6 +545,7 @@
         "fetching": "Demander de données de patch...",
 
         "invalid_rom": "La ROM sélectionnée semble invalide. Veuillez sélectionner une autre ROM.",
+        "megaroms": "La ROM sélectionnée semble être la version MegaROMs, qui se casse lorsqu'elle est randomisée. Veuillez sélectionner une autre ROM.",
         "no_rom": "Chargez d'abord une ROM",
 
         "log_warning": "Le journal des spoilers pour cette graine sera inaccessible une fois que vous quitterez cette page. Assurez-vous d'en conserver une copie si vous souhaitez vous y référer ultérieurement."

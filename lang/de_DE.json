@@ -545,6 +545,7 @@
         "fetching": "Patch abrufend...",
 
         "invalid_rom": "Das ausgewählte ROM scheint ungültig zu sein. Bitte wähle ein anderes ROM aus.",
+        "megaroms": "Das ausgewählte ROM scheint die MegaROMS Version zu sein, die met dem Randomiser ein Problem hat. Bitte wähle ein anderes ROM aus.",
         "no_rom": "Lade zuerst ein ROM",
 
         "log_warning": "Das Spoiler-Log für diesen Seed ist unzugänglich sobald du diese Seite verlasst. Download es wenn du das später noch an wollt sehen."
