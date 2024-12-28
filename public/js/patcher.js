@@ -79,7 +79,9 @@ class UPSPatcher {
             let values = this.explValues[i];
             for (let j = 0; j < values.length; ++j) {
                 if (!this.ignoreMusic || addr < 0x1C4530 || addr >= 0x1C5E30) {
-                    this.writeByte(values[j] ^ this.readByte(source, addr), target, addr);
+                    // NOTE: This contains a somewhat destructive fix for the MegaROMs junk data
+                    // If this causes issues for other ROMs, another solution will need to be found
+                    this.writeByte(addr < 0xF79AA0 ? (values[j] ^ this.readByte(source, addr)) : values[j], target, addr);
                 }
                 ++addr;
             }
