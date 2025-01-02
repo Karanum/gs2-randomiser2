@@ -403,11 +403,12 @@ class ItemRandomiser {
     sortMimics() {
         var spheres = this.getSpheres(true);
         var count = 0;
-        spheres.forEach((sphere) => {
+        spheres.forEach((sphere, i) => {
+            var maxMimicLevel = Math.ceil(((i + 1) / spheres.length) * 10);
             sphere.forEach((slot) => {
                 var itemLoc = this.instItemLocations[slot];
                 if (itemLoc[0]['name'] == "Mimic") {
-                    itemLoc.forEach((item) => { item['contents'] = count });
+                    itemLoc.forEach((item) => { item['contents'] = Math.min(count, maxMimicLevel) });
                     ++count;
                 }
             });
