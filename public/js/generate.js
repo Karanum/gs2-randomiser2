@@ -1,12 +1,12 @@
 var presetData;
 var presetToDelete;
 
+function clamp(val, min, max) {
+    return Math.max(Math.min(val, max), min);
+}
+
 function saveCachedSetting(elem) {
-    if (elem.type == "checkbox") {
-        localStorage.setItem(elem.id, elem.checked);
-    } else {
-        localStorage.setItem(elem.id, elem.value);
-    }
+    localStorage.setItem(elem.id, elem.type == 'checkbox' ? elem.checked : elem.value);
 }
 
 function loadCachedSetting(elem) {
@@ -25,9 +25,8 @@ function parseSettingsString(str) {
     str = str.padEnd(array.length * 2, '0');
 
     for (var i = 0; i < array.length; ++i) {
-        var byte = str.slice(0, 2);
+        var byte = str.slice(i*2, i*2 + 2);
         array[i] = parseInt(byte, 16);
-        str = str.slice(2);
     }
 
     return array;
@@ -195,22 +194,16 @@ $(document).ready(() => {
         window.location.href = `./randomise_race.html?settings=${getSettingsString()}&seed=${seed}`;
     });
 
-    $("#inp-scale-exp").on('change', () => {
-        var val = $("#inp-scale-exp").val();
-        val = Math.max(Math.min(val, 15), 1);
-        $("#inp-scale-exp").val(val);
+    $("#inp-scale-exp").on('change', function () {
+        $(this).val(clamp($(this).val(), 1, 15));
     });
 
-    $("#inp-scale-coins").on('change', () => {
-        var val = $("#inp-scale-coins").val();
-        val = Math.max(Math.min(val, 15), 1);
-        $("#inp-scale-coins").val(val);
+    $("#inp-scale-coins").on('change', function () {
+        $(this).val(clamp($(this).val(), 1, 15));
     });
 
-    $("#inp-start-levels").on('change', () => {
-        var val = $("#inp-start-levels").val();
-        val = Math.max(Math.min(val, 99), 5);
-        $("#inp-start-levels").val(val);
+    $("#inp-start-levels").on('change', function () {
+        $(this).val(clamp($(this).val(), 5, 99));
     });
 
     $("#inp-preset").on('change', () => {
