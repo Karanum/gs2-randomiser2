@@ -1,0 +1,24 @@
+<div class="tab-pane fade show active" id="tabdiv-access">
+    <div class="row">
+        <div class="col-12 col-lg-6">
+            <%- include('../setting_dropdown', { id: 'inp-ship', label: lang.settings.logic_ship_mode, selected: '0', data: [
+                ['0', lang.options.ship_mode.vanilla], 
+                ['1', lang.options.ship_mode.open], 
+                ['2', lang.options.ship_mode.unlocked]
+            ] }) %>
+            <%- include('../setting_dropdown', { id: 'inp-anemos-access', label: lang.settings.anemos_access, selected: '0', data: [
+                ['0', lang.options.anemos_access.vanilla], 
+                ['1', lang.options.anemos_access.random], 
+                ['2', lang.options.anemos_access.open]
+            ] }) %>
+            <%- include('../setting_switch', { id: 'inp-ship-wings', label: lang.settings.logic_ship_wings }) %>
+            <%- include('../setting_switch', { id: 'inp-boss-logic', label: lang.settings.logic_bosses, tooltip: 8, margin: 3 }) %>
+        </div>
+
+        <div class="col-12 col-lg-6">
+            <%- include('../setting_switch', { id: 'inp-random-puzzles', label: lang.settings.puzzles_random, tooltip: 16 }) %>
+            <%- include('../setting_switch', { id: 'inp-fixed-puzzles', label: lang.settings.puzzles_fixed, tooltip: 15 }) %>
+            <%- include('../setting_switch', { id: 'inp-skips-maze', label: lang.settings.skips_gaia_maze, margin: 3 }) %>
+        </div>
+    </div>
+</div>

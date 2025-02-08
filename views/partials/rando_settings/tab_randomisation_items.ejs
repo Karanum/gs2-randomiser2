@@ -1,0 +1,55 @@
+<div class="tab-pane fade show active" id="tabdiv-items">
+    <div class="row">
+        <div class="col-12 col-lg-6">
+            <%- include('../setting_dropdown', { id: 'inp-item-shuffle', label: lang.settings.item_shuffle, selected: '1', data: [
+                ['0', lang.options.item_shuffle.vanilla], 
+                ['1', lang.options.item_shuffle.key],
+                ['2', lang.options.item_shuffle.most], ['10', `${lang.options.item_shuffle.most} ${lang.options.item_shuffle.mod_majmin}`],
+                ['3', lang.options.item_shuffle.all], ['11', `${lang.options.item_shuffle.all} ${lang.options.item_shuffle.mod_majmin}`]
+            ] }) %>
+        </div> 
+
+        <div class="col-12 col-lg-6">
+            <%- include('../setting_dropdown', { id: 'inp-omit', label: lang.settings.omit_locs, selected: '2', data: [
+                ['0', lang.options.omit_locs.none], 
+                ['1', lang.options.omit_locs.anemos], 
+                ['2', lang.options.omit_locs.superboss]
+            ] }) %>
+        </div> 
+
+        <div class="col-12 col-lg-6">
+            <%- include('../setting_switch', { id: 'inp-gs1-items', label: lang.settings.gs1_items }) %>
+            <%- include('../setting_switch', { id: 'inp-dummy-items', label: lang.settings.dummy_items }) %>
+            <%- include('../setting_switch', { id: 'inp-adv-equip', label: lang.settings.shuffle_shops }) %>
+        </div>
+        <div class="col-12 col-lg-6">
+            <%- include('../setting_switch', { id: 'inp-show-items', label: lang.settings.no_chests, checked: true, tooltip: 1 }) %>
+            <%- include('../setting_switch', { id: 'inp-no-learning', label: lang.settings.utility_psy, checked: true, tooltip: 2 }) %>
+        </div>
+
+        <hr class="mt-1 mb-3">
+
+        <div class="col-12 col-lg-6">
+            <%- include('../setting_switch', { id: 'inp-equip-stats', label: lang.settings.equip_adjust }) %>
+            <%- include('../setting_switch', { id: 'inp-equip-attack', label: lang.settings.weapon_attack_shuffle }) %>
+            <%- include('../setting_switch', { id: 'inp-equip-defense', label: lang.settings.armour_defense_shuffle }) %>
+            <%- include('../setting_switch', { id: 'inp-equip-cost', label: lang.settings.equip_price_adjust }) %>
+            <%- include('../setting_switch', { id: 'inp-equip-sort', label: lang.settings.equip_sort, checked: true, margin: 3, tooltip: 3 }) %>
+        </div>
+
+        <div class="col-12 col-lg-6">
+            <%- include('../setting_switch', { id: 'inp-equip-shuffle', label: lang.settings.equip_compat_random }) %>
+            <%- include('../setting_switch', { id: 'inp-equip-unleash', label: lang.settings.weapon_effect_shuffle }) %>
+            <%- include('../setting_switch', { id: 'inp-equip-effect', label: lang.settings.armour_effect_shuffle }) %>
+            <%- include('../setting_switch', { id: 'inp-equip-curse', label: lang.settings.curse_random }) %>
+            <%- include('../setting_switch', { id: 'inp-curse-disable', label: lang.settings.curse_remove }) %>
+        </div>
+
+        <hr class="mt-1 mb-3">
+
+        <div class="col-12 col-lg-6">
+            <%- include('../setting_switch', { id: 'inp-force-superboss-minors', label: lang.settings.force_superboss_minors }) %>
+            <%- include('../setting_switch', { id: 'inp-force-boss-drops', label: lang.settings.force_boss_drops }) %>
+        </div>
+    </div>
+</div>

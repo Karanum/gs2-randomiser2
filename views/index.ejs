@@ -103,185 +103,36 @@
                             <h3 class="card-header"><%= lang.index.subheader_rando %></h3>
                             <div class="card-body"> 
                                 <ul class="nav nav-tabs" id="tabs-randomisation">
-                                    <li class="nav-item">
-                                        <button class="nav-link active" id="tab-items" data-bs-toggle="tab" data-bs-target="#tabdiv-items"><%= lang.index.tab_items %></button>
-                                    </li>
-                                    <li class="nav-item">
-                                        <button class="nav-link" id="tab-djinn" data-bs-toggle="tab" data-bs-target="#tabdiv-djinn"><%= lang.index.tab_djinn %></button>
-                                    </li>
-                                    <li class="nav-item">
-                                        <button class="nav-link" id="tab-psy" data-bs-toggle="tab" data-bs-target="#tabdiv-psy"><%= lang.index.tab_psynergy %></button>
-                                    </li>
-                                    <li class="nav-item">
-                                        <button class="nav-link" id="tab-stats" data-bs-toggle="tab" data-bs-target="#tabdiv-stats"><%= lang.index.tab_stats %></button>
-                                    </li>
-                                    <li class="nav-item">
-                                        <button class="nav-link" id="tab-misc" data-bs-toggle="tab" data-bs-target="#tabdiv-misc"><%= lang.index.tab_misc %></button>
-                                    </li>
+                                    <%- include('partials/tab_button', { active: true, target: 'tabdiv-items', label: lang.index.tab_items }) %>
+                                    <%- include('partials/tab_button', { target: 'tabdiv-djinn', label: lang.index.tab_djinn }) %>
+                                    <%- include('partials/tab_button', { target: 'tabdiv-psy', label: lang.index.tab_psynergy }) %>
+                                    <%- include('partials/tab_button', { target: 'tabdiv-stats', label: lang.index.tab_stats }) %>
+                                    <%- include('partials/tab_button', { target: 'tabdiv-misc', label: lang.index.tab_misc }) %>
                                 </ul>
                                 <div class="tab-content mt-4">
-                                    <div class="tab-pane fade show active" id="tabdiv-items">
-                                        <div class="row">
-                                            <div class="col-12 col-lg-6">
-                                                <%- include('partials/setting_dropdown', { id: 'inp-item-shuffle', label: lang.settings.item_shuffle, selected: '1', data: [
-                                                    ['0', lang.options.item_shuffle.vanilla], 
-                                                    ['1', lang.options.item_shuffle.key],
-                                                    ['2', lang.options.item_shuffle.most], ['10', `${lang.options.item_shuffle.most} ${lang.options.item_shuffle.mod_majmin}`],
-                                                    ['3', lang.options.item_shuffle.all], ['11', `${lang.options.item_shuffle.all} ${lang.options.item_shuffle.mod_majmin}`]
-                                                ] }) %>
-                                            </div> 
-        
-                                            <div class="col-12 col-lg-6">
-                                                <%- include('partials/setting_dropdown', { id: 'inp-omit', label: lang.settings.omit_locs, selected: '2', data: [
-                                                    ['0', lang.options.omit_locs.none], 
-                                                    ['1', lang.options.omit_locs.anemos], 
-                                                    ['2', lang.options.omit_locs.superboss]
-                                                ] }) %>
-                                            </div> 
-        
-                                            <div class="col-12 col-lg-6">
-                                                <%- include('partials/setting_switch', { id: 'inp-gs1-items', label: lang.settings.gs1_items }) %>
-                                                <%- include('partials/setting_switch', { id: 'inp-dummy-items', label: lang.settings.dummy_items }) %>
-                                                <%- include('partials/setting_switch', { id: 'inp-adv-equip', label: lang.settings.shuffle_shops }) %>
-                                            </div>
-                                            <div class="col-12 col-lg-6">
-                                                <%- include('partials/setting_switch', { id: 'inp-show-items', label: lang.settings.no_chests, checked: true, tooltip: 1 }) %>
-                                                <%- include('partials/setting_switch', { id: 'inp-no-learning', label: lang.settings.utility_psy, checked: true, tooltip: 2 }) %>
-                                            </div>
-
-                                            <hr class="mt-1 mb-3">
-
-                                            <div class="col-12 col-lg-6">
-                                                <%- include('partials/setting_switch', { id: 'inp-equip-stats', label: lang.settings.equip_adjust }) %>
-                                                <%- include('partials/setting_switch', { id: 'inp-equip-attack', label: lang.settings.weapon_attack_shuffle }) %>
-                                                <%- include('partials/setting_switch', { id: 'inp-equip-defense', label: lang.settings.armour_defense_shuffle }) %>
-                                                <%- include('partials/setting_switch', { id: 'inp-equip-cost', label: lang.settings.equip_price_adjust }) %>
-                                                <%- include('partials/setting_switch', { id: 'inp-equip-sort', label: lang.settings.equip_sort, checked: true, margin: 3, tooltip: 3 }) %>
-                                            </div>
-
-                                            <div class="col-12 col-lg-6">
-                                                <%- include('partials/setting_switch', { id: 'inp-equip-shuffle', label: lang.settings.equip_compat_random }) %>
-                                                <%- include('partials/setting_switch', { id: 'inp-equip-unleash', label: lang.settings.weapon_effect_shuffle }) %>
-                                                <%- include('partials/setting_switch', { id: 'inp-equip-effect', label: lang.settings.armour_effect_shuffle }) %>
-                                                <%- include('partials/setting_switch', { id: 'inp-equip-curse', label: lang.settings.curse_random }) %>
-                                                <%- include('partials/setting_switch', { id: 'inp-curse-disable', label: lang.settings.curse_remove }) %>
-                                            </div>
-
-                                            <hr class="mt-1 mb-3">
-
-                                            <div class="col-12 col-lg-6">
-                                                <%- include('partials/setting_switch', { id: 'inp-force-superboss-minors', label: lang.settings.force_superboss_minors }) %>
-                                                <%- include('partials/setting_switch', { id: 'inp-force-boss-drops', label: lang.settings.force_boss_drops }) %>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="tab-pane fade" id="tabdiv-djinn">
-                                        <div class="row">
-                                            <div class="col-12 col-lg-6">
-                                                <%- include('partials/setting_switch', { id: 'inp-djinn-shuffle', label: lang.settings.djinn_shuffle, checked: true }) %>
-                                                <%- include('partials/setting_switch', { id: 'inp-djinn-stats', label: lang.settings.djinn_stats_shuffle }) %>
-                                                <%- include('partials/setting_switch', { id: 'inp-djinn-power', label: lang.settings.djinn_power_adjust }) %>
-                                                <%- include('partials/setting_switch', { id: 'inp-djinn-aoe', label: lang.settings.djinn_range_random }) %>
-                                                <%- include('partials/setting_switch', { id: 'inp-djinn-scale', label: lang.settings.djinn_scaling, checked: true, margin: 3, tooltip: 4 }) %>
-                                            </div>
-        
-                                            <div class="col-12 col-lg-6">
-                                                <%- include('partials/setting_switch', { id: 'inp-summon-cost', label: lang.settings.summon_cost_random }) %>
-                                                <%- include('partials/setting_switch', { id: 'inp-summon-power', label: lang.settings.summon_power_adjust }) %>
-                                                <%- include('partials/setting_switch', { id: 'inp-summon-sort', label: lang.settings.summon_sort, checked: true, tooltip: 5 }) %>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="tab-pane fade" id="tabdiv-psy">
-                                        <div class="row">
-                                            <div class="col-12 col-lg-6">
-                                                <%- include('partials/setting_dropdown', { id: 'inp-class-psynergy', label: lang.settings.psy_shuffle, selected: '0', data: [
-                                                    ['0', lang.options.psy_shuffle.vanilla], 
-                                                    ['1', lang.options.psy_shuffle.class], 
-                                                    ['2', lang.options.psy_shuffle.group],
-                                                    ['5', lang.options.psy_shuffle.group_element],
-                                                    ['3', lang.options.psy_shuffle.element],
-                                                    ['4', lang.options.psy_shuffle.full]
-                                                ] }) %>
-                                            </div>
-        
-                                            <div class="col-12 col-lg-6">
-                                                <%- include('partials/setting_dropdown', { id: 'inp-class-levels', label: lang.settings.psy_levels, selected: '0', data: [
-                                                    ['0', lang.options.psy_levels.vanilla], 
-                                                    ['1', lang.options.psy_levels.adjust], 
-                                                    ['2', lang.options.psy_levels.random]
-                                                ] }) %>
-                                            </div>
-
-                                            <hr class="mt-1 mb-3">
-
-                                            <div class="col-12 col-lg-6">
-                                                <%- include('partials/setting_switch', { id: 'inp-psynergy-power', label: lang.settings.psy_power_adjust }) %>
-                                                <%- include('partials/setting_switch', { id: 'inp-psynergy-cost', label: lang.settings.psy_cost_adjust }) %>
-                                                <%- include('partials/setting_switch', { id: 'inp-psynergy-aoe', label: lang.settings.psy_range_random, margin: 3 }) %>
-                                            </div>
-
-                                            <div class="col-12 col-lg-6">
-                                                <%- include('partials/setting_switch', { id: 'inp-enemypsy-power', label: lang.settings.enemypsy_power_adjust }) %>
-                                                <%- include('partials/setting_switch', { id: 'inp-enemypsy-aoe', label: lang.settings.enemypsy_range_random }) %>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="tab-pane fade" id="tabdiv-stats">
-                                        <div class="row">
-                                            <div class="col-12 col-lg-6">
-                                                <%- include('partials/setting_dropdown', { id: 'inp-char-stats', label: lang.settings.character_stats, selected: '0', data: [
-                                                    ['0', lang.options.character_stats.vanilla], 
-                                                    ['1', lang.options.character_stats.shuffle], 
-                                                    ['2', lang.options.character_stats.adjust]
-                                                ] }) %>
-                                            </div>
-        
-                                            <div class="col-12 col-lg-6">
-                                                <%- include('partials/setting_dropdown', { id: 'inp-char-element', label: lang.settings.character_element, selected: '0', data: [
-                                                    ['0', lang.options.character_element.vanilla], 
-                                                    ['1', lang.options.character_element.shuffle], 
-                                                    ['2', lang.options.character_element.random]
-                                                ] }) %>
-                                            </div>
-
-                                            <div class="col-12 col-lg-6">
-                                                <%- include('partials/setting_dropdown', { id: 'inp-enemy-eres', label: lang.settings.enemy_stats, selected: '0', data: [
-                                                    ['0', lang.options.enemy_stats.vanilla], 
-                                                    ['1', lang.options.enemy_stats.shuffle], 
-                                                    ['2', lang.options.enemy_stats.random]
-                                                ] }) %>
-                                            </div>
-
-                                            <hr class="mt-1 mb-3">
-
-                                            <div class="col-12 col-lg-6">
-                                                <%- include('partials/setting_switch', { id: 'inp-class-stats', label: lang.settings.class_stats_random, margin: 3 }) %>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="tab-pane fade" id="tabdiv-misc">
-                                        <div class="row">
-                                            <div class="col-12 col-lg-6">
-                                                <%- include('partials/setting_switch', { id: 'inp-music-shuffle', label: lang.settings.music_shuffle }) %>
-                                                <%- include('partials/setting_switch', { id: 'inp-shuffle-characters', label: lang.settings.character_shuffle}) %>
-                                                <%- include('partials/setting_switch', { id: 'inp-remove-mimics', label: lang.settings.remove_mimics, margin: 3 }) %>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <%- include('partials/rando_settings/tab_randomisation_items') %>
+                                    <%- include('partials/rando_settings/tab_randomisation_djinn') %>
+                                    <%- include('partials/rando_settings/tab_randomisation_psy') %>
+                                    <%- include('partials/rando_settings/tab_randomisation_stats') %>
+                                    <%- include('partials/rando_settings/tab_randomisation_misc') %>
                                 </div>
                             </div>
                         </div>
 
                         <div class="card mt-4">
                             <h3 class="card-header"><%= lang.index.subheader_logic %></h3>
-                            <div class="card-body">  
+                            <div class="card-body">
+                                <ul class="nav nav-tabs" id="tabs-logic">
+                                    <%- include('partials/tab_button', { active: true, target: 'tabdiv-access', label: 'Access Rules' }) %>
+                                    <%- include('partials/tab_button', { target: 'tabdiv-glitches', label: 'Skips/Glitches' }) %>
+                                </ul>
+                                <div class="tab-content mt-4">
+                                    <%- include('partials/rando_settings/tab_logic_access') %>
+                                    <%- include('partials/rando_settings/tab_logic_glitches') %>
+                                </div>
+                                
                                 <div class="row">
-                                    <div class="col-12 col-lg-6">
+                                    <!-- <div class="col-12 col-lg-6">
                                         <%- include('partials/setting_switch', { id: 'inp-skips-sanctum', label: lang.settings.skips_sanc_warp }) %>
                                         <%- include('partials/setting_switch', { id: 'inp-skips-basic', label: lang.settings.skips_basic }) %>
                                         <%- include('partials/setting_switch', { id: 'inp-skips-sq', label: lang.settings.skips_sq }) %>
@@ -314,7 +165,7 @@
                                         <%- include('partials/setting_switch', { id: 'inp-random-puzzles', label: lang.settings.puzzles_random, tooltip: 16 }) %>
                                         <%- include('partials/setting_switch', { id: 'inp-fixed-puzzles', label: lang.settings.puzzles_fixed, tooltip: 15 }) %>
                                         <%- include('partials/setting_switch', { id: 'inp-skips-maze', label: lang.settings.skips_gaia_maze, margin: 3 }) %>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                         </div>

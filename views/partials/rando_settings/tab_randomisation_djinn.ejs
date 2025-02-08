@@ -1,0 +1,17 @@
+<div class="tab-pane fade" id="tabdiv-djinn">
+    <div class="row">
+        <div class="col-12 col-lg-6">
+            <%- include('../setting_switch', { id: 'inp-djinn-shuffle', label: lang.settings.djinn_shuffle, checked: true }) %>
+            <%- include('../setting_switch', { id: 'inp-djinn-stats', label: lang.settings.djinn_stats_shuffle }) %>
+            <%- include('../setting_switch', { id: 'inp-djinn-power', label: lang.settings.djinn_power_adjust }) %>
+            <%- include('../setting_switch', { id: 'inp-djinn-aoe', label: lang.settings.djinn_range_random }) %>
+            <%- include('../setting_switch', { id: 'inp-djinn-scale', label: lang.settings.djinn_scaling, checked: true, margin: 3, tooltip: 4 }) %>
+        </div>
+
+        <div class="col-12 col-lg-6">
+            <%- include('../setting_switch', { id: 'inp-summon-cost', label: lang.settings.summon_cost_random }) %>
+            <%- include('../setting_switch', { id: 'inp-summon-power', label: lang.settings.summon_power_adjust }) %>
+            <%- include('../setting_switch', { id: 'inp-summon-sort', label: lang.settings.summon_sort, checked: true, tooltip: 5 }) %>
+        </div>
+    </div>
+</div>
