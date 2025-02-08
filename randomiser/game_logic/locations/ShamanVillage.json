@@ -10,6 +10,19 @@
             "ShipWings",
             "Hover Jade",
             "Whirlwind"
+        ],
+        [
+            "Ship",
+            "Grindstone",
+            "Frost Jewel",
+            "Lifting Gem"
+        ],
+        [
+            "Ship",
+            "ShipWings",
+            "Hover Jade",
+            "Frost Jewel",
+            "Lifting Gem"
         ]
     ],
     "Treasure": [
@@ -100,7 +113,9 @@
                     "Whirlwind"
                 ]
             ],
-            "Restriction": ["locked"]
+            "Restriction": [
+                "locked"
+            ]
         },
         {
             "Addr": "0xe51",
@@ -110,7 +125,9 @@
                     "Whirlwind"
                 ]
             ],
-            "Restriction": ["locked"]
+            "Restriction": [
+                "locked"
+            ]
         },
         {
             "Addr": "0xe52",
@@ -120,7 +137,9 @@
                     "Whirlwind"
                 ]
             ],
-            "Restriction": ["locked"]
+            "Restriction": [
+                "locked"
+            ]
         },
         {
             "Addr": "0xe53",
@@ -130,7 +149,9 @@
                     "Whirlwind"
                 ]
             ],
-            "Restriction": ["locked"]
+            "Restriction": [
+                "locked"
+            ]
         },
         {
             "Addr": "0xe54",
@@ -140,7 +161,9 @@
                     "Whirlwind"
                 ]
             ],
-            "Restriction": ["locked"]
+            "Restriction": [
+                "locked"
+            ]
         },
         {
             "Addr": "0xe55",
@@ -150,7 +173,9 @@
                     "Whirlwind"
                 ]
             ],
-            "Restriction": ["locked"]
+            "Restriction": [
+                "locked"
+            ]
         },
         {
             "Addr": "0xe56",
@@ -160,7 +185,9 @@
                     "Whirlwind"
                 ]
             ],
-            "Restriction": ["locked"]
+            "Restriction": [
+                "locked"
+            ]
         },
         {
             "Addr": "0xe57",
@@ -170,7 +197,9 @@
                     "Whirlwind"
                 ]
             ],
-            "Restriction": ["locked"]
+            "Restriction": [
+                "locked"
+            ]
         },
         {
             "Addr": "0xe58",
@@ -180,7 +209,9 @@
                     "Whirlwind"
                 ]
             ],
-            "Restriction": ["locked"]
+            "Restriction": [
+                "locked"
+            ]
         },
         {
             "Addr": "0xe59",
@@ -190,7 +221,9 @@
                     "Whirlwind"
                 ]
             ],
-            "Restriction": ["locked"]
+            "Restriction": [
+                "locked"
+            ]
         }
     ],
     "Djinn": [
