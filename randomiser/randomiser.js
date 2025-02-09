@@ -38,6 +38,7 @@ const retreatGlitchPatch = require('./patches/options/retreat_glitch.js');
 const teleportEverywherePatch = require('./patches/options/teleport_everywhere.js');
 
 const upperMarsLighthousePatch = require('./patches/shortcuts/upper_mars_lighthouse.js');
+const magmaRockInteriorPatch = require('./patches/shortcuts/magma_rock_interior.js');
 
 const {applyGameTicketPatch, applyShipSpeedPatch, applyCheapRevivePatch, applyFixedRevivePatch, applyHalvedRatePatch} = require('./patches/mini_patches.js');
 
@@ -144,9 +145,6 @@ function applyPreRandomisation(target, prng, settings, gameData, iconManager) {
 
     if (settings['hard-mode']) defaultFlags = defaultFlags.concat([0x2E]);
 
-    // Apply shortcut settings
-    if (settings['shortcut-mars-lighthouse']) upperMarsLighthousePatch.apply(gameData.mapCode, locationsClone);
-
     // Set Anemos Inner Sanctum Djinn requirement
     var anemosDjinnReq = 72;
     if (settings['anemos-access'] == 1) {
@@ -163,6 +161,13 @@ function applyPreRandomisation(target, prng, settings, gameData, iconManager) {
         locationsClone[0].filter((loc) => loc.Origin == 'Anemos Inner Sanctum').forEach((loc) => {
             loc.Reqs.forEach((req) => req.push(`AnyDjinn_${anemosDjinnReq}`));
         });
+    }
+
+    // Apply shortcut settings
+    if (settings['shortcut-mars-lighthouse']) upperMarsLighthousePatch.apply(gameData.mapCode, locationsClone);
+    if (settings['shortcut-magma-rock']) {
+        defaultFlags = defaultFlags.concat([0x9f6, 0x9f7]);
+        magmaRockInteriorPatch.apply(gameData.mapCode, locationsClone);
     }
 
     // Apply character shuffle
