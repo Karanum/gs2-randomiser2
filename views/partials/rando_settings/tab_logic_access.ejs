@@ -12,13 +12,18 @@
                 ['2', lang.options.anemos_access.open]
             ] }) %>
             <%- include('../setting_switch', { id: 'inp-ship-wings', label: lang.settings.logic_ship_wings }) %>
-            <%- include('../setting_switch', { id: 'inp-boss-logic', label: lang.settings.logic_bosses, tooltip: 8, margin: 3 }) %>
+            <%- include('../setting_switch', { id: 'inp-boss-logic', label: lang.settings.logic_bosses, tooltip: 8 }) %>
+            <%- include('../setting_switch', { id: 'inp-skips-maze', label: lang.settings.skips_gaia_maze, margin: 3 }) %>            
         </div>
 
         <div class="col-12 col-lg-6">
+            <%- include('../setting_switch', { id: 'inp-shortcut-mars-lighthouse', label: "Unlock upper Mars Lighthouse by having the Mars Star" }) %>
+
+            <hr>
             <%- include('../setting_switch', { id: 'inp-random-puzzles', label: lang.settings.puzzles_random, tooltip: 16 }) %>
             <%- include('../setting_switch', { id: 'inp-fixed-puzzles', label: lang.settings.puzzles_fixed, tooltip: 15 }) %>
-            <%- include('../setting_switch', { id: 'inp-skips-maze', label: lang.settings.skips_gaia_maze, margin: 3 }) %>
         </div>
+
+        <!-- shortcut-mars-lighthouse -->
     </div>
 </div>

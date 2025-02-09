@@ -87,7 +87,8 @@ function parse(settings) {
 
         'skips-sand': (settings[12] >> 7) & 0b1,
         'skips-storage': (settings[12] >> 6) & 0b1,
-        'remove-mimics': (settings[12] >> 5) & 0b1
+        'remove-mimics': (settings[12] >> 5) & 0b1,
+        'shortcut-mars-lighthouse': (settings[12] >> 4) & 0b1
     };
 }
 

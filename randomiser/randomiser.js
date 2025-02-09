@@ -37,6 +37,8 @@ const puzzlesPatch = require('./patches/options/puzzles.js');
 const retreatGlitchPatch = require('./patches/options/retreat_glitch.js');
 const teleportEverywherePatch = require('./patches/options/teleport_everywhere.js');
 
+const upperMarsLighthousePatch = require('./patches/shortcuts/upper_mars_lighthouse.js');
+
 const {applyGameTicketPatch, applyShipSpeedPatch, applyCheapRevivePatch, applyFixedRevivePatch, applyHalvedRatePatch} = require('./patches/mini_patches.js');
 
 // List of in-game flags to turn on when cutscene skip is enabled
@@ -141,6 +143,9 @@ function applyPreRandomisation(target, prng, settings, gameData, iconManager) {
     if (settings['ship-wings']) defaultFlags = defaultFlags.concat([0x8df]);
 
     if (settings['hard-mode']) defaultFlags = defaultFlags.concat([0x2E]);
+
+    // Apply shortcut settings
+    if (settings['shortcut-mars-lighthouse']) upperMarsLighthousePatch.apply(gameData.mapCode, locationsClone);
 
     // Set Anemos Inner Sanctum Djinn requirement
     var anemosDjinnReq = 72;
