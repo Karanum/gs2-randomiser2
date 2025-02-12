@@ -11,6 +11,8 @@ const locales = {
 
 const router = express.Router();
 
+let latestPermalinkUpdate = Date.now();
+
 /**
  * Sets the site language to display based on client preferences
  * in the ExpressJS Request object
@@ -52,6 +54,14 @@ router.use((req, res, next) => {
 
 router.get(['/', '/index.html', '/:lang/index.html'], (_, res) => {
     res.render('index.ejs', {version: nodePackage.version});
+});
+
+router.get(['/browse_permalinks.html', '/:lang/browse_permalinks.html'], (_, res) => {
+    if (Date.now() - latestPermalinkUpdate >= 3600000) {
+        latestPermalinkUpdate = Date.now();
+        delete require.cache[require.resolve('./../permalinks.json')];
+    }
+    res.render('browse_permalinks.ejs', {permalinkData: require('./../permalinks.json')});
 });
 
 router.get(['/changelog.html', '/:lang/changelog.html'], (_, res) => {

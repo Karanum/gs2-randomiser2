@@ -197,6 +197,25 @@ body {
     box-shadow: 0 0 0 .25rem #e9b02e40 !important;
 }
 
+button.accordion-button {
+    background-color: var(--gs2r-card-header2);
+    color: var(--gs2r-text);
+}
+button.accordion-button:focus {
+    box-shadow: none;
+}
+button.accordion-button:not(.collapsed) {
+    background-color: var(--gs2r-card-header1);
+    color: var(--gs2r-text);
+    box-shadow: none;
+}
+
+.accordion-item {
+    background-color: var(--gs2r-card-bg);
+    border-color: var(--gs2r-btn-outline);
+    color: var(--gs2r-text);
+}
+
 option, .selectize-input > input {
     color: var(--gs2r-text) !important;
 }

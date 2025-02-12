@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html prefix="og: https://ogp.me/ns#" lang="<%= lang.lang %>">
+<head>
+    <%- include("partials/head_common") %>
+
+    <meta property="og:title" content="Settings Info">
+    <link rel="canonical" href="https://gs2randomiser.com/browse_permalinks.html">
+    <link ref="alternate" hreflang="en" href="https://gs2randomiser.com/en/browse_permalinks.html">
+    <link ref="alternate" hreflang="de" href="https://gs2randomiser.com/de/browse_permalinks.html">
+    <link ref="alternate" hreflang="fr" href="https://gs2randomiser.com/fr/browse_permalinks.html">
+    <link ref="alternate" hreflang="es" href="https://gs2randomiser.com/es/browse_permalinks.html">
+    <link ref="alternate" hreflang="x-default" href="https://gs2randomiser.com/en/browse_permalinks.html">
+    <title>GS2 Randomiser - Browse Permalinks</title>
+</head>
+
+<body>
+    <% locals.path = "/browse_permalinks" %>
+    <%- include("partials/top_nav") %>
+
+    <main class="container-fluid">
+        <div class="row mt-3 mx-lg-5">
+            <div class="col-12 mx-lg-3 mb-2">
+                <center>
+                    <a href="/<%= lang.lang %>/index.html"><img class="logo" src="/img/gstlar-logo.webp" alt="Randomiser logo"></a>
+                </center>
+            </div>
+
+            <div class="col-12 mb-4 px-lg-5">
+                <div class="card mt-4">
+                    <h2 class="card-header">Browse Permalinks</h2>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col mx-lg-2">
+
+                                <div class="my-2">
+                                    <p>This is a list of all public permalinks. If you find a seed that you would like to see added to this list, let us know on the Discord server.</p>
+                                </div>
+
+                                <div class="accordion my-2">
+                                    <%_ permalinkData.categories.forEach((cat, i) => { _%>
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header">
+                                            <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#permalink-category-<%= i %>">
+                                                <%= cat.name %>
+                                            </button>
+                                        </h2>
+                                        <div class="accordion-collapse collapse" id="permalink-category-<%= i %>">
+                                            <div class="accordion-body">
+                                                <%_ if (cat.desc) { _%>
+                                                <p><%= cat.desc %></p>
+                                                <%_ } _%>
+                                                <ul class="mb-0">
+                                                    <%_ cat.contents.forEach((permalink) => { _%>
+                                                    <li>
+                                                        <a href="/permalink/<%= permalink.id %>"><%= permalink.name %></a>
+                                                        <%_ if (permalink.desc) { _%>
+                                                        &nbsp;&ndash; <span><%= permalink.desc %></span>
+                                                        <%_ } _%>
+                                                    </li>
+                                                    <%_ }); _%>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <%_ }); _%>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>

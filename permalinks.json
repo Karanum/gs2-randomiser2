@@ -1,0 +1,15 @@
+{
+    "categories": [
+        {
+            "name": "Example Category",
+            "desc": "Lorem ipsum (optional)",
+            "contents": [
+                {
+                    "id": "permalink_id",
+                    "name": "Example permalink",
+                    "desc": "Lorem ipsum (optional)"
+                }
+            ]
+        }
+    ]
+}
