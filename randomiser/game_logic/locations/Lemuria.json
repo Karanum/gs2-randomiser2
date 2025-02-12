@@ -6,6 +6,10 @@
         [
             "Ship",
             "Grindstone"
+        ],
+        [
+            "Ship",
+            "Skips_DeathStorage"
         ]
     ],
     "Treasure": [

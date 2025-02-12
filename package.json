@@ -1,6 +1,6 @@
 {
   "name": "gs2r2",
-  "version": "1.2.5",
+  "version": "1.2.10",
   "description": "Golden Sun TLA Randomiser2",
   "main": "app.js",
   "scripts": {
@@ -10,6 +10,7 @@
   "license": "MIT",
   "dependencies": {
     "@selectize/selectize": "^0.15.2",
+    "body-parser": "^1.20.3",
     "cookie-parser": "^1.4.6",
     "crc": "^3.8.0",
     "ejs": "^3.1.6",

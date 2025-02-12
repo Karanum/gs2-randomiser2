@@ -19,6 +19,11 @@
                 [
                     "YampiBackside",
                     "Reveal"
+                ],
+                [
+                    "YampiBackside",
+                    "Skips_BasicRG",
+                    "Skips_Missable"
                 ]
             ]
         },
@@ -30,6 +35,11 @@
                 ],
                 [
                     "Sand"
+                ],
+                [
+                    "Scoop Gem",
+                    "Skips_BasicRG",
+                    "Skips_Missable"
                 ]
             ]
         },
@@ -54,6 +64,11 @@
                 [
                     "YampiBackside",
                     "Sand"
+                ],
+                [
+                    "YampiBackside",
+                    "Skips_BasicRG",
+                    "Skips_Missable"
                 ]
             ]
         },
@@ -90,6 +105,10 @@
             "Reqs": [
                 [
                     "Pound Cube"
+                ],
+                [
+                    "Skips_SandGlitch",
+                    "Sand"
                 ]
             ]
         }
@@ -110,7 +129,7 @@
             "Type": "Flag",
             "Reqs": [
                 [
-                    "SkipOobEasy"
+                    "Skips_OOBRG"
                 ],
                 [
                     "Scoop Gem"

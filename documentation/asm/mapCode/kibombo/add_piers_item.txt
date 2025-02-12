@@ -1,0 +1,72 @@
+@offset = 02009318
+
+
+push {r5, lr}
+bl 0x0200DA9C
+movs r0, #0x0
+bl 0x0200DC3C
+
+ldr r0, ptrMappedItem
+ldrh r0, [r0, #0x0]
+movs r5, r0
+bl thunkAddSpecialItem
+cmp r0, #0x1
+beq skip
+
+movs r0, #0x53
+bl thunkPlaySound
+bl thunkAddItem
+cmp r0, #0x0
+blt invFull
+
+skip:
+movs r0, #0x1A
+movs r1, #0x0
+movs r2, #0x0
+bl thunkSetPosition
+
+movs r0, #0xD0
+lsls r0, r0, #0x4
+adds r0, #0x7
+bl 0x0200DA14
+b end
+
+invFull:
+movs r0, #0xE2
+lsls r0, #0x4
+movs r1, #0x0
+bl thunkShowStatusBox
+
+end:
+bl 0x0200DAA4
+
+pop {r5, pc}
+
+
+ptrMappedItem:
+.word 0x08FA018C
+
+thunkAddItem:
+ldr r4, #0x0
+bx r4
+.word 0x09000207
+
+thunkAddSpecialItem:
+ldr r4, #0x0
+bx r4
+.word 0x09006001
+
+thunkPlaySound:
+ldr r4, #0x0
+bx r4
+.word 0x081C0CB1
+
+thunkSetPosition:
+ldr r4, #0x0
+bx r4
+.word 0x080C80F9
+
+thunkShowStatusBox:
+ldr r4, #0x0
+bx r4
+.word 0x08038041

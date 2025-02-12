@@ -10,6 +10,19 @@
             "ShipWings",
             "Hover Jade",
             "Whirlwind"
+        ],
+        [
+            "Ship",
+            "Grindstone",
+            "Frost Jewel",
+            "Lifting Gem"
+        ],
+        [
+            "Ship",
+            "ShipWings",
+            "Hover Jade",
+            "Frost Jewel",
+            "Lifting Gem"
         ]
     ],
     "Treasure": [
@@ -51,6 +64,10 @@
             "Reqs": [
                 [
                     "Growth"
+                ],
+                [
+                    "Skips_BasicRG",
+                    "Skips_Missable"
                 ]
             ]
         },
@@ -61,7 +78,7 @@
                     "Boss_Moapa"
                 ],
                 [
-                    "SkipBasic"
+                    "Skips_BasicRG"
                 ]
             ]
         },
@@ -70,6 +87,9 @@
             "Reqs": [
                 [
                     "Shaman's Rod"
+                ],
+                [
+                    "Skips_BasicRG"
                 ]
             ]
         },
@@ -84,6 +104,126 @@
                     "Boss_Moapa"
                 ]
             ]
+        },
+        {
+            "Addr": "0xe50",
+            "Reqs": [
+                [
+                    "Shaman's Rod",
+                    "Whirlwind"
+                ]
+            ],
+            "Restriction": [
+                "locked"
+            ]
+        },
+        {
+            "Addr": "0xe51",
+            "Reqs": [
+                [
+                    "Shaman's Rod",
+                    "Whirlwind"
+                ]
+            ],
+            "Restriction": [
+                "locked"
+            ]
+        },
+        {
+            "Addr": "0xe52",
+            "Reqs": [
+                [
+                    "Shaman's Rod",
+                    "Whirlwind"
+                ]
+            ],
+            "Restriction": [
+                "locked"
+            ]
+        },
+        {
+            "Addr": "0xe53",
+            "Reqs": [
+                [
+                    "Shaman's Rod",
+                    "Whirlwind"
+                ]
+            ],
+            "Restriction": [
+                "locked"
+            ]
+        },
+        {
+            "Addr": "0xe54",
+            "Reqs": [
+                [
+                    "Shaman's Rod",
+                    "Whirlwind"
+                ]
+            ],
+            "Restriction": [
+                "locked"
+            ]
+        },
+        {
+            "Addr": "0xe55",
+            "Reqs": [
+                [
+                    "Shaman's Rod",
+                    "Whirlwind"
+                ]
+            ],
+            "Restriction": [
+                "locked"
+            ]
+        },
+        {
+            "Addr": "0xe56",
+            "Reqs": [
+                [
+                    "Shaman's Rod",
+                    "Whirlwind"
+                ]
+            ],
+            "Restriction": [
+                "locked"
+            ]
+        },
+        {
+            "Addr": "0xe57",
+            "Reqs": [
+                [
+                    "Shaman's Rod",
+                    "Whirlwind"
+                ]
+            ],
+            "Restriction": [
+                "locked"
+            ]
+        },
+        {
+            "Addr": "0xe58",
+            "Reqs": [
+                [
+                    "Shaman's Rod",
+                    "Whirlwind"
+                ]
+            ],
+            "Restriction": [
+                "locked"
+            ]
+        },
+        {
+            "Addr": "0xe59",
+            "Reqs": [
+                [
+                    "Shaman's Rod",
+                    "Whirlwind"
+                ]
+            ],
+            "Restriction": [
+                "locked"
+            ]
         }
     ],
     "Djinn": [
@@ -95,7 +235,7 @@
                     "Lash Pebble"
                 ],
                 [
-                    "SkipBasic"
+                    "Skips_BasicRG"
                 ]
             ]
         },

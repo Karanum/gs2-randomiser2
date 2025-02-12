@@ -7,11 +7,6 @@ const bosses = ["Chestbeater", "King Scorpion", "Sea Fighter", "Briggs", "Aqua H
     "Doom Dragon", "Star Magician", "Refresh Ball", "Thunder Ball", "Anger Ball", "Guardian Ball",
     "Valukar", "Sentinel", "Dullahan"];
 
-const djinnIds = [
-    [2, 11, 5, 6, 7, 8, 9, 10, 12, 13, 14], [19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29],
-    [32, 33, 35, 38, 39, 42, 43], [48, 49, 51, 52, 53, 54, 55, 56, 57, 58]
-];
-
 var enemyData = {};
 
 function loadBasicEnemyData(rom, enemy) {
@@ -131,61 +126,6 @@ function writeToRom(instance, rom) {
     }
 }
 
-function insertIntoSortedArray(arr, n) {
-    for (var i = 0; i < arr.length; ++i) {
-        if (n.hp < arr[i].hp) {
-            arr.splice(i, 0, n);
-            return;
-        }
-    }
-    arr.push(n);
-}
-
-function _sortDjinn(instance, name, setId, idOffset, spliceInfo) {
-    var enemySet = instance[name];
-    var sorted = [];
-    enemySet.forEach((djinni) => {
-        insertIntoSortedArray(sorted, djinni);
-    });
-    spliceInfo.forEach((splice) => sorted.splice(splice[0], splice[1]));
-
-    var addrList = [];
-    djinnIds[setId].forEach((id) => {
-        addrList.push(enemySet[id - idOffset].addr);
-    });
-
-    instance[name] = [];
-    sorted.forEach((djinni, i) => {
-        djinni.addr = addrList[i];
-        instance[name].push(djinni);
-    });
-}
-
-function sortDjinn(instance) {
-    _sortDjinn(instance, "Venus Djinni", 0, 1, [[1, 3]]);
-    _sortDjinn(instance, "Mercury Djinni", 1, 15, [[0, 4]]);
-    _sortDjinn(instance, "Mars Djinni", 2, 30, [[12, 1], [0, 6]]);
-    _sortDjinn(instance, "Jupiter Djinni", 3, 44, [[0, 5]]);
-    fixDjinnMovesets(instance);
-}
-
-function fixDjinnMovesets(instance) {
-    instance["Venus Djinni"].forEach((djinni) => {
-        if (djinni.hp == 255)
-            djinni.attacks = [3, 4, 6, 12, 15, 498, 1, 1];
-    });
-
-    instance["Mercury Djinni"].forEach((djinni) => {
-        if (djinni.hp == 217 || djinni.hp == 290)
-            djinni.attacks = [1, 30, 24, 33, 36, 498, 1, 1];
-    });
-
-    instance["Jupiter Djinni"].forEach((djinni) => {
-        if (djinni.hp == 191 || djinni.hp == 243)
-            djinni.attacks = [78, 69, 66, 72, 75, 498, 1, 1];
-    });
-}
-
 function scaleBattleRewards(instance, coinScale, expScale) {
     var bossExpScale = 1 + (expScale - 1) / 2;
     for (var name in instance) {
@@ -211,4 +151,4 @@ function loadFullBossData(rom, instance) {
     loadFullEnemyData(rom, instance["Dullahan"][1]);
 }
 
-module.exports = {initialise, clone, writeToRom, sortDjinn, scaleBattleRewards, loadFullBossData};
+module.exports = {initialise, clone, writeToRom, scaleBattleRewards, loadFullBossData};

@@ -16,6 +16,10 @@
                 ],
                 [
                     "GabombaCleared"
+                ],
+                [
+                    "Ship",
+                    "Skips_BasicRG"
                 ]
             ]
         },
@@ -27,6 +31,10 @@
                 ],
                 [
                     "GabombaCleared"
+                ],
+                [
+                    "Ship",
+                    "Skips_BasicRG"
                 ]
             ]
         },
@@ -42,6 +50,10 @@
                 ],
                 [
                     "GabombaCleared"
+                ],
+                [
+                    "Ship",
+                    "Skips_BasicRG"
                 ]
             ]
         }
@@ -53,6 +65,14 @@
                 [
                     "Frost Jewel",
                     "Growth"
+                ],
+                [
+                    "Lash Pebble",
+                    "Skips_SaveQuitRG"
+                ],
+                [
+                    "Ship",
+                    "Skips_SaveQuitRG"
                 ]
             ]
         }

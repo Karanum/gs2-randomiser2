@@ -1,6 +1,8 @@
 const fs = require('fs');
 const decompr = require('../../modules/decompression.js');
 
+const generalPatch = require('../patches/innate/randomiser_general.js');
+
 /** @type {MapCodeData} */ var mapCodeData = {};
 /** @type {Object.<string, Uint8Array>} */ var preCompressed = {};
 
@@ -106,6 +108,9 @@ function initialise(rom) {
         convertBranchLinks(mapCode, false);
         mapCodeData[i.toString()] = [false, mapCode];
     }
+
+    // Apply innate map code changes
+    generalPatch.applyToMapCode(mapCodeData);
 }
 
 /**

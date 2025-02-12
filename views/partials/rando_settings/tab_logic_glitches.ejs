@@ -1,0 +1,22 @@
+<div class="tab-pane fade" id="tabdiv-glitches">
+    <div class="row">
+        <div class="col-12 col-lg-6">
+            <%- include('../setting_switch', { id: 'inp-skips-sanctum', label: lang.settings.skips_sanc_warp }) %>
+            <%- include('../setting_switch', { id: 'inp-skips-basic', label: lang.settings.skips_basic }) %>
+            <%- include('../setting_switch', { id: 'inp-skips-sq', label: lang.settings.skips_sq }) %>
+            <%- include('../setting_switch', { id: 'inp-skips-oob', label: lang.settings.skips_oob }) %>
+        </div>
+        <div class="col-12 col-lg-6">
+            <%- include('../setting_switch', { id: 'inp-skips-wiggle', label: lang.settings.skips_wiggle }) %>
+            <%- include('../setting_switch', { id: 'inp-skips-sand', label: lang.settings.skips_sand }) %>
+            <%- include('../setting_switch', { id: 'inp-skips-storage', label: lang.settings.skips_death_storage }) %>
+            <%- include('../setting_switch', { id: 'inp-skips-missable', label: lang.settings.skips_missable, margin: 3 }) %>
+        </div>
+
+        <div class="col-12 col-lg-6">
+            <div class="ms-2 mb-3">
+                <%- lang.settings.skips_info.replace('%1', '<a href="/help.html#skips">').replace('%2', '</a>') %>
+            </div>
+        </div>
+    </div>
+</div>

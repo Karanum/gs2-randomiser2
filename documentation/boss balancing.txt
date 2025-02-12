@@ -1,0 +1,102 @@
+=== Chestbeaters ===
+No changes from vanilla
+
+=== King Scorpion ===
+No changes from vanilla
+
+=== Briggs ===
+- Attack: 129 -> 119
+- (SF) Attack: 119 -> 104
+- Echo Cut changed from +30 to +20
+
+=== Aqua Hydra ===
+- HP: 2776 -> 2276
+- Attack: 173 -> 163
+- Raging Flood changed from 110 to 75
+
+=== Serpent ===
+- HP: 3536 -> 3136 (3 lights) / 2736 (4 lights)
+- Attack: 249 -> 229 (3 lights) / 219 (4 lights)
+- Mighty Press changed from +50 to +30, KO removed
+- HP regen for 3 lights changed from 9 to 3
+
+=== Avimander ===
+- HP: 3792 -> 3042
+- Fire Breath (130) changed to Fire Breath (90)
+- Fiery Blast changed to Mad Blast
+- Star Mine changed from 35 to 25
+
+=== Poseidon ===
+- HP: 4905 -> 3505
+- Attack: 302 -> 262
+- Agility: 185 -> 175
+- Ocean Fist changed from +50 to +30
+- Typhoon Blow changed from 150 to 110
+- Watery Grave changed from 130 to 100, KO removed
+- Ice Missile changed to Ice Horn
+
+=== Moapa ===
+- HP: 3042 -> 2792
+- Attack: 354 -> 304
+- Bosca Hit changed from x1.7 to x1.4
+- (Knight) HP: 1954 -> 1454
+- (Knight) Attack: 321 -> 281
+- (Knight) Strong Hit changed from x1.4 to x1.3
+- (Knight) Bramble Seed stock changed to Crystal Powder
+
+=== Flame Dragons ===
+- Flame Breath changed from 170 to 140
+- (Agatio) HP: 5724 -> 3924
+- (Agatio) Attack: 400 -> 360
+- (Agatio) Rolling Flame changed from +100 to +50
+- (Agatio) Rising Dragon changed from 250 to 200
+- (Agatio) Meteor Blow changed from 120 to 90
+- (Karst) HP: 5348 -> 3648
+- (Karst) Attack: 389 -> 349
+- (Karst) Fiery Blast changed to Mad Blast
+- (Karst) Supernova changed to Nova
+
+=== Doom Dragon ===
+- (P1) HP: 5000 -> 3500
+- (P1) Attack: 470 -> 450
+- (P2) HP: 4200 -> 3200
+- (P2) Attack: 470 -> 445
+- (P3) HP: 4000 -> 3000
+- (P3) Attack: 470 -> 440
+- Defense: 115 -> 110
+- Blast Breath changed from 170 to 130
+- Inferno changed to Fireball
+- Nettle changed to Briar
+- Stone Spire changed to Clay Spire
+- Cruel Ruin changed from 200 to 100
+- Darksol Gasp changed from 230 to 180
+
+=== Star Magician ===
+- HP: 7486 -> 5486
+- Attack: 460 -> 400
+- (Anger Ball) HP: 460 -> 230
+- (Anger Ball) Angry Mine changed from 300 to 240
+- (Guardian Ball) HP: 520 -> 260
+- (Refresh Ball) HP: 360 -> 180
+- (Refresh Ball) Earnest Ply changed to Ply Well
+- (Thunder Ball) Shine Plasma changed to Plasma
+
+=== Sentinel ===
+- HP: 8736 -> 6836
+- Attack: 608 -> 508
+- Defense: 217 -> 167
+- HP regen changed from 200 to 0
+
+=== Valukar ===
+- HP: 12960 -> 8960
+- Attack: 550 -> 450
+- Stun Jip changed from x1.6 to x1.4
+- Crucible changed from 3/8 chance to 2/8 chance
+- Attack changed from 1/8 chance to 2/8 chance
+
+=== Dullahan ===
+- HP: 16000 -> 12000
+- Attack: 676 -> 576
+- Defense: 269 -> 219
+- Djinn Storm changed to Djinn Stun
+- Formina Sage changed from x2.8 to x2.4

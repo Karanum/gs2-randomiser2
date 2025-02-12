@@ -1,0 +1,33 @@
+<div class="tab-pane fade" id="tabdiv-stats">
+    <div class="row">
+        <div class="col-12 col-lg-6">
+            <%- include('../setting_dropdown', { id: 'inp-char-stats', label: lang.settings.character_stats, selected: '0', data: [
+                ['0', lang.options.character_stats.vanilla], 
+                ['1', lang.options.character_stats.shuffle], 
+                ['2', lang.options.character_stats.adjust]
+            ] }) %>
+        </div>
+
+        <div class="col-12 col-lg-6">
+            <%- include('../setting_dropdown', { id: 'inp-char-element', label: lang.settings.character_element, selected: '0', data: [
+                ['0', lang.options.character_element.vanilla], 
+                ['1', lang.options.character_element.shuffle], 
+                ['2', lang.options.character_element.random]
+            ] }) %>
+        </div>
+
+        <div class="col-12 col-lg-6">
+            <%- include('../setting_dropdown', { id: 'inp-enemy-eres', label: lang.settings.enemy_stats, selected: '0', data: [
+                ['0', lang.options.enemy_stats.vanilla], 
+                ['1', lang.options.enemy_stats.shuffle], 
+                ['2', lang.options.enemy_stats.random]
+            ] }) %>
+        </div>
+
+        <hr class="mt-1 mb-3">
+
+        <div class="col-12 col-lg-6">
+            <%- include('../setting_switch', { id: 'inp-class-stats', label: lang.settings.class_stats_random, margin: 3 }) %>
+        </div>
+    </div>
+</div>

@@ -36,22 +36,37 @@ class ItemRandomiser {
 
         var accessibleSlots = [];
         var totalWeight = 0;
+        var forcedSlot = undefined;
         this.accessibleItems.forEach((slot) => {
+            if ((item.vanillaContents & 0xF00) == 0xD00 && this.hasRestriction('no-summon', this.instItemLocations[slot][0]))
+                return;
+
             if (this.settings['major-shuffle'] && (item['isMajorItem'] != this.instItemLocations[slot][0]['isMajorItem']))
+                return;
+
+            if (item['isMajorItem'] && this.instItemLocations[slot][0]['forcedMinor'])
                 return;
 
             var weight = this.slotWeights[slot];
             if (weight != undefined) {
+                if (item['isKeyItem'] && this.instItemLocations[slot][0]['forcedMajor'] && !forcedSlot) {
+                    forcedSlot = slot;
+                }
+
                 accessibleSlots.push(slot);
                 totalWeight += weight;
             }
         });
 
         var slot;
-        var rand = this.prng.random() * totalWeight;
-        for (var i = 0; i < accessibleSlots.length && rand > 0; ++i) {
-            slot = accessibleSlots[i];
-            rand -= this.slotWeights[slot];
+        if (forcedSlot) {
+            slot = forcedSlot;
+        } else {
+            var rand = this.prng.random() * totalWeight;
+            for (var i = 0; i < accessibleSlots.length && rand > 0; ++i) {
+                slot = accessibleSlots[i];
+                rand -= this.slotWeights[slot];
+            }
         }
 
         this.instItemLocations[slot].forEach((t) => {
@@ -61,7 +76,7 @@ class ItemRandomiser {
             t['isKeyItem'] = item['isKeyItem'];
         });
 
-        accessibleSlots.forEach((slot) => this.slotWeights[slot] *= (0.65 * Math.max(this.prng.random(), 0.1)));
+        accessibleSlots.forEach((slot) => this.slotWeights[slot] *= ((forcedSlot ? 0.95 : 0.65) * Math.max(this.prng.random(), 0.1)));
         delete this.slotWeights[slot];
         delete this.availableItems['0x' + item['id'].toString(16)];
     }
@@ -82,20 +97,25 @@ class ItemRandomiser {
         var isMimic = item['eventType'] == 0x81;
         var isEmpty = item['vanillaContents'] == 0;
         var isMoney = item['vanillaContents'] > 0x8000;
+        var isCharacter = (item['vanillaContents'] & 0xF00) == 0xD00;
 
         if (this.settings['major-shuffle']) {
             if (item['isMajorItem'] != slotItem['isMajorItem']) return false;
         }
+        if (item['isKeyItem'] && slotItem['forcedMinor'] && this.settings['item-shuffle'] > 1) return false;
 
         if (item['isSummon']) {
             if (this.hasRestriction('no-summon', slotItem) && this.settings['item-shuffle'] > 1) return false;
         }
+        if (isCharacter && this.hasRestriction('no-summon', slotItem)) return false;
 
         if (isMimic || isEmpty) {
             if (slotItem['eventType'] != 0x80 && slotItem['eventType'] != 0x84) return false;
             if (!this.settings['show-items']) {
                 if (isMimic && this.hasRestriction('no-mimic', slotItem)) return false;
                 if (isEmpty && this.hasRestriction('no-empty', slotItem)) return false;
+            } else if (!this.settings['remove-mimics']) {
+                if (isMimic && this.hasRestriction('no-mimic', slotItem)) return false;
             }
         }
 
@@ -109,14 +129,24 @@ class ItemRandomiser {
             this.flagSet.push(item['vanillaName']);
 
         var accessibleSlots = [];
+        var forcedSlot = undefined;
         this.accessibleItems.forEach((slot) => {
-            if (this.slotWeights[slot] != undefined)
+            if (this.slotWeights[slot] != undefined) {
                 accessibleSlots.push(slot);
+                if (item['isKeyItem'] && this.instItemLocations[slot][0]['forcedMajor'] && this.isSlotCompatible(slot, item) && !forcedSlot) {
+                    forcedSlot = slot;
+                }
+            }
         });
 
-        var slot = accessibleSlots[Math.floor(this.prng.random() * accessibleSlots.length)];
-        while (!this.isSlotCompatible(slot, item)) {
+        var slot;
+        if (forcedSlot) {
+            slot = forcedSlot
+        } else {
             slot = accessibleSlots[Math.floor(this.prng.random() * accessibleSlots.length)];
+            while (!this.isSlotCompatible(slot, item)) {
+                slot = accessibleSlots[Math.floor(this.prng.random() * accessibleSlots.length)];
+            }
         }
 
         this.instItemLocations[slot].forEach((t) => {
@@ -140,10 +170,18 @@ class ItemRandomiser {
         if (this.settings['ship'] == 1) set.push('ShipOpen');
         if (this.settings['ship'] == 2) set.push('Ship');
         if (this.settings['ship-wings']) set.push('ShipWings');
-        if (this.settings['skips-basic']) set.push('SkipBasic');
-        if (this.settings['skips-oob-easy']) set.push('SkipOobEasy');
-        if (this.settings['skips-oob-hard']) set.push('SkipOobHard');
-        if (this.settings['skips-maze']) set.push('SkipMaze');
+        if (!this.settings['shuffle-characters']) set.push('VanillaCharacters');
+
+        if (this.settings['skips-basic']) set.push('Skips_BasicRG');
+        if (this.settings['skips-sq']) set.push('Skips_SaveQuitRG');
+        if (this.settings['skips-maze']) set.push('Skips_Maze');
+        if (this.settings['skips-sanctum']) set.push('Skips_SanctumWarp');
+        if (this.settings['skips-wiggle']) set.push('Skips_WiggleClip');
+        if (this.settings['skips-missable']) set.push('Skips_Missable');
+        if (this.settings['skips-oob']) set.push('Skips_OOBRG');
+        if (this.settings['skips-sand']) set.push('Skips_SandGlitch');
+        if (this.settings['skips-storage']) set.push('Skips_DeathStorage');
+
         return set;
     }
 
@@ -157,9 +195,12 @@ class ItemRandomiser {
             if (this.settings['item-shuffle'] == 1) {
                 biasEarly = biasEarly.concat(['0x918', '0xf67']);
                 if (!this.settings['start-reveal']) biasEarly.push('0x8d4');
+                if (this.settings['shuffle-characters']) biasEarly = biasEarly.concat(['0xd05', '0xd06', '0xd07', '0xd00', '0xd01', '0xd02', '0xd03']);
             }
-            if (this.settings['ship'] == 0)
+            if (this.settings['ship'] == 0) {
                 biasEarly.push('0x8ff');
+                if (this.settings['shuffle-characters'] && !biasEarly.includes('0xd07')) biasEarly.push('0xd07');
+            }
         }
 
         this.availableItems = itemLocations.getUnlockedItems(instItemLocations);
@@ -182,6 +223,17 @@ class ItemRandomiser {
 
         this.flagSet = this.getInitialFlagSet();
         this.updateAccessibleItems();
+
+        if (this.settings['shuffle-characters']) {
+            var flag = `0xd0${Math.floor(this.prng.random() * 8)}`;
+            while (flag == '0xd04') flag = `0xd0${Math.floor(this.prng.random() * 8)}`;
+
+            this.fixedFill(this.availableItems[flag], '0xd05');
+            this.updateAccessibleItems();
+            if (biasEarly.includes(flag)) {
+                biasEarly.splice(biasEarly.indexOf(flag), 1);
+            }
+        }
 
         if (this.settings['start-reveal']) {
             this.fixedFill(this.availableItems['0x8d4'], '0x1');
@@ -351,11 +403,12 @@ class ItemRandomiser {
     sortMimics() {
         var spheres = this.getSpheres(true);
         var count = 0;
-        spheres.forEach((sphere) => {
+        spheres.forEach((sphere, i) => {
+            var maxMimicLevel = Math.ceil(((i + 1) / spheres.length) * 10);
             sphere.forEach((slot) => {
                 var itemLoc = this.instItemLocations[slot];
                 if (itemLoc[0]['name'] == "Mimic") {
-                    itemLoc.forEach((item) => { item['contents'] = count });
+                    itemLoc.forEach((item) => { item['contents'] = Math.min(count, maxMimicLevel) });
                     ++count;
                 }
             });
@@ -372,21 +425,52 @@ class ItemRandomiser {
         var i = 0;
         while (true) {
             var sphere = [];
+            var characterItems = [];
+
             accessibleItems.forEach((slot) => {
                 if (checkedItems.includes(slot)) return;
                 if (allItems || this.instItemLocations[slot][0]['isKeyItem']) {
                     sphere.push(slot);
                     checkedItems.push(slot);
                     flagSet.push(this.instItemLocations[slot][0]['name']);
-                    if (!this.instItemLocations[slot][0]['name'])
-                        console.log(this.instItemLocations[slot]);
+                }
+
+                if (this.instItemLocations[slot][0]['contents'] == 0xD00) {
+                    characterItems.push('0x104');
+                }
+                if (this.instItemLocations[slot][0]['contents'] == 0xD01) {
+                    characterItems.push('0x103');
+                }
+                if (this.instItemLocations[slot][0]['contents'] == 0xD02) {
+                    characterItems.push('0x102');
+                }
+                if (this.instItemLocations[slot][0]['contents'] == 0xD03) {
+                    characterItems.push('0x101');
+                }
+                if (this.instItemLocations[slot][0]['contents'] == 0xD06) {
+                    characterItems.push('0x2');
+                    characterItems.push('0x3');
+                }
+                if (this.instItemLocations[slot][0]['contents'] == 0xD07) {
+                    characterItems.push('0x105');
+                    characterItems.push('0x106');
                 }
             });
 
             if (sphere.length == 0) break;
-            spheres.push(sphere);
+            accessibleItems = locations.getAccessibleItems(this.instLocations, flagSet.filter((flag) => flag != undefined));
 
-            accessibleItems = locations.getAccessibleItems(this.instLocations, flagSet);
+            characterItems.forEach((slot) => {
+                if (checkedItems.includes(slot) || !accessibleItems.includes(slot)) return;
+                if (allItems || this.instItemLocations[slot][0]['isKeyItem']) {
+                    sphere.push(slot);
+                    checkedItems.push(slot);
+                    flagSet.push(this.instItemLocations[slot][0]['name']);
+                }
+            });
+
+            spheres.push(sphere);
+            accessibleItems = locations.getAccessibleItems(this.instLocations, flagSet.filter((flag) => flag != undefined));
             ++i;
         }
         return spheres;

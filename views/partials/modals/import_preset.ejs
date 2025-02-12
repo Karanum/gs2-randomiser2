@@ -1,0 +1,30 @@
+<div class="modal fade" id="modal-preset-import" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel"><%= lang.presets.modals.import_title %></h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                <div>
+                    <label for="inp-preset-import" class="form-label"><%= lang.presets.modals.import_text %></label>
+                    <input type="text" name="inp-preset-import" class="form-control" id="inp-preset-import" />
+                    <p class="text-danger d-none" id="error-import"><%= lang.presets.modals.import_error %></p>
+                </div>
+
+                <div class="d-none mt-3" id="div-import-info">
+                    <span class="fw-bold" id="p-import-name"></span>
+                    <p id="p-import-desc"></p>
+                </div>
+            </div>
+            
+            <div class="modal-footer">
+                <div>
+                    <button type="button" class="btn btn-primary me-2" id="btn-preset-load-confirm"><%= lang.presets.modals.import_button %></button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><%= lang.presets.modals.close %></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

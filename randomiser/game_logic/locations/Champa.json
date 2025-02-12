@@ -26,6 +26,10 @@
             "Reqs": [
                 [
                     "Reveal"
+                ],
+                [
+                    "Skips_BasicRG",
+                    "Skips_Missable"
                 ]
             ]
         },

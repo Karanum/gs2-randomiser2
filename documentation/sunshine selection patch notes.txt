@@ -1,0 +1,23 @@
+* get the forging results and store them somewhere (stack?)
+* setup information panels (or hijack existing ones)
+* loop until result:
+	* input handling (?)
+	* update information panels based on selected item
+
+params:
+- forgeable item selected
+- inventory panel pointer
+- price panel pointer
+- description panel pointer
+
+============================================================
+
+// r5 = item price panel
+// r6 = item description panel
+
+push {r5, r6, lr}
+
+ldr r0, [sp, 0x10]
+mov r5, r0
+ldr r0, [sp, 0x14]
+mov r6, r0

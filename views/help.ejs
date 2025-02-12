@@ -80,35 +80,68 @@
                     </div>
                 </div>
 
+                <a id="skips"></a>
                 <div class="card mt-4">
                     <h2 class="card-header"><%= lang.help.headers.skips %></h2>
                     <div class="card-body">
                         <div class="row">
                             <div class="col mx-lg-2">
+                                <p>
+                                    <%= lang.help.skips_info %>
+                                </p>
+
+                                <hr>
+                                <h3><%= lang.help.skips_sanc_warp.name %></h3>
+                                <p class="ms-3 ms-lg-4">
+                                    <ul><% lang.help.skips_sanc_warp.content.forEach((line) => { %>
+                                        <li><%= line %></li>
+                                    <% }) %></ul>
+                                </p>
+
+                                <hr>
                                 <h3><%= lang.help.skips_basic.name %></h3>
                                 <p class="ms-3 ms-lg-4">
-                                    <%= lang.help.skips_basic.help %>
                                     <ul><% lang.help.skips_basic.content.forEach((line) => { %>
                                         <li><%= line %></li>
                                     <% }) %></ul>
                                 </p>
 
                                 <hr>
-                                <h3><%= lang.help.oob_easy.name %></h3>
+                                <h3><%= lang.help.skips_sq.name %></h3>
                                 <p class="ms-3 ms-lg-4">
-                                    <%= lang.help.oob_easy.help %>
-                                    <ul><% lang.help.oob_easy.content.forEach((line, i) => { %>
-                                        <li><%= line %><% if (i == 2) { %>
-                                            (<a href="https://youtu.be/tyE7rYChiyM"><%= lang.help.oob_easy.video %></a>)
-                                        <% } %></li>
+                                    <ul><% lang.help.skips_sq.content.forEach((line) => { %>
+                                        <li><%= line %></li>
                                     <% }) %></ul>
                                 </p>
 
                                 <hr>
-                                <h3><%= lang.help.oob_hard.name %></h3>
+                                <h3><%= lang.help.skips_oob.name %></h3>
                                 <p class="ms-3 ms-lg-4">
-                                    <%= lang.help.oob_hard.help %>
-                                    <ul><% lang.help.oob_hard.content.forEach((line) => { %>
+                                    <ul><% lang.help.skips_oob.content.forEach((line) => { %>
+                                        <li><%= line %></li>
+                                    <% }) %></ul>
+                                </p>
+
+                                <hr>
+                                <h3><%= lang.help.skips_wiggle.name %></h3>
+                                <p class="ms-3 ms-lg-4">
+                                    <ul><% lang.help.skips_wiggle.content.forEach((line) => { %>
+                                        <li><%= line %></li>
+                                    <% }) %></ul>
+                                </p>
+
+                                <hr>
+                                <h3><%= lang.help.skips_sand.name %></h3>
+                                <p class="ms-3 ms-lg-4">
+                                    <ul><% lang.help.skips_sand.content.forEach((line) => { %>
+                                        <li><%= line %></li>
+                                    <% }) %></ul>
+                                </p>
+
+                                <hr>
+                                <h3><%= lang.help.skips_death_storage.name %></h3>
+                                <p class="ms-3 ms-lg-4">
+                                    <ul><% lang.help.skips_death_storage.content.forEach((line) => { %>
                                         <li><%= line %></li>
                                     <% }) %></ul>
                                 </p>

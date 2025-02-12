@@ -26,6 +26,10 @@
                 [
                     "Magma Ball",
                     "Scoop Gem"
+                ],
+                [
+                    "Skips_SaveQuitRG",
+                    "Scoop Gem"
                 ]
             ]
         },
@@ -34,6 +38,11 @@
             "Reqs": [
                 [
                     "Magma Ball",
+                    "Lifting Gem",
+                    "Scoop Gem"
+                ],
+                [
+                    "Skips_SaveQuitRG",
                     "Lifting Gem",
                     "Scoop Gem"
                 ]
@@ -50,6 +59,9 @@
             "Reqs": [
                 [
                     "Magma Ball"
+                ],
+                [
+                    "Skips_SaveQuitRG"
                 ]
             ]
         }

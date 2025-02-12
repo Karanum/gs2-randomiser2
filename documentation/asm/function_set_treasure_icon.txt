@@ -1,0 +1,43 @@
+@offset = 09000080
+@caller = 080CEDF2
+
+adds r0, #0x40
+cmp r7, #0x83
+beq doSetIcon
+cmp r7, #0x81
+bne end
+
+lsls r1, r1, #0x1
+ldr r4, ptrIcons
+ldrh r1, [r4, r1]
+
+doSetIcon:
+bl thunkSetIcon
+
+end:
+ldr r4, ptrThunkContinue
+bx r4
+
+ptrThunkContinue:
+.word 0x080CEE01
+
+thunkSetIcon:
+ldr r4, ptrThunkSetIcon
+bx r4
+
+ptrThunkSetIcon:
+.word 0x080D3B29
+
+ptrIcons:
+.word dataIcons
+
+dataIcons:
+.hword 0x0
+.hword 0x0
+.hword 0x0
+.hword 0x0
+.hword 0x0
+.hword 0x0
+.hword 0x0
+.hword 0x0
+.hword 0x0

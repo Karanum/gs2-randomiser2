@@ -2,6 +2,9 @@
     "Access": [
         [
             "Ship"
+        ],
+        [
+            "Skips_SanctumWarp"
         ]
     ],
     "Treasure": [

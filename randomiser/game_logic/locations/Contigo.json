@@ -60,6 +60,26 @@
             ]
         },
         {
+            "Addr": "0xd00",
+            "Reqs": [["Reunion"]],
+            "Restriction": ["no-empty", "no-mimic"]
+        },
+        {
+            "Addr": "0xd01",
+            "Reqs": [["Reunion"]],
+            "Restriction": ["no-empty", "no-mimic"]
+        },
+        {
+            "Addr": "0xd02",
+            "Reqs": [["Reunion"]],
+            "Restriction": ["no-empty", "no-mimic"]
+        },
+        {
+            "Addr": "0xd03",
+            "Reqs": [["Reunion"]],
+            "Restriction": ["no-empty", "no-mimic"]
+        },
+        {
             "Addr": "0xe04",
             "Reqs": [
                 [

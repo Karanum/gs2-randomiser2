@@ -2,7 +2,14 @@
     "Access": [
         [
             "Black Crystal",
-            "GabombaCleared"
+            "GabombaCleared",
+            "Piers"
+        ],
+        [
+            "Black Crystal",
+            "GabombaCleared",
+            "FlagPiers",
+            "VanillaCharacters"
         ],
         [
             "ShipOpen"
@@ -45,6 +52,11 @@
                 [
                     "ShipRevisit",
                     "Frost Jewel"
+                ],
+                [
+                    "ShipRevisit",
+                    "Skips_SaveQuitRG",
+                    "Skips_Missable"
                 ]
             ]
         },
@@ -57,7 +69,7 @@
                 ],
                 [
                     "ShipRevisit",
-                    "SkipOobHard"
+                    "Skips_OOBRG"
                 ]
             ]
         },
@@ -87,7 +99,7 @@
                 ],
                 [
                     "AnyDjinn_10",
-                    "SkipOobHard"
+                    "Skips_OOBRG"
                 ]
             ]
         },
@@ -112,6 +124,11 @@
                 [
                     "Ship",
                     "Boss_Poseidon"
+                ],
+                [
+                    "Ship",
+                    "ShipWings",
+                    "Hover Jade"
                 ]
             ]
         }

@@ -54,30 +54,7 @@
                             <div class="alert alert-primary mx-lg-5 mt-4">
                                 <%= lang.randomised.log_warning %>
                             </div>
-                            <div class="col-12 px-lg-5 py-3">
-                                <div class="card">
-                                    <h3 class="card-header" data-bs-toggle="collapse" data-bs-target="#card-toggle">
-                                        <i class="bi bi-caret-down-fill me-2 rot-base" id="caret-log"></i> 
-                                        <%= lang.randomised.header_log %>
-                                    </h3>
-                                    <div class="collapse" id="card-toggle">
-                                        <div class="card-body" id="card-log">
-                                            <ul class="nav nav-tabs">
-                                                <li class="nav-item"><a class="nav-link active" data-bs-target="#tab-spheres"><%= lang.randomised.log.tab_spheres %></a></li>
-                                                <li class="nav-item"><a class="nav-link" data-bs-target="#tab-indra"><%= lang.randomised.log.tab_indra %></a></li>
-                                                <li class="nav-item"><a class="nav-link" data-bs-target="#tab-osenia"><%= lang.randomised.log.tab_osenia %></a></li>
-                                                <li class="nav-item"><a class="nav-link" data-bs-target="#tab-gondowan"><%= lang.randomised.log.tab_gondowan %></a></li>
-                                                <li class="nav-item"><a class="nav-link" data-bs-target="#tab-angara"><%= lang.randomised.log.tab_angara %></a></li>
-                                                <li class="nav-item"><a class="nav-link" data-bs-target="#tab-eastsea"><%= lang.randomised.log.tab_eastern_sea %></a></li>
-                                                <li class="nav-item"><a class="nav-link" data-bs-target="#tab-westsea"><%= lang.randomised.log.tab_western_sea %></a></li>
-                                                <li class="nav-item"><a class="nav-link" data-bs-target="#tab-prox"><%= lang.randomised.log.tab_prox %></a></li>
-                                                <li class="nav-item"><a class="nav-link" data-bs-target="#tab-search"><%= lang.randomised.log.tab_search %></a></li>
-                                            </ul>
-                                            <div class="tab-content mt-1" lang="en"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <%- include("partials/spoiler_log") %>
                         </div>
                     </div>
                 </div>

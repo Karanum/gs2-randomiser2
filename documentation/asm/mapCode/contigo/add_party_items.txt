@@ -1,0 +1,90 @@
+@offset = 02009D98
+
+
+push {r5, r6, r7, lr}
+movs r6, r0
+subs r0, #0x8
+movs r7, r0
+
+bl 0x0200C06C
+movs r0, #0x0
+bl 0x0200C204
+
+movs r0, #0xA0
+lsls r0, #0x4
+adds r0, #0x21
+bl 0x0200BFC4
+cmp r0, #0x0
+bne flagIsOn
+
+movs r0, #0x2B
+lsls r0, #0x8
+adds r0, #0x5E
+bl 0x0200C12C
+movs r0, r6
+movs r1, #0x0
+bl 0x0200C144
+b end
+
+flagIsOn:
+ldr r0, ptrMappedItem
+movs r1, r7
+lsls r1, #0x1
+ldrh r0, [r0, r1]
+movs r5, r0
+bl thunkAddSpecialItem
+cmp r0, #0x1
+beq skip
+
+movs r0, #0x53
+bl thunkPlaySound
+bl thunkAddItem
+cmp r0, #0x0
+blt invFull
+
+skip:
+movs r0, r6
+movs r1, #0x0
+movs r2, #0x0
+bl thunkSetPosition
+
+movs r0, #0xD0
+lsls r0, r0, #0x4
+adds r0, r0, r7
+bl 0x0200BFCC
+b end
+
+invFull:
+movs r0, #0xE2
+lsls r0, #0x4
+movs r1, #0x0
+bl 0x0200C034
+
+end:
+bl 0x0200C074
+
+pop {r5, r6, r7, pc}
+
+
+ptrMappedItem:
+.word 0x08FA0180
+
+thunkAddItem:
+ldr r4, #0x0
+bx r4
+.word 0x09000207
+
+thunkAddSpecialItem:
+ldr r4, #0x0
+bx r4
+.word 0x09006001
+
+thunkPlaySound:
+ldr r4, #0x0
+bx r4
+.word 0x081C0CB1
+
+thunkSetPosition:
+ldr r4, #0x0
+bx r4
+.word 0x080C80F9

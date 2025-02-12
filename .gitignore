@@ -5,8 +5,9 @@ permalinks/
 temp/
 debug/
 map_code_cache/
-.vscode/
+analysis/
 
+.vscode/
 config.json
 
 *.pem

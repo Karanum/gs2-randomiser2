@@ -1,0 +1,106 @@
+@ offset = 09006000
+
+
+push {r1-r6, lr}
+lsrs r2, r0, #8
+movs r1, #0xFF
+ands r0, r1
+movs r1, #0xF
+ands r2, r1
+cmp r2, #0xF
+beq handleSummonPickup
+cmp r2, #0xE
+beq handlePsynergyPickup
+cmp r2, #0xD
+beq handleCharacterPickup
+cmp r2, #0xA
+beq handleArchipelagoPickup
+movs r0, #0
+pop {r1-r6, pc}
+
+handleSummonPickup:
+bl funcSummonPickup
+b end
+
+handlePsynergyPickup:
+adds r1, r0, #0
+bl funcPsynergyPickup
+bl thunk_3
+b end
+
+handleCharacterPickup:
+bl #0x90060BC
+b end
+
+handleArchipelagoPickup:
+bl #0x090061F0
+
+end:
+movs r0, #0x1
+pop {r1-r6, pc}
+
+
+funcSummonPickup:
+push {r0, lr}
+bl thunk_1
+pop {r0}
+bl thunk_2
+pop {pc}
+
+
+thunk_1:
+ldr r3, [pc, #0x50]
+bx r3
+
+thunk_2:
+ldr r4, [pc, #0x50]
+bx r4
+
+thunk_3:
+ldr r4, [pc, #0x50]
+bx r4
+
+
+funcPsynergyPickup:
+push {r1-r7, lr}
+bl #0x900609c
+adds r6, r0, #0
+ldr r5, [pc, #0x48]
+movs r7, #0
+ldrb r4, [r5, r7]
+ldr r0, [pc, #0x44]
+ldr r1, [pc, #0x48]
+muls r1, r4, r1
+adds r0, r0, r1
+movs r1, #0
+movs r2, #0
+ldr r3, [r0]
+cmp r3, #0
+beq #0x9006098
+lsrs r3, r3, #8
+cmp r3, #0x80
+bge #0x9006082
+adds r1, #1
+cmp r1, #0xe
+beq #0x9006090
+adds r2, #1
+cmp r2, #0x1f
+beq #0x9006090
+adds r0, #4
+b #0x9006074
+adds r7, #1
+cmp r7, r6
+beq #0x9006098
+b #0x9006066
+ldrb r0, [r5, r7]
+pop {r1-r7, pc}
+ldr r0, [pc, #0x18]
+bx r0
+
+.word 0x08038341
+.word 0x080AFF95
+.word 0x080D2A0D
+.word 0x02000458
+.word 0x02000578
+.word 0x0000014C
+.word 0x080AFDBD

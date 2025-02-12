@@ -1,0 +1,31 @@
+@offset = 0200BA80
+
+push {lr}
+movs r0, #0xA3
+lsls r0, r0, #0x4
+bl 0x0200B0F8
+cmp r0, #0x0
+bne marsStarFound
+
+movs r0, #0xDE
+bl thunkHasItem
+cmp r0, #0x0
+bge marsStarFound
+movs r0, #0xF7
+bl thunkHasItem
+cmp r0, #0x0
+blt notFound
+
+marsStarFound:
+movs r0, #0xAB
+lsls r0, r0, #0x4
+bl 0x0200B100
+
+notFound:
+bl 0x02008B64
+pop {pc}
+
+thunkHasItem:
+ldr r4, #0x0
+bx r4
+.word 0x080AEEC9

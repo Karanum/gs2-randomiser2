@@ -30,7 +30,7 @@ function initialise(rom) {
             readStatArray(rom, addr + 60)
         ];
 
-        characterData.push({addr: addr, elements: elements, level: level, stats: stats});
+        characterData.push({id: i, addr: addr, elements: elements, level: level, stats: stats});
     }
 }
 
@@ -101,11 +101,42 @@ function shuffleElements(instance, prng, unique) {
     });
 }
 
-function adjustStartingLevels(instance, level) {
+function adjustStartingLevels(instance, level, isDynamic, spheres, itemLocations) {
     var newLevel = Math.max(Math.min(level, 99), 5);
+    var maxLevel = Math.max(newLevel, 24);
+    var maxDepth = spheres.length;
+    var mappedSpheres = [];
+
+    if (isDynamic) {
+        mappedSpheres = spheres.map((sphere) => {
+            return sphere.map((loc) => {
+                return itemLocations[loc][0]['contents'];
+            });
+        });
+    }
+
     instance.forEach((char) => {
-        char.level = Math.max(char.level, newLevel);
+        if (isDynamic && char.id != 4 && maxLevel != newLevel) {
+            let depth = 0;
+            for (let i = 0; i < maxDepth; ++i) {
+                if (mappedSpheres[i].includes(0xD00 + char.id)) {
+                    depth = i;
+                    break;
+                }
+            }
+            char.level = Math.floor(newLevel + (depth / (maxDepth - 1)) * (maxLevel - newLevel));
+        } else {
+            char.level = Math.max(char.level, newLevel);
+        }
     });
 }
 
-module.exports = {initialise, clone, writeToRom, shuffleStats, adjustStats, shuffleElements, adjustStartingLevels};
+function setStartingLevels(instance, levels) {
+    instance.forEach((char) => {
+        if (levels[char.id] > 0) {
+            char.level = Math.min(levels[char.id], 99);
+        }
+    });
+}
+
+module.exports = {initialise, clone, writeToRom, shuffleStats, adjustStats, shuffleElements, adjustStartingLevels, setStartingLevels};

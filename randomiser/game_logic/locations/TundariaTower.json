@@ -11,6 +11,10 @@
                 [
                     "Burst Brooch"
                 ]
+            ],
+            "Restriction": [
+                "no-empty",
+                "no-mimic"
             ]
         },
         {
@@ -23,7 +27,7 @@
                 ],
                 [
                     "Parch",
-                    "SkipBasic",
+                    "Skips_WiggleClip",
                     "Reveal"
                 ]
             ]

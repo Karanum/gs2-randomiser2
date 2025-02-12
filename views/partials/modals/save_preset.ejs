@@ -1,0 +1,31 @@
+<div class="modal fade" id="modal-preset-save" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel"><%= lang.presets.modals.save_title %></h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                <div>
+                    <label for="inp-preset-save-name" class="form-label"><%= lang.presets.preset_name %></label>
+                    <input type="text" name="inp-preset-save-name" class="form-control" id="inp-preset-save-name" />
+                    <p class="text-danger d-none" id="error-save-name"><%= lang.presets.modals.save_name_empty %></p>
+                </div>
+
+                <div class="mt-3">
+                    <label for="inp-preset-save-desc" class="form-label"><%= lang.presets.preset_desc %></label>
+                    <textarea name="inp-preset-save-desc" class="form-control" id="inp-preset-save-desc" rows="3"></textarea>
+                    <p class="text-danger d-none" id="error-save-desc"><%= lang.presets.modals.save_desc_error %></p>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <div>
+                    <button type="button" class="btn btn-primary me-2" id="btn-preset-save-confirm"><%= lang.presets.modals.save_button %></button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><%= lang.presets.modals.close %></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

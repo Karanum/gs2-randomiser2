@@ -3,6 +3,7 @@ const locations = require('../game_logic/locations.js');
 const addrFrom = 0xF2204;
 const addrUntil = 0xF2E98;
 const specialLocOffset = 0xFA00A0;
+const characterLocOffset = 0xFA0180;
 const itemNameOffset = 607;
 
 const summonData = {
@@ -15,7 +16,7 @@ const summonData = {
 
 const keyItems = [0x8C7, 0x949, 0xF06, 0xF15, 0xF16, 0xF1A, 0xF40, 0xF41, 0xF67, 0xF6D, 0xF74, 0xF80, 0xF93, 0xFE7, 0xFE8, 0xFFE];
 
-const unusedMaps = [5, 43, 97, 247];
+const unusedMaps = [5, 43, 97];
 const unusedFlags = [0xF5D, 0xFA7, 0xFB6, 0xFB7, 0xFB8, 0xFBE, 0xFF3];
 
 const specialLocations = [
@@ -52,6 +53,16 @@ const specialLocations = [
     [0x106, 0x80, 111, "Frost Jewel"]
 ];
 
+const characterLocations = [
+    [0xD00, 237, "Isaac"],
+    [0xD01, 237, "Garet"],
+    [0xD02, 237, "Ivan"],
+    [0xD03, 237, "Mia"],
+    [0xD05, 9, "Jenna"],
+    [0xD06, 9, "Sheba"],
+    [0xD07, 111, "Piers"],
+];
+
 const replacePool = [
     [180, "Herb"], [181, "Nut"], [182, "Vial"], [187, "Antidote"], [188, "Elixir"], [228, "Game Ticket"], 
     [229, "Lucky Medal"], [238, "Oil Drop"], [239, "Weasel's Claw"], [240, "Bramble Seed"], [241, "Crystal Powder"]
@@ -72,6 +83,8 @@ function loadTreasure(rom, mapId, addr) {
     treasure['isKeyItem'] = false;
     treasure['isMajorItem'] = false;
     treasure['isHidden'] = false;
+    treasure['forcedMajor'] = false;
+    treasure['forcedMinor'] = false;
     return treasure;
 }
 
@@ -196,6 +209,36 @@ function prepItemLocations(locations, settings) {
         locations['0x1b'].forEach((t) => setLocked(t));
         locations['0x1c'].forEach((t) => setLocked(t));
     }
+
+    if (settings['force-boss-drops']) {
+        if (!settings['force-superboss-minors']) {
+            locations['0x18'].forEach((t) => t['forcedMajor'] = true);
+            locations['0x19'].forEach((t) => t['forcedMajor'] = true);
+            locations['0x1a'].forEach((t) => t['forcedMajor'] = true);
+            locations['0x1c'].forEach((t) => t['forcedMajor'] = true);
+        }
+        locations['0x101'].forEach((t) => t['forcedMajor'] = true);
+        locations['0xd00'].forEach((t) => t['forcedMajor'] = true);
+        locations['0x88c'].forEach((t) => t['forcedMajor'] = true);
+        locations['0x94d'].forEach((t) => t['forcedMajor'] = true);
+        locations['0x978'].forEach((t) => t['forcedMajor'] = true);
+        locations['0x9ba'].forEach((t) => t['forcedMajor'] = true);
+        locations['0xa3a'].forEach((t) => t['forcedMajor'] = true);
+        locations['0xe41'].forEach((t) => t['forcedMajor'] = true);
+        locations['0xf58'].forEach((t) => t['forcedMajor'] = true);
+    }
+    if (settings['force-superboss-minors']) {
+        locations['0x18'].forEach((t) => t['forcedMinor'] = true);
+        locations['0x19'].forEach((t) => t['forcedMinor'] = true);
+        locations['0x1a'].forEach((t) => t['forcedMinor'] = true);
+        locations['0x1c'].forEach((t) => t['forcedMinor'] = true);
+    }
+
+    if (!settings['shuffle-characters']) {
+        ['0xd00', '0xd01', '0xd02', '0xd03', '0xd05', '0xd06', '0xd07'].forEach((loc) => {
+            locations[loc].forEach(setLocked);
+        });
+    }
 }
 
 function getUnlockedItems(locations) {
@@ -263,7 +306,7 @@ function initialise(rom, textutil, itemData) {
                             if (treasure['eventType'] < 0x80 || treasure['eventType'] == 0x85 
                                     || (treasure['eventType'] == 0x83 && treasure['id'] != 0xFC6)) {
                                 var id = treasure['id'];
-                                if (id != 0xF63 && id != 0xF64 && id != 0xF8B && id != 0xFF6 && id != 0xFF9)
+                                if (id != 0xF63 && id != 0xF64 && id != 0xF8B && id != 0xFF6 && id != 0xFF7 && id != 0xFF9)
                                     treasure['isHidden'] = true;
                             } 
                             if (itemData.isIdEquipment(treasure['vanillaContents']) || (item >= 0x1AD && item <= 0x1B5)) {
@@ -278,6 +321,10 @@ function initialise(rom, textutil, itemData) {
                     }
             }
         });
+
+        if (locations.isLocked(flag)) {
+            treasureMap[flag].forEach(setLocked);
+        }
     }
 
     specialLocations.forEach((entry, i) => {
@@ -293,6 +340,22 @@ function initialise(rom, textutil, itemData) {
         if (entry[0] == 0x90B) treasure['isSummon'] = true;
         
         var flag = "0x" + entry[0].toString(16);   
+        if (treasureMap.hasOwnProperty(flag)) {
+            treasureMap[flag].splice(0, 0, treasure);
+        } else {
+            treasureMap[flag] = [treasure];
+        }
+    });
+
+    characterLocations.forEach((entry, i) => {
+        var treasure = {'mapId': entry[1], 'locked': false, 'isSummon': false, 'isKeyItem': true, 'isMajorItem': true, 'isHidden': false, 'eventType': 0x84};
+        treasure['addr'] = characterLocOffset + (2 * i);
+        treasure['locationId'] = -1;
+        treasure['id'] = entry[0];
+        treasure['vanillaContents'] = entry[0];
+        treasure['vanillaName'] = entry[2];
+
+        var flag = "0x" + entry[0].toString(16);
         if (treasureMap.hasOwnProperty(flag)) {
             treasureMap[flag].splice(0, 0, treasure);
         } else {
@@ -330,9 +393,9 @@ function fixEventType(treasure, vanillaType) {
     treasure['eventType'] = type;
 }
 
-function replaceMimic(treasure) {
+function replaceMimic(treasure, showItems) {
     var mimicId = treasure['contents'];
-    treasure['eventType'] = 0x83;
+    treasure['eventType'] = showItems ? 0x83 : 0x80;
     treasure['contents'] = mimicPool[mimicId][0];
     treasure['name'] = mimicPool[mimicId][1] + " (Mimic)";
 }
@@ -349,8 +412,6 @@ function applyShowItemsSetting(prng, treasure, setting) {
         if (treasure['eventType'] == 0x80 || treasure['eventType'] == 0x84) {
             treasure['eventType'] = 0x83;
             if (treasure['contents'] == 0) replaceEmptyChest(prng, treasure);
-        } else if (treasure['eventType'] == 0x81) {
-            replaceMimic(treasure);
         }
     } else {
         if (treasure['eventType'] == 0x80 || treasure['eventType'] == 0x84) {
@@ -363,7 +424,7 @@ function applyShowItemsSetting(prng, treasure, setting) {
     }
 }
 
-function writeToRom(instance, prng, target, showItems) {
+function writeToRom(instance, prng, target, showItems, removeMimics) {
     for (var flag in instance) {
         if (!instance.hasOwnProperty(flag)) continue;
         instance[flag].forEach((t, i) => {
@@ -371,6 +432,10 @@ function writeToRom(instance, prng, target, showItems) {
 
             fixEventType(t, vanillaEventType);
             applyShowItemsSetting(prng, t, showItems);
+            if (t['eventType'] == 0x81 && removeMimics) {
+                replaceMimic(t, showItems);
+            }
+
             if ((t['eventType'] < 0x80 || t['eventType'] == 0x83) && t['contents'] == 0) {
                 t['contents'] = 228;
                 t['name'] = "Game Ticket";

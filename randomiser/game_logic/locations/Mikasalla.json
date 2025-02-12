@@ -28,6 +28,9 @@
             "Reqs": [
                 [
                     "Scoop Gem"
+                ],
+                [
+                    "Skips_SaveQuitRG"
                 ]
             ]
         }

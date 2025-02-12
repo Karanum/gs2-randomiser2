@@ -55,7 +55,14 @@ const locations = {
     "W Indra Islet": "#tab-eastsea",
     "Yallam": "#tab-osenia",
     "Yampi Desert": "#tab-osenia",
-    "Yampi Desert Cave": "#tab-osenia"
+    "Yampi Desert Cave": "#tab-osenia",
+    "Isaac": "*",
+    "Garet": "*",
+    "Ivan": "*",
+    "Mia": "*",
+    "Jenna": "*",
+    "Sheba": "*",
+    "Piers": "*",
 }
 
 var sphereElem;
@@ -69,6 +76,7 @@ var zones = {
     "#tab-prox": []
 };
 var allItems = [];
+var characterItems = [];
 
 function insertSorted(arr, n) {
     for (var i = 0; i < arr.length; ++i) {
@@ -97,6 +105,11 @@ function showSpoilerLog(logData) {
             parseAllItemsEntry(line);
         }
     }
+
+    characterItems.forEach((line) => {
+        var parent = allItems.find((entry) => entry[2] == line[0]);
+        insertSorted(zones[locations[parent[0]]], line);
+    });
 
     for (var zone in zones) {
         if (!zones.hasOwnProperty(zone)) continue;
@@ -135,6 +148,8 @@ function parseAllItemsEntry(line) {
             } else {
                 insertSorted(zones["#tab-westsea"], [loc, item1, item2]);
             }
+        } else if (locations[loc] == '*') {
+            characterItems.push([loc, item1, item2]);
         } else {
             insertSorted(zones[locations[loc]], [loc, item1, item2]);
         }

@@ -2,11 +2,7 @@ var romData, upsData, logData;
 var patcher = new UPSPatcher();
 
 function saveCachedSetting(elem) {
-    if (elem.type == "checkbox") {
-        localStorage.setItem(elem.id, elem.checked);
-    } else {
-        localStorage.setItem(elem.id, elem.value);
-    }
+    localStorage.setItem(elem.id, elem.type == 'checkbox' ? elem.checked : elem.value);
 }
 
 function loadCachedSetting(elem) {
@@ -29,9 +25,9 @@ function setupLogAjaxRequest(seed, settings) {
         logData = req.response;
 
         var blob = new Blob([logData], { type: 'plain/text' });
-        $("#btn-log").attr('href', URL.createObjectURL(blob));
-        $("#btn-log").attr('download', `spoiler_${seed}.log`);
-        $("#btn-log").prop('disabled', false);
+        $("#btn-log").attr('href', URL.createObjectURL(blob))
+            .attr('download', `spoiler_${seed}.log`)
+            .prop('disabled', false);
 
         showSpoilerLog(logData);
     };
@@ -134,6 +130,8 @@ $(document).ready(() => {
         reader.onload = ((e) => {
             $("#err-rom").addClass('d-none');
 
+            romData = undefined;
+
             var data = new Uint8Array(e.target.result);
             if (data.length < 0x1000000) {
                 $("#err-rom").removeClass('d-none');
@@ -143,10 +141,11 @@ $(document).ready(() => {
             var fingerprint = data[1128] + (data[1129] << 8) + (data[1130] << 16) + (data[1131] << 24);
             if (fingerprint != 0x801319d && fingerprint != 0x8f9ee50) {
                 $("#err-rom").removeClass('d-none');
+            } else {
+                romData = data;
             }
-            romData = data;
 
-            if (upsData) {
+            if (romData && upsData) {
                 $("#btn-patch").prop('disabled', false);
                 romTooltip.dispose();
             }

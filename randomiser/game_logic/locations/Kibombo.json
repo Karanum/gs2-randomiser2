@@ -16,21 +16,18 @@
     "Treasure": [
         {
             "Addr": "0x105",
-            "Reqs": [
-                [
-                    "Piers"
-                ]
-            ],
+            "Reqs": [["FlagPiers"]],
             "Restriction": ["no-summon"]
         },
         {
             "Addr": "0x106",
-            "Reqs": [
-                [
-                    "Piers"
-                ]
-            ],
+            "Reqs": [["FlagPiers"]],
             "Restriction": ["no-summon"]
+        },
+        {
+            "Addr": "0xd07",
+            "Reqs": [["FlagPiers"]],
+            "Restriction": ["no-empty", "no-mimic"]
         },
         {
             "Addr": "0xf4e",
@@ -58,7 +55,7 @@
             "Addr": "0x4d",
             "Reqs": [
                 [
-                    "Piers"
+                    "FlagPiers"
                 ]
             ]
         },
@@ -66,21 +63,21 @@
             "Addr": "0x4e",
             "Reqs": [
                 [
-                    "Piers"
+                    "FlagPiers"
                 ]
             ]
         }
     ],
     "Special": [
         {
-            "Name": "Piers",
+            "Name": "FlagPiers",
             "Type": "Flag",
             "Reqs": [
                 [
                     "Lash Pebble"
                 ],
                 [
-                    "SkipBasic"
+                    "Skips_SanctumWarp"
                 ]
             ]
         }

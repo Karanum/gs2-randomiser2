@@ -29,7 +29,11 @@
         "subheader_qol": "Calidad de Vida",
 
         "preset": "Preajuste",
-        "apply": "Aplicar Preajuste",
+        "apply_preset": "Aplicar preajuste seleccionado",
+        "export_preset": "Exportar preajuste seleccionado",
+        "delete_preset": "Eliminar preajuste seleccionado",
+        "load_preset": "Importar preajuste",
+        "save_preset": "Guardar nuevo preajuste",
 
         "tab_items": "Objeto",
         "tab_djinn": "Djinn/Invoc.",
@@ -121,35 +125,95 @@
             "character_stats_help": "Entre 50% y 150% a nivel 1, entre 75% y 125% a nivel 99"
         },
 
-        "skips_basic": {
-            "name": "Fallos/saltos básicos",
-            "help": "Estos saltos están en la lógica a través de la configuración \"Requerir fallas/saltos básicos\":",
+        "skips_info": "Estos son todos los skips y glitches a la lógica con la configuración correspondiente. Los glitches marcados con un * requieren la configuración \"Incluir glitches que se pueden perder\".",
+
+        "skips_sanc_warp": {
+            "name": "Santuario-warps",
             "content": [
-                "Santuario-warp en Kibombo",
-                "Tundaria Tower move pillar wiggle (se salta Aplastar)",
-                "Huir-warps de Aldea Chamán para Aroma",
-                "Faro de Marte saltos lanzallamas",
-                "Faro de Marte saltos ala de Venus"
+                "Islas Apojii - Llegar desde Mikasala sin barco",
+                "Kibombo - Subirse a la cornisa sin Enlazar",
+                "Yalam - Llegar desde Mikasala sin barco"
             ]
         },
 
-        "oob_easy": {
-            "name": "Saltos fuera-límites fáciles",
-            "help": "Estos saltos están en la lógica a través de la configuración \"Requerir saltos fuera-límites fáciles\":",
+        "skips_basic": {
+            "name": "Glitches básicos de Huir",
             "content": [
-                "Fuera-límites en Lugar Sagrado del Mar",
-                "Desierto de Yampi inverso",
-                "Fuera-límites en Cueva de la Isla"
-            ],
-            "video": "Vídeo"
+                "Aldea Chamán - El objeto bloqueado por Planta *",
+                "Aldea Chamán - Djinn",
+                "Alhafra - El objeto bloqueado por Revelar *",
+                "Champa - El objeto bloqueado por Revelar *",
+                "Cueva de Alhafra - Los tres objetos bloqueados por Congelación *",
+                "Cueva de Yampi - Entrando sin Arena",
+                "Desierto de Yampi - El objeto bloqueado por Aplastar en la salida del lado de Madra *",
+                "Desierto de Yampi - Ambos objetos en la salida del lado de Alhafra *",
+                "Faro de Marte - Skip de ala de Venus",
+                "Islas Apojii - Djinn",
+                "Lugar Sagrado del Mar - Skip la cuerda de Enlazar en la entrada",
+                "Madra - El regalo del alcalde *",
+                "Meseta Dehkan - El objeto bloqueado por Enlazar *",
+                "Montañas de Kibombo - Los dos objetos del lado norte",
+                "Naribwe - El objeto bloqueado por Enlazar y el objeto bloqueado por Torbellino + Revelar *",
+                "Roca del Magma - Bola de magma sin Prender *",
+                "Templo interior Anemos - La lápida de Iris desde la entrada bloqueada por Revelar *",
+                "Templo interior Anemos - La lápida de Iris desde la entrada bloqueada por Teletransportar"
+            ]
         },
 
-        "oob_hard": {
-            "name": "Saltos fuera-límites difíciles",
-            "help": "Estos saltos están en la lógica a través de la configuración \"Requerir saltos fuera-límites difíciles\":",
+        "skips_sq": {
+            "name": "Glitches S&Q de Huir",
             "content": [
-                "Fuera-límites en Riscos de Gondowan",
-                "Fuera-límites en Barco Lemurio (tanto a Aquahidra como a la planta baja)"
+                "Alhafra - Rompiendo la roca",
+                "Barco Lemurio - El objeto bloqueado por Congelación *",
+                "Daila - El objeto bloqueado por Congelación en el santuario",
+                "Ensenada de Atteka - Djinn",
+                "Estatua de Gabomba - Entrando por el frente mientras la boca está cerrada",
+                "Loho - Cómo meterse detrás del muro sin disparar el cañón",
+                "Meseta Dehkan - El objeto bloqueado por Enlazar *",
+                "Mikasala - Djinn",
+                "Montañas de Kibombo - Djinn",
+                "Yalam - El objeto bloqueado por Fuerza + Baguio"
+            ]
+        },
+
+        "skips_oob": {
+            "name": "Glitches OOB de Huir",
+            "content": [
+                "Ankhol - Llegar al final sin activar la arena en la sala principal",
+                "Asentamiento Hesperia - El objeto y Djinn bloqueados por Planta",
+                "Barco Lemurio - Llegar al Aquahidra boss sin Congelación",
+                "Cueva de la Isla - Llegar al corredor Centinela sin Teletransportar",
+                "Desierto de Yampi - Llegar al lado de Alhafra desde la entrada del lado Garoh",
+                "Lugar Sagrado del Mar - Llegar a la sada de Lágrima de Dios",
+                "Riscos de Gondowan - Llegar a la salida del lado de Gondowan desde la cueva"
+            ]
+        },
+
+        "skips_wiggle": {
+            "name": "Glitches relacionados con colisiones",
+            "content": [
+                "Caverna de Atteka - Llegar a la cueva sin las Alas de Anemos",
+                "Faro de Marte - Eliminando los chorros de fuego en el ala de Júpiter",
+                "Isla Kalt - Conseguir al Djinni colocándose en la pendiente",
+                "Torre de Tundaria - Llegar al final sin Aplastar"
+            ]
+        },
+
+        "skips_sand": {
+            "name": "Glitches de Arena",
+            "content": [
+                "Alhafra - Rompiendo la roca desde OOB",
+                "Desierto de Yampi - Llegar a la cima de los pilares de Aplastar",
+                "Roca del Magma - Entrar sin Elevar"
+            ]
+        },
+
+        "skips_death_storage": {
+            "name": "Skips de \"death storage\"",
+            "content": [
+                "Límite Norte - Llegar a Prox sin el cañón",
+                "Mar del Tiempo - Llegar a Lemuria sin Pulverizar ni el Tridente",
+                "Roca del Magma - Entrar sin Elevar"
             ]
         },
 
@@ -252,6 +316,8 @@
         "armour_effect_shuffle": "Intercambiar efectos de armaduras",
         "curse_random": "Intercambiar objetos malditos",
         "curse_remove": "Quitar todas maldiciones",
+        "force_boss_drops": "Obligar objetos bloqueado por jefe a ser importantes",
+        "force_superboss_minors": "Evitar objetos bloqueado por superjefe sean importantes",
 
         "djinn_shuffle": "Intercambiar Djinn",
         "djinn_stats_shuffle": "Intercambiar aumentos de estadísticas de Djinn",
@@ -276,11 +342,20 @@
         "class_stats_random": "Aleatorizar estadísticas de clases",
 
         "music_shuffle": "Intercambiar música del juego",
+        "character_shuffle": "Intercambriar personajes en el grupo de objetos",
+        "remove_mimics": "Reemplaza Mimics con sus objetos",
 
-        "skips_basic": "Requerir fallas/saltos básicos",
-        "skips_oob_easy": "Requerir saltos fuera-límites fáciles",
-        "skips_oob_hard": "Requerir saltos fuera-límites difíciles",
-        "skips_gaia_maze": "Laberinto de Roca del Tierra sin Planta",
+        "skips_info": "%1Clic aquí%2 para ver una lista de glitches a las que se aplican estas configuraciones",
+        "skips_basic": "Añadir glitches básicos de Huir a la lógica",
+        "skips_sq": "Añadir glitches S&Q de Huir a la lógica",
+        "skips_gaia_maze": "Añadir laberinto de Roca del Tierra sin Planta a la lógica",
+        "skips_sanc_warp": "Añadir santuario-warps a la lógica",
+        "skips_wiggle": "Añadir glitches relacionados con colisiones a la lógica",
+        "skips_oob": "Añadir glitches OOB de Huir a la lógica",
+        "skips_sand": "Añadir glitches de Arena a la lógica",
+        "skips_death_storage": "Añadir skips de \"death storage\" a la lógica",
+        "skips_missable": "Incluir glitches que se pueden perder",
+
         "logic_ship_mode": "Barco Lemurio",
         "logic_ship_wings": "Comienzo con las Alas de Anemos",
         "logic_bosses": "Deshabilitar la lógica de jefes",
@@ -297,6 +372,7 @@
         "qol_item_hints": "Agregar sugerencias de objetos",
         "qol_faster_ship": "Barco más rápido en mapa del mundo",
         "qol_avoid_toggle": "Hacer que Esquivar sea conmutable",
+        "qol_teleport_everywhere": "Permitir Teletransporte a todos tipos de ubicaciones",
         "qol_hard_mode": "Habilitar la dificultad Difícil en juego",
         "qol_half_encounters": "Reducir a la mitad la tasa de batalla",
         "qol_easier_bosses": "Jefes más fáciles",
@@ -307,6 +383,7 @@
 
         "puzzles_fixed": "Haz que puzzles basados en nombre fijado",
         "puzzles_random": "Haz que puzzles basados en nombre aleatorios",
+        "anemos_access": "Puerta al Anemos interior",
 
         "manual_retreat_glitch": "Mantenga SELECT para activar siempre Huir glitch"
     },
@@ -369,6 +446,12 @@
             "vanilla": "Vanilla (20x nivel)",
             "reduced": "Reducio (2x nivel)",
             "fixed": "Fijado en 100 Monedas"
+        },
+
+        "anemos_access": {
+            "vanilla": "Vanilla",
+            "random": "Aleatoria (16 a 28 Djinn)",
+            "open": "Siempre abierta"
         }
     },
 
@@ -391,6 +474,30 @@
             "open": "Una mezcla de Intermedio y Difícil con el Barco Lemuriano desbloqueado desde el principio. Los niveles iniciales aumentan para compensar.",
             "chaos": "Todo es aleatorio. Posiblemente muy difícil e injusto.",
             "race": "El preajuste oficial del torneos randomizador GS:TLA. Consulte nuestro Discord para obtener más información."
+        },
+
+        "preset_name": "Nombre",
+        "preset_desc": "Descripción (máx. 1000 caracteres)",
+
+        "modals": {
+            "close": "Cerrar",
+
+            "export_title": "Exportar preajuste",
+            "export_copy": "Copiar al portapapeles",
+
+            "import_title": "Cargar preajuste",
+            "import_text": "Ingrese la secuencia preajuste aquí",
+            "import_button": "Importar",
+            "import_error": "Secuencia preajuste no válida",
+
+            "save_title": "Guardar preajuste",
+            "save_button": "Guardar",
+            "save_name_empty": "Nombre no puede estar vacío",
+            "save_desc_error": "Descripción es demasiado larga",
+
+            "delete_title": "Eliminar preajuste",
+            "delete_text": "¿Realmente quieres eliminar el preajuste \"%1\"?",
+            "delete_button": "Si, eliminar"
         }
     },
 
@@ -438,6 +545,7 @@
         "fetching": "Obtener datos del parche...",
 
         "invalid_rom": "La ROM seleccionada parece no ser válida. Seleccione otro archivo.",
+        "megaroms": "La ROM seleccionada parece ser la versión MegaROMs, que se rompe cuando se aleatoriza. Seleccione otro archivo.",
         "no_rom": "Primero carga una ROM",
 
         "log_warning": "El registro de ubicaciones para esta semilla será inaccesible una vez que salga de esta página. Asegúrese de guardar una copia si desea consultarla más tarde."

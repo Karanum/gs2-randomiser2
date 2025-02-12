@@ -13,6 +13,10 @@
             "Reqs": [
                 [
                     "Reveal"
+                ],
+                [
+                    "Skips_BasicRG",
+                    "Skips_Missable"
                 ]
             ]
         },
@@ -65,6 +69,15 @@
                     "Lash Pebble",
                     "Pound Cube",
                     "Burst Brooch"
+                ],
+                [
+                    "Boss_Briggs",
+                    "Skips_SaveQuitRG",
+                    "Burst Brooch"
+                ],
+                [
+                    "Skips_SandGlitch",
+                    "Sand"
                 ]
             ]
         }

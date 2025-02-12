@@ -20,6 +20,16 @@
             "Addr": "0x4",
             "Reqs": [],
             "Restriction": ["no-summon"]
+        },
+        {
+            "Addr": "0xd05",
+            "Reqs": [],
+            "Restriction": ["no-empty", "no-mimic"]
+        },
+        {
+            "Addr": "0xd06",
+            "Reqs": [],
+            "Restriction": ["no-empty", "no-mimic"]
         }
     ],
     "Djinn": [],

@@ -13,9 +13,9 @@ function setupAjaxRequest(seed, settings) {
         var log = response.slice(12);
 
         var blob = new Blob([log], { type: 'plain/text' });
-        $("#btn-log").attr('href', URL.createObjectURL(blob));
-        $("#btn-log").attr('download', `spoiler_${linkId}.log`);
-        $("#btn-log").prop('disabled', false);
+        $("#btn-log").attr('href', URL.createObjectURL(blob))
+            .attr('download', `spoiler_${linkId}.log`)
+            .prop('disabled', false);
 
         $("#span-seed").text(seed);
         $("#span-link").html(`<a href="${permalink}">${permalink}</a>`);

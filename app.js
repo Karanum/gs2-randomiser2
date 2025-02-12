@@ -1,7 +1,7 @@
 const express = require('express');
 const fs = require('fs');
 const https = require('https');
-const config = require('./modules/config.js');
+const config = require('./util/config.js');
 
 const port = config.get("port");
 const app = express();

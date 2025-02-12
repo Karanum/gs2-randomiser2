@@ -2,11 +2,7 @@ var romData, upsData;
 var patcher = new UPSPatcher();
 
 function saveCachedSetting(elem) {
-    if (elem.type == "checkbox") {
-        localStorage.setItem(elem.id, elem.checked);
-    } else {
-        localStorage.setItem(elem.id, elem.value);
-    }
+    localStorage.setItem(elem.id, elem.type == 'checkbox' ? elem.checked : elem.value);
 }
 
 function loadCachedSetting(elem) {

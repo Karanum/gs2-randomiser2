@@ -1,0 +1,17 @@
+02030***
+
+154	Event ID (???)
+156	(???)
+158	Exit				--> 080CBDEC
+15A	Game menu
+15C	Game menu
+15E	System menu
+160	NPC interaction
+162	NPC event
+164	Encounter
+166	Psynergy
+168	"But nothing happens" (???)
+16A	System events			--> 080CBDFC
+		(0xFFFF = poison)		--> 080CBE18
+		(0xFC87 = world map zoom)
+		(0xFC88 = map screen)

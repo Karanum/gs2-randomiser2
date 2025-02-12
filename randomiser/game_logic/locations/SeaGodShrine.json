@@ -11,7 +11,13 @@
                     "Sea God's Tear"
                 ],
                 [
-                    "SkipOobEasy",
+                    "Skips_BasicRG",
+                    "Frost Jewel",
+                    "Reveal",
+                    "Sea God's Tear"
+                ],
+                [
+                    "Skips_OOBRG",
                     "Reveal",
                     "Sea God's Tear"
                 ]
@@ -25,8 +31,12 @@
                     "Frost Jewel"
                 ],
                 [
-                    "SkipOobEasy",
+                    "Skips_OOBRG",
                     "Lash Pebble"
+                ],
+                [
+                    "Skips_BasicRG",
+                    "Frost Jewel"
                 ]
             ]
         }
@@ -39,7 +49,7 @@
                     "Lash Pebble"
                 ],
                 [
-                    "SkipOobEasy"
+                    "Skips_BasicRG"
                 ]
             ]
         }

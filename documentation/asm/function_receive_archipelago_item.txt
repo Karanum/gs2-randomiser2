@@ -1,0 +1,200 @@
+@offset = 09006300
+@  string[0xE38] <- "An item appears before you..."
+
+
+_dataScriptx19:
+push {r0, lr}
+bl funcCheckBuffer
+cmp r0, #0x0
+bne _abortScript
+pop {r0}
+bl _thunkDataScriptx19
+pop {pc}
+
+.hword 0x0
+
+_thunkDataScriptx19:
+ldr r4, #0x0
+bx r4
+.word 0x08027065
+
+_dataScriptx1F:
+push {r0, lr}
+bl funcCheckBuffer
+cmp r0, #0x0
+bne _abortScript
+pop {r0}
+bl _thunkDataScriptx1F
+pop {pc}
+
+_abortScript:
+pop {r0, pc}
+
+_thunkDataScriptx1F:
+ldr r4, #0x0
+bx r4
+.word 0x08027E21
+
+
+funcCheckBuffer:
+push {r5, lr}
+
+ldr r1, ptrItemBuffer
+ldrh r0, [r1, #0x0]
+cmp r0, #0x0
+beq end
+
+movs r5, r0
+bl thunkStartCutscene
+bl thunkGetPartyLeader
+bl thunkSetNpcStateIdle
+
+movs r0, #0xE
+lsls r0, #0x8
+adds r0, #0x38
+movs r1, #0x0
+bl thunkShowStatusBox
+
+movs r1, #0xA
+movs r0, r5
+lsrs r0, r0, #0x8
+cmp r0, r1
+bne notMimic
+movs r0, r5
+movs r1, #0xFF
+ands r0, r1
+movs r1, #0x28
+lsls r1, r1, #0x4
+adds r1, #0xA
+add r0, r1
+ldr r1, ptrEncounter
+strh r0, [r1, #0x0]
+ldr r1, ptrReceivedItemCount
+ldrb r0, [r1, #0x0]
+adds r0, #0x1
+strb r0, [r1, #0x0]
+movs r0, #0x0
+strb r0, [r1, #0x1]
+ldr r1, ptrItemBuffer
+strh r0, [r1, #0x0]
+movs r0, 0x2
+ldr r1, ptrEncounterFlags
+strb r0, [r1, #0x0]
+bl thunkEndCutscene
+movs r0, #0x1
+b end
+
+notMimic:
+movs r1, #0x80
+lsls r1, r1, #0x8
+movs r0, r5
+ands r0, r1
+cmp r0, #0x0
+beq notCoins
+
+subs r5, r5, r1
+movs r0, #0x53
+bl thunkPlaySound
+movs r0, r5
+bl thunkAddCoins
+movs r0, r5
+movs r1, #0x5
+bl thunkSetTextVariable
+movs r0, #0xE1
+lsls r0, r0, #0x4
+movs r1, #0x0
+bl thunkShowStatusBox
+b skip
+
+notCoins:
+movs r0, r5
+bl 0x09006000
+cmp r0, #0x1
+beq skip
+
+movs r0, #0x53
+bl thunkPlaySound
+bl 0x09000206
+cmp r0, #0x0
+bge skip
+movs r0, r5
+bl thunkForceAddItem
+
+skip:
+ldr r1, ptrReceivedItemCount
+ldrb r0, [r1, #0x0]
+adds r0, #0x1
+strb r0, [r1, #0x0]
+movs r0, #0x0
+strb r0, [r1, #0x1]
+ldr r1, ptrItemBuffer
+strh r0, [r1, #0x0]
+bl thunkEndCutscene
+bl thunkGetPartyLeader
+bl thunkSetNpcStateControlled
+movs r0, #0x1
+
+end:
+pop {r5, pc}
+
+thunkStartCutscene:
+ldr r4, #0x0
+bx r4
+.word 0x080D22A9
+
+thunkEndCutscene:
+ldr r4, #0x0
+bx r4
+.word 0x080D2351
+
+thunkPlaySound:
+ldr r4, #0x0
+bx r4
+.word 0x081C0CB1
+
+thunkShowStatusBox:
+ldr r4, #0x0
+bx r4
+.word 0x08038041
+
+thunkForceAddItem:
+ldr r4, #0x0
+bx r4
+.word 0x080D260D
+
+thunkGetPartyLeader:
+ldr r4, #0x0
+bx r4
+.word 0x080CB8E9
+
+thunkSetNpcStateIdle:
+ldr r4, #0x0
+bx r4
+.word 0x080235F9
+
+thunkSetNpcStateControlled:
+ldr r4, #0x0
+bx r4
+.word 0x08023525
+
+thunkSetTextVariable:
+ldr r4, #0x0
+bx r4
+.word 0x0803CCD1
+
+thunkAddCoins:
+ldr r4, #0x0
+bx r4
+.word 0x080AFEB1
+
+ptrItemBuffer:
+.word 0x02000A96
+
+ptrReceivedItemCount:
+.word 0x02000A72
+
+ptrEncounter:
+.word 0x02030164
+
+ptrEncounterFlags:
+.word 0x0200048B

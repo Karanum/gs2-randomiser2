@@ -5,6 +5,8 @@ const textutil = require ('./textutil.js');
  */
 const multiHints = {
     "Alhafra": "in a port city\x03ruled through schemes",
+    "Character": "A scattered companion",
+    "Character_Loc": "in the hands of\x03a scattered friend",
     "Cliffs": "on cliffs that\x03divide the land",
     "Eastern Sea": "on an island in\x03the Eastern Sea",
     "Gabomba": "within the bowels\x03of a revered statue",
@@ -65,7 +67,8 @@ const itemHints = {
     "Azul": multiHints["Summon"], "Catastrophe": multiHints["Summon"], "Charon": multiHints["Summon"], "Coatlicue": multiHints["Summon"],
     "Daedalus": multiHints["Summon"], "Eclipse": multiHints["Summon"], "Flora": multiHints["Summon"], "Haures": multiHints["Summon"],
     "Iris": multiHints["Summon"], "Megaera": multiHints["Summon"], "Moloch": multiHints["Summon"], "Ulysses": multiHints["Summon"],
-    "Zagan": multiHints["Summon"]
+    "Zagan": multiHints["Summon"], "Isaac": multiHints["Character"], "Garet": multiHints["Character"], "Ivan": multiHints["Character"],
+    "Mia": multiHints["Character"], "Jenna": multiHints["Character"], "Sheba": multiHints["Character"], "Piers": multiHints["Character"]
 };
 
 /**
@@ -117,7 +120,9 @@ const mapHints = {
     "SE Angara Islet": multiHints["Eastern Sea"], "Sea of Time Islet": multiHints["Eastern Sea"], "W Indra Islet": multiHints["Eastern Sea"],
     "Gabomba Catacombs": multiHints["Gabomba"], "Gabomba Statue": multiHints["Gabomba"], "Gondowan Settlement": multiHints["Settlement"], 
     "Hesperia Settlement": multiHints["Settlement"], "Kalt Island": multiHints["Western Sea"], "SW Atteka Islet": multiHints["Western Sea"],
-    "Madra": multiHints["Madra"], "Madra Catacombs": multiHints["Madra"]
+    "Madra": multiHints["Madra"], "Madra Catacombs": multiHints["Madra"], "Isaac": multiHints["Character_Loc"], "Garet": multiHints["Character_Loc"], 
+    "Ivan": multiHints["Character_Loc"], "Mia": multiHints["Character_Loc"], "Jenna": multiHints["Character_Loc"], 
+    "Sheba": multiHints["Character_Loc"], "Piers": multiHints["Character_Loc"]
 };
 
 /** Helper array to convert numbers to their text representation. */
@@ -166,12 +171,12 @@ function getMaxSphereDepth(spheres, itemLocs, itemList) {
 /**
  * Returns a random item location ID based on the given sphere depth.
  */
-function pickRandomSlot(prng, spheres, itemLocs, depth) {
+function pickRandomSlot(prng, spheres, itemLocs, depth, attempt = 0) {
     var targetDepth = undefined;
     if (depth + 3 >= spheres.length) --depth;
     for (var i = depth + 2; i < spheres.length; ++i) {
         targetDepth = i;
-        if (prng.random() < 0.4 + (3 - Math.min(3, spheres.length - i - 2)) * 0.2) break;
+        if (prng.random() < (0.4 + (3 - Math.min(3, spheres.length - i - 2)) * 0.2) / (1 + attempt * 0.2)) break;
     }
     if (!targetDepth) targetDepth = spheres.length - 1;
     var sphere = spheres[targetDepth];
@@ -200,10 +205,10 @@ function makeItemHintText(item) {
  * Gets a random item for the item hint, attempting to avoid the items already listed in `seen`.
  */
 function getItemHint(prng, spheres, itemLocs, depth, seen) {
-    var slot = pickRandomSlot(prng, spheres, itemLocs, depth);
+    var slot = pickRandomSlot(prng, spheres, itemLocs, depth, 0);
     var attempts = 0;
     while (seen.includes(slot) && attempts < 10) {
-        slot = pickRandomSlot(prng, spheres, itemLocs, depth);
+        slot = pickRandomSlot(prng, spheres, itemLocs, depth, attempts + 1);
         ++attempts;
     }
     seen.push(slot);

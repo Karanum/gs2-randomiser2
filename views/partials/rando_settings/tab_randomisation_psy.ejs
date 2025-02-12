@@ -1,0 +1,35 @@
+<div class="tab-pane fade" id="tabdiv-psy">
+    <div class="row">
+        <div class="col-12 col-lg-6">
+            <%- include('../setting_dropdown', { id: 'inp-class-psynergy', label: lang.settings.psy_shuffle, selected: '0', data: [
+                ['0', lang.options.psy_shuffle.vanilla], 
+                ['1', lang.options.psy_shuffle.class], 
+                ['2', lang.options.psy_shuffle.group],
+                ['5', lang.options.psy_shuffle.group_element],
+                ['3', lang.options.psy_shuffle.element],
+                ['4', lang.options.psy_shuffle.full]
+            ] }) %>
+        </div>
+
+        <div class="col-12 col-lg-6">
+            <%- include('../setting_dropdown', { id: 'inp-class-levels', label: lang.settings.psy_levels, selected: '0', data: [
+                ['0', lang.options.psy_levels.vanilla], 
+                ['1', lang.options.psy_levels.adjust], 
+                ['2', lang.options.psy_levels.random]
+            ] }) %>
+        </div>
+
+        <hr class="mt-1 mb-3">
+
+        <div class="col-12 col-lg-6">
+            <%- include('../setting_switch', { id: 'inp-psynergy-power', label: lang.settings.psy_power_adjust }) %>
+            <%- include('../setting_switch', { id: 'inp-psynergy-cost', label: lang.settings.psy_cost_adjust }) %>
+            <%- include('../setting_switch', { id: 'inp-psynergy-aoe', label: lang.settings.psy_range_random, margin: 3 }) %>
+        </div>
+
+        <div class="col-12 col-lg-6">
+            <%- include('../setting_switch', { id: 'inp-enemypsy-power', label: lang.settings.enemypsy_power_adjust }) %>
+            <%- include('../setting_switch', { id: 'inp-enemypsy-aoe', label: lang.settings.enemypsy_range_random }) %>
+        </div>
+    </div>
+</div>
