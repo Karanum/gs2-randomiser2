@@ -19,7 +19,7 @@
             "0x67", "0x6C", "0x6D", "0x6E", "0x6F", "0x70", "0x71"
         ],
 
-        "flags": [ "reunion" ]
+        "flags": [ "reunion", "ship_wings" ]
     },
 
     "edges": {
@@ -91,6 +91,7 @@
             ["237:4", "0x6F", false, false, "", [ ["reunion"] ]],
             ["237:4", "0x70", false, false, "", [ ["reunion"] ]],
             ["237:4", "0x71", false, false, "", [ ["reunion"] ]],
+            ["reunion", "ship_wings", false, false, "", []],
 
             // Map 239
             ["239:21", "239:22", true, false, "", []],
