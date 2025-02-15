@@ -1,0 +1,28 @@
+{
+    "nodes": {
+        "entrances": ["197:1", "197:2", "198:1", "198:2", "198:3", "198:5", "198:6"],
+        "treasure": [],
+        "djinn": [],
+        "flags": ["boss_poseidon"]
+    },
+
+    "edges": {
+        "external": [
+            ["197:1", "2:42", "Overworld", true, "ship", []],
+            ["198:3", "2:44", "Overworld", true, "ship", []],
+            ["198:5", "2:43", "Overworld", true, "ship", []]
+        ],
+
+        "internal": [
+            ["197:1", "197:2", true, false, "", []],
+            ["197:2", "198:1", true, true, "", []],
+
+            ["198:1", "198:2", true, false, "", [ ["boss_poseidon"] ]],
+            ["198:2", "198:3", true, false, "", []],
+            ["198:5", "198:6", true, false, "", [ ["Grindstone"] ]],
+            ["198:2", "198:6", true, true, "", []],
+            ["198:1", "boss_poseidon", false, false, "", [ ["Trident", "djinn:24"] ]],
+            ["198:2", "boss_poseidon", false, false, "", [ ["Trident", "djinn:24"] ]]
+        ]
+    }
+}

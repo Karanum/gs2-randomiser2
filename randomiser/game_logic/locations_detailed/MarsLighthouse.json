@@ -28,7 +28,7 @@
         "treasure": ["0xA3A", "0xE00", "0xE01", "0xE02", "0xE03", "0xE78", "0xFFD", "0xFFE", "0xFFF"],
         "djinn": ["0x54", "0x69"],
         "flags": ["boss_flamedragons", "boss_parents", "mars_heated", "wing_venus", "wing_mercury", "wing_mars", "wing_jupiter", "280_grind", 
-            "283_blaze", "284_pillar"]
+            "283_blaze", "284_pillar", "293_puzzle", "294_hover"]
     },
 
     "edges": {
@@ -197,6 +197,64 @@
             ["292:3", "292:4", true, false, "", []],
             ["292:2", "292:3", true, true, "", []],
             ["292:4", "296:3", true, true, "", []],
+
+            ["293:1", "293:4", true, false, "", []],
+            ["293:3", "293:5", true, false, "", []],
+            ["293:5", "293:6", false, false, "", [ ["293_puzzle", "Blaze"] ]],
+            ["293:6", "293:5", false, false, "", []],
+            ["293:7", "293:8", true, false, "", []],
+            ["293:2", "293:3", true, true, "", []],
+            ["293:4", "293:5", true, true, "", []],
+            ["293:6", "293:7", true, true, "", []],
+            ["293:8", "296:2", true, true, "", []],
+            ["293:2", "293_puzzle", false, false, "", [ ["Frost Jewel"] ]],
+
+            ["294:1", "294:2", true, false, "", []],
+            ["294:1", "294:4", true, false, "", []],
+            ["294:1", "294:16", true, false, "", []],
+            ["294:3", "294:6", false, false, "", [ ["Cyclone Chip"] ]],
+            ["294:3", "294:7", false, false, "", [ ["Cyclone Chip"] ]],
+            ["294:5", "294:12", true, false, "", []],
+            ["294:6", "294:8", true, false, "", []],
+            ["294:6", "294:13", false, false, "", [ ["294_hover", "Hover Jade"] ]],
+            ["294:7", "294:11", false, false, "", []],
+            ["294:9", "294:10", false, false, "", [ ["Cyclone Chip"] ]],
+            ["294:10", "294:8", false, false, "", []],
+            ["294:13", "294:8", false, false, "", []],
+            ["294:14", "294:15", true, false, "", [ ["Reveal"] ]],
+            ["294:14", "294:20", false, false, "", []],
+            ["294:2", "294:3", true, true, "", [ ["Cyclone Chip"] ]],
+            ["294:4", "294:5", true, true, "", [ ["Cyclone Chip"] ]],
+            ["294:8", "294:9", false, true, "", [ ["Cyclone Chip", "Reveal"] ]],
+            ["294:9", "294:8", false, true, "", [ ["Cyclone Chip"] ]],
+            ["294:11", "294:12", true, true, "", [ ["Cyclone Chip"] ]],
+            ["294:13", "294:14", true, true, "", [ ["Cyclone Chip"] ]],
+            ["294:15", "296:4", true, true, "", []],
+            ["294:20", "296:16", false, true, "fall", []],
+            ["294:10", "294_hover", false, false, "", []],
+            ["294:14", "0xE03", false, false, "", []],
+
+            ["295:1", "295:15", true, false, "", []],
+            ["295:5", "295:8", false, false, "", []],
+            ["295:6", "295:5", false, false, "", [ ["Carry Stone", "Sand"] ]],
+            ["295:6", "295:8", false, false, "", [ ["Carry Stone"] ]],
+            ["295:7", "295:10", true, false, "", []],
+            ["295:9", "295:12", true, false, "", []],
+            ["295:11", "295:14", true, false, "", []],
+            ["295:13", "295:14", true, false, "", []],
+            ["295:5", "296:1", true, true, "", []],
+            ["295:6", "295:7", true, true, "", []],
+            ["295:8", "295:9", true, true, "", []],
+            ["295:10", "295:11", true, true, "", []],
+            ["295:12", "295:13", true, true, "", []],
+            ["295:14", "295:15", true, true, "", []],
+
+            ["296:1", "wing_venus", false, false, "", [ ["Blaze"] ]],
+            ["296:2", "wing_mercury", false, false, "", [ ["Blaze"] ]],
+            ["296:3", "wing_mars", false, false, "", [ ["Blaze"] ]],
+            ["296:4", "wing_jupiter", false, false, "", [ ["Blaze"] ]],
+
+            ["297:1", "boss_parents", false, false, "", [ ["djinn:56"] ]]
         ]
     }
 }

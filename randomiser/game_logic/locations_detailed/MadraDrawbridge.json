@@ -1,0 +1,19 @@
+{
+    "nodes": {
+        "entrances": ["53:1", "53:2"],
+        "treasure": [],
+        "djinn": [],
+        "flags": []
+    },
+
+    "edges": {
+        "external": [
+            ["53:1", "2:10", "Overworld", true, "", []],
+            ["53:2", "2:11", "Overworld", true, "", []]
+        ],
+
+        "internal": [
+            ["53:1", "53:2", true, false, "", []]
+        ]
+    }
+}

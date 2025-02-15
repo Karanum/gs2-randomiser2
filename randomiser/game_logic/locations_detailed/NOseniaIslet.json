@@ -1,0 +1,24 @@
+{
+    "nodes": {
+        "entrances": ["11:7", "133:1", "133:2", "133:3", "133:4"],
+        "treasure": ["0xAA3", "0xF12"],
+        "djinn": [],
+        "flags": []
+    },
+
+    "edges": {
+        "external": [
+            ["133:1", "2:30", "Overworld", true, "", []]
+        ],
+
+        "internal": [
+            ["133:1", "133:2", true, false, "", []],
+            ["133:1", "133:3", true, false, "", []],
+            ["133:1", "133:4", true, false, "", [ ["Sand"] ]],
+            ["133:2", "133:4", true, true, "", []],
+            ["133:3", "11:7", true, true, "", []],
+            ["133:4", "0xAA3", false, false, "", [ ["Mind Read", "Red Cloth"] ]],
+            ["11:7", "0xF12", false, false, "", []]
+        ]
+    }
+}

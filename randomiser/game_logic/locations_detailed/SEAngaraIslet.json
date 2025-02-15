@@ -1,0 +1,22 @@
+{
+    "nodes": {
+        "entrances": ["134:10", "134:11", "183:8"],
+        "treasure": ["0xAA4", "0xF5B"],
+        "djinn": [],
+        "flags": []
+    },
+
+    "edges": {
+        "external": [
+            ["134:10", "2:31", "Overworld", true, "", []]
+        ],
+
+        "internal": [
+            ["134:10", "134:11", true, false, "", []],
+            ["134:11", "183:8", true, true, "", []],
+
+            ["134:10", "0xAA4", false, false, "", [ ["Frost Jewel", "Mind Read", "Pretty Stone"] ]],
+            ["134:10", "0xF5B", false, false, "", []]
+        ]
+    }
+}
