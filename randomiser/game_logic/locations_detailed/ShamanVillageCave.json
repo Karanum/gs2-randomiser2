@@ -1,0 +1,30 @@
+{
+    "nodes": {
+        "entrances": ["240:1", "240:2", "240:3", "240:4", "240:5", "240:6", "240:7", "240:8", "240:9", "240:10"],
+        "treasure": [],
+        "djinn": ["0x53"],
+        "flags": []
+    },
+
+    "edges": {
+        "external": [
+            ["240:1", "2:56", "Overworld", true, "", []],
+            ["240:10", "2:57", "Overworld", true, "", []]
+        ],
+
+        "internal": [
+            ["240:1", "240:2", false, false, "", [ ["Whirlwind"] ]],
+            ["240:1", "240:3", true, false, "", []],
+            ["240:1", "240:4", true, false, "", []],
+            ["240:5", "240:7", true, false, "", []],
+            ["240:6", "240:5", false, false, "", [ ["Whirlwind"], ["Lifting Gem", "Frost Jewel"] ]],
+            ["240:8", "240:9", false, false, "", []],
+            ["240:8", "240:10", false, false, "", []],
+            ["240:2", "240:5", true, true, "", []],
+            ["240:3", "240:6", true, true, "", []],
+            ["240:4", "240:9", true, true, "", []],
+            ["240:7", "240:8", true, true, "", []],
+            ["240:6", "0x53", false, false, "", [ ["Whirlwind", "Frost Jewel", "Lifting Gem"] ]]
+        ]
+    }
+}

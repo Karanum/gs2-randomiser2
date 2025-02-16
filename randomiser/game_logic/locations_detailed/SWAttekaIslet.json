@@ -1,0 +1,21 @@
+{
+    "nodes": {
+        "entrances": ["221:1", "221:2", "222:11"],
+        "treasure": ["0xFC3"],
+        "djinn": ["0x72"],
+        "flags": []
+    },
+
+    "edges": {
+        "external": [
+            ["221:1", "2:47", "Overworld", true, "", []]
+        ],
+
+        "internal": [
+            ["221:1", "221:2", true, false, "", []],
+            ["221:2", "222:11", true, true, "", []],
+            ["221:1", "0xFC3", false, false, "", []],
+            ["221:1", "0x72", false, false, "", [ ["Lifting Gem"] ]]
+        ]
+    }
+}

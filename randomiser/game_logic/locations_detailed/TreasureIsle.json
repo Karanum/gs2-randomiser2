@@ -1,0 +1,87 @@
+{
+    "nodes": {
+        "entrances": [
+            "298:1", "298:2", "298:3", "298:4", "298:5", "298:6", "298:7", "298:8",
+            "299:1", "299:2", "299:3", "299:4", "299:5",
+            "300:1", "300:2", "300:3", "300:4", "300:5",
+            "301:1", "301:2", "301:3", "301:4", "301:5", "301:6",
+            "302:1", "302:2", "302:3"
+        ],
+        "treasure": [
+            "0x19", "0xE75", "0xFCD", "0xFCE", "0xFCF", "0xFD0", "0xFD1", "0xFD2", "0xFD3", "0xFD4", "0xFD5", "0xFD6", "0xFD7", "0xFD8", 
+            "0xFD9", "0xFDA", "0xFDB", "0xFDC", "0xFDD", "0xFDE", "0xFDF", "0xFE0", "0xFE1"
+        ],
+        "djinn": ["0x36", "0x7D"],
+        "flags": ["boss_starmagician"]
+    },
+
+    "edges": {
+        "external": [
+            ["298:1", "2:87", "Overworld", true, "", []]
+        ],
+
+        "internal": [
+            ["298:1", "298:2", true, false, "", []],
+            ["298:1", "298:4", true, false, "", []],
+            ["298:1", "298:6", true, false, "", []],
+            ["298:1", "298:8", true, false, "", []],
+            ["298:2", "298:3", true, true, "", []],
+            ["298:4", "298:5", true, true, "", []],
+            ["298:6", "298:7", true, true, "", []],
+            ["298:8", "299:1", true, true, "", []],
+            ["298:3", "0xFCD", false, false, "", []],
+            ["298:3", "0xFCE", false, false, "", []],
+            ["298:5", "0xFCF", false, false, "", []],
+            ["298:5", "0xFD0", false, false, "", []],
+            ["298:7", "0xFD1", false, false, "", []],
+            ["298:7", "0xFD2", false, false, "", []],
+
+            ["299:1", "299:2", false, false, "", [ ["Grindstone"] ]],
+            ["299:2", "299:1", false, false, "", []],
+            ["299:3", "299:4", false, false, "", []],
+            ["299:5", "299:1", false, false, "", [ ["Grindstone"] ]],
+            ["299:2", "299:3", true, true, "", []],
+            ["299:4", "300:1", true, true, "", []],
+            ["299:5", "300:2", true, true, "", []],
+            ["299:1", "0xFD3", false, false, "", []],
+            ["299:1", "0xFD4", false, false, "", []],
+            ["299:1", "0xFD5", false, false, "", []],
+            ["299:1", "0xFD6", false, false, "", []],
+            ["299:1", "0xFD7", false, false, "", []],
+            ["299:1", "0xFD8", false, false, "", []],
+            ["299:5", "0xFD9", false, false, "", []],
+            ["299:5", "0xFDA", false, false, "", []],
+            ["299:5", "0xFDB", false, false, "", []],
+            ["299:5", "0xFDC", false, false, "", []],
+            ["299:5", "0xFDD", false, false, "", []],
+            ["299:5", "0xFDE", false, false, "", []],
+
+            ["300:1", "300:3", false, false, "", [ ["Grindstone"] ]],
+            ["300:2", "300:4", true, false, "", []],
+            ["300:3", "300:1", false, false, "", []],
+            ["300:4", "300:5", true, false, "", []],
+            ["300:3", "300:4", true, true, "", []],
+            ["300:5", "301:1", true, true, "", []],
+            ["300:1", "0xFDF", false, false, "", [ ["Grindstone"] ]],
+            ["300:2", "0xE75", false, false, "", []],
+
+            ["301:1", "301:4", true, false, "", [ ["Lifting Gem"] ]],
+            ["301:2", "301:1", false, false, "", [ ["Lifting Gem"] ]],
+            ["301:3", "301:5", true, false, "", [ ["Lifting Gem"] ]],
+            ["301:3", "301:6", true, false, "", []],
+            ["301:2", "301:3", true, true, "", []],
+            ["301:4", "301:5", true, true, "", []],
+            ["301:6", "302:1", true, true, "", []],
+            ["301:1", "0xFE1", false, false, "", [ ["Lifting Gem"] ]],
+            ["301:2", "0xFE1", false, false, "", []],
+            ["301:3", "0xFE0", false, false, "", []],
+            ["301:3", "0x7D", false, false, "", []],
+
+            ["302:1", "302:2", true, false, "", []],
+            ["302:2", "302:3", true, true, "", []],
+            ["302:1", "0x36", false, false, "", []],
+            ["302:3", "boss_starmagician", false, false, "", [ ["djinn:64"] ]],
+            ["302:3", "0x19", false, false, "", [ ["boss_starmagician"] ]]
+        ]
+    }
+}

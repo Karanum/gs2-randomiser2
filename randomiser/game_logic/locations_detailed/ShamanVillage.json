@@ -12,17 +12,96 @@
             "249:1", "249:2", "249:3", "249:4",
             "250:1"
         ],
-        "treasure": [
-            "0x94D", "0xE50", "0xE51", "0xE52", "0xE53", "0xE54", "0xE55", "0xE56", "0xE57", "0xE58", "0xE59", "0xE5A", 
-            "0xF5F", "0xFC8", "0xFC9", "0xFCA", "0xFCB", "0xFCC"
-        ],
+        "treasure": ["0x94D", "0xE5A", "0xF5F", "0xFC8", "0xFC9", "0xFCA", "0xFCB", "0xFCC"],
         "djinn": ["0x79", "0x7B"],
-        "flags": ["boss_moapa"]
+        "flags": ["moapa_triggered", "boss_moapa", "243_pillar"]
     },
 
     "edges": {
-        "external": [],
+        "external": [
+            ["242:1", "2:58", "Overworld", true, "", []]
+        ],
 
-        "internal": []
+        "internal": [
+            ["241:1", "241:2", true, false, "", []],
+            ["241:3", "241:1", false, false, "", [ ["Whirlwind"] ]],
+            ["241:1", "248:1", true, true, "", []],
+            ["241:2", "248:2", true, true, "", []],
+            ["241:3", "243:1", true, true, "", []],
+            ["241:1", "0xF5F", false, false, "", []],
+
+            ["242:1", "242:2", true, false, "", []],
+            ["242:1", "242:3", true, false, "", []],
+            ["242:1", "242:4", true, false, "", []],
+            ["242:1", "242:6", true, false, "", []],
+            ["242:1", "242:8", true, false, "", []],
+            ["242:1", "242:10", true, false, "", []],
+            ["242:1", "242:11", true, false, "", []],
+            ["242:1", "242:13", true, false, "", [ ["moapa_triggered"], ["boss_moapa"] ]],
+            ["242:7", "242:9", true, false, "", []],
+            ["242:12", "242:14", false, false, "", [ ["Lash Pebble"] ]],
+            ["242:14", "242:1", false, false, "", []],
+            ["242:2", "245:15", false, true, "", [ ["boss_moapa"] ]],
+            ["242:3", "245:16", false, true, "", [ ["boss_moapa"] ]],
+            ["242:4", "244:6", true, true, "", []],
+            ["242:5", "244:8", true, true, "", []],
+            ["242:6", "244:11", false, true, "", [ ["boss_moapa"] ]],
+            ["242:7", "244:13", false, true, "", [ ["boss_moapa"] ]],
+            ["242:8", "243:2", true, true, "", []],
+            ["242:9", "243:6", true, true, "", []],
+            ["242:10", "246:6", true, true, "", []],
+            ["242:11", "243:3", true, true, "", []],
+            ["242:12", "244:3", true, true, "", []],
+            ["242:13", "244:1", true, true, "", []],
+            ["242:14", "243:5", true, true, "", []],
+            ["242:5", "0xFC8", false, false, "", [ ["Growth"] ]],
+            ["242:7", "0xFC9", false, false, "", []],
+            ["242:11", "moapa_triggered", false, false, "", [ ["Shaman's Rod"] ]],
+            ["242:13", "moapa_triggered", false, false, "", [ ["Shaman's Rod"] ]],
+
+            ["243:1", "243:3", true, false, "", [ ["moapa_triggered"], ["boss_moapa"] ]],
+            ["243:2", "243:4", true, false, "", []],
+            ["243:6", "243:2", false, false, "", []],
+            ["243:4", "245:17", false, true, "", [ ["boss_moapa"] ]],
+            ["243:5", "0x79", false, false, "", [ ["243_pillar"] ]],
+            ["243:6", "243_pillar", false, false, "", []],
+
+            ["244:1", "244:2", true, false, "", []],
+            ["244:3", "244:4", true, false, "", []],
+            ["244:6", "244:7", true, false, "", []],
+            ["244:8", "244:10", true, false, "", []],
+            ["244:9", "244:10", true, false, "", []],
+            ["244:11", "244:12", true, false, "", []],
+            ["244:13", "244:14", true, false, "", []],
+            ["244:2", "244:4", true, true, "", []],
+            ["244:5", "244:9", true, true, "", []],
+            ["244:7", "244:10", true, true, "", []],
+            ["244:11", "242:6", false, true, "", []],
+            ["244:12", "244:14", true, true, "", []],
+            ["244:13", "242:7", false, true, "", []],
+            ["244:4", "0xFCA", false, false, "", []],
+            ["244:5", "0xFCB", false, false, "", []],
+
+            ["245:15", "242:2", false, true, "", []],
+            ["245:16", "242:3", false, true, "", []],
+            ["245:17", "243:4", false, true, "", []],
+            ["245:17", "0xFCC", false, false, "", []],
+
+            ["248:1", "248:2", true, false, "", [ ["boss_moapa"] ]],
+            ["248:1", "248:3", false, false, "", [ ["Hover Jade"] ]],
+            ["248:3", "248:1", false, false, "", []],
+            ["248:3", "249:3", true, true, "", []],
+            ["248:1", "boss_moapa", false, false, "", [ ["djinn:28"] ]],
+            ["248:2", "boss_moapa", false, false, "", [ ["djinn:28"] ]],
+            ["248:1", "0x94D", false, false, "", [ ["boss_moapa"] ]],
+
+            ["249:1", "249:3", true, false, "", [ ["Lifting Gem"] ]],
+            ["249:2", "249:4", true, false, "", []],
+            ["249:1", "249:2", true, true, "", []],
+            ["249:4", "250:1", true, true, "", []],
+
+            ["250:1", "0x7B", false, false, "", [ ["Reveal"] ]],
+            ["250:1", "0xE5A", false, false, "", [ ["Reveal"] ]]
+        ]
     }
 }

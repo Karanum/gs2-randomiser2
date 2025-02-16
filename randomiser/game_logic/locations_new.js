@@ -57,15 +57,15 @@ function initialise() {
     loadLocation("SEAngaraIslet.json", "SE Angara Islet");
     loadLocation("SeaOfTime.json", "Sea of Time");
     loadLocation("SeaOfTimeIslet.json", "Sea of Time Islet");
-    // loadLocation("ShamanVillage.json", "Shaman Village");
-    // loadLocation("ShamanVillageCave.json", "Shaman Village Cave");
-    // loadLocation("SWAttekaIslet.json", "SW Atteka Islet");
-    // loadLocation("TaopoSwamp.json", "Taopo Swamp");
-    // loadLocation("TreasureIsle.json", "Treasure Isle");
-    // loadLocation("TundariaTower.json", "Tundaria Tower");
-    // loadLocation("WIndraIslet.json", "W Indra Islet");
-    // loadLocation("Yallam.json", "Yallam");
-    // loadLocation("YampiDesert.json", "Yampi Desert");
+    loadLocation("ShamanVillage.json", "Shaman Village");
+    loadLocation("ShamanVillageCave.json", "Shaman Village Cave");
+    loadLocation("SWAttekaIslet.json", "SW Atteka Islet");
+    loadLocation("TaopoSwamp.json", "Taopo Swamp");
+    loadLocation("TreasureIsle.json", "Treasure Isle");
+    loadLocation("TundariaTower.json", "Tundaria Tower");
+    loadLocation("WIndraIslet.json", "W Indra Islet");
+    loadLocation("Yallam.json", "Yallam");
+    loadLocation("YampiDesert.json", "Yampi Desert");
     // loadLocation("YampiDesertCave.json", "Yampi Desert Cave");
 
     var time = Date.now() - start;
