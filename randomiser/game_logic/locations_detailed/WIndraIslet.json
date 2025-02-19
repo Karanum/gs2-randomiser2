@@ -13,7 +13,7 @@
 
         "internal": [
             ["131:1", "131:2", true, false, "", []],
-            ["132:2", "183:9", true, true, "", []],
+            ["131:2", "183:9", true, true, "", []],
             ["131:1", "0xAA1", false, false, "", [ ["Mind Read", "Milk"] ]],
             ["131:1", "0xF5A", false, false, "", []]
         ]

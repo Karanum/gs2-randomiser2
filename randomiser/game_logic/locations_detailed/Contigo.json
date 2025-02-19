@@ -32,7 +32,6 @@
         ],
 
         "internal": [
-            // Map 236
             ["236:1", "236:2", true, false, "", []],
             ["236:1", "236:3", true, false, "", []],
             ["236:1", "236:4", true, false, "", []],
@@ -44,6 +43,7 @@
             ["236:1", "236:10", true, false, "", []],
             ["236:1", "236:11", true, false, "", []],
             ["236:1", "236:12", true, false, "", []],
+            ["236:1", "236:99", true, false, "", []],
             ["236:1", "0x3E", false, false, "", [ ["Scoop Gem"] ]],
             ["236:1", "0x67", false, false, "", [ ["Orb of Force"] ]],
             ["236:1", "0xFC5", false, false, "", []],
@@ -61,7 +61,6 @@
             ["236:11", "237:4", true, true, "", []],
             ["236:12", "239:21", true, true, "", []],
 
-            // Map 237
             ["237:4", "reunion", false, false, "", [ ["jupiter_lit"] ]],
             ["237:4", "0x101", false, false, "", [ ["reunion"] ]],
             ["237:4", "0x102", false, false, "", [ ["reunion"] ]],
@@ -91,9 +90,8 @@
             ["237:4", "0x6F", false, false, "", [ ["reunion"] ]],
             ["237:4", "0x70", false, false, "", [ ["reunion"] ]],
             ["237:4", "0x71", false, false, "", [ ["reunion"] ]],
-            ["reunion", "ship_wings", false, false, "", []],
+            ["237:4", "ship_wings", false, false, "", [ ["reunion"] ]],
 
-            // Map 239
             ["239:21", "239:22", true, false, "", []],
             ["239:21", "239:23", true, false, "", []],
             ["239:21", "239:24", true, false, "", []]

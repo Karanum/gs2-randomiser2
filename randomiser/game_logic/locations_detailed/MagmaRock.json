@@ -27,7 +27,6 @@
         ],
 
         "internal": [
-            // Exterior
             ["223:1", "223:2", true, false, "", [ ["Lifting Gem"] ]],
             ["223:2", "223:3", false, false, "", [ ["Burst Brooch"] ]],
             ["223:4", "223:3", false, false, "", [ ["Burst Brooch"] ]],
@@ -65,7 +64,6 @@
             ["225:2", "224:6", false, true, "fall", []],
             ["225:3", "227:8", true, true, "", []],
 
-            // Interior
             ["226:1", "226:2", true, false, "", []],
             ["226:4", "226:6", true, false, "", [ ["227_magma"] ]],
             ["226:5", "226:8", true, false, "", []],

@@ -12,7 +12,6 @@
         ],
 
         "internal": [
-            ["9:4", "9:4", true, false, "", []],
             ["9:4", "0x1", false, false, "", []],
             ["9:4", "0x2", false, false, "", []],
             ["9:4", "0x3", false, false, "", []],

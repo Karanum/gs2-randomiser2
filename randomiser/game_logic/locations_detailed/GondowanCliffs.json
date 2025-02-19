@@ -15,13 +15,16 @@
         ],
 
         "internal": [
-            ["102:1", "0x61", true, false, "", [ ["boss_briggs"] ]],
+            ["102:1", "102:2", true, false, "", [ ["boss_briggs"] ]],
+            ["102:1", "0x61", false, false, "", [ ["boss_briggs"] ]],
+            ["102:1", "0xF40", false, false, "", [ ["boss_briggs", "Frost Jewel"] ]],
+            ["102:1", "0xF41", false, false, "", [ ["boss_briggs"] ]],
+            ["102:1", "0xF43", false, false, "", [ ["boss_briggs"] ]],
             ["102:2", "0x61", false, false, "", [ ["Frost Jewel"], ["Scoop Gem"] ]],
+            ["102:2", "0xF40", false, false, "", [ ["Frost Jewel"] ]],
+            ["102:2", "0xF41", false, false, "", [ ["Frost Jewel"], ["Scoop Gem"] ]],
+            ["102:2", "0xF43", false, false, "", [ ["Frost Jewel"], ["Scoop Gem"] ]],
             ["102:2", "102:3", true, false, "", []],
-            ["0x61", "102:2", false, false, "", []],
-            ["0x61", "0xF40", false, false, "", [ ["Frost Jewel"] ]],
-            ["0x61", "0xF41", false, false, "", []],
-            ["0x61", "0xF43", false, false, "", []],
             ["102:3", "104:1", false, true, "", [ ["Whirlwind"] ]],
 
             ["103:1", "103:2", true, false, "", [ ["Grindstone"] ]],

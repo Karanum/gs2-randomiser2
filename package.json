@@ -1,10 +1,12 @@
 {
   "name": "gs2r2",
-  "version": "1.2.10",
+  "version": "1.2.11",
   "description": "Golden Sun TLA Randomiser2",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "gen-graph": "node ./run/generate_logic_graph.js",
+    "validate-graph": "node ./run/validate_logic_graph.js",
+    "test-graph": "node ./run/test_logic_graph.js"
   },
   "author": "Karanum",
   "license": "MIT",
@@ -16,6 +18,7 @@
     "ejs": "^3.1.6",
     "express": "^4.17.1",
     "fast-mersenne-twister": "^1.0.3",
-    "graphology": "^0.26.0"
+    "graphology": "^0.26.0",
+    "graphology-shortest-path": "^2.1.0"
   }
 }

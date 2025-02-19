@@ -35,7 +35,6 @@
         ],
 
         "internal": [
-            // Map 82
             ["82:1", "82:3", false, false, "", [ ["Whirlwind"] ]],
             ["82:3", "0xE71", false, false, "", []],
             ["82:3", "0xF32", false, false, "", [ ["Whirlwind"] ]],
@@ -48,7 +47,6 @@
             ["82:3", "83:2", true, true, "ladder", []],
             ["82:4", "83:3", true, true, "ladder", []],
 
-            // Map 83
             ["83:1", "83:2", false, false, "", []],
             ["83:1", "83:3", true, false, "", []],
             ["83:3", "83:5", true, false, "", []],
@@ -63,7 +61,6 @@
             ["83:6", "83:11", true, true, "ladder", []],
             ["83:12", "84:1", true, true, "", []],
 
-            // Map 84
             ["84:1", "84:2", true, false, "", []],
             ["84:1", "84:3", true, false, "", []],
             ["84:4", "84:6", true, false, "", []],
@@ -85,7 +82,6 @@
             ["84:13", "84:11", false, true, "ladder", []],
             ["84:14", "86:1", true, true, "", []],
 
-            // Map 85
             ["85:1", "85:2", true, false, "", []],
             ["85:1", "85:8", true, false, "", []],
             ["85:3", "85:9", true, false, "", []],
@@ -95,7 +91,7 @@
             ["85:7", "85:11", true, false, "", []],
             ["85:12", "85:13", true, false, "", []],
             ["85:14", "85:15", true, false, "", []],
-            ["85:11", "airs_vface", true, false, "", [ ["Whirlwind"] ]],
+            ["85:11", "airs_vface", false, false, "", [ ["Whirlwind"] ]],
             ["85:15", "0xF3A", false, false, "", []],
             ["85:1", "86:2", true, true, "", []],
             ["85:2", "87:1", true, true, "", []],
@@ -111,47 +107,38 @@
             ["85:15", "93:2", true, true, "", []],
             ["85:16", "89:1", true, true, "", []],
 
-            // Map 86
             ["86:1", "86:2", true, false, "", []],
             ["86:3", "86:2", false, false, "", []],
             ["86:3", "airs_hface", false, false, "", [ ["Whirlwind"] ]],
-            ["86:2", "0xF38", true, false, "", [ ["airs_hface"] ]],
+            ["86:2", "0xF38", false, false, "", [ ["airs_hface"] ]],
             ["86:3", "85:11", false, true, "fall", []],
 
-            // Map 87
             ["87:1", "87:2", true, false, "", [ ["airs_hface"] ]],
             ["87:1", "0xF39", false, false, "", [ ["airs_hface"] ]],
             ["87:2", "88:1", true, true, "", []],
 
-            // Map 88
             ["88:1", "88:3", true, false, "", []],
             ["88:2", "88:4", false, false, "", []],
             ["88:4", "88:2", false, false, "", [ ["Whirlwind"] ]],
             ["88:2", "90:1", true, true, "", []],
             ["88:3", "93:1", true, true, "", []],
 
-            // Map 89
             ["89:1", "0x8D4", false, false, "", []],
             ["89:1", "0xF3C", false, false, "", [ ["Reveal"] ]],
 
-            // Map 90
             ["90:1", "90:2", false, false, "", [ ["Whirlwind"] ]],
             ["90:1", "0xF3B", false, false, "", []],
             ["90:2", "90:1", false, false, "", []],
 
-            // Map 91
             ["91:1", "91:2", false, false, "", [ ["Whirlwind"] ]],
             ["91:2", "92:2", true, true, "", []],
 
-            // Map 92
             ["92:1", "92:2", true, false, "", []],
             ["92:1", "0x12", false, false, "", [ ["airs_hface", "Whirlwind"] ]],
 
-            // Map 93
             ["93:1", "93:2", false, false, "", [ ["Whirlwind"] ]],
             ["93:1", "0xF3D", false, false, "", [ ["airs_hface", "Whirlwind"] ]],
 
-            // Map 94
             ["94:1", "94:2", true, false, "", []]
         ]
     }

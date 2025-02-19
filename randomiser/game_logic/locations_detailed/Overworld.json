@@ -21,7 +21,7 @@
             ["2:3", "13:9", "Daila", true, "", []],
             ["2:4", "21:1", "KandoreanTemple", true, "", []],
             ["2:5", "23:3", "SeaGodShrine", true, "", []],
-            ["2:6", "31:4", "DehkanPlateau", true, "", []],
+            ["2:6", "34:1", "DehkanPlateau", true, "", []],
             ["2:7", "36:6", "DehkanPlateau", true, "", []],
             ["2:9", "44:11", "Madra", true, "", []],
             ["2:10", "53:1", "MadraDrawbridge", true, "", []],
@@ -89,7 +89,6 @@
         ],
 
         "internal": [
-            // Walking - Indra
             ["2:1", "2:3", true, false, "", []],
             ["2:2", "2:4", true, false, "", []],
             ["2:2", "2:5", true, false, "", []],
@@ -103,7 +102,6 @@
             ["2:2", "0x37", false, false, "", []],
             ["2:9", "0x38", false, false, "", []],
 
-            // Walking - Osenia
             ["2:13", "2:14", true, false, "", []],
             ["2:13", "2:17", true, false, "", []],
             ["2:13", "2:20", true, false, "", [ ["alhafra_briggsEscaped"] ]],
@@ -116,7 +114,6 @@
             ["2:34", "2:35", false, false, "", [ ["ship", "ship_wings", "Hover Jade"] ]],
             ["2:14", "0x4C", false, false, "", []],
 
-            // Walking - Gondowan
             ["2:21", "2:23", true, false, "", []],
             ["2:23", "2:24", true, false, "", []],
             ["2:24", "2:25", true, false, "", []],
@@ -125,7 +122,6 @@
             ["2:48", "2:51", true, false, "", []],
             ["2:21", "0x4F", false, false, "", []],
 
-            // Eastern Sea
             ["2:1", "2:2", true, false, "", [ ["ship"] ]],
             ["2:1", "2:7", true, false, "", [ ["ship"] ]],
             ["2:1", "2:23", true, false, "", [ ["ship"] ]],
@@ -154,7 +150,6 @@
             ["2:87", "0xE5C", false, false, "", [ ["ship"] ]],
             ["2:46", "0x78", false, false, "", []],
 
-            // Western Sea
             ["2:47", "2:52", true, false, "", [ ["ship"] ]],
             ["2:49", "2:56", true, false, "", [ ["ship"] ]],
             ["2:50", "2:59", true, false, "", [ ["ship"] ]],

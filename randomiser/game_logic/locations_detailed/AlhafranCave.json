@@ -34,7 +34,7 @@
             ["101:6", "0xF26", false, false, "", [ ["Pound Cube", "Lash Pebble"] ]],
             ["101:6", "0xF27", false, false, "", [ ["Pound Cube", "Lash Pebble"] ]],
             ["101:7", "101:10", true, false, "", []],
-            ["101:9", "0xF8E", true, false, "", []],
+            ["101:9", "0xF8E", false, false, "", []],
             ["101:9", "101:10", false, true, "", []],
             ["101:10", "101:9", false, true, "", [ ["alhafra_briggsEscaped"] ]]
         ]
