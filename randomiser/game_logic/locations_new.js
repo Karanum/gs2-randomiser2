@@ -6,7 +6,7 @@ function initialise() {
     var start = Date.now();
     console.log();
 
-    // loadLocation("Overworld.json", "Overworld");
+    loadLocation("Overworld.json", "Overworld");
     loadLocation("AirsRock.json", "Air's Rock");
     loadLocation("Alhafra.json", "Alhafra");
     loadLocation("AlhafranCave.json", "Alhafran Cave");
@@ -66,7 +66,7 @@ function initialise() {
     loadLocation("WIndraIslet.json", "W Indra Islet");
     loadLocation("Yallam.json", "Yallam");
     loadLocation("YampiDesert.json", "Yampi Desert");
-    // loadLocation("YampiDesertCave.json", "Yampi Desert Cave");
+    loadLocation("YampiDesertCave.json", "Yampi Desert Cave");
 
     var time = Date.now() - start;
     console.log("Finished loading location data in " + time + "ms\n");

@@ -1,0 +1,65 @@
+{
+    "nodes": {
+        "entrances": [
+            "79:1", "79:2", "79:3", "79:4", "79:5", "79:6", "79:7", "79:8", "79:30", "79:31",
+            "80:1", "80:2", "80:14", "80:15", "80:16", "80:17",
+            "81:1", "81:2", "81:3", "81:4", "81:5", "81:6", "81:7", "81:8", "81:9", "81:10", "81:11", "81:12", "81:13"
+        ],
+        "treasure": ["0x18", "0xF8A", "0xF8B", "0xF8C", "0xF8D"],
+        "djinn": ["0x41"],
+        "flags": ["boss_valukar", "81_pillar1", "81_pillar2"]
+    },
+
+    "edges": {
+        "external": [
+            ["79:1", "74:4", "YampiDesert", true, "", []]
+        ],
+
+        "internal": [
+            ["79:1", "79:30", true, false, "", []],
+            ["79:2", "79:3", true, false, "", []],
+            ["79:2", "79:4", true, false, "", [ ["Sand", "Burst Brooch"] ]],
+            ["79:2", "79:31", true, false, "", []],
+            ["79:5", "79:6", false, false, "", []],
+            ["79:5", "79:7", true, false, "", []],
+            ["79:5", "79:8", false, false, "", [ ["Sand"] ]],
+            ["79:8", "79:6", false, false, "", []],
+            ["79:2", "81:1", true, true, "", []],
+            ["79:3", "79:6", true, true, "", []],
+            ["79:4", "79:5", true, true, "", []],
+            ["79:7", "81:8", true, true, "", []],
+            ["79:8", "80:1", true, true, "", []],
+            ["79:30", "79:31", true, true, "teleport", [ ["Teleport Lapis"] ]],
+            ["79:1", "0xF8A", false, false, "", []],
+
+            ["80:1", "80:2", true, false, "", []],
+            ["80:16", "80:15", false, false, "", [ ["Sand"] ]],
+            ["80:16", "80:17", true, false, "", [ ["Sand"] ]],
+            ["80:2", "80:17", true, true, "", []],
+            ["80:14", "81:13", true, true, "", []],
+            ["80:15", "81:12", true, true, "", []],
+            ["80:16", "81:11", true, true, "", []],
+            ["80:1", "0xF8B", false, false, "", [ ["Scoop Gem"] ]],
+            ["80:14", "0x18", false, false, "", [ ["boss_valukar"] ]],
+            ["80:14", "boss_valukar", false, false, "", [ ["djinn:64"] ]],
+
+            ["81:2", "81:1", true, false, "", [ ["Burst Brooch"] ]],
+            ["81:3", "81:5", true, false, "", []],
+            ["81:3", "81:4", false, false, "", []],
+            ["81:4", "81:3", false, false, "", [ ["Sand"] ]],
+            ["81:7", "81:11", true, false, "", []],
+            ["81:8", "81:9", true, false, "", [ ["81_pillar1", "Pound Cube"] ]],
+            ["81:12", "81:13", true, false, "", [ ["81_pillar2"] ]],
+            ["81:2", "81:3", true, true, "", []],
+            ["81:4", "81:7", true, true, "", []],
+            ["81:5", "81:6", true, true, "", []],
+            ["81:9", "81:10", true, true, "", []],
+            ["81:6", "81_pillar1", false, false, "", []],
+            ["81:10", "81_pillar2", false, false, "", []],
+            ["81:2", "0xF8D", false, false, "", []],
+            ["81:7", "0xF8C", false, false, "", []],
+            ["81:8", "0x41", false, false, "", [ ["81_pillar1", "Scoop Gem"] ]],
+            ["81:9", "0x41", false, false, "", [ ["Pound Cube", "Scoop Gem"] ]]
+        ]
+    }
+}
