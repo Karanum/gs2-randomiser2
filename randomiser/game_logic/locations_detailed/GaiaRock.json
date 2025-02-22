@@ -50,7 +50,7 @@
             ["177:1", "0xF76", false, false, "", [ ["Growth"] ]],
             ["177:9", "0x9BA", false, false, "", [ ["boss_serpent"] ]],
             ["177:9", "0xE41", false, false, "", [ ["boss_serpent", "Sand"] ]],
-            ["177:9", "boss_serpent", false, false, "", [ ["djinn:16", "lights:4"], ["djinn:24", "lights:3"] ]],
+            ["177:9", "boss_serpent", false, false, "", [ ["djinn:16", "light_1", "light_2", "light_3", "light_4"], ["djinn:24", "light_1", "light_2", "light_3"], ["djinn:24", "light_1", "light_2", "light_4"], ["djinn:24", "light_1", "light_3", "light_4"], ["djinn:24", "light_2", "light_3", "light_4"] ]],
             ["177:1", "178:4", true, true, "maze", []],
             ["177:4", "177:9", true, true, "maze", []],
             ["177:9", "178:4", false, true, "", []],

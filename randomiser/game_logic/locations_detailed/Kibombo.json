@@ -55,10 +55,10 @@
             ["112:3", "0xF4F", false, false, "", []],
             ["112:13", "0xF50", false, false, "", []],
 
-            ["111:5", "0x105", false, false, "", []],
-            ["111:5", "0x106", false, false, "", []],
-            ["111:5", "0x4D", false, false, "", []],
-            ["111:5", "0x4E", false, false, "", []],
+            ["111:5", "0x105", false, false, "", [ ["piers"] ]],
+            ["111:5", "0x106", false, false, "", [ ["piers"] ]],
+            ["111:5", "0x4D", false, false, "", [ ["piers"] ]],
+            ["111:5", "0x4E", false, false, "", [ ["piers"] ]],
             ["111:5", "piers", false, false, "", []]
         ]
     }
