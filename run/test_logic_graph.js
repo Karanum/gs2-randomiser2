@@ -122,8 +122,6 @@ function runTest() {
             let goal = graph.getNodeAttribute(targetNode, 'goal');
             let rewards = graph.getNodeAttribute(targetNode, 'goal_rewards');
 
-            console.log(`[INFO] >> reached goal '${goal}' at ${steps} steps and ${nodesSeen} nodes`);
-
             goalsSeen.push(goal);
             if (rewards.length > 0) {
                 flags = flags.concat(rewards);
@@ -161,4 +159,4 @@ prepareGraph();
 runTest();
 
 let endTime = Date.now();
-console.log('[INFO] Test finished in', endTime - startTime, 'ms');
+console.log('[INFO] Test finished in', endTime - startTime, 'ms\n');

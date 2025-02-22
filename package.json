@@ -4,7 +4,8 @@
   "description": "Golden Sun TLA Randomiser2",
   "main": "app.js",
   "scripts": {
-    "gen-graph": "node ./run/generate_logic_graph.js",
+    "start": "node app.js",
+    "gen-graph": "node ./run/generate_logic_graph.js && node ./run/validate_logic_graph.js && node ./run/test_logic_graph.js",
     "validate-graph": "node ./run/validate_logic_graph.js",
     "test-graph": "node ./run/test_logic_graph.js"
   },

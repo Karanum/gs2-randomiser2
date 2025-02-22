@@ -97,4 +97,4 @@ loadLocation("Idejima");
 
 console.log('[INFO] Graph generated, now writing to file...');
 fs.writeFileSync('./logic_graph.json', JSON.stringify(graph.export()));
-console.log('[INFO] Done!');
+console.log('[INFO] Done!\n');
