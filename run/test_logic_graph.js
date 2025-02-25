@@ -69,7 +69,7 @@ function prepareGraph() {
     });
 
     graph.dropEdge("40:1", "234:4");
-    graph.addEdge("2:7", "40:1", { shuffle: true, special: "debug", requirements: ["mayors_gift_trigger"] });
+    graph.addEdge("2:7", "40:1", { shuffle: true, special: ["debug"], requirements: ["mayors_gift_trigger"] });
 }
 
 function runTest() {

@@ -1,9 +1,9 @@
 {
     "nodes": {
         "entrances": [
-            "234:1", "234:2", "234:3", "234:4",
+            "234:1", "234:2", "234:3;dead-end", "234:4",
             "235:1", "235:2", "235:3", "235:5", "235:6",
-            "237:21"
+            "237:21;dead-end"
         ],
         "treasure": ["0xFC4"],
         "djinn": ["0x3F"],
@@ -12,10 +12,9 @@
 
     "edges": {
         "external": [
-            ["234:1", "2:52", "Overworld", true, "ship_embark", []],
+            ["234:1", "2:52", "Overworld", true, "ship", []],
             ["234:4", "40:1", "LemurianShip", true, "", []],
-            ["235:2", "2:53", "Overworld", true, "", []],
-            ["235:6", "2:53", "Overworld", true, "", []]
+            ["235:2", "2:53", "Overworld", true, "", []]
         ],
 
         "internal": [

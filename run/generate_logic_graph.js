@@ -20,11 +20,12 @@ function loadLocation(name) {
 
     // Add the entrance nodes to the logic graph
     json.nodes.entrances.forEach((entr) => {
-        if (graph.hasNode(entr)) {
+        let parts = entr.split(';');
+        if (graph.hasNode(parts[0])) {
             console.warn("[WARNING] Duplicate node:", entr);
             return;
         }
-        graph.addNode(entr, { type: 'entrance', location: name });
+        graph.addNode(parts[0], { type: 'entrance', location: name, deadEnd: parts.includes('dead-end') });
     });
 
     // Add the treasure nodes to the logic graph
@@ -66,12 +67,12 @@ function loadLocation(name) {
 
         if (requirements.length > 1) {
             requirements.forEach((reqSet) => {
-                let attr = { shuffle, special, requirements: reqSet };
+                let attr = { shuffle, special: special.length > 0 ? special.split(';') : [], requirements: reqSet };
                 graph.addEdge(node1, node2, attr);
                 if (mirror) graph.addEdge(node2, node1, attr);
             });
         } else {
-            let attr = { shuffle, special, requirements: requirements[0] ?? [] };
+            let attr = { shuffle, special: special.length > 0 ? special.split(';') : [], requirements: requirements[0] ?? [] };
             graph.addEdge(node1, node2, attr);
             if (mirror) graph.addEdge(node2, node1, attr);
         }
@@ -84,10 +85,10 @@ function loadLocation(name) {
         loadLocation(extLocation);
         if (requirements.length > 1) {
             requirements.forEach((reqSet) => {
-                graph.addEdge(intNode, extNode, { shuffle, special, requirements: reqSet });
+                graph.addEdge(intNode, extNode, { shuffle, special: special.length > 0 ? special.split(';') : [], requirements: reqSet });
             });
         } else {
-            graph.addEdge(intNode, extNode, { shuffle, special, requirements: requirements[0] ?? [] });
+            graph.addEdge(intNode, extNode, { shuffle, special: special.length > 0 ? special.split(';') : [], requirements: requirements[0] ?? [] });
         }
     });
 }

@@ -1,6 +1,6 @@
 {
     "nodes": {
-        "entrances": ["134:10", "134:11", "183:8"],
+        "entrances": ["134:10", "134:11", "183:8;dead-end"],
         "treasure": ["0xAA4", "0xF5B"],
         "djinn": [],
         "flags": []

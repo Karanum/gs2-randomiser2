@@ -2,9 +2,9 @@
     "nodes": {
         "entrances": [
             "126:1", "126:2", "126:43", "126:44", "126:45",
-            "127:1", "127:2", "127:3", "127:4", "127:5",
+            "127:1;dead-end", "127:2", "127:3", "127:4", "127:5",
             "128:1", "128:2",
-            "129:1",
+            "129:1;dead-end",
             "130:1", "130:2"
         ],
 
@@ -24,9 +24,9 @@
             ["126:1", "126:45", true, false, "", []],
             ["126:2", "126:1", false, false, "", []],
             ["126:2", "127:1", true, true, "", []],
-            ["126:43", "127:3", false, true, "cyclone", [ ["Cyclone Chip"] ]],
-            ["126:44", "127:4", false, true, "cyclone", [ ["Cyclone Chip"] ]],
-            ["126:45", "127:5", false, true, "cyclone", [ ["Cyclone Chip"] ]],
+            ["126:43", "127:3", false, true, "cyclone;one-way", [ ["Cyclone Chip"] ]],
+            ["126:44", "127:4", false, true, "cyclone;one-way", [ ["Cyclone Chip"] ]],
+            ["126:45", "127:5", false, true, "cyclone;one-way", [ ["Cyclone Chip"] ]],
 
             ["127:1", "127:5", true, false, "", []],
             ["127:2", "127:1", false, false, "", []],
@@ -45,7 +45,7 @@
 
             ["130:1", "130:2", false, false, "", [ ["Cyclone Chip", "Frost Jewel"] ]],
             ["130:2", "130:1", false, false, "", []],
-            ["130:1", "128:2", false, false, "", []]
+            ["130:1", "128:2", false, true, "", []]
         ]
     }
 }
