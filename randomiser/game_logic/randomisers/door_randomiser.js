@@ -9,7 +9,7 @@ class DoorRandomiser extends ItemRandomiser {
 
     #oneWayTargets = [];
     #shipTargets = [];
-    #numDeadEnds;
+    #deadEnds;
 
     constructor(prng, settings) {
         super(prng, undefined, settings);
@@ -24,14 +24,14 @@ class DoorRandomiser extends ItemRandomiser {
 
         let seenNodes = [];
         let availableTargets = this.#openEdges.map((edge) => edge[1]);
-        this.#numDeadEnds = availableTargets.filter((node) => this.#graph.getNodeAttribute(node, 'deadEnd')).length;
+        this.#deadEnds = availableTargets.filter((node) => this.#graph.getNodeAttribute(node, 'deadEnd'));
 
         this.#updateSeenNodes(seenNodes, '9:4');
 
-        let debugOffset = 0;
-
         while (availableTargets.length > 0) {
             let candidateEdges = this.#openEdges.filter((edge) => seenNodes.includes(edge[0]));
+
+            // TODO: Remove error checks once this is shown to work consistently
             if (candidateEdges.length == 0) {
                 console.warn('[ERROR] Out of available edges while available targets remain!');
                 break;
@@ -49,36 +49,36 @@ class DoorRandomiser extends ItemRandomiser {
                 validTargets = validTargets.filter((node) => !this.#oneWayTargets.includes(node) && !this.#shipTargets.includes(node));
             }
 
+            // TODO: Remove error checks once this is shown to work consistently
             if (validTargets.length == 0 || (validTargets.length == 1 && validTargets[0] == edge[0])) {
                 console.error('[ERROR] Invalid state where either no targets available or only target is self!');
                 console.error('[ERROR] >> Edge:', edge);
                 break;
             }
 
-            let attempts = 0;
-            let newTarget = validTargets[Math.floor(this.prng.random() * validTargets.length)];
-            while (!this.#isTargetNodeValid(edge[0], newTarget, attempts, seenNodes)) {
-                ++attempts;
-                newTarget = validTargets[Math.floor(this.prng.random() * validTargets.length)];
+            let targets = validTargets.filter((node) => !this.#deadEnds.includes(node) && !seenNodes.includes(node) && node != edge[0]);
+            if (targets.length == 0) targets = validTargets.filter((node) => !seenNodes.includes(node) && node != edge[0]);
+            if (targets.length == 0) targets = validTargets;
+
+            let newTarget = targets[Math.floor(this.prng.random() * targets.length)];
+            while (edge[0] == newTarget && targets.length > 1) {
+                newTarget = targets[Math.floor(this.prng.random() * targets.length)];
             }
 
             this.#relinkEdges(edge[0], newTarget, edge[2]);
             availableTargets = availableTargets.filter((node) => (node != edge[0] && node != newTarget));
 
             this.#updateSeenNodes(seenNodes, newTarget);
-            //console.debug('[DEBUG] Linked nodes:', edge[0], '->', newTarget, `(${this.#openEdges.length}, ${candidateEdges.length}, ${availableTargets.length})`);
 
-            if (this.#openEdges.length + debugOffset != availableTargets.length) {
-                console.warn('[WARN] This link has desynchronized the number of nodes:', edge[0], '->', newTarget);
-                debugOffset = availableTargets.length - this.#openEdges.length;
-            }
+            // TODO: Remove debug info once door rando is fully functional
+            console.debug('[DEBUG] Linked nodes:', edge[0], '->', newTarget, `(${this.#openEdges.length}, ${candidateEdges.length}, ${availableTargets.length})`);
         }
 
-        //console.log('[INFO] WAIT HUH WE FINISHED?');
+        // TODO: Remove debug info once door rando is fully functional
         console.log('[INFO] >> open edges left:', this.#openEdges.length);
-        if (this.#openEdges.length > 0 && this.#openEdges.length < 16) console.log(this.#openEdges);
+        if (this.#openEdges.length > 0 && this.#openEdges.length < 50) console.log(this.#openEdges);
         console.log('[INFO] >> available targets left:', availableTargets.length);
-        if (availableTargets.length > 0 && availableTargets.length < 16) console.log(availableTargets);
+        if (availableTargets.length > 0 && availableTargets.length < 50) console.log(availableTargets);
     }
 
     #unlinkEdges() {        
@@ -105,7 +105,12 @@ class DoorRandomiser extends ItemRandomiser {
         this.#openEdges = this.#openEdges.filter((edge) => edge[0] != source);
 
         let inverseEdge = this.#openEdges.find((edge) => edge[0] == target);
-        if (!inverseEdge) return;
+        if (!inverseEdge) {
+            if (!attributes.special.includes('one-way')) {
+                console.log('[WARN] Node link (', source, '->', target, ') does not have an inverse but is not marked as one-way');
+            }
+            return;
+        }
 
         this.#graph.addEdge(target, source, inverseEdge[2]);
         this.#openEdges = this.#openEdges.filter((edge) => edge[0] != target);
@@ -122,24 +127,6 @@ class DoorRandomiser extends ItemRandomiser {
             this.#graph.forEachOutNeighbor(node, (neighbour) => queuedNodes.push(neighbour));
         }
     }
-
-    #isTargetNodeValid(source, target, attempt, seenNodes) {
-        if (target == source) return false;
-        if (attempt > 10) return true;
-
-        if (seenNodes.includes(target)) return false;
-        if (this.#graph.getNodeAttribute(target, "deadEnd") == true) {
-            if (this.#openEdges.length > this.#numDeadEnds) return false;
-        }
-        return true;
-    }
 }
-
-// DEBUG
-const mersenne = require('../../../modules/mersenne.js');
-let prng = mersenne(Math.floor(Math.random() * 999999999));
-
-let debug = new DoorRandomiser(prng);
-debug.shuffleDoors();
 
 module.exports = {DoorRandomiser};
