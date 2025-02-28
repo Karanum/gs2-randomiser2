@@ -89,7 +89,8 @@ function parse(settings) {
         'skips-storage': (settings[12] >> 6) & 0b1,
         'remove-mimics': (settings[12] >> 5) & 0b1,
         'shortcut-mars-lighthouse': (settings[12] >> 4) & 0b1,
-        'shortcut-magma-rock': (settings[12] >> 3) & 0b1
+        'shortcut-magma-rock': (settings[12] >> 3) & 0b1,
+        'door-shuffle': settings[12] & 0b111
     };
 }
 

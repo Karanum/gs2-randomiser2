@@ -5,11 +5,13 @@ const ups = require('./ups.js');
 const settingsParser = require('./settings.js');
 const spoilerLog = require('./spoiler_log.js');
 const { VanillaData, GameData } = require('./game_data.js');
+const doorData = require('./game_data/doors.js');
 
 const locations = require('./game_logic/locations.js');
 const textutil = require('./game_logic/textutil.js');
-const itemRandomiser = require('./game_logic/randomisers/item_randomiser.js');
-const archipelagoFiller = require('./game_logic/randomisers/archipelago_filler.js');
+const { ItemRandomiser } = require('./game_logic/randomisers/item_randomiser.js');
+const { DoorRandomiser } = require('./game_logic/randomisers/door_randomiser.js');
+const { ArchipelagoFiller } = require('./game_logic/randomisers/archipelago_filler.js');
 const hintSystem = require('./game_logic/hint_system.js');
 const credits = require('./game_logic/credits.js');
 const { IconManager } = require('./game_logic/icons.js');
@@ -79,6 +81,7 @@ function initialise() {
     rom[0x4D62F] = 0xE0;
 
     vanillaData = new VanillaData(rom);
+    doorData.initialise(vanillaData.mapCode.clone());
 }
 
 /**
@@ -173,7 +176,7 @@ function applyPreRandomisation(target, prng, settings, gameData, iconManager) {
     // Apply character shuffle
     if (settings['shuffle-characters']) {
         addCharacterShufflePatch.apply(target, gameData.mapCode, settings, gameData.text, iconManager);
-        locations.prepCharacterShuffleLocations(locationsClone, gameData.itemLocations);
+        if (!settings['door-shuffle']) locations.prepCharacterShuffleLocations(locationsClone, gameData.itemLocations);
     }
 
     writeStoryFlags(target, defaultFlags);
@@ -263,13 +266,28 @@ function randomise(seed, rawSettings, spoilerFilePath, callback) {
     var prng = mersenne(seed);
     var settings = settingsParser.parse(rawSettings);
 
+    // DEBUG
+    // settings['door-shuffle'] = 1;
+
     var iconManager = new IconManager();
     var gameData = new GameData(vanillaData);
 
     var locationsClone = applyPreRandomisation(target, prng, settings, gameData, iconManager);
 
-    // Performing randomisation until a valid seed is found, or too many randomisations have been performed
-    var randomiser = new itemRandomiser.ItemRandomiser(prng, locationsClone, settings);
+    // Initialise the randomiser, and perform door shuffle if applicable
+    var randomiser;
+    if (settings['door-shuffle'] > 0) {
+        var doorClone = doorData.clone();
+
+        randomiser = new DoorRandomiser(prng, settings);
+        randomiser.shuffleDoors();
+        randomiser.applyToExits(doorClone);
+        doorData.writeToMapCode(doorClone, gameData.mapCode);
+    } else {
+        randomiser = new ItemRandomiser(prng, locationsClone, settings);
+    }
+
+    // Performing item randomisation
     if (settings['item-shuffle'] > 0) {
         var attempts = 0;
         var success = false;
@@ -279,11 +297,11 @@ function randomise(seed, rawSettings, spoilerFilePath, callback) {
                 success = true;
             } catch (e) {
                 console.error(e);
-                ++attempts;
+                return;
             }
         }
         if (!success) {
-            console.log("RANDOMISATION FAILED AFTER 10 ATTEMPTS!");
+            console.log("RANDOMISATION FAILED!");
             console.log("  > Seed: " + seed);
             console.log("  > Settings: " + rawSettings);
             return;
@@ -340,7 +358,7 @@ function randomiseArchipelago(seed, rawSettings, userName, itemMapping, djinnMap
     archipelagoPatch.apply(target, gameData.text, iconManager);
 
     // Apply fixed locations
-    var randomiser = new archipelagoFiller.ArchipelagoFiller(prng, locationsClone, settings);
+    var randomiser = new ArchipelagoFiller(prng, locationsClone, settings);
     randomiser.placeItems(itemMapping, gameData.itemLocations);
     randomiser.placeDjinn(djinnMapping, gameData.djinn);
 

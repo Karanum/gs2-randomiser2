@@ -1,20 +1,20 @@
-const { ItemRandomiser } = require('./item_randomiser.js');
+const { BaseRandomiser } = require('./base_randomiser.js');
 
-class ArchipelagoFiller extends ItemRandomiser {
+class ArchipelagoFiller extends BaseRandomiser {
     constructor(prng, instLocations, settings) {
         super(prng, instLocations, settings);
         this.isMultiworld = false;
     }
 
     placeItems(itemMapping, instItemLocations) {
-        this.instItemLocations = instItemLocations;
+        this.itemLocations = instItemLocations;
 
-        Object.keys(this.instItemLocations).forEach((slot) => {
-            let mapping = itemMapping[slot] ?? this.instItemLocations[slot][0]['vanillaContents'];
+        Object.keys(this.itemLocations).forEach((slot) => {
+            let mapping = itemMapping[slot] ?? this.itemLocations[slot][0]['vanillaContents'];
 
             if (mapping >= 0xA01 && mapping <= 0xA09) {
                 mapping -= 0xA01;
-                this.instItemLocations[slot].forEach((t) => {
+                this.itemLocations[slot].forEach((t) => {
                     t['eventType'] = 0x81;
                     t['contents'] = mapping;
                 });
@@ -23,7 +23,7 @@ class ArchipelagoFiller extends ItemRandomiser {
                     this.isMultiworld = true;
                 }
 
-                this.instItemLocations[slot].forEach((t) => {
+                this.itemLocations[slot].forEach((t) => {
                     t['contents'] = mapping;
                     if (t['eventType'] == 0x81) t['eventType'] = 0x80;
                 });
