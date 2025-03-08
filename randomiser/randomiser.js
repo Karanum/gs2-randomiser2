@@ -42,14 +42,14 @@ const teleportEverywherePatch = require('./patches/options/teleport_everywhere.j
 const upperMarsLighthousePatch = require('./patches/shortcuts/upper_mars_lighthouse.js');
 const magmaRockInteriorPatch = require('./patches/shortcuts/magma_rock_interior.js');
 
-const {applyGameTicketPatch, applyShipSpeedPatch, applyCheapRevivePatch, applyFixedRevivePatch, applyHalvedRatePatch} = require('./patches/mini_patches.js');
+const { applyGameTicketPatch, applyShipSpeedPatch, applyCheapRevivePatch, applyFixedRevivePatch, applyHalvedRatePatch } = require('./patches/mini_patches.js');
 
 // List of in-game flags to turn on when cutscene skip is enabled
 const cutsceneSkipFlags = [0xf22, 0x890, 0x891, 0x892, 0x893, 0x894, 0x895, 0x896, 0x848, 0x86c, 0x86d, 0x86e, 0x86f,
-        0x916, 0x844, 0x863, 0x864, 0x865, 0x867, 0x872, 0x873, 0x84b, 0x91b, 0x91c, 0x91d, 0x8b2, 0x8b3, 0x8b4,
-        0x8a9, 0x8ac, 0x904, 0x971, 0x973, 0x974, 0x924, 0x928, 0x929, 0x92a, 0x880, 0x8f1, 0x8f3, 0x8f5, 0xa6c,
-        0x8f6, 0x8fc, 0x8fe, 0x910, 0x911, 0x913, 0x980, 0x981, 0x961, 0x964, 0x965, 0x966, 0x968, 0x962, 0x969,
-        0x96a, 0xa8c, 0x88f, 0x8f0, 0x9b1, 0xa78, 0x90c, 0xa2e, 0x9c0, 0x9c1, 0x9c2, 0x908, 0x94F, 0x8bd, 0x8dd];
+    0x916, 0x844, 0x863, 0x864, 0x865, 0x867, 0x872, 0x873, 0x84b, 0x91b, 0x91c, 0x91d, 0x8b2, 0x8b3, 0x8b4,
+    0x8a9, 0x8ac, 0x904, 0x971, 0x973, 0x974, 0x924, 0x928, 0x929, 0x92a, 0x880, 0x8f1, 0x8f3, 0x8f5, 0xa6c,
+    0x8f6, 0x8fc, 0x8fe, 0x910, 0x911, 0x913, 0x980, 0x981, 0x961, 0x964, 0x965, 0x966, 0x968, 0x962, 0x969,
+    0x96a, 0xa8c, 0x88f, 0x8f0, 0x9b1, 0xa78, 0x90c, 0xa2e, 0x9c0, 0x9c1, 0x9c2, 0x908, 0x94F, 0x8bd, 0x8dd];
 
 var vanillaRom = new Uint8Array(fs.readFileSync("./randomiser/rom/gs2.gba"));
 var rom = Uint8Array.from(vanillaRom);
@@ -234,7 +234,7 @@ function applyPostRandomisation(prng, target, randomiser, settings, gameData) {
     if (settings['equip-sort']) randomiser.sortEquipment(gameData.items);
     if (settings['summon-sort']) randomiser.sortSummons();
     if (!settings['boss-logic']) randomiser.sortMimics();
-    
+
     vanillaData.enemies.scaleBattleRewards(gameData.enemies, settings['scale-coins'], settings['scale-exp']);
 
     let characters = [4, 5, 6];
@@ -268,15 +268,16 @@ function randomise(seed, rawSettings, spoilerFilePath, callback) {
 
     // DEBUG
     // settings['door-shuffle'] = 1;
+    // settings['overworld-shuffle'] = 1;
 
     var iconManager = new IconManager();
     var gameData = new GameData(vanillaData);
 
     var locationsClone = applyPreRandomisation(target, prng, settings, gameData, iconManager);
 
-    // Initialise the randomiser, and perform door shuffle if applicable
+    // Initialise the randomiser, and perform door/overworld shuffle if applicable
     var randomiser;
-    if (settings['door-shuffle'] > 0) {
+    if (settings['door-shuffle'] > 0 || settings['overworld-shuffle'] > 0) {
         var doorClone = doorData.clone();
 
         randomiser = new DoorRandomiser(prng, settings);
@@ -326,7 +327,7 @@ function randomise(seed, rawSettings, spoilerFilePath, callback) {
 
     // Creating the spoiler log and calling the callback function with the patch data
     spoilerLog.generate(spoilerFilePath, settings, spheres, gameData.itemLocations, gameData.djinn, gameData.characters,
-        gameData.classes, gameData.shops, gameData.forge, gameData.items, () => {callback(ups.createPatch(vanillaRom, target));});
+        gameData.classes, gameData.shops, gameData.forge, gameData.items, () => { callback(ups.createPatch(vanillaRom, target)); });
 }
 
 /**
@@ -379,4 +380,4 @@ function randomiseArchipelago(seed, rawSettings, userName, itemMapping, djinnMap
 
 initialise();
 
-module.exports = {randomise, randomiseArchipelago};
+module.exports = { randomise, randomiseArchipelago };
