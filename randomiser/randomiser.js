@@ -269,6 +269,10 @@ function randomise(seed, rawSettings, spoilerFilePath, callback) {
     // DEBUG
     // settings['door-shuffle'] = 1;
 
+    // Entrance shuffle is still unstable and could potentially crash the randomiser,
+    // so that's why it's going to be force-disabled on production for the time being.
+    settings['door-shuffle'] = 0;
+
     var iconManager = new IconManager();
     var gameData = new GameData(vanillaData);
 
