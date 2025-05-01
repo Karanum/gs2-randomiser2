@@ -228,7 +228,7 @@ function applyPostRandomisation(prng, target, randomiser, settings, gameData) {
     if (settings['enemy-eres'] == 1) vanillaData.elements.shuffleResistances(gameData.elements, prng);
     if (settings['enemy-eres'] == 2) vanillaData.elements.randomiseResistances(gameData.elements, prng);
 
-    if (settings['adv-equip']) randomiser.shuffleEquipmentAdvanced(prng, gameData.items, gameData.shops, gameData.forge);
+    if (settings['adv-equip']) randomiser.shuffleEquipmentAdvanced(gameData.items, gameData.shops, gameData.forge);
     if (settings['music-shuffle']) vanillaData.music.shuffleBGM(gameData.music, prng);
 
     if (settings['equip-sort']) randomiser.sortEquipment(gameData.items);
