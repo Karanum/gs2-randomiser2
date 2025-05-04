@@ -159,10 +159,8 @@ class DoorRandomiser extends BaseRandomiser {
     applyToExits(exitData) {
         for (let i = 0; i < exitData.length; ++i) {
             let exit = exitData[i];
-            let node = `${exit.mapId}:${exit.exitId}`;
-            if (!this.#graph.hasNode(node)) continue;
-
-            let edge = this.#graph.findOutEdge(node, (_, attr) => attr.shuffle == true);
+            let edge = this.#graph.findEdge((edge, attr, source, target, sourceAttr, targetAttr, undirected) =>
+                attr.shuffle && attr.eventId == exit.eventId && source.split(":")[0] == exit.mapId)
             if (edge) {
                 let destination = this.#graph.target(edge).split(':');
                 if (destination.length < 2) {
@@ -170,16 +168,16 @@ class DoorRandomiser extends BaseRandomiser {
                     continue;
                 }
 
-                exitData[i] = { 
-                    ...exitData[i], 
+                exitData[i] = {
+                    ...exitData[i],
                     vanillaDestMap: exitData[i].destMap, vanillaDestEntrance: exitData[i].destEntrance,
                     destMap: Number(destination[0]), destEntrance: Number(destination[1])
                 }
-            }     
+            }
         }
     }
 
-    #unlinkEdges() {        
+    #unlinkEdges() {
         let shuffleableEdges = this.#graph.filterEdges((_, attr) => attr.shuffle == true && !attr.special.includes('broken'));
         shuffleableEdges.forEach((edge) => {
             let source = this.#graph.source(edge);
@@ -412,4 +410,4 @@ class DoorRandomiser extends BaseRandomiser {
     }
 }
 
-module.exports = {DoorRandomiser};
+module.exports = { DoorRandomiser };

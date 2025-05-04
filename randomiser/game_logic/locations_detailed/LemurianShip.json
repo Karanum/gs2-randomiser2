@@ -47,7 +47,7 @@
             ["40:16", "40:27", true, true, "", []],
             ["40:17", "40:28", true, true, "", []],
             ["40:18", "40:30", true, true, "", []],
-            ["40:20", "41:10", true, true, "", []],
+            ["40:20", "41:10", false, true, "", [], "18"],
             ["40:1", "0xF55", false, false, "", []],
             ["40:5", "0xF54", false, false, "", [ ["Frost Jewel"] ]],
             ["40:30", "0xF56", false, false, "", [ ["Frost Jewel"] ]],
@@ -59,6 +59,7 @@
             ["41:7", "41:8", true, false, "", []],
             ["41:6", "41:7", true, true, "", []],
             ["41:8", "41:9", true, true, "", []],
+            ["41:10", "40:20", false, true, "", []],
             ["41:1", "0xF58", false, false, "", [ ["boss_aquahydra", "Parch"] ]],
             ["41:2", "0xF57", false, false, "", []],
 

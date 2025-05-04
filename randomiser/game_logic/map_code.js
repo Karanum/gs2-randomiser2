@@ -96,6 +96,12 @@ function initialise(rom) {
             mapCode[0x7521] = 0xB8;
         }
 
+        //Fix Yallam's swapped event ids until we fix using the wrong event id for the exits
+        if (i == 1611) {
+            mapCode[0xDA7] = 0x22
+            mapCode[0xDA9] = 0x21
+        }
+
         //Store map code in pre-compressed cache
         //Reads from the map_code_cache folder if it exists to speed up initialisation
         if (fs.existsSync(`./map_code_cache/${i}.bin`)) {
@@ -103,7 +109,7 @@ function initialise(rom) {
         } else {
             compressCacheMapCode(i, mapCode);
         }
-        
+
         //Convert BL calls and store map code
         convertBranchLinks(mapCode, false);
         mapCodeData[i.toString()] = [false, mapCode];
@@ -178,7 +184,7 @@ function writeToRom(instance, rom) {
     }
 }
 
-module.exports = {initialise, clone, writeToRom};
+module.exports = { initialise, clone, writeToRom };
 
 /**
  * @typedef {Object.<string, [boolean, byte[]]>} MapCodeData

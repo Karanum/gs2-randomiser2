@@ -63,32 +63,44 @@ function loadLocation(name) {
 
     // Create the internal edge structure
     json.edges.internal.forEach((edge) => {
-        let node1 = edge[0], node2 = edge[1], mirror = edge[2], shuffle = edge[3], special = edge[4], requirements = edge[5];
+        let node1 = edge[0], node2 = edge[1], mirror = edge[2], shuffle = edge[3], special = edge[4], requirements = edge[5], eventId = edge[6];
 
         if (requirements.length > 1) {
             requirements.forEach((reqSet) => {
-                let attr = { shuffle, special: special.length > 0 ? special.split(';') : [], requirements: reqSet };
+                let attr = { shuffle, special: special.length > 0 ? special.split(';') : [], requirements: reqSet, overworld: { internal: name == "Overworld", external: name == "Overworld" }, eventId: eventId !== undefined ? eventId : node1.split(":")[1] };
                 graph.addEdge(node1, node2, attr);
-                if (mirror) graph.addEdge(node2, node1, attr);
+                if (mirror) {
+                    let attr2 = JSON.parse(JSON.stringify(attr))
+                    if (eventId === undefined) {
+                        attr2.eventId = node2.split(":")[1]
+                    }
+                    graph.addEdge(node2, node1, attr2);
+                }
             });
         } else {
-            let attr = { shuffle, special: special.length > 0 ? special.split(';') : [], requirements: requirements[0] ?? [] };
+            let attr = { shuffle, special: special.length > 0 ? special.split(';') : [], requirements: requirements[0] ?? [], overworld: { internal: name == "Overworld", external: name == "Overworld" }, eventId: eventId !== undefined ? eventId : node1.split(":")[1] };
             graph.addEdge(node1, node2, attr);
-            if (mirror) graph.addEdge(node2, node1, attr);
+            if (mirror) {
+                let attr2 = JSON.parse(JSON.stringify(attr))
+                if (eventId === undefined) {
+                    attr2.eventId = node2.split(":")[1]
+                }
+                graph.addEdge(node2, node1, attr2);
+            }
         }
     });
 
     // Create the external edge structure and load the corresponding locations
     json.edges.external.forEach((edge) => {
-        let intNode = edge[0], extNode = edge[1], extLocation = edge[2], shuffle = edge[3], special = edge[4], requirements = edge[5];
+        let intNode = edge[0], extNode = edge[1], extLocation = edge[2], shuffle = edge[3], special = edge[4], requirements = edge[5], eventId = edge[6];
 
         loadLocation(extLocation);
         if (requirements.length > 1) {
             requirements.forEach((reqSet) => {
-                graph.addEdge(intNode, extNode, { shuffle, special: special.length > 0 ? special.split(';') : [], requirements: reqSet });
+                graph.addEdge(intNode, extNode, { shuffle, special: special.length > 0 ? special.split(';') : [], requirements: reqSet, overworld: { internal: name == "Overworld", external: extLocation == "Overworld" }, eventId: eventId !== undefined ? eventId : intNode.split(":")[1] });
             });
         } else {
-            graph.addEdge(intNode, extNode, { shuffle, special: special.length > 0 ? special.split(';') : [], requirements: requirements[0] ?? [] });
+            graph.addEdge(intNode, extNode, { shuffle, special: special.length > 0 ? special.split(';') : [], requirements: requirements[0] ?? [], overworld: { internal: name == "Overworld", external: extLocation == "Overworld" }, eventId: eventId !== undefined ? eventId : intNode.split(":")[1] });
         }
     });
 }
