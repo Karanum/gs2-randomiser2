@@ -67,12 +67,12 @@ function loadLocation(name) {
 
         if (requirements.length > 1) {
             requirements.forEach((reqSet) => {
-                let attr = { shuffle, special: special.length > 0 ? special.split(';') : [], requirements: reqSet };
+                let attr = { shuffle, special: special.length > 0 ? special.split(';') : [], requirements: reqSet, overworld: { internal: name == "Overworld", external: name == "Overworld" } };
                 graph.addEdge(node1, node2, attr);
                 if (mirror) graph.addEdge(node2, node1, attr);
             });
         } else {
-            let attr = { shuffle, special: special.length > 0 ? special.split(';') : [], requirements: requirements[0] ?? [] };
+            let attr = { shuffle, special: special.length > 0 ? special.split(';') : [], requirements: requirements[0] ?? [], overworld: { internal: name == "Overworld", external: name == "Overworld" } };
             graph.addEdge(node1, node2, attr);
             if (mirror) graph.addEdge(node2, node1, attr);
         }
@@ -85,10 +85,10 @@ function loadLocation(name) {
         loadLocation(extLocation);
         if (requirements.length > 1) {
             requirements.forEach((reqSet) => {
-                graph.addEdge(intNode, extNode, { shuffle, special: special.length > 0 ? special.split(';') : [], requirements: reqSet });
+                graph.addEdge(intNode, extNode, { shuffle, special: special.length > 0 ? special.split(';') : [], requirements: reqSet, overworld: { internal: name == "Overworld", external: extLocation == "Overworld" } });
             });
         } else {
-            graph.addEdge(intNode, extNode, { shuffle, special: special.length > 0 ? special.split(';') : [], requirements: requirements[0] ?? [] });
+            graph.addEdge(intNode, extNode, { shuffle, special: special.length > 0 ? special.split(';') : [], requirements: requirements[0] ?? [], overworld: { internal: name == "Overworld", external: extLocation == "Overworld" } });
         }
     });
 }
