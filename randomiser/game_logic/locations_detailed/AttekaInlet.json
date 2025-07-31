@@ -12,8 +12,8 @@
 
     "edges": {
         "external": [
-            ["234:1", "2:52", "Overworld", true, "ship", []],
-            ["234:4", "40:1", "LemurianShip", true, "", []],
+            ["234:1", "2:52", "Overworld", true, "ship", [], "4"],
+            ["234:4", "40:1", "LemurianShip", true, "", [], "1"],
             ["235:2", "2:53", "Overworld", true, "", []]
         ],
 

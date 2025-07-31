@@ -103,7 +103,7 @@ function initialise(rom) {
         } else {
             compressCacheMapCode(i, mapCode);
         }
-        
+
         //Convert BL calls and store map code
         convertBranchLinks(mapCode, false);
         mapCodeData[i.toString()] = [false, mapCode];
@@ -178,7 +178,7 @@ function writeToRom(instance, rom) {
     }
 }
 
-module.exports = {initialise, clone, writeToRom};
+module.exports = { initialise, clone, writeToRom };
 
 /**
  * @typedef {Object.<string, [boolean, byte[]]>} MapCodeData

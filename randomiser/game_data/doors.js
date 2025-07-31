@@ -34,13 +34,13 @@ function initialise(mapCode) {
             pointer += 4;
             word = read32b(mapCode[i][1], pointer);
             if (word == 0x1FF) break;
-            
+
             if ((word & 0xFFFFF000) == 0) {
                 mapId = word;
                 continue;
             }
 
-            let exit = { mapCode: i, mapId, addr: pointer, exitId: (word >> 20) & 0xFF, destEntrance: (word >> 12) & 0xFF, destMap: word & 0xFFF };
+            let exit = { mapCode: i, mapId, addr: pointer, eventId: (word >> 20) & 0xFF, destEntrance: (word >> 12) & 0xFF, destMap: word & 0xFFF };
 
             if ((word & 0x10000000) != 0) {
                 pointer += 4;
@@ -63,7 +63,7 @@ function writeToMapCode(instance, mapCode) {
         if (exit.vanillaDestMap == undefined) return;
         mapCode[exit.mapCode][0] = true;
 
-        let entry = (exit.exitId << 20) + (exit.destEntrance << 12) + (exit.destMap);
+        let entry = (exit.eventId << 20) + (exit.destEntrance << 12) + (exit.destMap);
         if (exit.condition) {
             entry += 0x10000000;
             write32b(mapCode[exit.mapCode][1], exit.addr + 4, exit.condition);
@@ -72,4 +72,4 @@ function writeToMapCode(instance, mapCode) {
     });
 }
 
-module.exports = {initialise, clone, writeToMapCode};
+module.exports = { initialise, clone, writeToMapCode };
