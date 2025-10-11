@@ -1,0 +1,6 @@
+0xFA0000 - Djinni mappings
+0xFA00A0 - Event item location mappings
+0xFA0100 - Starting inventory mappings
+0xFA0130 - Starting Psynergy mappings
+0xFA0150 - Unknown (leftover artifact from old randomiser patches, need to investigate)
+0xFA0180 - Character location mappings
