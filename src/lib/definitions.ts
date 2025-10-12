@@ -34,13 +34,15 @@ export const DjinniDefinition = {
 
 export const ElementTableDefinition = {
     ADDRESS: 0xC6684,
-    BLOCK_SIZE: 24
+    BLOCK_SIZE: 24,
+    COUNT: 48
 };
 
 export const EnemyDefinition = {
-    ADDRESS: 0xB9E8B,
+    ADDRESS: 0xB9E7C,
     BLOCK_SIZE: 76,
-    TEXT_NAMES: 1068
+    TEXT_NAMES: 1068,
+    ADDRESS_DISPLAY: 0x130D4C
 };
 
 export const ForgeResultDefinition = {

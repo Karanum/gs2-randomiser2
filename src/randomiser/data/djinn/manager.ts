@@ -1,16 +1,21 @@
 import { DjinniDefinition } from "$lib/definitions";
+import type { PRNG } from "$lib/prng";
 import type { RomData } from "../../rom";
 import { Djinni } from "./model";
 
+/**
+ * Data manager for Djinn. 
+ * Use the static `loadFromRom` method to populate it with game data.
+ */
 export class DjinniManager 
 {
     private data : Djinni[];
-    private mapping : Record<number, number>;
+    private mapping : number[];
 
     constructor ()
     {
         this.data = [];
-        this.mapping = {};
+        this.mapping = [];
     }
 
     /**
@@ -22,8 +27,8 @@ export class DjinniManager
         for (let i = 0; i < this.data.length; ++i) {
             if (this.data[i] == undefined) continue;
             cloned.data[i] = this.data[i].clone();
-            cloned.mapping[i] = this.mapping[i];
         }
+        cloned.mapping = [...this.mapping];
         return cloned;
     }
 
@@ -62,6 +67,47 @@ export class DjinniManager
     }
 
     /**
+     * Shuffles the locations of Djinn amongst themselves.
+     * @param prng The PRNG instance for the currently generating seed
+     */
+    shuffleDjinn (prng : PRNG) 
+    {
+        const pool = [...this.mapping];
+        this.mapping = [];
+
+        while (pool.length > 0) {
+            this.mapping.push(prng.randomArrayElement(pool, true));
+        }
+    }
+
+    /**
+     * Shuffles the stat boosts of all Djinn.
+     * @param prng The PRNG instance for the currently generating seed
+     */
+    shuffleStats (prng : PRNG) 
+    {
+        const pool : number[][] = [[], [], [], [], [], []];
+
+        for (let i = 0; i < this.data.length; ++i) {
+            const djinni = this.data[i];
+            if (djinni == undefined) continue;
+
+            for (let j = 0; j < 6; ++j) {
+                pool[j].push(djinni.stats[j]);
+            }
+        }
+
+        for (let i = 0; i < this.data.length; ++i) {
+            const djinni = this.data[i];
+            if (djinni == undefined) continue;
+
+            for (let j = 0; j < 6; ++j) {
+                djinni.stats[j] = prng.randomArrayElement(pool[j], true);
+            }
+        }
+    }
+
+    /**
      * Creates a new instance from the provided ROM data.
      * @param rom The `RomData` object to read from
      * @returns A new `DjinniManager` instance which has been populated with game data
@@ -80,7 +126,7 @@ export class DjinniManager
                 if (!djinni) continue;
 
                 instance.data[rawId] = djinni;
-                instance.mapping[rawId] = rawId;
+                instance.mapping.push(rawId);
             }
         }
 

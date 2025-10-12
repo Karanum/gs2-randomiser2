@@ -3,6 +3,9 @@ import type { BinaryView } from "../../binary_view";
 import type { Element } from "../enums";
 import type { TextManager } from "../text/manager";
 
+/**
+ * Data class representing a single Djinni.
+ */
 export class Djinni 
 {
     readonly id : number;
@@ -13,7 +16,8 @@ export class Djinni
     public stats : number[];
     public ability : number;
 
-    constructor (id : number, name : string, stats : number[], ability : number) {
+    constructor (id : number, name : string, stats : number[], ability : number) 
+    {
         this.id = (id % 20);
         this.element = Math.floor(id / 20);
         this.address = DjinniDefinition.ADDRESS + DjinniDefinition.BLOCK_SIZE * id;
@@ -26,7 +30,8 @@ export class Djinni
     /**
      * Returns a binary representation of this object.
      */
-    toBinary () : Uint8Array {
+    toBinary () : Uint8Array 
+    {
         return new Uint8Array([ this.ability & 0xFF, this.ability >> 8, 0, 0, 
             this.stats[0], this.stats[1], this.stats[2], this.stats[3], this.stats[4], this.stats[5], 0, 0 ]);
     }
@@ -34,7 +39,8 @@ export class Djinni
     /**
      * Returns a deep copy of this object.
      */
-    clone () : Djinni {
+    clone () : Djinni 
+    {
         return new Djinni(this.id, this.name, [...this.stats], this.ability);
     }
 
