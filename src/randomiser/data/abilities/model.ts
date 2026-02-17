@@ -4,14 +4,13 @@ import { Element } from "./../enums";
 import type { PRNG } from "$lib/prng";
 import type { BinaryView } from "../../binary_view";
 import type { TextManager } from "../text/manager";
+import { DataModel } from "../base";
 
 /**
  * Data class representing a single in-game ability. (Psynergy, Djinn/summon actions, battle actions, et cetera)
  */
-export class Ability 
+export class Ability extends DataModel
 {
-    readonly id : number;
-    readonly address : number;
     readonly type : AbilityType;
 
     public name : string = '';
@@ -31,10 +30,8 @@ export class Ability
     constructor (id:number, name:string, description:string, target:AbilityTarget, usage:AbilityUse, calcType:AbilityCalculation, element:Element, 
         addedEffect:AbilityEffect, icon:number, utility:UtilityEffect, range:AbilityRange, cost:number, power:number) 
     {
-        this.id = id;
-        this.address = AbilityDefinition.ADDRESS + AbilityDefinition.BLOCK_SIZE * id;
+        super(id, AbilityDefinition.ADDRESS + AbilityDefinition.BLOCK_SIZE * id);
         this.type = this.determineType();
-
         this.name = name;
         this.description = description;
         this.target = target;

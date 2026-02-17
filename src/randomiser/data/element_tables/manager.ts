@@ -1,20 +1,14 @@
 import { ElementTableDefinition } from "$lib/definitions";
 import type { RomData } from "../../rom";
+import { DataManager } from "../base";
 import { ElementTable } from "./model";
 
 /**
  * Data manager for elemental stats tables for enemies. 
  * Use the static `loadFromRom` method to populate it with game data.
  */
-export class ElementTableManager
+export class ElementTableManager extends DataManager<ElementTable>
 {
-    private data : ElementTable[];
-
-    constructor ()
-    {
-        this.data = [];
-    }
-
     /**
      * Returns a deep copy of this object.
      */
@@ -23,16 +17,6 @@ export class ElementTableManager
         const cloned = new ElementTableManager();
         this.data.forEach(table => { cloned.data.push(table.clone()) });
         return cloned;
-    }
-
-    /**
-     * Returns a table from this data manager.
-     * @param id The id of the table to fetch
-     * @returns An `ElementTable` object, or `undefined` if no table with this id exists
-     */
-    get (id : number) : ElementTable|undefined 
-    {
-        return this.data[id];
     }
 
     /**

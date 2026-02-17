@@ -1,21 +1,15 @@
 import { CharacterDefinition } from "$lib/definitions";
 import type { PRNG } from "$lib/prng";
 import type { RomData } from "../../rom";
+import { DataManager } from "../base";
 import { elementLevelBlocks, PlayableCharacter } from "./model";
 
 /**
  * Data manager for playable characters. 
  * Use the static `loadFromRom` method to populate it with game data.
  */
-export class CharacterManager 
+export class CharacterManager extends DataManager<PlayableCharacter>
 {
-    private data : PlayableCharacter[];
-
-    constructor ()
-    {
-        this.data = [];
-    }
-
     /**
      * Returns a deep copy of this object.
      */
@@ -27,16 +21,6 @@ export class CharacterManager
             cloned.data[i] = this.data[i].clone();
         }
         return cloned;
-    }
-
-    /**
-     * Returns a character from this data manager.
-     * @param id The id of the character to fetch
-     * @returns A `PlayableCharacter` object, or `undefined` if no character with this id exists
-     */
-    get (id : number) : PlayableCharacter|undefined 
-    {
-        return this.data[id];
     }
 
     /**

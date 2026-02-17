@@ -8,6 +8,8 @@ import { ClassManager } from "./data/classes/manager";
 import { DjinniManager } from "./data/djinn/manager";
 import { EnemyManager } from "./data/enemies/manager";
 import { ElementTableManager } from "./data/element_tables/manager";
+import { EncounterTableManager } from "./data/encounter_tables/manager";
+import { EnemyGroupManager } from "./data/enemy_groups/manager";
 
 /**
  * Represents the full ROM data from the game. Includes utility methods for easy reading and writing of binary data.
@@ -19,7 +21,9 @@ export class RomData extends BinaryView
     readonly classes : ClassManager;
     readonly djinn : DjinniManager;
     readonly elementTables : ElementTableManager;
+    readonly encounterTables : EncounterTableManager;
     readonly enemies : EnemyManager;
+    readonly enemyGroups : EnemyGroupManager;
     readonly text : TextManager;
 
     /**
@@ -42,7 +46,9 @@ export class RomData extends BinaryView
             this.classes = timeFunction(() => ClassManager.loadFromRom(this), '> Loading classes...');
             this.djinn = timeFunction(() => DjinniManager.loadFromRom(this), '> Loading djinn...');
             this.elementTables = timeFunction(() => ElementTableManager.loadFromRom(this), '> Loading elemental stat tables...');
+            this.encounterTables = timeFunction(() => EncounterTableManager.loadFromRom(this), '> Loading encounter tables...');
             this.enemies = timeFunction(() => EnemyManager.loadFromRom(this), '> Loading enemies...');
+            this.enemyGroups = timeFunction(() => EnemyGroupManager.loadFromRom(this), '> Loading enemy battle groups...');
         } else {
             // Creates the RomData by copying another instance
             this.data = Uint8Array.from(instance.data);
@@ -52,7 +58,9 @@ export class RomData extends BinaryView
             this.classes = instance.classes.clone();
             this.djinn = instance.djinn.clone();
             this.elementTables = instance.elementTables.clone();
+            this.encounterTables = instance.encounterTables.clone();
             this.enemies = instance.enemies.clone();
+            this.enemyGroups = instance.enemyGroups.clone();
             this.text = instance.text.clone();
         }
     }

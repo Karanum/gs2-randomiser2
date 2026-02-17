@@ -3,6 +3,7 @@ import type { PRNG } from "$lib/prng";
 import type { BinaryView } from "../../binary_view";
 import { PsynergyLearnType, type AbilityEffect } from "../abilities/enums";
 import type { PsynergyLine } from "../abilities/psynergyLines";
+import { DataModel } from "../base";
 import type { TextManager } from "../text/manager";
 
 /**
@@ -113,11 +114,8 @@ export class ClassLine
 /**
  * Data class representing a single in-game character class.
  */
-export class CharacterClass
+export class CharacterClass extends DataModel
 {
-    readonly id : number;
-    readonly address : number;
-
     public name : string;
     public priority : number;
     public elements : number[];
@@ -127,9 +125,7 @@ export class CharacterClass
 
     constructor (id:number, name:string, priority:number, elements:number[], stats:number[], psynergy:[number, number][], weaknesses:number[])
     {
-        this.id = id;
-        this.address = ClassDefinition.ADDRESS + ClassDefinition.BLOCK_SIZE * id;
-
+        super(id, ClassDefinition.ADDRESS + ClassDefinition.BLOCK_SIZE * id);
         this.name = name;
         this.priority = priority;
         this.elements = elements;

@@ -1,5 +1,6 @@
 import { DjinniDefinition, EnemyDefinition } from "$lib/definitions";
 import type { RomData } from "../../rom";
+import { DataManager } from "../base";
 import { Enemy } from "./model";
 
 /** List of enemy IDs that are to be considered bosses. */
@@ -11,15 +12,8 @@ const bossEnemies = [ 66, 69, 72, 73, 80, 83, 84, 85, 86, 87, 88, 89, 90, 93, 94
  * Data manager for enemies. 
  * Use the static `loadFromRom` method to populate it with game data.
  */
-export class EnemyManager 
+export class EnemyManager extends DataManager<Enemy> 
 {
-    private data : Enemy[];
-
-    constructor ()
-    {
-        this.data = [];
-    }
-
     /**
      * Returns a deep copy of this object.
      */
@@ -31,16 +25,6 @@ export class EnemyManager
             cloned.data[i] = this.data[i].clone();
         }
         return cloned;
-    }
-
-    /**
-     * Returns an enemy from this data manager.
-     * @param id The id of the enemy to fetch
-     * @returns An `Enemy` object, or `undefined` if no enemy with this id exists
-     */
-    get (id : number) : Enemy|undefined 
-    {
-        return this.data[id];
     }
 
     /**

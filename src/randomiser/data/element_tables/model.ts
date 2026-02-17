@@ -2,16 +2,14 @@ import { ElementTableDefinition } from "$lib/definitions";
 import type { PRNG } from "$lib/prng";
 import { clamp } from "$lib/util";
 import type { BinaryView } from "../../binary_view";
+import { DataModel } from "../base";
 import type { Element } from "../enums";
 
 /**
  * Data class representing a single elemental stats table.
  */
-export class ElementTable
+export class ElementTable extends DataModel
 {
-    readonly id : number;
-    readonly address : number;
-    
     public element : Element;
     public levels : number[];
     public power : number[];
@@ -19,9 +17,7 @@ export class ElementTable
 
     constructor (id:number, element:Element, levels:number[], power:number[], resist:number[])
     {
-        this.id = id;
-        this.address = ElementTableDefinition.ADDRESS + id * ElementTableDefinition.BLOCK_SIZE;
-
+        super(id, ElementTableDefinition.ADDRESS + id * ElementTableDefinition.BLOCK_SIZE);
         this.element = element;
         this.levels = levels;
         this.power = power;

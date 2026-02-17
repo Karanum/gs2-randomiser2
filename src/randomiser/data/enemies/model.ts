@@ -1,6 +1,7 @@
 import { EnemyDefinition } from "$lib/definitions";
 import { BinaryView } from "../../binary_view";
 import { AbilityEffect } from "../abilities/enums";
+import { DataModel } from "../base";
 import type { TextManager } from "../text/manager";
 import { EnemyAttackPattern, EnemyIQ } from "./enums";
 
@@ -8,10 +9,8 @@ import { EnemyAttackPattern, EnemyIQ } from "./enums";
  * Data class representing a single in-game enemy. Due to the high number of fields, 
  * most enemy data is deferred to the `EnemyActions`, `EnemyDisplay`, `EnemyStats`, and `EnemyRewards` classes.
  */
-export class Enemy
+export class Enemy extends DataModel
 {
-    readonly id : number;
-    readonly address : number;
     readonly displayAddress : number;
 
     readonly actions : EnemyActions;
@@ -23,8 +22,7 @@ export class Enemy
 
     constructor (id:number, name:string, actions:EnemyActions, display:EnemyDisplay, stats:EnemyStats, rewards:EnemyRewards)
     {
-        this.id = id;
-        this.address = EnemyDefinition.ADDRESS + id * EnemyDefinition.BLOCK_SIZE;
+        super(id, EnemyDefinition.ADDRESS + id * EnemyDefinition.BLOCK_SIZE);
         this.displayAddress = EnemyDefinition.ADDRESS_DISPLAY + id * 8;
 
         this.actions = actions;

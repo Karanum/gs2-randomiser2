@@ -1,20 +1,20 @@
 import { DjinniDefinition } from "$lib/definitions";
 import type { PRNG } from "$lib/prng";
 import type { RomData } from "../../rom";
+import { DataManager } from "../base";
 import { Djinni } from "./model";
 
 /**
  * Data manager for Djinn. 
  * Use the static `loadFromRom` method to populate it with game data.
  */
-export class DjinniManager 
+export class DjinniManager extends DataManager<Djinni>
 {
-    private data : Djinni[];
     private mapping : number[];
 
     constructor ()
     {
-        this.data = [];
+        super();
         this.mapping = [];
     }
 
@@ -40,7 +40,8 @@ export class DjinniManager
      */
     get (id : number, element? : number) : Djinni|undefined 
     {
-        return this.data[element == undefined ? id : (element * 20 + id)];
+        if (element == undefined) return super.get(id);
+        return this.data[element * 20 + id];
     }
 
     /**
@@ -60,7 +61,7 @@ export class DjinniManager
             rom.writeBlock(djinni.address, djinni.toBinary());
 
             // Write Djinni mapping
-            rom.writeByte(mappingAddr, mappedDjinni.id);
+            rom.writeByte(mappingAddr, mappedDjinni.id % 20);
             rom.writeByte(mappingAddr + 1, mappedDjinni.element);
             mappingAddr += 2;
         }

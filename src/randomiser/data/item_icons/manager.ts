@@ -1,14 +1,14 @@
 import type { RomData } from "../../rom";
-import { DataManager } from "../base";
-import { ItemLocation } from "./model";
+import { GenericManager } from "../base";
 
-export class ItemLocationManager extends DataManager<ItemLocation>
-{
-    clone(): ItemLocationManager {
+export class ItemIconManager extends GenericManager<null> {
+    //TODO: Implement
+
+    clone(): ItemIconManager {
         throw new Error("Method not implemented.");
     }
+
     writeToRom(rom: RomData): void {
         throw new Error("Method not implemented.");
     }
-
 }

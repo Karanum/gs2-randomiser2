@@ -1,5 +1,6 @@
 import { AbilityDefinition } from "$lib/definitions";
 import type { RomData } from "../../rom";
+import { DataManager } from "../base";
 import { AbilityCalculation, UtilityEffect } from "./enums";
 import { Ability } from "./model";
 
@@ -7,15 +8,8 @@ import { Ability } from "./model";
  * Data manager for abilities such as Psynergy, Djinn/summon actions, battle actions, et cetera.
  * Use the static `loadFromRom` method to populate it with game data.
  */
-export class AbilityManager 
+export class AbilityManager extends DataManager<Ability>
 {
-    private data : Ability[];
-
-    constructor () 
-    {
-        this.data = [];
-    }
-
     /**
      * Returns a deep copy of this object.
      */
@@ -27,16 +21,6 @@ export class AbilityManager
             cloned.data[i] = this.data[i].clone();
         }
         return cloned;
-    }
-
-    /**
-     * Returns an ability from this data manager.
-     * @param id The id of the ability to fetch
-     * @returns An `Ability` object, or `undefined` if no ability with this id exists
-     */
-    get (id : number) : Ability|undefined 
-    {
-        return this.data[id];
     }
 
     //TODO: Add new feature -- Utility Psynergy randomisation

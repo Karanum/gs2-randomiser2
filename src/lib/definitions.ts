@@ -38,11 +38,24 @@ export const ElementTableDefinition = {
     COUNT: 48
 };
 
+export const EncounterTableDefinition = {
+    ADDRESS: 0xEDACC,
+    BLOCK_SIZE: 28,
+    COUNT: 110,
+    ADDRESS_MUSIC: 0xEFD1C
+}
+
 export const EnemyDefinition = {
     ADDRESS: 0xB9E7C,
     BLOCK_SIZE: 76,
     TEXT_NAMES: 1068,
     ADDRESS_DISPLAY: 0x130D4C
+};
+
+export const EnemyGroupDefinition = {
+    ADDRESS: 0x12CE7C,
+    BLOCK_SIZE: 24,
+    COUNT: 660
 };
 
 export const ForgeResultDefinition = {
@@ -63,6 +76,15 @@ export const ItemDefinition = {
     TEXT_NAMES: 607,
     TEXT_DESCRIPTIONS: 146
 };
+
+export const MapDataDefinition = {
+    ADDRESS: 0xF17A8,
+    ADDRESS_BATTLE_BG: 0xEF984,
+    ADDRESS_ENCOUNTERS: 0xEE6D4,
+    ADDRESS_ENCOUNTERS_OVERWORLD: 0xEEDBC,
+    ADDRESS_MUSIC: 0xEF094,
+    ADDRESS_NAMES: 0xEF4A4
+}
 
 export const MusicDefinition = {
     ADDRESS: 0x1C4530,

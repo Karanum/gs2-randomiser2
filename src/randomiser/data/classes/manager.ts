@@ -2,6 +2,7 @@ import { ClassDefinition } from "$lib/definitions";
 import type { PRNG } from "$lib/prng";
 import type { RomData } from "../../rom";
 import { psynergyLines } from "../abilities/psynergyLines";
+import { GenericManager } from "../base";
 import { Element } from "../enums";
 import { CharacterClass, ClassLine } from "./model";
 
@@ -18,15 +19,8 @@ const utilityPsynergy : number[] = [ 12, 24, 33, 78, 185 ];
  * Data manager for character classes. 
  * Use the static `loadFromRom` method to populate it with game data.
  */
-export class ClassManager
+export class ClassManager extends GenericManager<ClassLine>
 {
-    private data : ClassLine[];
-
-    constructor ()
-    {
-        this.data = [];
-    }
-
     /**
      * Returns a deep copy of this object.
      */

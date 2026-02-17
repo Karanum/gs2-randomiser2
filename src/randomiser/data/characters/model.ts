@@ -1,6 +1,7 @@
 import { CharacterDefinition } from "$lib/definitions";
 import type { PRNG } from "$lib/prng";
 import type { BinaryView } from "../../binary_view";
+import { DataModel } from "../base";
 import { StatBlock } from "../enums";
 import type { TextManager } from "../text/manager";
 
@@ -10,11 +11,8 @@ export const elementLevelBlocks = [[54, 3, 1, 2], [3, 54, 2, 1], [1, 2, 54, 3], 
 /**
  * Data class representing a single in-game playable character.
  */
-export class PlayableCharacter 
+export class PlayableCharacter extends DataModel 
 {
-    readonly id : number;
-    readonly address : number;
-
     public name : string = '';
     public startingLevel : number;
     public statGrowths : number[][];
@@ -24,9 +22,7 @@ export class PlayableCharacter
 
     constructor (id:number, name:string, startingLevel:number, statGrowths:number[][], eLevels:number[], inventory:number[], psynergy:number[])
     {
-        this.id = id;
-        this.address = CharacterDefinition.ADDRESS + CharacterDefinition.BLOCK_SIZE * id;
-
+        super(id, CharacterDefinition.ADDRESS + CharacterDefinition.BLOCK_SIZE * id);
         this.name = name;
         this.startingLevel = startingLevel;
         this.statGrowths = statGrowths;

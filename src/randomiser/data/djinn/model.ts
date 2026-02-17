@@ -1,16 +1,15 @@
 import { DjinniDefinition } from "$lib/definitions";
 import type { BinaryView } from "../../binary_view";
+import { DataModel } from "../base";
 import type { Element } from "../enums";
 import type { TextManager } from "../text/manager";
 
 /**
  * Data class representing a single Djinni.
  */
-export class Djinni 
+export class Djinni extends DataModel
 {
-    readonly id : number;
     readonly element : Element;
-    readonly address : number;
 
     public name : string;
     public stats : number[];
@@ -18,9 +17,8 @@ export class Djinni
 
     constructor (id : number, name : string, stats : number[], ability : number) 
     {
-        this.id = (id % 20);
+        super(id, DjinniDefinition.ADDRESS + DjinniDefinition.BLOCK_SIZE * id);
         this.element = Math.floor(id / 20);
-        this.address = DjinniDefinition.ADDRESS + DjinniDefinition.BLOCK_SIZE * id;
 
         this.name = name;
         this.stats = stats;
