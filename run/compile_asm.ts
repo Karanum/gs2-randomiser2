@@ -45,7 +45,7 @@ async function collectFiles(path : string) {
     // Go over all of the script files and determine if they need to be (re)built
     validScripts.forEach(([relPath, script]) => {
         const buildPath = join(writePath, relPath);
-        const outputName = script.name.substring(0, script.name.length - 4) + '.o';
+        const outputName = script.name.substring(0, script.name.length - 4) + '.bin';
 
         if (!existsSync(join(buildPath, outputName))) {
             // If the output file doesn't exist, check if the directory needs to be created

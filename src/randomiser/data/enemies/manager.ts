@@ -54,7 +54,7 @@ export class EnemyManager extends DataManager<Enemy>
             if (this.data[i] == undefined) continue;
             const enemy = this.data[i];
 
-            rom.text.set(DjinniDefinition.TEXT_NAMES + i, enemy.name);
+            rom.text.set(EnemyDefinition.TEXT_NAMES + i, enemy.name);
             rom.writeBlock(enemy.address, enemy.toBinary());
             rom.writeBlock(enemy.displayAddress, enemy.display.toBinary());
         }

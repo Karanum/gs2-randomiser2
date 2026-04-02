@@ -65,7 +65,8 @@ export const ForgeResultDefinition = {
 
 export const ItemLocationDefinition = {
     ADDRESS: 0xF2204,
-    BLOCK_SIZE: 4,
+    ADDRESS_END: 0xF2E98,
+    BLOCK_SIZE: 8,
     ADDRESS_MAPPING_SPECIAL: 0xFA00A0,
     ADDRESS_MAPPING_CHARACTERS: 0xFA0180
 };
@@ -73,6 +74,7 @@ export const ItemLocationDefinition = {
 export const ItemDefinition = {
     ADDRESS: 0xB2364,
     BLOCK_SIZE: 44,
+    COUNT: 461,
     TEXT_NAMES: 607,
     TEXT_DESCRIPTIONS: 146
 };
@@ -92,13 +94,15 @@ export const MusicDefinition = {
 };
 
 export const ShopDefinition = {
-    ADDRESS: 0x10C3F2,
-    BLOCK_SIZE: 66
+    ADDRESS: 0x10C3F4,
+    BLOCK_SIZE: 66,
+    COUNT: 32
 };
 
 export const SummonDefinition = {
-    ADDRESS: 0xC1510,
-    BLOCK_SIZE: 8
+    ADDRESS: 0xC150C,
+    BLOCK_SIZE: 8,
+    COUNT: 29
 };
 
 export const TextDefinition = {

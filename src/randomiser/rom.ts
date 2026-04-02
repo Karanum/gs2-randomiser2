@@ -10,6 +10,14 @@ import { EnemyManager } from "./data/enemies/manager";
 import { ElementTableManager } from "./data/element_tables/manager";
 import { EncounterTableManager } from "./data/encounter_tables/manager";
 import { EnemyGroupManager } from "./data/enemy_groups/manager";
+import { ForgeResultManager } from "./data/forge_results/manager";
+import { ItemManager } from "./data/items/manager";
+import { MusicManager } from "./data/music/manager";
+import { ShopManager } from "./data/shops/manager";
+import { SummonManager } from "./data/summons/manager";
+import { ItemLocationManager } from "./data/item_locations/manager";
+
+const MFT = 0x680000;
 
 /**
  * Represents the full ROM data from the game. Includes utility methods for easy reading and writing of binary data.
@@ -24,7 +32,13 @@ export class RomData extends BinaryView
     readonly encounterTables : EncounterTableManager;
     readonly enemies : EnemyManager;
     readonly enemyGroups : EnemyGroupManager;
+    readonly forgeResults : ForgeResultManager;
+    readonly items : ItemManager;
+    readonly itemLocations : ItemLocationManager;
     readonly text : TextManager;
+    readonly music : MusicManager;
+    readonly shops : ShopManager;
+    readonly summons : SummonManager;
 
     /**
      * @param instance (optional) An existing `RomData` instance to clone; will load and parse data from `src/rom/gs2.gba` if not provided
@@ -49,6 +63,13 @@ export class RomData extends BinaryView
             this.encounterTables = timeFunction(() => EncounterTableManager.loadFromRom(this), '> Loading encounter tables...');
             this.enemies = timeFunction(() => EnemyManager.loadFromRom(this), '> Loading enemies...');
             this.enemyGroups = timeFunction(() => EnemyGroupManager.loadFromRom(this), '> Loading enemy battle groups...');
+            this.forgeResults = timeFunction(() => ForgeResultManager.loadFromRom(this), '> Loading forge results...');
+            this.items = timeFunction(() => ItemManager.loadFromRom(this), '> Loading items...');
+            this.music = timeFunction(() => MusicManager.loadFromRom(this), '> Loading music...');
+            this.shops = timeFunction(() => ShopManager.loadFromRom(this), '> Loading shops...');
+            this.summons = timeFunction(() => SummonManager.loadFromRom(this), '> Loading summons...');
+
+            this.itemLocations = timeFunction(() => ItemLocationManager.loadFromRom(this), '> Loading item locations...');
         } else {
             // Creates the RomData by copying another instance
             this.data = Uint8Array.from(instance.data);
@@ -61,7 +82,13 @@ export class RomData extends BinaryView
             this.encounterTables = instance.encounterTables.clone();
             this.enemies = instance.enemies.clone();
             this.enemyGroups = instance.enemyGroups.clone();
+            this.forgeResults = instance.forgeResults.clone();
+            this.items = instance.items.clone();
+            this.itemLocations = instance.itemLocations.clone();
             this.text = instance.text.clone();
+            this.music = instance.music.clone();
+            this.shops = instance.shops.clone();
+            this.summons = instance.summons.clone();
         }
     }
 
@@ -71,5 +98,30 @@ export class RomData extends BinaryView
     clone () : RomData
     {
         return new RomData(this);
+    }
+
+    /**
+     * Returns a pointer from the MFT.
+     * @param index Numeric index between 0 and 2047
+     */
+    readMFT(index : number) : number
+    {
+        if (index < 0 || index >= 2048 || !Number.isInteger(index)) {
+            return 0;
+        }
+        return this.readWord(MFT + 4 * index);
+    }
+
+    /**
+     * Overwrites a pointer in the MFT.
+     * @param index Numeric index between 0 and 2047
+     * @param pointer The value of the new pointer
+     */
+    writeMFT(index : number, pointer : number)
+    {
+        if (index < 0 || index >= 2048 || !Number.isInteger(index)) {
+            return;
+        }
+        this.writeWord(MFT + 4 * index, pointer);
     }
 }

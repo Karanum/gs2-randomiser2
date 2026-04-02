@@ -21,8 +21,7 @@ export class ForgeResultManager extends DataManager<ForgeResult>
      */
     getAllResults() : number[]
     {
-        //TODO: Implement
-        return [];
+        return this.data.map(table => table.results).flat().filter(item => item != 0);
     }
 
     /**
@@ -33,7 +32,13 @@ export class ForgeResultManager extends DataManager<ForgeResult>
      */
     randomiseResults(prng : PRNG, pool : number[])
     {
-        //TODO: Implement
+        this.data.forEach(table => {
+            for (let i = 0; i < table.results.length; ++i) {
+                if (table.results[i] == 0) continue;
+                let item = prng.randomArrayElement(pool, true);
+                table.set(i, item);
+            }
+        });
     }
 
     /**
@@ -69,6 +74,7 @@ export class ForgeResultManager extends DataManager<ForgeResult>
 
             const forgeResult = ForgeResult.createFromBinary(i, block);
             instance.data.push(forgeResult!);
+            ++i;
         }
 
         return instance;

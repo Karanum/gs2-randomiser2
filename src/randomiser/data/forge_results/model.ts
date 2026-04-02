@@ -2,6 +2,9 @@ import { ForgeResultDefinition } from "$lib/definitions";
 import type { BinaryView } from "../../binary_view";
 import { DataModel } from "../base";
 
+/**
+ * Data class representing the outcome table of a single forgable item.
+ */
 export class ForgeResult extends DataModel
 {
     public forgeItem : number;
@@ -16,6 +19,21 @@ export class ForgeResult extends DataModel
         this.isRusty = isRusty;
         this.results = [...results];
         this.weights = [...weights];
+    }
+
+    /**
+     * Modifies one of the resulting items
+     * @param result The index of the result to set (0 through 7)
+     * @param item The id of the resulting item
+     * @param weight The chance to obtain this result (0 through 65535), retains original weight if undefined
+     */
+    set(result : number, item : number, weight? : number) 
+    {
+        if (result < 0 || result >= this.results.length) {
+            return;
+        }
+        this.results[result] = item;
+        if (weight) this.results[result] = weight;
     }
 
     /**

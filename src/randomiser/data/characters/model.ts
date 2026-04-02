@@ -92,7 +92,7 @@ export class PlayableCharacter extends DataModel
         });
     }
 
-    setStartingLevel () : void
+    setStartingLevel ()
     {
         //TODO: Implement (after doing randomisation because this should optionally be based on sphere depth)
     }

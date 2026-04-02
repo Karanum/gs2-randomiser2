@@ -5,20 +5,20 @@ This is a list of all the sections of the old randomiser that need to be reworke
 - [x] Abilities
 - [ ] Characters
 - [ ] Classes & Classlines
-- [ ] Credits
+- [x] Credits
 - [x] Djinn
 - [ ] Doors / Transitions
 - [x] Elemental stat tables
 - [x] Enemies
-- [ ] Forge results
+- [x] Forge results
 - [ ] Icons
 - [ ] Item locations
-- [ ] Items
+- [x] Items
 - [ ] Locations / Areas
 - [ ] Map code
-- [ ] Music
-- [ ] Shops
-- [ ] Summons
+- [x] Music
+- [x] Shops
+- [x] Summons
 - [ ] Text
 
 ## Randomiser data
@@ -30,10 +30,10 @@ This is a list of all the sections of the old randomiser that need to be reworke
 - [ ] Assembly patcher
 - [ ] API routes
 - [ ] Door randomiser
-- [ ] Item randomiser
+- [x] Item randomiser
 - [ ] Item randomiser (Archipelago)
 - [ ] Plando support
-- [ ] Settings
+- [x] Settings
 - [ ] UPS patcher
 
 ## Web pages
