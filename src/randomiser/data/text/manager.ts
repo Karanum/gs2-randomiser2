@@ -122,14 +122,19 @@ export class TextManager
         return line;
     }
 
+    /**
+     * Recompress all text data and write it to the provided ROM.
+     * @param rom The ROM instance to write to
+     */
     writeToRom (rom : RomData) : void
     {
         const writeAddress = TextDefinition.ADDRESS_WRITE;
         const treeOffsetAddress = TextDefinition.ADDRESS_TREE_OFFSETS;
         const textAddress = TextDefinition.ADDRESS;
 
-        const compressedData : Uint8Array[] = this.data.map(this.compress, this);
-        const treeData : Uint8Array[] = [];
+        const compressedLines : Uint8Array[] = this.data.map(this.compress, this);
+        const dataBlocks : number[][] = [];
+        const lineLengths : number[][] = [];
 
         // Update the compression tree pointer
         let addr = writeAddress;
@@ -144,13 +149,47 @@ export class TextManager
         }
 
         // Write the compressed text lines and update the text pointers accordingly
-        for (let i = 0; i <= (compressedData.length >> 8); ++i) {
-
+        for (let i = 0; i <= (compressedLines.length >> 8); ++i) {
+            lineLengths.push([]);
+            dataBlocks.push([]);
         }
 
-        //TODO: Implement
+        compressedLines.forEach((line, i) => {
+            dataBlocks[i >> 8].push(...line);
+
+            let length = line.length;
+            while (length > 0) {
+                lineLengths[i >> 8].push(length & 0xFF);
+                length >>= 8;
+            }
+        });
+
+        let address = writeAddress;
+        dataBlocks.forEach((data, i) => {
+            const pointer = 0x08000000 + address;
+            rom.writeWord(textAddress + i * 8, pointer);
+            rom.writeBlock(address, Uint8Array.from(data));
+            address += data.length;
+        });
+
+        const lastLineLengths = lineLengths.pop();
+        lineLengths.forEach((data, i) => {
+            const pointer = 0x08000000 + address;
+            rom.writeWord(textAddress + i * 8 + 4, pointer);
+            data.pop();
+            rom.writeBlock(address, Uint8Array.from(data));
+            address += data.length;
+        });
+
+        const pointer = 0x08000000 + address;
+        rom.writeWord(textAddress + 4 + (lineLengths.length * 8), pointer);
+        rom.writeBlock(address, Uint8Array.from(lastLineLengths as number[]));
     }
 
+    /**
+     * Loads text data from the provided ROM.
+     * @param rom The vanilla ROM data to load from
+     */
     static loadFromRom (rom : RomData) : TextManager
     {
         const instance = new TextManager();

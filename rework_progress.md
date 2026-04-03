@@ -19,7 +19,7 @@ This is a list of all the sections of the old randomiser that need to be reworke
 - [x] Music
 - [x] Shops
 - [x] Summons
-- [ ] Text
+- [x] Text
 
 ## Randomiser data
 - [ ] Hints
