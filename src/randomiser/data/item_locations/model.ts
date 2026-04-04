@@ -2,6 +2,7 @@ import { AbilityDefinition, ItemDefinition, ItemLocationDefinition } from "$lib/
 import type { BinaryView } from "../../binary_view";
 import { Setting, SettingShuffleItems } from "../../settings/enums";
 import { DataModel } from "../base";
+import { PseudoItemGroup } from "../items/enums";
 import type { TextManager } from "../text/manager";
 import { ItemLocationType } from "./enums";
 
@@ -52,13 +53,13 @@ export class ItemLocation extends DataModel
     }
 
     /** Returns whether the contents of this location is a character pseudo-item. */
-    isCharacter() : boolean { return (this.contents & 0xFF00) == 0xD00; }
+    isCharacter() : boolean { return (this.contents & 0xFF00) == PseudoItemGroup.CHARACTER; }
 
     /** Returns whether the contents of this location is a Psynergy pseudo-item. */
-    isPsynergy() : boolean { return (this.contents & 0xFF00) == 0xE00; }
+    isPsynergy() : boolean { return (this.contents & 0xFF00) == PseudoItemGroup.PSYNERGY; }
 
     /** Returns whether the contents of this location is a summon pseudo-item. */
-    isSummon() : boolean { return (this.contents & 0xFF00) == 0xF00; }
+    isSummon() : boolean { return (this.contents & 0xFF00) == PseudoItemGroup.SUMMON; }
 
     /** Returns whether the contents of this location is coins. */
     isCoins() : boolean { return this.contents >= 0x8000; }

@@ -61,3 +61,14 @@ export enum ItemUseEffect {
     LEARN_ABILITY,
     REPLACE
 }
+
+/**
+ * Represents the starting IDs for the groups of technical "pseudo"-items added by the randomiser.
+ * For comparing item IDs, using `(id & 0xFF00)` will give the group as represented by this enum.
+ */
+export enum PseudoItemGroup {
+    ARCHIPELAGO = 0xA00,
+    CHARACTER = 0xD00,
+    PSYNERGY = 0xE00,
+    SUMMON = 0xF00
+}

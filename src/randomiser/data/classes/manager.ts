@@ -1,9 +1,11 @@
 import { ClassDefinition } from "$lib/definitions";
 import type { PRNG } from "$lib/prng";
+import { clamp } from "$lib/util";
 import type { RomData } from "../../rom";
+import type { AbilityManager } from "../abilities/manager";
 import { psynergyLines } from "../abilities/psynergyLines";
 import { GenericManager } from "../base";
-import { Element } from "../enums";
+import { Element, StatBlock } from "../enums";
 import { CharacterClass, ClassLine } from "./model";
 
 
@@ -145,33 +147,199 @@ export class ClassManager extends GenericManager<ClassLine>
         });
     }
 
-    randomisePsynergyByElement ()
+    /**
+     * Randomise Psynergy learned by classes, replacing Psynergy only with other Psynergy of the same element. 
+     * All non-elemental Psynergy are considered to have an "effective" element for this purpose.
+     * @param prng The PRNG instance for the currently generating seed
+     * @param abilities The AbilityManager instance for the currently generating seed
+     */
+    randomisePsynergyByElement (prng : PRNG, abilities : AbilityManager)
     {
-        // Prepare weights
-        const weights : number[] = [];
-        psynergyLines.forEach(line => weights.push(1));
+        // Sort all Psynergy into buckets per element and prepare weights
+        const psynergyData : [number, number][][] = [[], [], [], []];
+        const weights : number[][] = [[], [], [], []];
+        const totalWeights : number[] = [0, 0, 0, 0];
 
-        //TODO: Implement
+        psynergyLines.forEach(line => {
+            line.psynergy.forEach(([id, level]) => {
+                let element = abilities.get(id)?.element ?? Element.PHYSICAL;
+                if (element == Element.PHYSICAL) element = this.resolvePsynergyElement(id);
+
+                psynergyData[element].push([id, level]);
+                weights[element].push(1);
+                totalWeights[element] += 1;
+            });
+        });
+
+        // For each class line, keep a record of Psynergy mappings to maintain internal consistency
+        this.data.forEach(classLine => {
+            const psynergyMap : Record<number, [number, number]> = {};
+            const selectedPsynergy : number[] = [];
+
+            classLine.classes.forEach(classObj => {
+                for (let i = 0; i < 16; ++i) {
+                    const entry = classObj.psynergy[i];
+                    if (entry[0] == 0) continue;
+
+                    // If the base Psynergy exists in the mapping, use that
+                    const mappedEntry = psynergyMap[entry[0]];
+                    if (mappedEntry) {
+                        classObj.psynergy[i] = [...mappedEntry];
+                        continue;
+                    }
+
+                    // Otherwise, pick a weighted-random Psynergy to replace it with
+                    let element = abilities.get(entry[0])?.element ?? Element.PHYSICAL;
+                    if (element == Element.PHYSICAL) element = this.resolvePsynergyElement(entry[0]);
+
+                    let targetIndex, targetPsynergy;
+                    do {
+                        targetIndex = prng.randomWeighted(weights[element], totalWeights[element]);
+                        targetPsynergy = psynergyData[element][targetIndex];
+                    } while (selectedPsynergy.includes(targetPsynergy[0]));
+
+                    psynergyMap[entry[0]] = [...targetPsynergy];
+                    selectedPsynergy.push(targetPsynergy[0]);
+                    classObj.psynergy[i] = [...targetPsynergy];
+
+                    // Update weights to make the picked Psynergy less likely to be repeated
+                    const previousWeight = weights[element][targetIndex];
+                    weights[element][targetIndex] = previousWeight * psynergyWeightFallout;
+                    totalWeights[element] -= (previousWeight - weights[element][targetIndex]);
+                }
+            });
+        });
     }
 
-    shufflePsynergyByClass ()
+    /**
+     * Randomise Psynergy learned by classes by shuffling the Psynergy lists between class lines.
+     * If the class lines have an inconsistent number of classes, the lists will be scaled accordingly.
+     * @param prng The PRNG instance for the currently generating seed
+     */
+    shufflePsynergyByClass (prng : PRNG)
     {
-        //TODO: Implement
+        // Collect all class Psynergy data
+        const psynergyData : [number[][], number[][]][] = [];
+
+        this.data.forEach(classLine => {
+            const classData : [number[][], number[][]] = [new Array(16).fill([]), new Array(16).fill([])];
+            classLine.classes.forEach(classObj => {
+                for (let i = 0; i < 16; ++i) {
+                    classData[0][i].push(classObj.psynergy[i][0]);
+                    classData[1][i].push(classObj.psynergy[i][1]);
+                }
+            });
+            psynergyData.push(classData);
+        });
+
+        // Randomly assign a class Psynergy data entry to each class line
+        this.data.forEach(classLine => {
+            const targetData = prng.randomArrayElement(psynergyData, true);
+            const sourceLength = classLine.classes.length;
+            const targetLength = targetData[0][0].length;
+
+            if (sourceLength == targetLength) {
+                // If the class lines are of equal length, no interpolation is needed
+                classLine.classes.forEach((classObj, ci) => {
+                    for (let i = 0; i < 16; ++i) {
+                        classObj.psynergy[i][0] = targetData[0][i][ci];
+                        classObj.psynergy[i][1] = targetData[1][i][ci];
+                    }
+                });
+            } else {
+                // If the class lines are of differing lengths, interpolate the Psynergy lists
+                const frac = targetLength / sourceLength;
+                classLine.classes.forEach((classObj, ci) => {
+                    const targetList = (sourceLength < targetLength) ? Math.ceil(frac * ci) : Math.floor(frac * ci);
+                    for (let i = 0; i < 16; ++i) {
+                        classObj.psynergy[i][0] = targetData[0][i][targetList];
+                        classObj.psynergy[i][1] = targetData[1][i][targetList];
+                    }
+                });
+            }
+        });
     }
 
-    varyPsynergyLevels ()
+    /**
+     * Adjusts the Psynergy learning levels for every class. Each slot will be adjusted between
+     * -50% and +50%, but no more than 15 levels difference from its original level.
+     * @param prng The PRNG instance for the currently generating seed
+     */
+    varyPsynergyLevels (prng : PRNG)
     {
-        //TODO: Implement
+        this.data.forEach(classLine => {
+            const variance : number[] = [];
+            for (let i = 0; i < 16; ++i) {
+                variance.push(prng.randomBetween(-0.5, 0.5));
+            }
+
+            classLine.classes.forEach(classObj => {
+                for (let i = 0; i < 16; ++i) {
+                    const level = classObj.psynergy[i][1];
+                    if (level == 0) continue;
+
+                    let newLevel = clamp(Math.round(level * variance[i]), 1, 99);
+                    classObj.psynergy[i][1] = clamp(newLevel, level - 15, level + 15);
+                }
+            });
+        });
     }
 
-    randomisePsynergyLevels ()
+    /**
+     * Fully randomise Psynergy learning levels for every class.
+     * Each slot will be set to a value between 1 and 50, consistent between classes within a line.
+     * @param prng The PRNG instance for the currently generating seed
+     */
+    randomisePsynergyLevels (prng : PRNG)
     {
-        //TODO: Implement
+        this.data.forEach(classLine => {
+            const levels : number[] = [];
+            for (let i = 0; i < 16; ++i) {
+                levels.push(prng.randomInt(50) + 1);
+            }
+
+            classLine.classes.forEach(classObj => {
+                for (let i = 0; i < 16; ++i) {
+                    if (classObj.psynergy[i][1] == 0) continue;
+                    classObj.psynergy[i][1] = levels[i];
+                }
+            });
+        });
     }
 
-    randomiseStatModifiers ()
+    /**
+     * Randomises the stat modifiers for every class line. Picks a minimum and maximum modifier
+     * based on total elemental value and interpolates it for each class in the line.
+     * @param prng The PRNG instance for the currently generating seed
+     */
+    randomiseStatModifiers (prng : PRNG)
     {
-        //TODO: Implement
+        this.data.forEach(classLine => {
+            let minScore = classLine.classes[0].getTotalElementScore();
+            let maxScore = classLine.classes[classLine.classes.length - 1].getTotalElementScore();
+            
+            if (minScore == 0) {
+                minScore = 2;
+            }
+
+            for (let i = 0; i < 5; ++i) {
+                let minStat = this.generateRandomStat(prng, minScore);
+                let maxStat = Math.max(this.generateRandomStat(prng, maxScore), this.generateRandomStat(prng, maxScore));
+                if (minStat > maxStat) {
+                    [minStat, maxStat] = [maxStat, minStat];
+                }
+
+                const step = (maxStat - minStat) / classLine.classes.length;
+                classLine.classes.forEach((classObj, ci) => {
+                    classObj.stats[i] = Math.floor(minStat + ci * step);
+                });
+            }
+
+            const luck = Math.round(prng.randomBetween(8, 13));
+            classLine.classes.forEach(classObj => {
+                classObj.stats[StatBlock.LUCK] = luck;
+            })
+        });
     }
     
     /**
@@ -182,6 +350,29 @@ export class ClassManager extends GenericManager<ClassLine>
         this.data.forEach(classLine => {
             utilityPsynergy.forEach(classLine.deletePsynergy);
         });
+    }
+
+    /**
+     * Generates a random stat modifier value based on the given elemental value.
+     * The resulting stat modifier is fractional and needs to be rounded later.
+     * @param prng The PRNG instance for the currently generating seed
+     * @param elemValue The total elemental value of the class
+     */
+    private generateRandomStat(prng : PRNG, elemValue : number) : number
+    {
+        const min = Math.round(7.9 + 0.25 * elemValue);
+        const max = min + Math.floor(6 + 0.5 * elemValue);
+        return prng.randomBetween(min, max);
+    }
+
+    /**
+     * Resolves the effective element for Psynergy with the `PHYSICAL` element. 
+     */
+    private resolvePsynergyElement(id : number) : Element
+    {
+        if (id == 600 || id == 604) return Element.VENUS;
+        if (id == 602) return Element.JUPITER;
+        return Element.MARS;
     }
 
     /**

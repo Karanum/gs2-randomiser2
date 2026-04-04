@@ -3,8 +3,8 @@ This is a list of all the sections of the old randomiser that need to be reworke
 
 ## Game data
 - [x] Abilities
-- [ ] Characters
-- [ ] Classes & Classlines
+- [x] Characters
+- [x] Classes & Classlines
 - [x] Credits
 - [x] Djinn
 - [ ] Doors / Transitions

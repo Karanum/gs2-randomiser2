@@ -185,6 +185,14 @@ export class CharacterClass extends DataModel
     }
 
     /**
+     * Returns the total of all element scores for this class.
+     */
+    getTotalElementScore () : number
+    {
+        return this.elements[0] + this.elements[1] + this.elements[2] + this.elements[3];
+    }
+
+    /**
      * Clears all Psynergy learning data from this class.
      */
     clearPsynergyData () : void

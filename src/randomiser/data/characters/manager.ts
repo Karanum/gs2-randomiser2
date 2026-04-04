@@ -5,6 +5,7 @@ import type { Sphere } from "../../randomisers/item_randomiser";
 import type { RomData } from "../../rom";
 import { DataManager } from "../base";
 import type { ItemLocationManager } from "../item_locations/manager";
+import { PseudoItemGroup } from "../items/enums";
 import { CharacterId } from "./enums";
 import { elementLevelBlocks, PlayableCharacter } from "./model";
 
@@ -131,7 +132,7 @@ export class CharacterManager extends DataManager<PlayableCharacter>
             sphere.items.forEach(flag => {
                 const loc = itemLocations.get(flag);
                 if (loc?.isCharacter()) {
-                    const charId = loc.contents - 0xD00;
+                    const charId = loc.contents - PseudoItemGroup.CHARACTER;
                     const level = minLevel + Math.round((maxLevel - minLevel) * depth / spheres.length);
                     this.data[charId]?.setStartingLevel(level, true);
                 }
