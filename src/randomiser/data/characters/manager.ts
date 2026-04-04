@@ -1,7 +1,11 @@
 import { CharacterDefinition } from "$lib/definitions";
 import type { PRNG } from "$lib/prng";
+import { clamp } from "$lib/util";
+import type { Sphere } from "../../randomisers/item_randomiser";
 import type { RomData } from "../../rom";
 import { DataManager } from "../base";
+import type { ItemLocationManager } from "../item_locations/manager";
+import { CharacterId } from "./enums";
 import { elementLevelBlocks, PlayableCharacter } from "./model";
 
 /**
@@ -92,6 +96,47 @@ export class CharacterManager extends DataManager<PlayableCharacter>
         for (let i = 0; i < characters.length; ++i) {
             this.data[characters[i]].eLevels = prng.randomArrayElement(elementLevelBlocks);
         }
+    }
+
+    /**
+     * Sets the minimum starting level for all characters. Has no effect on characters
+     * with a higher starting level. (e.g. Piers starts at 18, so a `level` of 17 or lower
+     * does not change his starting level, but does affect Felix and co.)
+     * @param level Number from 5 to 99 (inclusive)
+     */
+    setStartingLevels (level : number) : void 
+    {
+        this.data.forEach(character => character.setStartingLevel(level));
+    }
+
+    /**
+     * Dynamically sets the starting level for all characters based on their sphere depth.
+     * @param minLevel The level for sphere 0, between 5 and 99
+     * @param maxLevel The level for the highest sphere, between `minLevel` and 99
+     * @param spheres The sphere map for the currently generating seed
+     * @param itemLocations The item location manager for the currently generating seed
+     */
+    setStartingLevelsDynamic (minLevel : number, maxLevel : number, spheres : Sphere[], itemLocations : ItemLocationManager) : void 
+    {
+        minLevel = clamp(minLevel, 5, 99);
+        maxLevel = clamp(maxLevel, minLevel, 99);
+        if (minLevel == maxLevel) {
+            this.data.forEach(character => character.setStartingLevel(minLevel, true));
+            return;
+        }
+
+        this.data[CharacterId.FELIX].setStartingLevel(minLevel, true);
+
+        spheres.forEach((sphere, depth) => {
+            sphere.items.forEach(flag => {
+                const loc = itemLocations.get(flag);
+                if (loc?.isCharacter()) {
+                    const charId = loc.contents - 0xD00;
+                    const level = minLevel + Math.round((maxLevel - minLevel) * depth / spheres.length);
+                    this.data[charId]?.setStartingLevel(level, true);
+                }
+            });
+        });
     }
 
     /**

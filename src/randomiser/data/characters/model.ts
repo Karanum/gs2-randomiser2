@@ -1,5 +1,6 @@
 import { CharacterDefinition } from "$lib/definitions";
 import type { PRNG } from "$lib/prng";
+import { clamp } from "$lib/util";
 import type { BinaryView } from "../../binary_view";
 import { DataModel } from "../base";
 import { StatBlock } from "../enums";
@@ -92,9 +93,18 @@ export class PlayableCharacter extends DataModel
         });
     }
 
-    setStartingLevel ()
+    /**
+     * Sets the (minimum) starting level for this character. If the current starting level is higher 
+     * than `level`, it remains unchanged unless `force` is enabled.
+     * @param level Number between 5 and 99 (inclusive)
+     * @param force Whether to ignore the current starting level
+     */
+    setStartingLevel (level : number, force : boolean = false)
     {
-        //TODO: Implement (after doing randomisation because this should optionally be based on sphere depth)
+        level = clamp(level, 5, 99);
+        if (force || level > this.startingLevel) {
+            this.startingLevel = level;
+        }
     }
 
     /**
