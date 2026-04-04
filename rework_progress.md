@@ -11,7 +11,7 @@ This is a list of all the sections of the old randomiser that need to be reworke
 - [x] Elemental stat tables
 - [x] Enemies
 - [x] Forge results
-- [ ] Icons
+- [x] Icons
 - [ ] Item locations
 - [x] Items
 - [ ] Locations / Areas

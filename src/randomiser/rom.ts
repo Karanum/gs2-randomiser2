@@ -16,6 +16,7 @@ import { MusicManager } from "./data/music/manager";
 import { ShopManager } from "./data/shops/manager";
 import { SummonManager } from "./data/summons/manager";
 import { ItemLocationManager } from "./data/item_locations/manager";
+import { AbilityIconManager } from "./data/ability_icons/manager";
 
 const MFT = 0x680000;
 
@@ -25,6 +26,7 @@ const MFT = 0x680000;
 export class RomData extends BinaryView
 {
     readonly abilities : AbilityManager;
+    readonly abilityIcons : AbilityIconManager;
     readonly characters : CharacterManager;
     readonly classes : ClassManager;
     readonly djinn : DjinniManager;
@@ -70,11 +72,14 @@ export class RomData extends BinaryView
             this.summons = timeFunction(() => SummonManager.loadFromRom(this), '> Loading summons...');
 
             this.itemLocations = timeFunction(() => ItemLocationManager.loadFromRom(this), '> Loading item locations...');
+
+            this.abilityIcons = new AbilityIconManager();
         } else {
             // Creates the RomData by copying another instance
             this.data = Uint8Array.from(instance.data);
 
             this.abilities = instance.abilities.clone();
+            this.abilityIcons = instance.abilityIcons.clone();
             this.characters = instance.characters.clone();
             this.classes = instance.classes.clone();
             this.djinn = instance.djinn.clone();
