@@ -47,7 +47,8 @@ export class ItemLocationManager extends DataManager<ItemLocation>
     }
 
     /**
-     * Returns a list of all unlocked item location flags.
+     * Returns a list of all item locations that haven't been locked 
+     * based on the current settings.
      */
     getUnlockedLocations() : ItemLocation[] {
         return this.data.filter(loc => !loc.locked);

@@ -1,6 +1,6 @@
 import { AbilityDefinition, ItemDefinition, ItemLocationDefinition } from "$lib/definitions";
 import type { BinaryView } from "../../binary_view";
-import { Setting, SettingShuffleItems } from "../../settings/enums";
+import { SettingShuffleItems } from "../../settings/enums";
 import { DataModel } from "../base";
 import { PseudoItemGroup } from "../items/enums";
 import type { TextManager } from "../text/manager";
@@ -78,6 +78,16 @@ export class ItemLocation extends DataModel
     }
 
     /**
+     * Returns whether the contents of this location is a piece of equipment.
+     * (Returns `false` for rusty weapons.)
+     */
+    isEquipment() : boolean
+    {
+        if (this.type == ItemLocationType.MIMIC) return false;
+        return this.contents <= 179 || (this.contents >= 250 && this.contents <= 415);
+    }
+
+    /**
      * Returns whether the contents of this location is a key item.
      */
     isKeyItem() : boolean
@@ -129,7 +139,7 @@ export class ItemLocation extends DataModel
     /**
      * Changes the "unrandomised" contents of this item location.
      * @param item The item ID of the new contents
-     * @param name The name of the new contents
+     * @param name The name of the new contents (optional)
      */
     updateVanillaContents(item : number, name? : string)
     {
@@ -143,6 +153,20 @@ export class ItemLocation extends DataModel
     }
 
     /**
+     * Changes the contents of this item location.
+     * @param item The item ID of the new contents
+     * @param name The name of the new contents (optional)
+     */
+    setContents(item : number, name? : string)
+    {
+        this.contents = item;
+        if (name) {
+            this.name = name;
+        }
+        this.subLocations.forEach(loc => loc.setContents(item, name));
+    }
+
+    /**
      * Copies the vanilla contents of another item location into the contents of this item location.
      * @param other The item location to copy from
      */
@@ -150,6 +174,7 @@ export class ItemLocation extends DataModel
     {
         this.contents = other.vanillaContents;
         this.name = other.vanillaName;
+        this.subLocations.forEach(loc => loc.copyContents(other));
     }
 
     /**

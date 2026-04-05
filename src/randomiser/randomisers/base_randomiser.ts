@@ -1,12 +1,27 @@
 import type { PRNG } from "$lib/prng";
+import type { ForgeResultManager } from "../data/forge_results/manager";
 import { ItemLocationType } from "../data/item_locations/enums";
 import type { ItemLocationManager } from "../data/item_locations/manager";
 import type { ItemLocation } from "../data/item_locations/model";
+import { ItemType } from "../data/items/enums";
+import type { ItemManager } from "../data/items/manager";
+import type { Item } from "../data/items/model";
+import type { ShopManager } from "../data/shops/manager";
 import type { BaseLogic } from "../logic/base_logic";
-import { Restriction } from "../logic/enums";
+import { Progression, Restriction } from "../logic/enums";
 import type { LogicItem } from "../logic/locations/types";
 import { Setting, SettingShuffleItems } from "../settings/enums";
 import type { SettingsObject } from "../settings/settings";
+
+/**
+ * Type definition for a single sphere within a sphere map.
+ */
+export type Sphere = { 
+    items: number[],
+    djinn: number[],
+    progression: Progression[]
+}
+
 
 /**
  * Base class for item randomisation.
@@ -199,25 +214,157 @@ export abstract class BaseItemRandomiser
         return true;
     }
 
-    shuffleShopEquipment() 
+    /**
+     * Shuffles all available equipment, including shops and forge results.
+     * @param items The ItemManager for the currently generating seed
+     * @param shops The ShopManager for the currently generating seed
+     * @param forgeResults The ForgeResultManager for the currently generating seed
+     */
+    shuffleShopEquipment(items : ItemManager, shops : ShopManager, forgeResults : ForgeResultManager) 
     {
-        //TODO: Implement
+        const slots : ItemLocation[] = [];
+        const equipment : [number, string][] = [];
+
+        // Get all equipment from item locations
+        this.itemLocations.getUnlockedLocations().forEach(loc => {
+            if (loc.isEquipment() && !loc.isKeyItem()) {
+                slots.push(loc);
+                equipment.push([loc.contents, loc.name]);
+            }
+        });
+
+        // Get all equipment from shops and forge results
+        [...shops.getAllArtifacts(), ...forgeResults.getAllResults()].forEach(id => {
+            const item = items.get(id);
+            if (item?.isEquipment()) {
+                equipment.push([item.id, item.name]);
+            }
+        });
+
+        // Assign all equipment randomly back into their spots
+        slots.forEach(loc => {
+            const item = this.prng.randomArrayElement(equipment, true);
+            loc.setContents(item[0], item[1]);
+        });
+
+        const equipmentIds : number[] = equipment.map(entry => entry[0]);
+        forgeResults.randomiseResults(this.prng, equipmentIds);
+        shops.shuffleEquipmentArtifacts(this.prng, items, equipmentIds);
     }
 
-    sortEquipment()
+    /**
+     * Sorts all equipment in item locations based on their Attack and Defense values.
+     * @param items The ItemManager for the currently generating seed
+     * @param spheres The sphere map of the current randomiser state
+     */
+    sortEquipment(items : ItemManager, spheres : Sphere[])
     {
-        //TODO: Implement
+        const weaponSlots : ItemLocation[][] = [];
+        const armourSlots : ItemLocation[][] = [];
+        const weapons : Item[] = [];
+        const armour : Item[] = [];
+
+        // Collect all item locations that contain equipment and their respective contents
+        spheres.forEach(sphere => {
+            const sphereWeapons : ItemLocation[] = [];
+            const sphereArmour : ItemLocation[] = [];
+
+            sphere.items.forEach(flag => {
+                const loc = this.itemLocations.get(flag);
+                if (!loc?.isEquipment() || loc.isKeyItem()) return;
+
+                const item = items.get(loc.contents);
+                if (item == undefined) return;
+
+                if (item.type == ItemType.WEAPON) {
+                    sphereWeapons.push(loc);
+                    weapons.push(item);
+                } else {
+                    sphereArmour.push(loc);
+                    armour.push(item);
+                }
+            });
+
+            weaponSlots.push(sphereWeapons);
+            armourSlots.push(sphereArmour);
+        });
+
+        // Sort all equipment based on their primary stat value
+        weapons.sort((a, b) => a.attack - b.attack);
+        armour.sort((a, b) => a.getArmourScore() - b.getArmourScore());
+
+        // Insert all equipment back into the item locations
+        weaponSlots.forEach(sphere => {
+            while (sphere.length > 0) {
+                const slot = this.prng.randomArrayElement(sphere, true);
+                const item = weapons.splice(0, 1)[0];
+                slot.setLocked(false);
+                slot.setContents(item.id, item.name);
+            }
+        });
+        armourSlots.forEach(sphere => {
+            while (sphere.length > 0) {
+                const slot = this.prng.randomArrayElement(sphere, true);
+                const item = armour.splice(0, 1)[0];
+                slot.setLocked(false);
+                slot.setContents(item.id, item.name);
+            }
+        });
     }
 
-    sortSummons()
+    /**
+     * Sorts all summons in item locations based on their vanilla ordering.
+     * @param spheres The sphere map of the current randomiser state
+     */
+    sortSummons(spheres : Sphere[])
     {
-        //TODO: Implement
+        const slots : ItemLocation[][] = [];
+        const summons : [number, string][] = [];
+
+        // Collect all item locations that contain summons and their respective contents
+        spheres.forEach(sphere => {
+            const sphereSlots : ItemLocation[] = [];
+            sphere.items.forEach(flag => {
+                const loc = this.itemLocations.get(flag);
+                if (!loc?.isSummon()) return;
+
+                sphereSlots.push(loc);
+                summons.push([loc.contents, loc.name]);
+            });
+            slots.push(sphereSlots);
+        });
+
+        // Sort the summons and insert them back into the item locations
+        summons.sort((a, b) => a[0] - b[0]);
+        slots.forEach(sphere => {
+            while (sphere.length > 0) {
+                const slot = this.prng.randomArrayElement(sphere, true);
+                const item = summons.splice(0, 1)[0];
+                slot.setContents(item[0], item[1]);
+            }
+        });
     }
 
-    sortMimics()
+    /**
+     * Sorts all mimics in item locations based on their enemy ID.
+     * Mimic difficulty is capped per sphere, so this may result in multiple
+     * of the easier Mimic enemies if they are leaning towards the lower spheres.
+     * @param spheres The sphere map of the current randomiser state
+     */
+    sortMimics(spheres : Sphere[])
     {
-        //TODO: Implement
+        let nextMimic : number = 0;
+        spheres.forEach((sphere, i) => {
+            const maxMimicLevel = Math.ceil(10 * (i + 1) / spheres.length);
+            sphere.items.forEach(flag => {
+                const loc = this.itemLocations.get(flag);
+                if (loc?.type == ItemLocationType.MIMIC) {
+                    loc.setContents(Math.min(nextMimic++, maxMimicLevel));
+                }
+            });
+        });
     }
 
     abstract run() : void;
+    abstract getSpheres(allItems : boolean, djinn : boolean, progression : boolean) : Sphere[];
 }

@@ -1,7 +1,7 @@
 import { CharacterDefinition } from "$lib/definitions";
 import type { PRNG } from "$lib/prng";
 import { clamp } from "$lib/util";
-import type { Sphere } from "../../randomisers/item_randomiser";
+import type { Sphere } from "../../randomisers/base_randomiser";
 import type { RomData } from "../../rom";
 import { DataManager } from "../base";
 import type { ItemLocationManager } from "../item_locations/manager";

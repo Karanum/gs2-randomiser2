@@ -5,13 +5,7 @@ import type { Progression } from "../logic/enums";
 import { FlatLogic } from "../logic/flat_logic";
 import { Setting, SettingShipStart, SettingShuffleItems } from "../settings/enums";
 import type { SettingsObject } from "../settings/settings";
-import { BaseItemRandomiser } from "./base_randomiser";
-
-export type Sphere = { 
-    items: number[],
-    djinn: number[],
-    progression: Progression[]
-}
+import { BaseItemRandomiser, type Sphere } from "./base_randomiser";
 
 
 const WEIGHT_MOD_TREASURE_ISLE = 0.25;
