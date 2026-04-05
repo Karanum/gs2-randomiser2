@@ -1,4 +1,5 @@
 import { ItemLocationDefinition } from "$lib/definitions";
+import type { PRNG } from "$lib/prng";
 import type { RomData } from "../../rom";
 import { Setting, SettingOmitLocations, SettingShuffleItems } from "../../settings/enums";
 import type { SettingsObject } from "../../settings/settings";
@@ -32,6 +33,9 @@ const mimicPool : [number, string][] = [
 export class ItemLocationManager extends DataManager<ItemLocation>
 {
     private nextAddress : number = 0;
+    private settingShowItemSprites : boolean = false;
+    private settingRemoveMimics : boolean = false;
+    private prng : PRNG|undefined;
 
     /**
      * Returns a deep copy of this object.
@@ -57,8 +61,9 @@ export class ItemLocationManager extends DataManager<ItemLocation>
     /**
      * Prepares all item locations for randomisation based on the provided settings.
      * @param settings The settings for the currently generating seed
+     * @param prng The PRNG instance of the currently generating seed
      */
-    prepare(settings : SettingsObject)
+    prepare(settings : SettingsObject, prng : PRNG)
     {
         // Insert extra items into the pool
         if (settings[Setting.INSERT_GS1_ITEMS]) {
@@ -120,6 +125,11 @@ export class ItemLocationManager extends DataManager<ItemLocation>
                 this.data[flag].setLocked(true);
             });
         }
+
+        // Save relevant settings and the prng instance for post-shuffle edits
+        this.prng = prng;
+        this.settingShowItemSprites = (settings[Setting.SHOW_ITEM_SPRITES] == 1);
+        this.settingRemoveMimics = (settings[Setting.REMOVE_MIMICS] == 1);
     }
 
     /**
@@ -199,13 +209,112 @@ export class ItemLocationManager extends DataManager<ItemLocation>
     }
 
     /**
+     * Fixes the event type of an item location post-shuffle.
+     * @param loc The item location object to fix
+     */
+    private fixEventType(loc : ItemLocation)
+    {
+        let type = loc.type;
+        if (loc.vanillaType <= ItemLocationType.CHEST && type != ItemLocationType.MIMIC) {
+            type = loc.vanillaType;
+        }
+
+        // Don't alter certain vanilla event types
+        if (type != ItemLocationType.MIMIC) {
+            if (loc.vanillaType != ItemLocationType.CHEST && loc.vanillaType != ItemLocationType.MIMIC) {
+                loc.setType(loc.vanillaType);
+                return;
+            }
+        }
+
+        // Handle Psynergy and summons
+        if (loc.isPsynergy() || loc.isSummon()) {
+            if (loc.vanillaType == ItemLocationType.GROUND_ITEM) {
+                loc.setType(ItemLocationType.GROUND_ITEM);
+            } else {
+                loc.setType(ItemLocationType.TABLET);
+            }
+            return;
+        }
+
+        // Handle mimic locations
+        if (loc.vanillaType == ItemLocationType.MIMIC && type != ItemLocationType.MIMIC) {
+            type = ItemLocationType.CHEST;
+        }
+
+        loc.setType(type);
+    }
+
+    /**
+     * Apply the `SHOW_ITEM_SPRITES` setting to an item location.
+     * @param loc The item location to apply the setting to
+     */
+    private applyShowItemSprites(loc : ItemLocation) 
+    {
+        if (loc.type != ItemLocationType.CHEST && loc.type != ItemLocationType.TABLET)
+            return;
+
+        if (this.settingShowItemSprites) {
+            loc.setType(ItemLocationType.GROUND_ITEM);
+            if (loc.contents == 0) {
+                this.replaceEmptyContents(loc);
+            }
+        } else {
+            // Not sure if this else-block is necessary because it feels like
+            // it's already being handled by the `fixEventType` logic.
+            // TODO: Verify the above
+            if (loc.isPsynergy() || loc.isSummon()) {
+                loc.setType(ItemLocationType.TABLET);
+            } else {
+                loc.setType(ItemLocationType.CHEST);
+            }
+        }
+    }
+
+    /**
+     * Apply the `REMOVE_MIMICS` setting to an item location.
+     * @param loc The item location to apply the setting to
+     */
+    private replaceMimic(loc : ItemLocation) 
+    {
+        const item = mimicPool[loc.contents] ?? mimicPool[0];
+        loc.setType(this.settingShowItemSprites ? ItemLocationType.GROUND_ITEM : ItemLocationType.CHEST);
+        loc.setContents(item[0], item[1] + ' (Mimic)');
+    }
+
+    /**
+     * Replace an empty item location with a random filler item.
+     * @param loc The item location to fill
+     */
+    private replaceEmptyContents(loc : ItemLocation)
+    {
+        const item = this.prng?.randomArrayElement(replacePool) ?? replacePool[0];
+        loc.setType(ItemLocationType.GROUND_ITEM);
+        loc.setContents(item[0], item[1] + ' (empty)');
+    }
+
+    /**
      * Writes all item locations in this data manager to the internal buffer of the specified ROM instance.
      * @param rom The `RomData` object to write to
      */
     writeToRom(rom: RomData) 
     {
-        //TODO: Implement
-        throw new Error("Method not implemented.");
+        this.data.forEach(loc => {
+            this.fixEventType(loc);
+            this.applyShowItemSprites(loc);
+            if (loc.type == ItemLocationType.MIMIC && this.settingRemoveMimics) {
+                this.replaceMimic(loc);
+            }
+
+            if ((loc.type <= ItemLocationType.CHEST || loc.type == ItemLocationType.GROUND_ITEM) && loc.contents == 0 ) {
+                loc.setContents(228, "Game Ticket");
+            }
+
+            rom.writeBlock(loc.address, loc.toBinary());
+            loc.subLocations.forEach(subLocation => {
+                rom.writeBlock(subLocation.address, subLocation.toBinary());
+            });
+        });
     }
 
     /**

@@ -12,7 +12,7 @@ This is a list of all the sections of the old randomiser that need to be reworke
 - [x] Enemies
 - [x] Forge results
 - [x] Icons
-- [ ] Item locations
+- [x] Item locations
 - [x] Items
 - [ ] Locations / Areas
 - [ ] Map code

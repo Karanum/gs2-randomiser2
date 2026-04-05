@@ -44,7 +44,7 @@ export abstract class BaseItemRandomiser
         this.itemLocations = itemLocations;
         this.logic = logic;
 
-        this.itemLocations.prepare(settings);
+        this.itemLocations.prepare(settings, prng);
     }
 
     /**

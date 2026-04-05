@@ -163,6 +163,7 @@ export class ItemLocation extends DataModel
         if (name) {
             this.name = name;
         }
+        this.type = (name == 'Mimic' ? ItemLocationType.MIMIC : ItemLocationType.CHEST);
         this.subLocations.forEach(loc => loc.setContents(item, name));
     }
 
@@ -174,6 +175,7 @@ export class ItemLocation extends DataModel
     {
         this.contents = other.vanillaContents;
         this.name = other.vanillaName;
+        this.type = other.type;
         this.subLocations.forEach(loc => loc.copyContents(other));
     }
 
@@ -184,6 +186,8 @@ export class ItemLocation extends DataModel
     {
         this.contents = this.vanillaContents;
         this.name = this.vanillaName;
+        this.type = this.vanillaType;
+        this.subLocations.forEach(loc => loc.resetContents());
     }
 
     /**
@@ -251,8 +255,16 @@ export class ItemLocation extends DataModel
      */
     toBinary() : Uint8Array 
     {
-        //TODO: Implement
-        throw new Error("Method not implemented.");
+        if (this.address >= 0xFA0000) {
+            return Uint8Array.from([this.contents & 0xFF, this.contents >> 8]);
+        } else {
+            return Uint8Array.from([
+                this.type & 0xFF, 0,
+                this.objectId & 0xFF, this.objectId << 8,
+                this.id & 0xFF, this.id << 8,
+                this.contents & 0xFF, this.contents << 8
+            ]);
+        }
     }
 
     /**
