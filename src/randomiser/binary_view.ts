@@ -2,9 +2,9 @@ export class BinaryView
 {
     protected data : Uint8Array;
 
-    constructor ()
+    constructor (from? : ArrayLike<number>)
     {
-        this.data = new Uint8Array();
+        this.data = (from == undefined ? new Uint8Array() : Uint8Array.from(from));
     }
 
     /**
