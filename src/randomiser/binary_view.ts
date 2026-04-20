@@ -4,7 +4,7 @@ export class BinaryView
 
     constructor (from? : ArrayLike<number>)
     {
-        this.data = (from == undefined ? new Uint8Array() : Uint8Array.from(from));
+        this.data = (from == undefined ? new Uint8Array(0) : Uint8Array.from(from));
     }
 
     /**
@@ -29,7 +29,15 @@ export class BinaryView
     }
 
     /**
-     * Returns a copy of the full binary data.
+     * Returns a copy of this view.
+     */
+    clone () : BinaryView
+    {
+        return new BinaryView(this.data);
+    }
+
+    /**
+     * Returns a copy of the raw binary data in this view.
      */
     getData () : Uint8Array
     {
@@ -48,6 +56,16 @@ export class BinaryView
     }
 
     /**
+     * Reads a single byte from the binary data. Does not check whether `address` falls within the bounds of the view.
+     * @param address The address to read from
+     * @returns The byte at the specified address
+     */
+    readByteUnsafe (address : number) : number
+    {
+        return this.data[address];
+    }
+
+    /**
      * Reads a 16-bit halfword from the binary data.
      * @param address The address to start reading from
      * @returns The halfword at the specified address, or `0` if the address is outside the view
@@ -55,6 +73,16 @@ export class BinaryView
     readHalfword (address : number) : number 
     {
         return this.readByte(address) + (this.readByte(address + 1) << 8);
+    }
+
+    /**
+     * Reads a 16-bit halfword from the binary data. Does not check whether `address` falls within the bounds of the view.
+     * @param address The address to start reading from
+     * @returns The halfword at the specified address
+     */
+    readHalfwordUnsafe (address : number) : number
+    {
+        return this.data[address] + (this.data[address + 1] << 8);
     }
 
     /**
@@ -158,5 +186,22 @@ export class BinaryView
         const writeableLength = Math.min(data.length - offset, this.data.length - address - offset);
         const buffer = data.slice(offset, offset + writeableLength);
         this.data.set(buffer, address + offset);
+    }
+
+    /**
+     * Returns the length of the matching pattern within the binary data starting from `address1` and `address2`.
+     * Returns `0` if the bytes at these starting addresses do not match. Maximum returned length is `271`.
+     * @param address1 First position to start from
+     * @param address2 Second position to start from
+     */
+    getPatternLength (address1 : number, address2 : number) : number
+    {
+        let length = 0;
+        while (length < 0x10F) {
+            if (address1 + length >= this.data.length || address2 + length >= this.data.length) break;
+            if (this.data[address1 + length] != this.data[address2 + length]) break;
+            ++length;
+        }
+        return length;
     }
 }

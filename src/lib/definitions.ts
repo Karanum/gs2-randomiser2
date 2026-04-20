@@ -92,7 +92,8 @@ export const MapDataDefinition = {
     ADDRESS_ENCOUNTERS: 0xEE6D4,
     ADDRESS_ENCOUNTERS_OVERWORLD: 0xEEDBC,
     ADDRESS_MUSIC: 0xEF094,
-    ADDRESS_NAMES: 0xEF4A4
+    ADDRESS_NAMES: 0xEF4A4,
+    ADDRESS_MAP_CODE: 0x681924
 }
 
 export const MusicDefinition = {

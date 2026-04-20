@@ -15,7 +15,7 @@ This is a list of all the sections of the old randomiser that need to be reworke
 - [x] Item locations
 - [x] Items
 - [ ] Locations / Areas
-- [ ] Map code
+- [x] Map code
 - [x] Music
 - [x] Shops
 - [x] Summons
