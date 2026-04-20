@@ -34,7 +34,7 @@ function assembleRRN(parse : ParseLineResult, errors : AssemblyErrors, instr : s
     const rd = getRegister(parse.params[0]);
     const rs = getRegister(parse.params[1]);
     const nn = getNumber(parse.params[2]);
-    const op = (instructions[instr] ?? 0) + 2;
+    const op = (instructions[instr] ?? 0);
 
     const guard = new GuardBuilder(parse.lineNumber, [instr, 'Rd', 'Rs', 'Imm5bit'])
         .requireRegisterLower(0, rd).requireRegisterLower(1, rs)

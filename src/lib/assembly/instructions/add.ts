@@ -30,7 +30,7 @@ function assembleRR(parse : ParseLineResult, errors : AssemblyErrors) : number[]
     if (rd > 7 || rs > 7) {
         return [((rd >> 3) << 7) + (rs << 3) + (rd % 7), 0x44];
     }
-    return [(rs << 3) + rd, 0x1C];
+    return [((rs & 3) << 6) + (rd << 3) + rd, 0x18 + (rs >> 2)];  
 }
 
 function assembleRN(parse : ParseLineResult, errors : AssemblyErrors) : number[] {
