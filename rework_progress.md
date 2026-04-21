@@ -70,4 +70,4 @@ This is a list of all the sections of the old randomiser that need to be reworke
 - [ ] Trial Road inventory fix (`innate/trial_road.js`)
 - [ ] Tutorial NPCs (`innate/tutorial_npcs.js`)
 - [ ] Yallam forge QoL (`innate/fast_forging.js`)
-- [ ] (miscellaneous smaller patches)
+- [x] (miscellaneous smaller patches)

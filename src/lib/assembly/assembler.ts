@@ -19,6 +19,7 @@ import * as instrSUB from './instructions/sub';
 
 export type AssemblyErrors = [number, string][];
 export type Labels = Record<string, number>;
+export type AssemblyResult = { data: Uint8Array, exports: Labels };
 
 /**
  * Converts a number to a (little Endian) byte array.
@@ -178,14 +179,19 @@ function assembleInstruction(parse : ParseLineResult, labels : Labels, errors : 
  * @param file The full file in string format
  * @returns A `Uint8Array` containing the result, or `undefined` if any errors were raised
  */
-export function build(file : string) : Uint8Array|undefined {
+export function build(file : string) : AssemblyResult|undefined {
     const result = parseFile(file);
     if (!result) return;
     
     const { parseResults, labels } = result;
     const errors : AssemblyErrors = [];
     const output : number[][] = [];
+    const exports : Labels = {};
     for (let i = 0; i < parseResults.length; ++i) {
+        if (parseResults[i].macro == Macro.EXPORT) {
+            const label = getLabel(parseResults[i].params[0]);
+            exports[label] = labels[label];
+        }
         output.push(assembleLine(parseResults[i], labels, errors));
     }
 
@@ -195,5 +201,8 @@ export function build(file : string) : Uint8Array|undefined {
         return;
     }
 
-    return new Uint8Array(output.flat());
+    return {
+        data: new Uint8Array(output.flat()),
+        exports: exports
+    }
 }

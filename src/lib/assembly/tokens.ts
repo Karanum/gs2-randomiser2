@@ -23,7 +23,8 @@ export enum Macro {
     ALIGN,
     OFFSET,
     THUNK,
-    MAX_SIZE
+    MAX_SIZE,
+    EXPORT
 }
 
 /**

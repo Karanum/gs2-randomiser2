@@ -5,7 +5,7 @@ import { MapCode } from "./model";
 import { decompress, decompressBranchLinks } from "$lib/compression";
 import { MapCodeEntry } from "./enums";
 import { MapDataDefinition } from "$lib/definitions";
-import { applyGeneralPatch } from "../../patches/randomiser_general";
+import { applyGeneralMapCodePatches } from "../../patches/randomiser_general";
 
 
 /** The safe limit for compressed map code data. Going past this will break things. */
@@ -69,7 +69,10 @@ export class MapCodeManager extends DataManager<MapCode>
             rom.writeByte(address, 0x1);
             rom.writeBlock(address + 1, compressed);
 
-            address += compressed.length + 3;
+            address += compressed.length + 1;
+            if (address % 4 != 0) {
+                address += 4 - (address % 4);
+            }
 
             // Guard against map data overflowing into other data
             if (address >= ADDRESS_LIMIT) {
@@ -102,7 +105,7 @@ export class MapCodeManager extends DataManager<MapCode>
         }
 
         // Apply innate map code patches before caching
-        applyGeneralPatch(instance);
+        applyGeneralMapCodePatches(instance);
 
         // Populate the pre-compressed cache
         if (MapCodeManager.cache.length == 0) {

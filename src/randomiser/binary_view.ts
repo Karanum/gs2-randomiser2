@@ -1,3 +1,5 @@
+import { clamp } from "$lib/util";
+
 export class BinaryView
 {
     protected data : Uint8Array;
@@ -186,6 +188,29 @@ export class BinaryView
         const writeableLength = Math.min(data.length - offset, this.data.length - address - offset);
         const buffer = data.slice(offset, offset + writeableLength);
         this.data.set(buffer, address + offset);
+    }
+
+    /**
+     * Writes a standard long jump construction (`ldr` + `bx` + pointer) to the binary data.
+     * This will write 8 bytes when word-aligned, otherwise it will write 10 bytes.
+     * Data will not be written to addresses outside the view.
+     * @param address The address to start writing to
+     * @param jumpTo The address to jump to
+     * @param register The register to use for storing the pointer (defaults to r4)
+     */
+    writeLongJump (address : number, jumpTo : number, register : number = 4) : void
+    {
+        const aligned = (address % 4 == 0);
+        register = clamp(register, 0, 7);
+
+        this.writeHalfword(address, 0x4800 + (register << 8) + (aligned ? 0 : 1));
+        this.writeHalfword(address + 2, 0x4700 + (register << 3));
+        if (aligned) {
+            this.writeWord(address + 4, jumpTo);
+        } else {
+            this.writeHalfword(address + 4, 0);
+            this.writeWord(address + 6, jumpTo);
+        }
     }
 
     /**

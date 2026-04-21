@@ -389,6 +389,10 @@ function parseMacro(parseResult : ParseLineResult) : void {
             parseResult.macro = Macro.MAX_SIZE;
             parseParameterChain(params, parseResult, [ParameterType.NUMBER]);
             break;
+        case 'export':
+            parseResult.macro = Macro.EXPORT;
+            parseParameterChain(params, parseResult, [ParameterType.LABEL]);
+            break;
         default:
             parseResult.error.push(`Unknown macro: ${opSplit[0].toLowerCase()}`);
     }

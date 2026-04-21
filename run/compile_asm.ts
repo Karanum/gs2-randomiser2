@@ -2,7 +2,7 @@ import { Dirent, existsSync, mkdirSync, readFileSync, statSync, writeFileSync } 
 import { readdir } from "node:fs/promises";
 import { join } from "node:path";
 import { cwd } from "node:process";
-import { build } from "../src/lib/assembly/assembler";
+import { build, type Labels } from "../src/lib/assembly/assembler";
 
 async function collectFiles(path : string) {
     return readdir(path, { withFileTypes: true });
@@ -14,6 +14,11 @@ async function collectFiles(path : string) {
 
     let files : [string, Dirent<string>][] = (await collectFiles(readPath)).map(f => ['', f]);
     const validScripts : [string, Dirent<string>][] = [];
+
+    let exports : Record<string, Labels> = {};
+    if (existsSync(join(writePath, 'exports.json'))) {
+        exports = JSON.parse(readFileSync(join(writePath, 'exports.json'), 'utf-8')) as Record<string, Labels>;
+    }
     
     // Recursively go over everything in the read directory until all .ASM files have been found
     while (files.length > 0) {
@@ -67,10 +72,12 @@ async function collectFiles(path : string) {
         ++builds;
 
         if (parseResult != undefined) {
-            writeFileSync(join(buildPath, outputName), parseResult);
+            writeFileSync(join(buildPath, outputName), parseResult.data);
+            exports[outputName] = parseResult.exports;
             ++successes;
         }
     });
 
+    writeFileSync(join(writePath, 'exports.json'), JSON.stringify(exports), { encoding: 'utf-8' });
     console.log(`> Finished building ${builds} files with ${builds - successes} failures!`);
 })();
