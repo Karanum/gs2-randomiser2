@@ -27,17 +27,6 @@ export function applyGeneralRomPatches(rom : RomData)
     rom.writeHalfword(0xB125A, 0x0000);     // nop
     rom.writeHalfword(0xB1264, 0x0000);     // nop
 
-    // Allow alternate/"back" entrances to set Teleport flags
-    rom.writeByte(0xF1190, 0x06);           // Dehkan Plateau
-    rom.writeWord(0xF119C, 0xFFFF0024);
-    rom.writeByte(0xF123C, 0x4B);           // Yampi Desert
-    rom.writeByte(0xF1690, 0x13);
-    rom.writeByte(0xF169C, 0x4A);
-
-    // Change Taopo Swamp interior area ID to match the exterior
-    rom.writeByte(0xF1C22, 0x2A);
-    rom.writeByte(0xF1C2A, 0x2A);
-
     // ??? (This is in the function for sorting Djinn)
     //TODO: Determine effect of legacy edit
     rom.writeHalfword(0x101B12, 0x2800);    // cmp r0, #0

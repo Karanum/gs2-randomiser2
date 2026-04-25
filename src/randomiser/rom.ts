@@ -18,6 +18,7 @@ import { SummonManager } from "./data/summons/manager";
 import { ItemLocationManager } from "./data/item_locations/manager";
 import { AbilityIconManager } from "./data/ability_icons/manager";
 import { MapCodeManager } from "./data/map_code/manager";
+import { MapDataManager } from "./data/map_data/manager";
 
 const MFT = 0x680000;
 
@@ -39,6 +40,7 @@ export class RomData extends BinaryView
     readonly items : ItemManager;
     readonly itemLocations : ItemLocationManager;
     readonly mapCode : MapCodeManager;
+    readonly mapData : MapDataManager;
     readonly music : MusicManager;
     readonly shops : ShopManager;
     readonly summons : SummonManager;
@@ -69,6 +71,7 @@ export class RomData extends BinaryView
             this.enemyGroups = timeFunction(() => EnemyGroupManager.loadFromRom(this), '> Loading enemy battle groups...');
             this.forgeResults = timeFunction(() => ForgeResultManager.loadFromRom(this), '> Loading forge results...');
             this.items = timeFunction(() => ItemManager.loadFromRom(this), '> Loading items...');
+            this.mapData = timeFunction(() => MapDataManager.loadFromRom(this), '> Loading map data...');
             this.music = timeFunction(() => MusicManager.loadFromRom(this), '> Loading music...');
             this.shops = timeFunction(() => ShopManager.loadFromRom(this), '> Loading shops...');
             this.summons = timeFunction(() => SummonManager.loadFromRom(this), '> Loading summons...');
@@ -94,6 +97,7 @@ export class RomData extends BinaryView
             this.items = instance.items.clone();
             this.itemLocations = instance.itemLocations.clone();
             this.mapCode = instance.mapCode.clone();
+            this.mapData = instance.mapData.clone();
             this.music = instance.music.clone();
             this.shops = instance.shops.clone();
             this.summons = instance.summons.clone();
