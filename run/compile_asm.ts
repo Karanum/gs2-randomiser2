@@ -73,7 +73,9 @@ async function collectFiles(path : string) {
 
         if (parseResult != undefined) {
             writeFileSync(join(buildPath, outputName), parseResult.data);
-            exports[outputName] = parseResult.exports;
+            if (Object.keys(parseResult.exports).length > 0) {
+                exports[join(relPath, outputName)] = parseResult.exports;
+            }
             ++successes;
         }
     });

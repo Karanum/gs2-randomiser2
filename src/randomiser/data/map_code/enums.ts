@@ -117,3 +117,53 @@ export enum MapCodeEntry {
     DEBUG_PSYNERGY_2,
     DEBUG_SHOPS
 }
+
+/**
+ * Represents valid NPC facing directions. Acts as a reverse unit circle (starts East, then goes clockwise).
+ */
+export enum Facing {
+    E = 0x0000,
+    ESE = 0x1000,
+    SE = 0x2000,
+    SSE = 0x3000,
+    S = 0x4000,
+    SSW = 0x5000,
+    SW = 0x6000,
+    WSW = 0x7000,
+    W = 0x8000,
+    WNW = 0x9000,
+    NW = 0xA000,
+    NNW = 0xB000,
+    N = 0xC000,
+    NNE = 0xD000,
+    NE = 0xE000,
+    ENE = 0xF000
+}
+
+/**
+ * Represents different NPC facing behaviours.
+ */
+export enum FacingType {
+    STAY_AFTER_INTERACT,
+    RETURN_AFTER_INTERACT,
+    FIXED,
+    TRACK_AFTER_INTERACT
+}
+
+/**
+ * Represents different triggers for events.
+ */
+export enum EventType {
+    NPC,
+    DOOR,
+    COLLISION,
+    INTERACT,
+    ITEM_TILE,
+    PSYNERGY_TILE,
+    TRIGGERED,
+    PUSH_START = 0x8,
+    PUSH_END,
+    ITEM_OBJECT = 0x14,
+    PSYNERGY_OBJECT = 0x15,
+    PSYNERGY_STATE = 0x85
+}

@@ -2,24 +2,24 @@
 This is a list of all the sections of the old randomiser that need to be reworked, including some new features.
 
 ## Game data
-- [x] Abilities
-- [x] Characters
-- [x] Classes & Classlines
-- [x] Credits
-- [x] Djinn
+- [X] Abilities
+- [X] Characters
+- [X] Classes & Classlines
+- [X] Credits
+- [X] Djinn
 - [ ] Doors / Transitions
-- [x] Elemental stat tables
-- [x] Enemies
-- [x] Forge results
-- [x] Icons
-- [x] Item locations
-- [x] Items
+- [X] Elemental stat tables
+- [X] Enemies
+- [X] Forge results
+- [X] Icons
+- [X] Item locations
+- [X] Items
 - [ ] Locations / Areas
-- [x] Map code
-- [x] Music
-- [x] Shops
-- [x] Summons
-- [x] Text
+- [X] Map code
+- [X] Music
+- [X] Shops
+- [X] Summons
+- [X] Text
 
 ## Randomiser data
 - [ ] Hints
@@ -30,10 +30,10 @@ This is a list of all the sections of the old randomiser that need to be reworke
 - [ ] Assembly patcher
 - [ ] API routes
 - [ ] Door randomiser
-- [x] Item randomiser
+- [X] Item randomiser
 - [ ] Item randomiser (Archipelago)
 - [ ] Plando support
-- [x] Settings
+- [X] Settings
 - [ ] UPS patcher
 
 ## Web pages
@@ -50,24 +50,24 @@ This is a list of all the sections of the old randomiser that need to be reworke
 - [ ] Anemos Sanctum custom requirements (`optional/anemos_requirements.js`)
 - [ ] Archipelago support (`optional/archipelago.js`)
 - [ ] Avoid as toggle (`optional/avoid.js`)
-- [ ] Back entrance registration (`innate/register_back_entrances.js`)
-- [ ] Char display fix (`innate/fix_char.js`)
+- [X] Back entrance registration (`innate/register_back_entrances.js`)
+- [X] Char display fix (`innate/fix_char.js`)
 - [ ] Characters as items (`optional/add_character_items.js`)
 - [ ] Cutscene skip (`optional/cutscene_skip.js`)
 - [ ] Djinn difficulty scaling (`optional/djinn_scaling.js`)
 - [ ] Easier boss battles (`optional/easier_bosses.js`)
-- [ ] Endgame dungeon persistence QoL (`innate/endgame_shortcuts.js`)
+- [X] Endgame dungeon persistence QoL (`innate/endgame_shortcuts.js`)
 - [ ] Faster Magma Rock QoL (`shortcuts/magma_rock_interior.js`)
 - [ ] Faster Upper Mars Lighthouse QoL (`shortcuts/upper_mars_lighthouse.js`)
-- [ ] Gabomba Statue puzzle QoL (`innate/gabomba_puzzle.js`)
+- [X] Gabomba Statue puzzle QoL (`innate/gabomba_puzzle.js`)
 - [ ] General randomiser patch (`innate/randomiser_general.js`)
-- [ ] Lemurian Ship logic break (`innate/fix_lemurian_ship.js`)
+- [X] Lemurian Ship logic break (`innate/fix_lemurian_ship.js`)
 - [ ] Manual Retreat glitch activation (`optional/retreat_glitch.js`)
 - [ ] Mimics disguising as key items (`optional/mimic_disguise.js`)
 - [ ] Name-based puzzles QoL (`optional/puzzles.js`)
 - [ ] Overworld Retreat as Teleport (`innate/teleport.js`)
 - [ ] Teleport to minor locations (`optional/teleport_everywhere.js`)
-- [ ] Trial Road inventory fix (`innate/trial_road.js`)
+- [X] Trial Road inventory fix (`innate/trial_road.js`)
 - [ ] Tutorial NPCs (`innate/tutorial_npcs.js`)
-- [ ] Yallam forge QoL (`innate/fast_forging.js`)
-- [x] (miscellaneous smaller patches)
+- [X] Yallam forge QoL (`innate/fast_forging.js`)
+- [X] (miscellaneous smaller patches)

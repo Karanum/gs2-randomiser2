@@ -24,12 +24,9 @@ export function assemble(parse : ParseLineResult, labels : Labels, errors : Asse
         .requireNumberAlignment(0, nn, 2);
     if (!guard.getResult(errors)) return [];
 
-    let offset = (nn - addr - 4) >> 1;
-    let sign = (offset < 0) ? 1 : 0;
-    if (sign == 1) offset = Math.abs(offset) - 1;
-
-    const upper = (sign << 10) + (offset >> 11);
-    const lower = (offset & 0x7FF);
+    const offset = (nn - addr - 4) >> 1;
+    const upper = (offset >> 11) & 0x7FF;
+    const lower = offset & 0x7FF;
     return [upper & 0xFF, 0xF0 + (upper >> 8), lower & 0xFF, 0xF8 + (lower >> 8)];
 }
 
@@ -44,11 +41,8 @@ function assembleFromLabel(parse : ParseLineResult, labels : Labels, errors : As
         .requireNumberAlignment(0, nn, 4);
     if (!guard.getResult(errors)) return [];
 
-    let offset = (nn - addr - 4) >> 1;
-    let sign = (offset < 0) ? 1 : 0;
-    if (sign == 1) offset = Math.abs(offset) - 1;
-
-    const upper = (sign << 10) + (offset >> 11);
-    const lower = (offset & 0x7FF);
+    const offset = (nn - addr - 4) >> 1;
+    const upper = (offset >> 11) & 0x7FF;
+    const lower = offset & 0x7FF;
     return [upper & 0xFF, 0xF0 + (upper >> 8), lower & 0xFF, 0xE8 + (lower >> 8)];
 }

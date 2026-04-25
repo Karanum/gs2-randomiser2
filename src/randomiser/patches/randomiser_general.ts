@@ -2,6 +2,7 @@ import { readFileSync } from "node:fs";
 import { MapCodeEntry } from "../data/map_code/enums";
 import type { MapCodeManager } from "../data/map_code/manager";
 import type { RomData } from "../rom";
+import { applyEndgamePersistencePatch } from "./shortcuts";
 
 const patchTaopoSwampAutorunFix = readFileSync('./src/assembly/out/taopo_swamp_autorun_fix.bin');
 
@@ -19,6 +20,19 @@ export function applyGeneralRomPatches(rom : RomData)
 
     // Skip Djinni allocation to Isaac's party when starting a new game
     rom.writeHalfword(0xAE868, 0x4770);     // bx lr
+
+    // Disable Trial Road inventory snapshotting
+    rom.writeHalfword(0xB10A4, 0xE08C);     // b #0x080B11C0
+    rom.writeHalfword(0xB11D0, 0xE009);     // b #0x080B11E6
+    rom.writeHalfword(0xB125A, 0x0000);     // nop
+    rom.writeHalfword(0xB1264, 0x0000);     // nop
+
+    // Allow alternate/"back" entrances to set Teleport flags
+    rom.writeByte(0xF1190, 0x06);           // Dehkan Plateau
+    rom.writeWord(0xF119C, 0xFFFF0024);
+    rom.writeByte(0xF123C, 0x4B);           // Yampi Desert
+    rom.writeByte(0xF1690, 0x13);
+    rom.writeByte(0xF169C, 0x4A);
 
     // Change Taopo Swamp interior area ID to match the exterior
     rom.writeByte(0xF1C22, 0x2A);
@@ -89,6 +103,9 @@ export function applyGeneralMapCodePatches(mapCode : MapCodeManager)
     // Stop Trial Road summit doors from closing and always allow forfeiting
     mapCodeTrialRoad.data.writeHalfword(0x34E, 0xE002);     // b #0x02008356
     mapCodeTrialRoad.data.writeHalfword(0x1760, 0xE034);    // b #0x020097CC
+
+    // Apply external innate patches
+    applyEndgamePersistencePatch(mapCode);
 
     //TODO: Finish
 }

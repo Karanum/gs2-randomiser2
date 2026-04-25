@@ -17,6 +17,7 @@ import { ShopManager } from "./data/shops/manager";
 import { SummonManager } from "./data/summons/manager";
 import { ItemLocationManager } from "./data/item_locations/manager";
 import { AbilityIconManager } from "./data/ability_icons/manager";
+import { MapCodeManager } from "./data/map_code/manager";
 
 const MFT = 0x680000;
 
@@ -37,10 +38,11 @@ export class RomData extends BinaryView
     readonly forgeResults : ForgeResultManager;
     readonly items : ItemManager;
     readonly itemLocations : ItemLocationManager;
-    readonly text : TextManager;
+    readonly mapCode : MapCodeManager;
     readonly music : MusicManager;
     readonly shops : ShopManager;
     readonly summons : SummonManager;
+    readonly text : TextManager;
 
     /**
      * @param instance (optional) An existing `RomData` instance to clone; will load and parse data from `src/rom/gs2.gba` if not provided
@@ -72,6 +74,7 @@ export class RomData extends BinaryView
             this.summons = timeFunction(() => SummonManager.loadFromRom(this), '> Loading summons...');
 
             this.itemLocations = timeFunction(() => ItemLocationManager.loadFromRom(this), '> Loading item locations...');
+            this.mapCode = timeFunction(() => MapCodeManager.loadFromRom(this), '> Loading map code...');
 
             this.abilityIcons = new AbilityIconManager();
         } else {
@@ -90,10 +93,11 @@ export class RomData extends BinaryView
             this.forgeResults = instance.forgeResults.clone();
             this.items = instance.items.clone();
             this.itemLocations = instance.itemLocations.clone();
-            this.text = instance.text.clone();
+            this.mapCode = instance.mapCode.clone();
             this.music = instance.music.clone();
             this.shops = instance.shops.clone();
             this.summons = instance.summons.clone();
+            this.text = instance.text.clone();
         }
     }
 
