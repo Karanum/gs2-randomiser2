@@ -3,6 +3,7 @@ import { MapCodeEntry } from "../data/map_code/enums";
 import type { MapCodeManager } from "../data/map_code/manager";
 import type { RomData } from "../rom";
 import { applyEndgamePersistencePatch } from "./shortcuts";
+import { applyWorldMapRetreat } from "./retreat_teleport";
 
 const patchTaopoSwampAutorunFix = readFileSync('./src/assembly/out/taopo_swamp_autorun_fix.bin');
 
@@ -58,6 +59,10 @@ export function applyGeneralRomPatches(rom : RomData)
     //TODO: Check whether the edits starting at 0x09000154 should be included or dropped
     //TODO: Check whether the edits starting at 0x09000300 should be included or dropped
     //TODO: Check whether the edits starting at 0x090004A0 should be included or dropped
+
+    // Apply external innate patches
+    applyWorldMapRetreat(rom);
+
     //TODO: Finish
 }
 

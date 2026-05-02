@@ -1,6 +1,7 @@
 import { MapDataDefinition } from "$lib/definitions";
 import type { RomData } from "../../rom";
 import { DataManager } from "../base";
+import { WorldMapDisplay } from "./enums";
 import { MapData, WorldMapLocation } from "./model";
 
 export class MapDataManager extends DataManager<MapData>
@@ -26,6 +27,28 @@ export class MapDataManager extends DataManager<MapData>
         cloned.data = this.data.map(entry => entry.clone());
         cloned.worldMapData = this.worldMapData.map(entry => entry.clone());
         return cloned;
+    }
+
+    /**
+     * Updates map data to support using Teleport to every map destination.
+     */
+    applyTeleportEverywhereChanges () : void
+    {
+        // Add map markers for all locations to the Teleport map view
+        [1, 3, 11, 12, 15, 17, 20, 21, 22, 23, 24, 26, 28, 30, 32, 
+            37, 38, 39, 40, 41, 42, 44, 45, 51, 52, 55, 56, 57, 58, 59].forEach(id => {
+                this.worldMapData[id].teleportMapDisplay = WorldMapDisplay.YELLOW;
+        });
+
+        // Add missing map markers in general for some locations that are missing one
+        [45, 51, 52, 56, 57].forEach(id => {
+            this.worldMapData[id].worldMapDisplay = WorldMapDisplay.YELLOW;
+        });
+
+        // Fix Shaman Village Cave entries using outdated map IDs
+        this.worldMapData[45].mapId = 0xF0;
+        this.worldMapData[46].mapId = 0xF0;
+        this.worldMapData[46].visitFlag = 0x38;
     }
 
     /**

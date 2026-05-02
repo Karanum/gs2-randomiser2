@@ -80,6 +80,6 @@ async function collectFiles(path : string) {
         }
     });
 
-    writeFileSync(join(writePath, 'exports.json'), JSON.stringify(exports), { encoding: 'utf-8' });
+    writeFileSync(join(writePath, 'exports.json'), JSON.stringify(exports, undefined, '\t'), { encoding: 'utf-8' });
     console.log(`> Finished building ${builds} files with ${builds - successes} failures!`);
 })();

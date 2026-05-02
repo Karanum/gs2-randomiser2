@@ -14,7 +14,7 @@ This is a list of all the sections of the old randomiser that need to be reworke
 - [X] Icons
 - [X] Item locations
 - [X] Items
-- [ ] Locations / Areas
+- [X] Locations / Areas
 - [X] Map code
 - [X] Music
 - [X] Shops
@@ -27,7 +27,6 @@ This is a list of all the sections of the old randomiser that need to be reworke
 - [ ] Spoiler log
 
 ## Randomiser logic
-- [ ] Assembly patcher
 - [ ] API routes
 - [ ] Door randomiser
 - [X] Item randomiser
@@ -62,11 +61,11 @@ This is a list of all the sections of the old randomiser that need to be reworke
 - [X] Gabomba Statue puzzle QoL (`innate/gabomba_puzzle.js`)
 - [ ] General randomiser patch (`innate/randomiser_general.js`)
 - [X] Lemurian Ship logic break (`innate/fix_lemurian_ship.js`)
-- [ ] Manual Retreat glitch activation (`optional/retreat_glitch.js`)
+- [X] Manual Retreat glitch activation (`optional/retreat_glitch.js`)
 - [ ] Mimics disguising as key items (`optional/mimic_disguise.js`)
 - [ ] Name-based puzzles QoL (`optional/puzzles.js`)
-- [ ] Overworld Retreat as Teleport (`innate/teleport.js`)
-- [ ] Teleport to minor locations (`optional/teleport_everywhere.js`)
+- [X] Overworld Retreat as Teleport (`innate/teleport.js`)
+- [X] Teleport to minor locations (`optional/teleport_everywhere.js`)
 - [X] Trial Road inventory fix (`innate/trial_road.js`)
 - [ ] Tutorial NPCs (`innate/tutorial_npcs.js`)
 - [X] Yallam forge QoL (`innate/fast_forging.js`)
