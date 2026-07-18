@@ -1,6 +1,6 @@
 .offset #0x08131900
 
-push {r5-r6 lr}
+push {r5-r6, lr}
 mov r5, #0x30
 mov r6, #0x0
 
