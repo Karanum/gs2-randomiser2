@@ -12,5 +12,15 @@
 	},
 	"retreat_teleport\\update_ship_position.bin": {
 		"import_sancWarpShipPositions": 135046080
+	},
+	"character_shuffle\\idejima_give_sheba_item.bin": {
+		"inject_objectId": 33587928
+	},
+	"character_shuffle\\idejima_show_sheba_item.bin": {
+		"inject_objectId": 33587460
+	},
+	"archipelago\\receive_multiworld_item.bin": {
+		"func_mainLoopScript_x19": 151020288,
+		"func_mainLoopScript_x1F": 151020306
 	}
 }

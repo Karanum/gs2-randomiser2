@@ -1,7 +1,7 @@
 import { compressBranchLinks, compressFormat1 } from "$lib/compression";
 import { BinaryView } from "../../binary_view";
 import { DataModel } from "../base";
-import { EventType, type Facing, type FacingType } from "./enums";
+import { EventType, FacingType, type Facing } from "./enums";
 
 /**
  * Data class representing a single map code script.
@@ -69,6 +69,29 @@ export class MapCode extends DataModel
     }
 
     /**
+     * Writes a sign-like NPC entry into the binary data of this map code.
+     * @param address The address to write this NPC to
+     * @param sprite Sprite index to use for this NPC
+     * @param flag Flag for conditional placement, `-1` to ignore
+     * @param x X coordinate to place this NPC at
+     * @param z Z coordinate to place this NPC at
+     * @param y Y coordinate to place this NPC at
+     */
+    setSignlikeNpcEntry (address : number, sprite : number, flag: number, x : number, z : number, y : number) : void
+    {
+        this.setNpcEntry(address, sprite, flag, 0x1, x, z, y, 0, 0);
+    }
+
+    /**
+     * Writes an end-of-table NPC entry into the binary data of this map code.
+     * @param address The address to write this NPC to
+     */
+    setFinalNpcEntry (address : number) : void
+    {
+        this.setNpcEntry(address, 0, 0, 0, 0, 0, 0, 0, 0);
+    }
+
+    /**
      * Writes an event entry into the binary data of this map code.
      * @param address The address to write this event to
      * @param type The type of the event
@@ -90,5 +113,17 @@ export class MapCode extends DataModel
         this.data.writeHalfword(address + 4, objectId);
         this.data.writeHalfword(address + 6, flag);
         this.data.writeWord(address + 8, handler);
+    }
+
+    /**
+     * Writes a standard `bl` jump instruction to the map code data. Writes 4 bytes.
+     * Will fail if the destination address is too far from the source address.
+     * Data will not be written to addresses outside the view.
+     * @param address The address to write the instruction to
+     * @param jumpTo The address to jump to
+     */
+    writeLinkedJump (address : number, jumpTo : number) : void
+    {
+        this.data.writeLinkedJump(address, 0x02008000, jumpTo);
     }
 }

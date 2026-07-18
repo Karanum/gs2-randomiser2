@@ -191,6 +191,32 @@ export class BinaryView
     }
 
     /**
+     * Writes a standard `bl` jump instruction to the binary data. Writes 4 bytes.
+     * Will fail if the destination address is too far from the source address.
+     * Data will not be written to addresses outside the view.
+     * @param address The address to write the instruction to
+     * @param baseOffset The base offset of this `BinaryView` (e.g. `0x08000000` for ROM, `0x02008000` for map code)
+     * @param jumpTo The address to jump to
+     */
+    writeLinkedJump (address : number, baseOffset : number, jumpTo : number) : void
+    {
+        const srcAddr = baseOffset + address + 4;
+        if (jumpTo < srcAddr - 0x3FFFFE || jumpTo > srcAddr + 0x3FFFFC) {
+            const srcStr = (srcAddr - 4).toString(16).toUpperCase();
+            const destStr = jumpTo.toString(16).toUpperCase();
+            console.warn(`BL operation from 0x${srcStr} to 0x${destStr} is too far!`);
+            return;
+        }
+
+        const offset = (jumpTo - srcAddr - 4) >> 1;
+        const upper = (offset >> 11) & 0x7FF;
+        const lower = offset & 0x7FF;
+
+        this.writeHalfword(address, 0xF0 + upper);
+        this.writeHalfword(address + 2, 0xF8 + lower);
+    }
+
+    /**
      * Writes a standard long jump construction (`ldr` + `bx` + pointer) to the binary data.
      * This will write 8 bytes when word-aligned, otherwise it will write 10 bytes.
      * Data will not be written to addresses outside the view.

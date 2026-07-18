@@ -137,4 +137,15 @@ export class RomData extends BinaryView
         }
         this.writeWord(MFT + 4 * index, pointer);
     }
+
+    /**
+     * Writes a standard `bl` jump instruction to the ROM. Writes 4 bytes.
+     * Will fail if the destination address is too far from the source address.
+     * @param address The address to write the instruction to
+     * @param jumpTo The address to jump to
+     */
+    writeLinkedJump(address : number, jumpTo : number)
+    {
+        super.writeLinkedJump(address, 0x08000000, jumpTo);
+    }
 }

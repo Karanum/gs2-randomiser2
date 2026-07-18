@@ -6,6 +6,7 @@ import { applyEndgamePersistencePatch } from "./shortcuts";
 import { applyWorldMapRetreat } from "./retreat_teleport";
 
 const patchTaopoSwampAutorunFix = readFileSync('./src/assembly/out/taopo_swamp_autorun_fix.bin');
+const patchCountDjinnFunction = readFileSync('./src/assembly/out/count_djinn.bin');
 
 const locationMapping = [0xC6, 0xC7, 0xD1, 0xD2, 0xD7, 0xDE, 0xF2, 0x146, 0x1C4, 0x1C5, 0x1C6, 0x1C7, 0x1C9, 0x1CA, 
     0x1CC, 0xE90, 0xE8A, 0xE8B, 0xE9A, 0xF16, 0x1B9, 0x41, 0xE8D, 0xE4E, 0xE0C, 0xCE, 0xCB, 0xC8, 0xCF, 0xC9, 0xCA];
@@ -63,6 +64,9 @@ export function applyGeneralRomPatches(rom : RomData)
     // Apply external innate patches
     applyWorldMapRetreat(rom);
 
+    // Insert common use functions
+    rom.writeBlock(0x131900, patchCountDjinnFunction);
+
     //TODO: Finish
 }
 
@@ -89,7 +93,7 @@ export function applyGeneralMapCodePatches(mapCode : MapCodeManager)
     mapCodeKibombo.data.writeWord(0x7520, 0x0200B8ED);
 
     // Fix Taopo Swamp sink speed with auto-run
-    mapCodeTaopo.data.writeWord(0x218C, 0xFA32F001);        // bl #0x0200B5F4
+    mapCodeTaopo.writeLinkedJump(0x218C, 0x0200B5F4);
     mapCodeTaopo.data.writeHalfword(0x2190, 0xE005);        // b #0x0200A19E
     mapCodeTaopo.data.expand(patchTaopoSwampAutorunFix.length);
     mapCodeTaopo.data.writeBlock(0x35F4, patchTaopoSwampAutorunFix);
