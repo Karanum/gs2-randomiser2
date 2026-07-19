@@ -1,32 +1,32 @@
-import { readFileSync } from "node:fs";
 import type { MapCodeManager } from "../data/map_code/manager";
 import { END, END_PERSIST, LINE, Name } from "../data/text/control_characters";
 import type { RomData } from "../rom";
 import { MapCodeEntry } from "../data/map_code/enums";
+import { getAssemblyScript } from "../script_util";
 
-const patchKandoreanLashScene = readFileSync('./src/assembly/out/cutscene_skip/kandorean_lash_scene.bin');
-const patchMadraMayorsGiftScene = readFileSync('./src/assembly/out/cutscene_skip/madra_mayors_gift_scene.bin');
-const patchAlhafraBreadBoySkip = readFileSync('./src/assembly/out/cutscene_skip/alhafra_bread_boy.bin');
-const patchAlhafraCaveGuardSkip = readFileSync('./src/assembly/out/cutscene_skip/alhafra_cave_guard.bin');
-const patchAlhafraMayorDocksScene = readFileSync('./src/assembly/out/cutscene_skip/alhafra_mayor_docks_scene.bin');
-const patchBriggsBossScene = readFileSync('./src/assembly/out/cutscene_skip/briggs.bin');
-const patchKibomboPiersScene = readFileSync('./src/assembly/out/cutscene_skip/kibombo_piers_scene.bin');
-const patchKibomboElderScene = readFileSync('./src/assembly/out/cutscene_skip/kibombo_elder_scene.bin');
-const patchGabombaPuzzleIntroScene = readFileSync('./src/assembly/out/cutscene_skip/gabomba_puzzle_intro_scene.bin');
-const patchGabombaPostPuzzleScene = readFileSync('./src/assembly/out/cutscene_skip/gabomba_post_puzzle_scene.bin');
-const patchIsletCaveFrom = readFileSync('./src/assembly/out/cutscene_skip/islet_cave_from.bin');
-const patchIsletCaveTo = readFileSync('./src/assembly/out/cutscene_skip/islet_cave_to.bin');
-const patchGaiaRockSerpentScene = readFileSync('./src/assembly/out/cutscene_skip/gaia_rock_serpent_scene.bin');
-const patchChampaProng1 = readFileSync('./src/assembly/out/cutscene_skip/champa_prong_1.bin');
-const patchChampaProng2 = readFileSync('./src/assembly/out/cutscene_skip/champa_prong_2.bin');
-const patchChampaProng3 = readFileSync('./src/assembly/out/cutscene_skip/champa_prong_3.bin');
-const patchChampaPreAvimanderScene = readFileSync('./src/assembly/out/cutscene_skip/champa_pre_avimander.bin');
-const patchChampaPostAvimanderScene = readFileSync('./src/assembly/out/cutscene_skip/champa_post_avimander.bin');
-const patchContigoReunion = readFileSync('./src/assembly/out/cutscene_skip/contigo_reunion.bin');
-const patchShamanVillageRodScene = readFileSync('./src/assembly/out/cutscene_skip/shaman_village_rod_scene.bin');
-const patchJupiterLighthouseAerie = readFileSync('./src/assembly/out/cutscene_skip/jupiter_lighthouse_aerie.bin');
-const patchLohoCannonScene = readFileSync('./src/assembly/out/cutscene_skip/loho_cannon_scene.bin');
-const patchMarsLighthouseAerie = readFileSync('./src/assembly/out/cutscene_skip/mars_lighthouse_aerie.bin');
+const patchKandoreanLashScene = getAssemblyScript('cutscene_skip/kandorean_lash_scene');
+const patchMadraMayorsGiftScene = getAssemblyScript('cutscene_skip/madra_mayors_gift_scene');
+const patchAlhafraBreadBoySkip = getAssemblyScript('cutscene_skip/alhafra_bread_boy');
+const patchAlhafraCaveGuardSkip = getAssemblyScript('cutscene_skip/alhafra_cave_guard');
+const patchAlhafraMayorDocksScene = getAssemblyScript('cutscene_skip/alhafra_mayor_docks_scene');
+const patchBriggsBossScene = getAssemblyScript('cutscene_skip/briggs');
+const patchKibomboPiersScene = getAssemblyScript('cutscene_skip/kibombo_piers_scene');
+const patchKibomboElderScene = getAssemblyScript('cutscene_skip/kibombo_elder_scene');
+const patchGabombaPuzzleIntroScene = getAssemblyScript('cutscene_skip/gabomba_puzzle_intro_scene');
+const patchGabombaPostPuzzleScene = getAssemblyScript('cutscene_skip/gabomba_post_puzzle_scene');
+const patchIsletCaveFrom = getAssemblyScript('cutscene_skip/islet_cave_from');
+const patchIsletCaveTo = getAssemblyScript('cutscene_skip/islet_cave_to');
+const patchGaiaRockSerpentScene = getAssemblyScript('cutscene_skip/gaia_rock_serpent_scene');
+const patchChampaProng1 = getAssemblyScript('cutscene_skip/champa_prong_1');
+const patchChampaProng2 = getAssemblyScript('cutscene_skip/champa_prong_2');
+const patchChampaProng3 = getAssemblyScript('cutscene_skip/champa_prong_3');
+const patchChampaPreAvimanderScene = getAssemblyScript('cutscene_skip/champa_pre_avimander');
+const patchChampaPostAvimanderScene = getAssemblyScript('cutscene_skip/champa_post_avimander');
+const patchContigoReunion = getAssemblyScript('cutscene_skip/contigo_reunion');
+const patchShamanVillageRodScene = getAssemblyScript('cutscene_skip/shaman_village_rod_scene');
+const patchJupiterLighthouseAerie = getAssemblyScript('cutscene_skip/jupiter_lighthouse_aerie');
+const patchLohoCannonScene = getAssemblyScript('cutscene_skip/loho_cannon_scene');
+const patchMarsLighthouseAerie = getAssemblyScript('cutscene_skip/mars_lighthouse_aerie');
 
 
 export function applyCutsceneSkip(rom : RomData)

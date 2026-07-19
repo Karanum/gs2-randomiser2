@@ -1,7 +1,7 @@
-import { readFileSync } from "node:fs";
 import type { RomData } from "../rom";
+import { getAssemblyScript } from "../script_util";
 
-const patchDisplayAvoidText = readFileSync('./src/assembly/out/avoid.bin');
+const patchDisplayAvoidText = getAssemblyScript('avoid');
 
 /**
  * Changes Avoid to work as a toggle, as well as regardless of party level.

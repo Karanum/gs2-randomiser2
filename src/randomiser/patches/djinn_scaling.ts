@@ -1,8 +1,9 @@
-import { readFileSync } from "node:fs";
 import type { RomData } from "../rom";
 import type { EnemyManager } from "../data/enemies/manager";
+import { EnemyID } from "../data/enemies/enums";
+import { getAssemblyScript } from "../script_util";
 
-const patchDjinnScalingEncounter = readFileSync('./src/assembly/out/djinn_scaling_encounter.bin');
+const patchDjinnScalingEncounter = getAssemblyScript('djinn_scaling_encounter');
 
 const venusMovesets = [
     [3, 3, 12, 12, 164, 498, 1, 2],
@@ -73,10 +74,10 @@ export function applyDjinnScaling(rom : RomData)
     rom.writeLinkedJump(0xD2BC2, 0x08131920);
 
     // Update Djinni enemy entries
-    updateEnemySet(rom.enemies, 4, venusModifiers, venusMovesets, "Venus");
-    updateEnemySet(rom.enemies, 19, mercuryModifiers, mercuryMovesets, "Mercury");
-    updateEnemySet(rom.enemies, 33, marsModifiers, marsMovesets, "Mars");
-    updateEnemySet(rom.enemies, 48, jupiterModifiers, jupiterMovesets, "Jupiter");
+    updateEnemySet(rom.enemies, EnemyID.VENUS_DJINNI_SCALED, venusModifiers, venusMovesets, "Venus");
+    updateEnemySet(rom.enemies, EnemyID.MERCURY_DJINNI_SCALED, mercuryModifiers, mercuryMovesets, "Mercury");
+    updateEnemySet(rom.enemies, EnemyID.MARS_DJINNI_SCALED, marsModifiers, marsMovesets, "Mars");
+    updateEnemySet(rom.enemies, EnemyID.JUPITER_DJINNI_SCALED, jupiterModifiers, jupiterMovesets, "Jupiter");
 }
 
 function updateEnemySet(enemies : EnemyManager, id : number, modifiers : number[], attacks : number[][], nameSuffix : string)

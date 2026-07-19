@@ -1,11 +1,11 @@
-import { readFileSync } from "fs";
 import { EventType, MapCodeEntry } from "../data/map_code/enums";
 import { MapCodeManager } from "../data/map_code/manager";
 import type { TextManager } from "../data/text/manager";
 import { END_PERSIST, LINE, Var } from "../data/text/control_characters";
+import { getAssemblyScript } from "../script_util";
 
-const patchPositionKraden = readFileSync('./src/assembly/out/gabomba_puzzle/position_kraden.bin');
-const patchSolutionCheck = readFileSync('./src/assembly/out/gabomba_puzzle/solution_check.bin');
+const patchPositionKraden = getAssemblyScript('gabomba_puzzle/position_kraden');
+const patchSolutionCheck = getAssemblyScript('gabomba_puzzle/solution_check');
 
 /**
  * Changes the final puzzle in Gabomba Statue by removing the automatic timer

@@ -1,11 +1,15 @@
 import type { RomData } from "../rom";
-import { readFileSync } from "node:fs";
-import asmExports from "../../assembly/out/exports.json";
 import { END } from "../data/text/control_characters";
+import { getAssemblyExport, getAssemblyScript } from "../script_util";
 
-const patchCustomRetreatHandler = readFileSync('./src/assembly/out/retreat_teleport/custom_retreat_handler.bin');
-const patchUpdateShipPosition = readFileSync('./src/assembly/out/retreat_teleport/update_ship_position.bin');
-const patchManualRetreatGlitch = readFileSync('./src/assembly/out/retreat_teleport/manual_rg.bin');
+const patchCustomRetreatHandler = getAssemblyScript('retreat_teleport/custom_retreat_handler');
+const patchUpdateShipPosition = getAssemblyScript('retreat_teleport/update_ship_position');
+const patchManualRetreatGlitch = getAssemblyScript('retreat_teleport/manual_rg');
+
+const exportRetreatHandler = getAssemblyExport('retreat_teleport/custom_retreat_handler', 'inject_handleRetreat');
+const exportFixEntrances = getAssemblyExport('retreat_teleport/custom_retreat_handler', 'inject_fixTeleportEntrances');
+const exportShipPositionRead = getAssemblyExport('retreat_teleport/custom_retreat_handler', 'data_sancWarpShipPositions');
+const exportShipPositionWrite = getAssemblyExport('retreat_teleport/update_ship_position', 'import_sancWarpShipPositions');
 
 /** Mapping from map IDs to overworld coordinates for the ship. */
 const shipPositions : [number[], number, number][] = [
@@ -52,15 +56,12 @@ const shipPositions : [number[], number, number][] = [
  */
 export function applyWorldMapRetreat(rom : RomData) 
 {
-    const functionHandleRetreat = asmExports["retreat_teleport\\custom_retreat_handler.bin"].inject_handleRetreat;
-    const functionFixEntrances = asmExports["retreat_teleport\\custom_retreat_handler.bin"].inject_fixTeleportEntrances;
-
     // Apply the binary patch
     rom.writeBlock(0xF4000, patchCustomRetreatHandler);
 
     // Inject jumps
-    rom.writeLongJump(0xFDE3A, functionHandleRetreat + 1, 3);
-    rom.writeLongJump(0xCBCF0, functionFixEntrances + 1);
+    rom.writeLongJump(0xFDE3A, exportRetreatHandler + 1, 3);
+    rom.writeLongJump(0xCBCF0, exportFixEntrances + 1);
 }
 
 /**
@@ -69,18 +70,15 @@ export function applyWorldMapRetreat(rom : RomData)
  */
 export function applyTeleportEverywhere(rom : RomData) 
 {
-    const dataAddressPtr = asmExports["retreat_teleport\\custom_retreat_handler.bin"].data_sancWarpShipPositions;
-    const importAddress = asmExports["retreat_teleport\\update_ship_position.bin"].import_sancWarpShipPositions;
-
     // Write snippet for updating the ship location when Teleporting to new locations
     rom.writeBlock(0xCA394, patchUpdateShipPosition);
-    rom.writeWord(importAddress - 0x08000000, dataAddressPtr);
+    rom.writeWord(exportShipPositionWrite - 0x08000000, exportShipPositionRead);
 
     // Update map display function
     rom.writeHalfword(0xED2D8, 0x2600);
 
     // Insert the updated ship Teleport location table
-    let addr = dataAddressPtr;
+    let addr = exportShipPositionRead;
     shipPositions.forEach(line => {
         line[0].forEach(map => {
             rom.writeHalfword(addr, map);

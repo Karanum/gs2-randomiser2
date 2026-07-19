@@ -1,12 +1,12 @@
-import { readFileSync } from "node:fs";
 import { MapCodeEntry } from "../data/map_code/enums";
 import type { MapCodeManager } from "../data/map_code/manager";
 import type { RomData } from "../rom";
 import { applyEndgamePersistencePatch } from "./shortcuts";
 import { applyWorldMapRetreat } from "./retreat_teleport";
+import { getAssemblyScript } from "../script_util";
 
-const patchTaopoSwampAutorunFix = readFileSync('./src/assembly/out/taopo_swamp_autorun_fix.bin');
-const patchCountDjinnFunction = readFileSync('./src/assembly/out/count_djinn.bin');
+const patchTaopoSwampAutorunFix = getAssemblyScript('taopo_swamp_autorun_fix');
+const patchCountDjinnFunction = getAssemblyScript('count_djinn');
 
 const locationMapping = [0xC6, 0xC7, 0xD1, 0xD2, 0xD7, 0xDE, 0xF2, 0x146, 0x1C4, 0x1C5, 0x1C6, 0x1C7, 0x1C9, 0x1CA, 
     0x1CC, 0xE90, 0xE8A, 0xE8B, 0xE9A, 0xF16, 0x1B9, 0x41, 0xE8D, 0xE4E, 0xE0C, 0xCE, 0xCB, 0xC8, 0xCF, 0xC9, 0xCA];

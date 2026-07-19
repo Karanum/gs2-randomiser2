@@ -1,11 +1,11 @@
 import type { PRNG } from "$lib/prng";
-import { readFileSync } from "node:fs";
 import { EventType, MapCodeEntry } from "../data/map_code/enums";
 import type { RomData } from "../rom";
 import { END, LINE, Var } from "../data/text/control_characters";
+import { getAssemblyScript } from "../script_util";
 
-const patchInteractSign = readFileSync('./src/assembly/out/anemos/entrance_sign.bin');
-const patchMapInit = readFileSync('./src/assembly/out/anemos/entrance_map_init.bin');
+const patchInteractSign = getAssemblyScript('anemos/entrance_sign');
+const patchMapInit = getAssemblyScript('anemos/entrance_map_init');
 
 /**
  * Changes the requirement for opening Anemos Inner Sanctum to a random 
