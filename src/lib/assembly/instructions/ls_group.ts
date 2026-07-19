@@ -4,7 +4,7 @@
 
 import { getLabel, getNumber, getRegister, type AssemblyErrors, type Labels } from "../assembler";
 import { GuardBuilder } from "../guards";
-import { ParameterType, type OffsetParameter, type ParseLineResult } from "../parser";
+import { ParameterType, type NumberParameter, type OffsetParameter, type ParseLineResult } from "../parser";
 import { Register } from "../tokens";
 
 const instructionsOffsetImm : Record<string, number> = { 'STR': 0, 'STRH': 0, 'LDR': 1, 'LDRH': 1, 'STRB': 2, 'LDRB': 3 };
@@ -14,10 +14,13 @@ export function assemble(parse : ParseLineResult, labels : Labels, errors : Asse
     if (parse.params[1].type == ParameterType.LABEL) {
         return assembleFromLabel(parse, labels, errors);
     }
+    if (parse.params[1].type == ParameterType.NUMBER) {
+        return assembleImm(parse, errors);
+    }
 
     const rd = getRegister(parse.params[0]);
     const offset = (parse.params[1] as OffsetParameter).value;
-    
+
     if (offset[1].type == ParameterType.REGISTER) {
         return assembleOffsetReg(parse.lineNumber, errors, rd, offset, instr);
     } else {
@@ -86,6 +89,22 @@ function assembleOffsetPC(line : number, errors : AssemblyErrors, rd : Register,
     return [nn >> 2, 0x48 + rd];
 }
 
+function assembleImm(parse : ParseLineResult, errors : AssemblyErrors) : number[] {
+    const rd = getRegister(parse.params[0]);
+    const nn = getNumber(parse.params[1]);
+    const addr = parse.address ?? 0;
+
+    const guard = new GuardBuilder(parse.lineNumber, ['LDR', 'Rd', 'nn'])
+        .requireAddress(parse.address)
+        .requireRegisterLower(0, rd).requireNumberAlignment(1, nn, 4)
+        .requirePointerValid(nn).requirePointerRange(nn, addr + 4, [0, 1020]);
+    if (!guard.getResult(errors)) return [];
+
+    const offset = (nn - addr - 4) >> 2;
+
+    return [offset, 0x48 + rd];
+}
+
 function assembleFromLabel(parse : ParseLineResult, labels : Labels, errors : AssemblyErrors) : number[] {
     const rd = getRegister(parse.params[0]);
     const label = getLabel(parse.params[1]);
@@ -93,7 +112,7 @@ function assembleFromLabel(parse : ParseLineResult, labels : Labels, errors : As
     const addr = parse.address ?? 0;
 
     const guard = new GuardBuilder(parse.lineNumber, ['LDR', 'Rd', 'label'], labels)
-        .requireAddress(parse.address).requireLabelExists(label)
+        .requireLabelExists(label)
         .requireRegisterLower(0, rd).requireNumberAlignment(1, nn, 4)
         .requirePointerValid(nn).requirePointerRange(nn, addr + 4, [0, 1020]);
     if (!guard.getResult(errors)) return [];

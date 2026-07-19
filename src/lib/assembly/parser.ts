@@ -236,7 +236,7 @@ function parseInstruction(parseResult : ParseLineResult) : void {
             break;
         case 'ldr':
             parseResult.instruction = Instruction.LDR;
-            parseParameterChain(params, parseResult, [ParameterType.REGISTER, ParameterType.LABEL + ParameterType.OFFSET]);
+            parseParameterChain(params, parseResult, [ParameterType.REGISTER, ParameterType.LABEL + ParameterType.OFFSET + ParameterType.NUMBER]);
             break;
         case 'ldrb':
             parseResult.instruction = Instruction.LDRB;

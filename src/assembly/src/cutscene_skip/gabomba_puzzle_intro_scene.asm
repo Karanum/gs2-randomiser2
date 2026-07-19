@@ -1,0 +1,20 @@
+.offset #0x02009766
+
+    bl #0x02008F00
+    bl #0x02009064
+
+    mov r0, #0x8
+    mov r1, #0x6A
+    mov r2, #0x98
+    lsl r1, r1, #0x12
+    lsl r2, r2, #0x10
+    bl #0x02009E10
+    bl #0x02009ED0
+    bl #0x02009EE0
+
+    mov r0, #0x80
+    lsl r0, r0, #0x4
+    add r0, #0xFB
+    bl #0x02009D18
+
+    b #0x02009A7A

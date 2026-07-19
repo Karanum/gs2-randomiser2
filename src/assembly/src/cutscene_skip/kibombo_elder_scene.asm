@@ -1,0 +1,11 @@
+.offset #0x0200CD04
+
+    mov r7, #0xC0
+    lsl r7, r7, #0x12
+    mov r0, #0xA
+    mov r1, #0x0
+    mov r2, #0x0
+    bl #0x0200DB0C
+    bl #0x0200DBEC
+    bl #0x0200DBFC
+    b #0x0200CFFA

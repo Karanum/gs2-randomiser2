@@ -46,6 +46,8 @@ export class RomData extends BinaryView
     readonly summons : SummonManager;
     readonly text : TextManager;
 
+    private newGameFlagsAddr : number = 0xF4280;
+
     /**
      * @param instance (optional) An existing `RomData` instance to clone; will load and parse data from `src/rom/gs2.gba` if not provided
      */
@@ -83,6 +85,7 @@ export class RomData extends BinaryView
         } else {
             // Creates the RomData by copying another instance
             this.data = Uint8Array.from(instance.data);
+            this.newGameFlagsAddr = instance.newGameFlagsAddr;
 
             this.abilities = instance.abilities.clone();
             this.abilityIcons = instance.abilityIcons.clone();
@@ -147,5 +150,17 @@ export class RomData extends BinaryView
     writeLinkedJump(address : number, jumpTo : number)
     {
         super.writeLinkedJump(address, 0x08000000, jumpTo);
+    }
+
+    /**
+     * Appends in-game flags that should be set upon selecting New Game to the ROM.
+     * @param flags 
+     */
+    addNewGameFlags(...flags : number[])
+    {
+        for (let i = 0; i < flags.length; ++i) {
+            this.writeHalfword(this.newGameFlagsAddr, flags[i]);
+            this.newGameFlagsAddr += 2;
+        }
     }
 }

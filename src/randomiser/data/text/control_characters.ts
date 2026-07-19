@@ -37,6 +37,17 @@ export enum Color {
     WHITE = '\x08\x10',
 }
 
+export enum Name {
+    ISAAC = '\x11\x01',
+    GARET = '\x11\x02',
+    IVAN = '\x11\x03',
+    MIA = '\x11\x04',
+    FELIX = '\x11\x05',
+    JENNA = '\x11\x06',
+    SHEBA = '\x11\x07',
+    PIERS = '\x11\x08'
+}
+
 /** Control codes for displaying text variables. Most of these need to be set by an event before invoking the textbox. */
 export enum Var {
     LEADER = '\x10',

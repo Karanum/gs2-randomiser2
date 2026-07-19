@@ -52,7 +52,7 @@ This is a list of all the sections of the old randomiser that need to be reworke
 - [X] Back entrance registration (`innate/register_back_entrances.js`)
 - [X] Char display fix (`innate/fix_char.js`)
 - [ ] Characters as items (`optional/add_character_items.js`)
-- [ ] Cutscene skip (`optional/cutscene_skip.js`)
+- [X] Cutscene skip (`optional/cutscene_skip.js`)
 - [X] Djinn difficulty scaling (`optional/djinn_scaling.js`)
 - [ ] Easier boss battles (`optional/easier_bosses.js`)
 - [X] Endgame dungeon persistence QoL (`innate/endgame_shortcuts.js`)
