@@ -1,5 +1,9 @@
 import { MapCodeEntry } from "../data/map_code/enums";
 import type { MapCodeManager } from "../data/map_code/manager";
+import type { RomData } from "../rom";
+import { getAssemblyScript } from "../script_util";
+
+const patchMarsLighthouseShortcut = getAssemblyScript('mars_lighthouse_shortcut');
 
 /**
  * Makes certain shortcuts in endgame bonus dungeons persistent to better match
@@ -44,4 +48,39 @@ export function applyEndgamePersistencePatch(mapCode : MapCodeManager)
     mapCodeYDC.data.writeWord(0x16EC, 0x30030100);  // add r0, #0x3 
     mapCodeYDC.data.writeHalfword(0x1F4A, 0x0C03);
     mapCodeYDC.data.writeHalfword(0x1F56, 0x0C03);
+}
+
+/**
+ * Makes Magma Rock interior accessible from the bottom side.
+ * @param rom The `RomData` instance to apply this patch to
+ */
+export function applyMagmaRockShortcutPatch(rom : RomData)
+{
+    // Set the flags required to traverse the interior in reverse
+    rom.addNewGameFlags(0x9F6, 0x9F7);
+
+    // Set the top interior exit to only be usable once the stone has been Bursted in exterior
+    const interior = rom.mapCode.get(MapCodeEntry.MAGMA_ROCK_INTERIOR)!;
+    interior.hasChanged = true;
+    interior.data.writeHalfword(0x603E, 0x18DC);
+}
+
+/**
+ * Makes upper Mars Lighthouse (i.e. the elemental wings and the aerie) accessible
+ * without having to clear the basement, as long as the Mars Star is in the inventory.
+ * @param mapCode The `MapCodeManager` instance to apply this patch to
+ */
+export function applyMarsLighthouseShortcutPatch(mapCode : MapCodeManager)
+{
+    const upper = mapCode.get(MapCodeEntry.MARS_LIGHTHOUSE_UPPER)!;
+    upper.hasChanged = true;
+    
+    // Check for the Mars Star in the map load function
+    upper.data.writeWord(0x4, 0x0200BC21);          // Replace load function pointer
+    upper.data.writeBlock(0x3C20, patchMarsLighthouseShortcut);
+
+    // Change flag condition for the elemental wing doors
+    for (let i = 0; i < 8; ++i) {
+        upper.data.writeHalfword(0x37AA + i * 0xC, 0x1AB0);
+    }
 }
