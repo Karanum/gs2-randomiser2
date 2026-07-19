@@ -1,6 +1,8 @@
 import { DjinniDefinition, EnemyDefinition } from "$lib/definitions";
 import type { RomData } from "../../rom";
 import { DataManager } from "../base";
+import { ItemID } from "../items/enums";
+import { EnemyID } from "./enums";
 import { Enemy } from "./model";
 
 /** List of enemy IDs that are to be considered bosses. */
@@ -85,9 +87,9 @@ export class EnemyManager extends DataManager<Enemy>
         }
 
         // Make the Phoenix enemy line drop Lucky Medals as part of the innate randomiser changes
-        instance.data[180].setDrop(299, 1);
-        instance.data[181].setDrop(299, 1);
-        instance.data[182].setDrop(299, 1);
+        instance.data[EnemyID.PHOENIX].setDrop(ItemID.LUCKY_MEDAL, 1);
+        instance.data[EnemyID.FIRE_BIRD].setDrop(ItemID.LUCKY_MEDAL, 1);
+        instance.data[EnemyID.WONDER_BIRD].setDrop(ItemID.LUCKY_MEDAL, 1);
 
         return instance;
     }

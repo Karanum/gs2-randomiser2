@@ -2,7 +2,7 @@ import { ItemDefinition } from "$lib/definitions";
 import type { PRNG } from "$lib/prng";
 import type { RomData } from "../../rom";
 import { DataManager } from "../base";
-import { ItemType } from "./enums";
+import { ItemID, ItemType } from "./enums";
 import { Item } from "./model";
 
 /* Auxiliary types for transfering equipment properties. */
@@ -191,9 +191,9 @@ export class ItemManager extends DataManager<Item>
         }
 
         // Apply item description fixes
-        instance.data[171].description = "Circlet: Use to delude enemies";
-        instance.data[344].description = "Clothes: Boosts Attack & Criticals";
-        instance.data[365].description = "Gloves: Boosts Attack & Criticals";
+        instance.data[ItemID.GLITTERING_TIARA].description = "Circlet: Use to delude enemies";
+        instance.data[ItemID.ERINYES_TUNIC].description = "Clothes: Boosts Attack & Criticals";
+        instance.data[ItemID.RIOT_GLOVES].description = "Gloves: Boosts Attack & Criticals";
         instance.data.filter(item => item.description.endsWith("Raises Evade")).map(item => {
             item.description = item.description.split(':')[0] + ": Boosts Criticals";
         });

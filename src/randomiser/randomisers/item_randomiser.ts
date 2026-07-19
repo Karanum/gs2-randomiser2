@@ -1,5 +1,5 @@
 import type { PRNG } from "$lib/prng";
-import { ItemLocationType } from "../data/item_locations/enums";
+import { ItemEventType } from "../data/item_locations/enums";
 import type { ItemLocationManager } from "../data/item_locations/manager";
 import type { Progression } from "../logic/enums";
 import { FlatLogic } from "../logic/flat_logic";
@@ -57,7 +57,7 @@ class ItemRandomiser extends BaseItemRandomiser
             const itemLoc = this.itemLocations.get(item)?.asVanilla();
             if (itemLoc == undefined) return;
 
-            if (itemLoc.isSummon() || itemLoc.type == ItemLocationType.MIMIC || itemLoc.contents == 0 || itemLoc.isCoins()) {
+            if (itemLoc.isSummon() || itemLoc.type == ItemEventType.MIMIC || itemLoc.contents == 0 || itemLoc.isCoins()) {
                 this.randomFill(item);
                 this.updateAccessibleSlots();
             }

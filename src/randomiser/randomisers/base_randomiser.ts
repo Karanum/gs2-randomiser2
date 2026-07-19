@@ -1,6 +1,6 @@
 import type { PRNG } from "$lib/prng";
 import type { ForgeResultManager } from "../data/forge_results/manager";
-import { ItemLocationType } from "../data/item_locations/enums";
+import { ItemEventType } from "../data/item_locations/enums";
 import type { ItemLocationManager } from "../data/item_locations/manager";
 import type { ItemLocation } from "../data/item_locations/model";
 import { ItemType } from "../data/items/enums";
@@ -195,18 +195,18 @@ export abstract class BaseItemRandomiser
         if (fromLoc.isCharacter() && slot.restrictions == Restriction.INVENTORY) return false;
 
         // Check more specific slot restrictions for mimics and empty item locations
-        if (fromLoc.type == ItemLocationType.MIMIC) {
-            if (toLoc.type != ItemLocationType.CHEST && toLoc.type != ItemLocationType.TABLET) return false;
+        if (fromLoc.type == ItemEventType.MIMIC) {
+            if (toLoc.type != ItemEventType.CHEST && toLoc.type != ItemEventType.TABLET) return false;
             if (!this.settings[Setting.REMOVE_MIMICS] && slot.restrictions !== undefined) return false;
         } 
         else if (fromLoc.contents == 0) {
-            if (toLoc.type != ItemLocationType.CHEST && toLoc.type != ItemLocationType.TABLET) return false;
+            if (toLoc.type != ItemEventType.CHEST && toLoc.type != ItemEventType.TABLET) return false;
             if (!this.settings[Setting.SHOW_ITEM_SPRITES] && slot.restrictions !== undefined) return false;
         }
 
         // Reject the slot in specific cases and item/id combinations
         if (fromLoc.isCoins() && toLoc.objectId == -1) return false;
-        if (fromLoc.isCoins() || fromLoc.type == ItemLocationType.MIMIC || fromLoc.contents == 0) {
+        if (fromLoc.isCoins() || fromLoc.type == ItemEventType.MIMIC || fromLoc.contents == 0) {
             if (toLoc.id < 0x10 || (toLoc.id & 0xF00) == 0x100) return false;
         }
 
@@ -358,7 +358,7 @@ export abstract class BaseItemRandomiser
             const maxMimicLevel = Math.ceil(10 * (i + 1) / spheres.length);
             sphere.items.forEach(flag => {
                 const loc = this.itemLocations.get(flag);
-                if (loc?.type == ItemLocationType.MIMIC) {
+                if (loc?.type == ItemEventType.MIMIC) {
                     loc.setContents(Math.min(nextMimic++, maxMimicLevel));
                 }
             });

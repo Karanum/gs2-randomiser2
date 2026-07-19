@@ -2,16 +2,25 @@ import { AbilityDefinition, ItemDefinition, ItemLocationDefinition } from "$lib/
 import type { BinaryView } from "../../binary_view";
 import { SettingShuffleItems } from "../../settings/enums";
 import { DataModel } from "../base";
-import { PseudoItemGroup } from "../items/enums";
+import { ItemID, PseudoItemGroup } from "../items/enums";
 import type { TextManager } from "../text/manager";
-import { ItemLocationType } from "./enums";
+import { ItemEventType } from "./enums";
 
 /** List of item IDs that should be considered key items. */
-const keyItems : number[] = [65, 222, 242, 243, 244, 247, 326, 439, 440, 441, 443, 444, 445, 
-    448, 449, 451, 452, 453, 454, 455, 456, 457, 458, 459, 460];
+const keyItems = [
+    ItemID.SHAMANS_ROD, ItemID.BLACK_CRYSTAL, ItemID.RED_KEY, ItemID.BLUE_KEY, ItemID.MARS_STAR, 
+    ItemID.TRIDENT, ItemID.RIGHT_PRONG, ItemID.LEFT_PRONG, ItemID.CENTER_PRONG, ItemID.MYSTERIOUS_CARD, 
+    ItemID.TRAINERS_WHIP, ItemID.TOMEGATHERICON, ItemID.HEALING_FUNGUS, ItemID.LAUGHING_FUNGUS, 
+    ItemID.DANCING_IDOL, ItemID.PRETTY_STONE, ItemID.RED_CLOTH, ItemID.MILK, ItemID.LIL_TURTLE, 
+    ItemID.AQUARIUS_STONE, ItemID.LARGE_BREAD, ItemID.SEA_GODS_TEAR, ItemID.RUIN_KEY, ItemID.MAGMA_BALL
+]
 
 /** List of item IDs that are **not** considered major items, despite being equipment. */
-const majorExceptionItems : number[] = [398, 399, 400, 401, 405, 406, 407, 408, 411, 412, 413, 415];
+const majorExceptionItems = [
+    ItemID.DIVINE_CAMISOLE, ItemID.HERBED_SHIRT, ItemID.GOLDEN_SHIRT, ItemID.CASUAL_SHIRT,
+    ItemID.KNGIHTS_GREAVE, ItemID.SILVER_GREAVE, ItemID.NINJA_SANDALS, ItemID.GOLDEN_BOOTS,
+    ItemID.AROMA_RING, ItemID.RAINBOW_RING, ItemID.SOUL_RING, ItemID.GOLDEN_RING
+];
 
 
 /**
@@ -21,11 +30,11 @@ export class ItemLocation extends DataModel
 {
     readonly mapId : number;
     readonly objectId : number;
-    readonly vanillaType : ItemLocationType;
+    readonly vanillaType : ItemEventType;
     private vanillaContents : number;
     private vanillaName : string;
 
-    public type : ItemLocationType;
+    public type : ItemEventType;
     public contents : number;
     public name : string;
     public locked : boolean;
@@ -33,7 +42,7 @@ export class ItemLocation extends DataModel
     public forceMinor : boolean;
     public subLocations : ItemLocation[];
 
-    constructor(id : number, address : number, mapId : number, objectId : number, type : ItemLocationType, contents : number, name : string)
+    constructor(id : number, address : number, mapId : number, objectId : number, type : ItemEventType, contents : number, name : string)
     {
         super(id, address);
         
@@ -69,9 +78,9 @@ export class ItemLocation extends DataModel
      */
     isHidden() : boolean
     {
-        if (this.type < ItemLocationType.CHEST || this.type == ItemLocationType.HIDDEN) {
+        if (this.type < ItemEventType.CHEST || this.type == ItemEventType.HIDDEN) {
             return this.isCoins() || ![0xF63, 0xF64, 0xF8B, 0xFF6, 0xFF7, 0xFF9].includes(this.id);
-        } else if (this.type == ItemLocationType.GROUND_ITEM) {
+        } else if (this.type == ItemEventType.GROUND_ITEM) {
             return this.isCoins() && this.id != 0xFC6;
         }
         return false;
@@ -83,8 +92,8 @@ export class ItemLocation extends DataModel
      */
     isEquipment() : boolean
     {
-        if (this.type == ItemLocationType.MIMIC) return false;
-        return this.contents <= 179 || (this.contents >= 250 && this.contents <= 415);
+        if (this.type == ItemEventType.MIMIC) return false;
+        return this.contents < ItemID.HERB || (this.contents >= ItemID.MYTHRIL_SHIRT && this.contents <= ItemID.GOLDEN_RING);
     }
 
     /**
@@ -105,10 +114,10 @@ export class ItemLocation extends DataModel
     isMajorItem() : boolean
     {
         if (this.isKeyItem()) return true;
-        if (this.type == ItemLocationType.MIMIC || this.isCoins() || majorExceptionItems.includes(this.contents)) {
+        if (this.type == ItemEventType.MIMIC || this.isCoins() || majorExceptionItems.includes(this.contents)) {
             return false;
         }
-        return this.contents <= 179 || this.contents >= 250;
+        return this.contents < ItemID.HERB || this.contents >= ItemID.MYTHRIL_SHIRT;
     }
 
     /**
@@ -163,7 +172,7 @@ export class ItemLocation extends DataModel
         if (name) {
             this.name = name;
         }
-        this.type = (name == 'Mimic' ? ItemLocationType.MIMIC : ItemLocationType.CHEST);
+        this.type = (name == 'Mimic' ? ItemEventType.MIMIC : ItemEventType.CHEST);
         this.subLocations.forEach(loc => loc.setContents(item, name));
     }
 
@@ -194,7 +203,7 @@ export class ItemLocation extends DataModel
      * Sets the event type for this item location.
      * @param type The new event type
      */
-    setType(type : ItemLocationType)
+    setType(type : ItemEventType)
     {
         this.type = type;
         this.subLocations.forEach(loc => loc.setType(type));
@@ -278,19 +287,19 @@ export class ItemLocation extends DataModel
     {
         if (data.length < ItemLocationDefinition.BLOCK_SIZE) return;
 
-        const type : ItemLocationType = data.readHalfword(0);
+        const type : ItemEventType = data.readHalfword(0);
         const objectId : number = data.readHalfword(2);
         const flag : number = data.readHalfword(4);
         const contents : number = data.readHalfword(6);
 
         switch (type) {
-            case ItemLocationType.MIMIC:
+            case ItemEventType.MIMIC:
                 return new ItemLocation(flag, address, mapId, objectId, type, contents, "Mimic");
 
-            case ItemLocationType.PSY_CRYSTAL:
+            case ItemEventType.PSY_CRYSTAL:
                 return undefined;
 
-            case ItemLocationType.TABLET:
+            case ItemEventType.TABLET:
                 const name = text.get(AbilityDefinition.TEXT_NAMES + contents + 380) ?? "?";
                 const instance = new ItemLocation(flag, address, mapId, objectId, type, contents + 0xF00, name);
                 return instance;

@@ -4,7 +4,8 @@ import type { RomData } from "../../rom";
 import { Setting, SettingOmitLocations, SettingShuffleItems } from "../../settings/enums";
 import type { SettingsObject } from "../../settings/settings";
 import { DataManager } from "../base";
-import { ItemLocationType } from "./enums";
+import { ItemID } from "../items/enums";
+import { ItemEventType } from "./enums";
 import { ItemLocation } from "./model";
 
 /** A list of map IDs that should not be registered. */
@@ -15,14 +16,16 @@ const skipLocations : number[] = [0xF5D, 0xFA7, 0xFB6, 0xFB7, 0xFB8, 0xFBE, 0xFF
 
 /** A list of items used to replace empty chests. */
 const replacePool : [number, string][] = [
-    [180, "Herb"], [181, "Nut"], [182, "Vial"], [187, "Antidote"], [188, "Elixir"], [228, "Game Ticket"], 
-    [229, "Lucky Medal"], [238, "Oil Drop"], [239, "Weasel's Claw"], [240, "Bramble Seed"], [241, "Crystal Powder"]
+    [ItemID.HERB, "Herb"], [ItemID.NUT, "Nut"], [ItemID.VIAL, "Vial"], [ItemID.ANTIDOTE, "Antidote"], [ItemID.ELIXIR, "Elixir"], 
+    [ItemID.GAME_TICKET, "Game Ticket"], [ItemID.LUCKY_MEDAL, "Lucky Medal"], [ItemID.OIL_DROP, "Oil Drop"], 
+    [ItemID.WEASELS_CLAW, "Weasel's Claw"], [ItemID.BRAMBLE_SEED, "Bramble Seed"], [ItemID.CRYSTAL_POWDER, "Crystal Powder"]
 ];
 
 /** A list of item drops for each Mimic. */
 const mimicPool : [number, string][] = [
-    [228, "Game Ticket"], [229, "Lucky Medal"], [194, "Hard Nut"], [183, "Potion"], [228, "Game Ticket"],
-    [191, "Power Bread"], [186, "Psy Crystal"], [193, "Apple"], [192, "Cookie"]
+    [ItemID.GAME_TICKET, "Game Ticket"], [ItemID.LUCKY_MEDAL, "Lucky Medal"], [ItemID.HARD_NUT, "Hard Nut"], 
+    [ItemID.POTION, "Potion"], [ItemID.GAME_TICKET, "Game Ticket"], [ItemID.POWER_BREAD, "Power Bread"], 
+    [ItemID.PSY_CRYSTAL, "Psy Crystal"], [ItemID.APPLE, "Apple"], [ItemID.COOKIE, "Cookie"]
 ];
 
     
@@ -67,30 +70,30 @@ export class ItemLocationManager extends DataManager<ItemLocation>
     {
         // Insert extra items into the pool
         if (settings[Setting.INSERT_GS1_ITEMS]) {
-            this.data[0xFD6].updateVanillaContents(268, "Cleric's Ring");
-            this.data[0xFD8].updateVanillaContents(93, "Elven Shirt");
+            this.data[0xFD6].updateVanillaContents(ItemID.CLERICS_RING, "Cleric's Ring");
+            this.data[0xFD8].updateVanillaContents(ItemID.ELVEN_SHIRT, "Elven Shirt");
         }
         if (settings[Setting.INSERT_DUMMY_ITEMS]) {
-            this.data[0xFB0].updateVanillaContents(401, "Casual Shirt");
-            this.data[0xFB1].updateVanillaContents(408, "Golden Boots");
-            this.data[0xFB2].updateVanillaContents(411, "Aroma Ring");
-            this.data[0xFB3].updateVanillaContents(400, "Golden Shirt");
-            this.data[0xFB4].updateVanillaContents(407, "Ninja Sandals");
-            this.data[0xFB5].updateVanillaContents(415, "Golden Ring");
-            this.data[0xFCF].updateVanillaContents(399, "Herbed Shirt");
-            this.data[0xFD0].updateVanillaContents(405, "Knight's Greave");
-            this.data[0xFD1].updateVanillaContents(412, "Rainbow Ring");
-            this.data[0xFD4].updateVanillaContents(398, "Divine Camisole");
-            this.data[0xFD5].updateVanillaContents(406, "Silver Greave");
-            this.data[0xFD7].updateVanillaContents(413, "Soul Ring");
+            this.data[0xFB0].updateVanillaContents(ItemID.CASUAL_SHIRT, "Casual Shirt");
+            this.data[0xFB1].updateVanillaContents(ItemID.GOLDEN_BOOTS, "Golden Boots");
+            this.data[0xFB2].updateVanillaContents(ItemID.AROMA_RING, "Aroma Ring");
+            this.data[0xFB3].updateVanillaContents(ItemID.GOLDEN_SHIRT, "Golden Shirt");
+            this.data[0xFB4].updateVanillaContents(ItemID.NINJA_SANDALS, "Ninja Sandals");
+            this.data[0xFB5].updateVanillaContents(ItemID.GOLDEN_RING, "Golden Ring");
+            this.data[0xFCF].updateVanillaContents(ItemID.HERBED_SHIRT, "Herbed Shirt");
+            this.data[0xFD0].updateVanillaContents(ItemID.KNGIHTS_GREAVE, "Knight's Greave");
+            this.data[0xFD1].updateVanillaContents(ItemID.RAINBOW_RING, "Rainbow Ring");
+            this.data[0xFD4].updateVanillaContents(ItemID.DIVINE_CAMISOLE, "Divine Camisole");
+            this.data[0xFD5].updateVanillaContents(ItemID.SILVER_GREAVE, "Silver Greave");
+            this.data[0xFD7].updateVanillaContents(ItemID.SOUL_RING, "Soul Ring");
         }
 
         // Lock or unlock item locations based on the item shuffle setting, and update the event type
         const itemShuffle : SettingShuffleItems = settings[Setting.SHUFFLE_ITEMS];
         this.data.forEach(loc => {
             loc.setLockedByShuffleType(itemShuffle);
-            if (loc.isKeyItem() && (loc.type < ItemLocationType.CHEST || loc.type == ItemLocationType.GROUND_ITEM)) {
-                loc.setType(ItemLocationType.CHEST);
+            if (loc.isKeyItem() && (loc.type < ItemEventType.CHEST || loc.type == ItemEventType.GROUND_ITEM)) {
+                loc.setType(ItemEventType.CHEST);
             }
         });
 
@@ -153,47 +156,47 @@ export class ItemLocationManager extends DataManager<ItemLocation>
     {
         // Add custom item locations
         this.nextAddress = ItemLocationDefinition.ADDRESS_MAPPING_SPECIAL;
-        this.registerCustomLocation(0x84A, 22, ItemLocationType.CHEST, 0xE85, "Lash Pebble");
-        this.registerCustomLocation(0x878, 38, ItemLocationType.CHEST, 0xE86, "Pound Cube");
-        this.registerCustomLocation(0x88C, 76, ItemLocationType.CHEST, 0xE88, "Scoop Gem");
-        this.registerCustomLocation(0x918, 44, ItemLocationType.CHEST, 0xE89, "Cyclone Chip");
-        this.registerCustomLocation(0x94D, 248, ItemLocationType.CHEST, 0xE99, "Hover Jade");
-        this.registerCustomLocation(0xA3A, 286, ItemLocationType.CHEST, 247, "Mars Star");
-        this.registerCustomLocation(0x8FF, 124, ItemLocationType.CHEST, 242, "Black Crystal");
-        this.registerCustomLocation(0x978, 188, ItemLocationType.CHEST, 326, "Trident");
-        this.registerCustomLocation(0xAA2, 132, ItemLocationType.CHEST, 452, "Pretty Stone");
-        this.registerCustomLocation(0xAA4, 134, ItemLocationType.CHEST, 453, "Red Cloth");
-        this.registerCustomLocation(0xAA3, 133, ItemLocationType.CHEST, 454, "Milk");
-        this.registerCustomLocation(0xAA1, 131, ItemLocationType.CHEST, 455, "Li'l Turtle");
-        this.registerCustomLocation(0x901, 99, ItemLocationType.CHEST, 457, "Large Bread");
-        this.registerCustomLocation(0xA20, 12, ItemLocationType.CHEST, 458, "Sea God's Tear");
-        this.registerCustomLocation(0x9F9, 232, ItemLocationType.CHEST, 460, "Magma Ball");
-        this.registerCustomLocation(0x8D4, 89, ItemLocationType.TABLET, 0xE90, "Reveal");
-        this.registerCustomLocation(0x9AE, 169, ItemLocationType.TABLET, 0xE8A, "Parch");
-        this.registerCustomLocation(0x9BA, 177, ItemLocationType.TABLET, 0xE8B, "Sand");
-        this.registerCustomLocation(0x9FA, 233, ItemLocationType.TABLET, 0xE9A, "Blaze");
-        this.registerCustomLocation(0x90B, 205, ItemLocationType.TABLET, 0xF16, "Eclipse");
-        this.registerCustomLocation(0x945, 207, ItemLocationType.CHEST, 441, "Center Prong");
-        this.registerCustomLocation(0x1, 9, ItemLocationType.CHEST, 65, "Shaman's Rod");
-        this.registerCustomLocation(0x2, 9, ItemLocationType.TABLET, 0xE8D, "Mind Read");
-        this.registerCustomLocation(0x3, 9, ItemLocationType.TABLET, 0xE4E, "Whirlwind");
-        this.registerCustomLocation(0x4, 9, ItemLocationType.TABLET, 0xE0C, "Growth");
-        this.registerCustomLocation(0x101, 237, ItemLocationType.TABLET, 0xE93, "Carry Stone");
-        this.registerCustomLocation(0x102, 237, ItemLocationType.TABLET, 0xE8F, "Lifting Gem");
-        this.registerCustomLocation(0x103, 237, ItemLocationType.TABLET, 0xE8E, "Orb of Force");
-        this.registerCustomLocation(0x104, 237, ItemLocationType.TABLET, 0xE94, "Catch Beads");
-        this.registerCustomLocation(0x105, 111, ItemLocationType.TABLET, 0xE21, "Douse Drop");
-        this.registerCustomLocation(0x106, 111, ItemLocationType.TABLET, 0xE18, "Frost Jewel");
+        this.registerCustomLocation(0x84A, 22, ItemEventType.CHEST, 0xE85, "Lash Pebble");
+        this.registerCustomLocation(0x878, 38, ItemEventType.CHEST, 0xE86, "Pound Cube");
+        this.registerCustomLocation(0x88C, 76, ItemEventType.CHEST, 0xE88, "Scoop Gem");
+        this.registerCustomLocation(0x918, 44, ItemEventType.CHEST, 0xE89, "Cyclone Chip");
+        this.registerCustomLocation(0x94D, 248, ItemEventType.CHEST, 0xE99, "Hover Jade");
+        this.registerCustomLocation(0xA3A, 286, ItemEventType.CHEST, ItemID.MARS_STAR, "Mars Star");
+        this.registerCustomLocation(0x8FF, 124, ItemEventType.CHEST, ItemID.BLACK_CRYSTAL, "Black Crystal");
+        this.registerCustomLocation(0x978, 188, ItemEventType.CHEST, ItemID.TRIDENT, "Trident");
+        this.registerCustomLocation(0xAA2, 132, ItemEventType.CHEST, ItemID.PRETTY_STONE, "Pretty Stone");
+        this.registerCustomLocation(0xAA4, 134, ItemEventType.CHEST, ItemID.RED_CLOTH, "Red Cloth");
+        this.registerCustomLocation(0xAA3, 133, ItemEventType.CHEST, ItemID.MILK, "Milk");
+        this.registerCustomLocation(0xAA1, 131, ItemEventType.CHEST, ItemID.LIL_TURTLE, "Li'l Turtle");
+        this.registerCustomLocation(0x901, 99, ItemEventType.CHEST, ItemID.LARGE_BREAD, "Large Bread");
+        this.registerCustomLocation(0xA20, 12, ItemEventType.CHEST, ItemID.SEA_GODS_TEAR, "Sea God's Tear");
+        this.registerCustomLocation(0x9F9, 232, ItemEventType.CHEST, ItemID.MAGMA_BALL, "Magma Ball");
+        this.registerCustomLocation(0x8D4, 89, ItemEventType.TABLET, 0xE90, "Reveal");
+        this.registerCustomLocation(0x9AE, 169, ItemEventType.TABLET, 0xE8A, "Parch");
+        this.registerCustomLocation(0x9BA, 177, ItemEventType.TABLET, 0xE8B, "Sand");
+        this.registerCustomLocation(0x9FA, 233, ItemEventType.TABLET, 0xE9A, "Blaze");
+        this.registerCustomLocation(0x90B, 205, ItemEventType.TABLET, 0xF16, "Eclipse");
+        this.registerCustomLocation(0x945, 207, ItemEventType.CHEST, ItemID.CENTER_PRONG, "Center Prong");
+        this.registerCustomLocation(0x1, 9, ItemEventType.CHEST, ItemID.SHAMANS_ROD, "Shaman's Rod");
+        this.registerCustomLocation(0x2, 9, ItemEventType.TABLET, 0xE8D, "Mind Read");
+        this.registerCustomLocation(0x3, 9, ItemEventType.TABLET, 0xE4E, "Whirlwind");
+        this.registerCustomLocation(0x4, 9, ItemEventType.TABLET, 0xE0C, "Growth");
+        this.registerCustomLocation(0x101, 237, ItemEventType.TABLET, 0xE93, "Carry Stone");
+        this.registerCustomLocation(0x102, 237, ItemEventType.TABLET, 0xE8F, "Lifting Gem");
+        this.registerCustomLocation(0x103, 237, ItemEventType.TABLET, 0xE8E, "Orb of Force");
+        this.registerCustomLocation(0x104, 237, ItemEventType.TABLET, 0xE94, "Catch Beads");
+        this.registerCustomLocation(0x105, 111, ItemEventType.TABLET, 0xE21, "Douse Drop");
+        this.registerCustomLocation(0x106, 111, ItemEventType.TABLET, 0xE18, "Frost Jewel");
 
         // Add character item locations
         this.nextAddress = ItemLocationDefinition.ADDRESS_MAPPING_CHARACTERS;
-        this.registerCustomLocation(0xD00, 237, ItemLocationType.TABLET, 0xD00, "Isaac");
-        this.registerCustomLocation(0xD01, 237, ItemLocationType.TABLET, 0xD01, "Garet");
-        this.registerCustomLocation(0xD02, 237, ItemLocationType.TABLET, 0xD02, "Ivan");
-        this.registerCustomLocation(0xD03, 237, ItemLocationType.TABLET, 0xD03, "Mia");
-        this.registerCustomLocation(0xD05, 9, ItemLocationType.TABLET, 0xD05, "Jenna");
-        this.registerCustomLocation(0xD06, 9, ItemLocationType.TABLET, 0xD06, "Sheba");
-        this.registerCustomLocation(0xD07, 111, ItemLocationType.TABLET, 0xD07, "Piers");
+        this.registerCustomLocation(0xD00, 237, ItemEventType.TABLET, 0xD00, "Isaac");
+        this.registerCustomLocation(0xD01, 237, ItemEventType.TABLET, 0xD01, "Garet");
+        this.registerCustomLocation(0xD02, 237, ItemEventType.TABLET, 0xD02, "Ivan");
+        this.registerCustomLocation(0xD03, 237, ItemEventType.TABLET, 0xD03, "Mia");
+        this.registerCustomLocation(0xD05, 9, ItemEventType.TABLET, 0xD05, "Jenna");
+        this.registerCustomLocation(0xD06, 9, ItemEventType.TABLET, 0xD06, "Sheba");
+        this.registerCustomLocation(0xD07, 111, ItemEventType.TABLET, 0xD07, "Piers");
 
         // Lock the Large Bread from being randomised
         this.data[0x901].locked = true;
@@ -202,7 +205,7 @@ export class ItemLocationManager extends DataManager<ItemLocation>
     /**
      * Registers a single custom item location.
      */
-    private registerCustomLocation(id : number, mapId : number, type : ItemLocationType, contents : number, name : string)
+    private registerCustomLocation(id : number, mapId : number, type : ItemEventType, contents : number, name : string)
     {
         this.data[id] = new ItemLocation(id, this.nextAddress, mapId, -1, type, contents, name);
         this.nextAddress += 2;
@@ -215,13 +218,13 @@ export class ItemLocationManager extends DataManager<ItemLocation>
     private fixEventType(loc : ItemLocation)
     {
         let type = loc.type;
-        if (loc.vanillaType <= ItemLocationType.CHEST && type != ItemLocationType.MIMIC) {
+        if (loc.vanillaType <= ItemEventType.CHEST && type != ItemEventType.MIMIC) {
             type = loc.vanillaType;
         }
 
         // Don't alter certain vanilla event types
-        if (type != ItemLocationType.MIMIC) {
-            if (loc.vanillaType != ItemLocationType.CHEST && loc.vanillaType != ItemLocationType.MIMIC) {
+        if (type != ItemEventType.MIMIC) {
+            if (loc.vanillaType != ItemEventType.CHEST && loc.vanillaType != ItemEventType.MIMIC) {
                 loc.setType(loc.vanillaType);
                 return;
             }
@@ -229,17 +232,17 @@ export class ItemLocationManager extends DataManager<ItemLocation>
 
         // Handle Psynergy and summons
         if (loc.isPsynergy() || loc.isSummon()) {
-            if (loc.vanillaType == ItemLocationType.GROUND_ITEM) {
-                loc.setType(ItemLocationType.GROUND_ITEM);
+            if (loc.vanillaType == ItemEventType.GROUND_ITEM) {
+                loc.setType(ItemEventType.GROUND_ITEM);
             } else {
-                loc.setType(ItemLocationType.TABLET);
+                loc.setType(ItemEventType.TABLET);
             }
             return;
         }
 
         // Handle mimic locations
-        if (loc.vanillaType == ItemLocationType.MIMIC && type != ItemLocationType.MIMIC) {
-            type = ItemLocationType.CHEST;
+        if (loc.vanillaType == ItemEventType.MIMIC && type != ItemEventType.MIMIC) {
+            type = ItemEventType.CHEST;
         }
 
         loc.setType(type);
@@ -251,11 +254,11 @@ export class ItemLocationManager extends DataManager<ItemLocation>
      */
     private applyShowItemSprites(loc : ItemLocation) 
     {
-        if (loc.type != ItemLocationType.CHEST && loc.type != ItemLocationType.TABLET)
+        if (loc.type != ItemEventType.CHEST && loc.type != ItemEventType.TABLET)
             return;
 
         if (this.settingShowItemSprites) {
-            loc.setType(ItemLocationType.GROUND_ITEM);
+            loc.setType(ItemEventType.GROUND_ITEM);
             if (loc.contents == 0) {
                 this.replaceEmptyContents(loc);
             }
@@ -264,9 +267,9 @@ export class ItemLocationManager extends DataManager<ItemLocation>
             // it's already being handled by the `fixEventType` logic.
             // TODO: Verify the above
             if (loc.isPsynergy() || loc.isSummon()) {
-                loc.setType(ItemLocationType.TABLET);
+                loc.setType(ItemEventType.TABLET);
             } else {
-                loc.setType(ItemLocationType.CHEST);
+                loc.setType(ItemEventType.CHEST);
             }
         }
     }
@@ -278,7 +281,7 @@ export class ItemLocationManager extends DataManager<ItemLocation>
     private replaceMimic(loc : ItemLocation) 
     {
         const item = mimicPool[loc.contents] ?? mimicPool[0];
-        loc.setType(this.settingShowItemSprites ? ItemLocationType.GROUND_ITEM : ItemLocationType.CHEST);
+        loc.setType(this.settingShowItemSprites ? ItemEventType.GROUND_ITEM : ItemEventType.CHEST);
         loc.setContents(item[0], item[1] + ' (Mimic)');
     }
 
@@ -289,7 +292,7 @@ export class ItemLocationManager extends DataManager<ItemLocation>
     private replaceEmptyContents(loc : ItemLocation)
     {
         const item = this.prng?.randomArrayElement(replacePool) ?? replacePool[0];
-        loc.setType(ItemLocationType.GROUND_ITEM);
+        loc.setType(ItemEventType.GROUND_ITEM);
         loc.setContents(item[0], item[1] + ' (empty)');
     }
 
@@ -302,12 +305,12 @@ export class ItemLocationManager extends DataManager<ItemLocation>
         this.data.forEach(loc => {
             this.fixEventType(loc);
             this.applyShowItemSprites(loc);
-            if (loc.type == ItemLocationType.MIMIC && this.settingRemoveMimics) {
+            if (loc.type == ItemEventType.MIMIC && this.settingRemoveMimics) {
                 this.replaceMimic(loc);
             }
 
-            if ((loc.type <= ItemLocationType.CHEST || loc.type == ItemLocationType.GROUND_ITEM) && loc.contents == 0 ) {
-                loc.setContents(228, "Game Ticket");
+            if ((loc.type <= ItemEventType.CHEST || loc.type == ItemEventType.GROUND_ITEM) && loc.contents == 0 ) {
+                loc.setContents(ItemID.GAME_TICKET, "Game Ticket");
             }
 
             rom.writeBlock(loc.address, loc.toBinary());
