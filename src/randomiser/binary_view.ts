@@ -19,7 +19,7 @@ export class BinaryView
 
     /**
      * Increases the length of the view, padding the end with zeroes.
-     * @param amount The amount of bytes to add.
+     * @param amount The amount of bytes to add
      */
     expand (amount : number) : void
     {
@@ -27,6 +27,21 @@ export class BinaryView
 
         const newData = new Uint8Array(this.data.length + amount);
         newData.set(this.data, 0);
+        this.data = newData;
+    }
+
+    /**
+     * Increases the length of the view, inserting zeroes at the provided address.
+     * @param address The address to insert the extra bytes at
+     * @param amount The amount of bytes to add
+     */
+    expandAt (address : number, amount : number) : void
+    {
+        if (amount <= 0 || address < 0 || address >= this.data.length) return;
+
+        const newData = new Uint8Array(this.data.length + amount);
+        newData.set(this.data.subarray(0, address), 0);
+        newData.set(this.data.subarray(address), address + amount);
         this.data = newData;
     }
 

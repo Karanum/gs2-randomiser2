@@ -3,6 +3,7 @@ import { EventType, MapCodeEntry } from "../data/map_code/enums";
 import type { RomData } from "../rom";
 import { END, LINE, Var } from "../data/text/control_characters";
 import { getAssemblyScript } from "../script_util";
+import { SpriteId } from "../data/enums";
 
 const patchInteractSign = getAssemblyScript('anemos/entrance_sign');
 const patchMapInit = getAssemblyScript('anemos/entrance_map_init');
@@ -30,7 +31,7 @@ export function applyRandomAnemosRequirement(rom : RomData, prng : PRNG)
 
     // Create a new NPC table for map 303 and add a sign object
     mapCode.data.writeHalfword(0x864, 0xC454);
-    mapCode.setSignlikeNpcEntry(0x4454, 0x1C2, -1, 0x200, 0x0, 0xE4);
+    mapCode.setSignlikeNpcEntry(0x4454, SpriteId.SIGN, -1, 0x200, 0x0, 0xE4);
     mapCode.setFinalNpcEntry(0x446C);
     mapCode.setEventEntry(0x3DE4, EventType.NPC, 0, 0, 8, 0xFFFF, 0x0200C485);
     mapCode.data.writeBlock(0x4484, patchInteractSign);

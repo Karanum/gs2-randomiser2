@@ -1,6 +1,7 @@
 import { compressBranchLinks, compressFormat1 } from "$lib/compression";
 import { BinaryView } from "../../binary_view";
 import { DataModel } from "../base";
+import { SpriteId } from "../enums";
 import { EventType, FacingType, type Facing } from "./enums";
 
 /**
@@ -79,7 +80,21 @@ export class MapCode extends DataModel
      */
     setSignlikeNpcEntry (address : number, sprite : number, flag: number, x : number, z : number, y : number) : void
     {
-        this.setNpcEntry(address, sprite, flag, 0x1, x, z, y, 0, 0);
+        this.setNpcEntry(address, sprite, flag, 0x1, x, z, y, 0, FacingType.FIXED);
+    }
+
+    /**
+     * Writes an item display NPC entry into the binary data of this map code.
+     * Equivalent to using `setSignLikeNpcEntry` with sprite ID 489 (0x1E9).
+     * @param address The address to write this NPC to
+     * @param flag Flag for conditional placement, `-1` to ignore
+     * @param x X coordinate to place this NPC at
+     * @param z Z coordinate to place this NPC at
+     * @param y Y coordinate to place this NPC at
+     */
+    setItemDisplayNpcEntry (address : number, flag : number, x : number, z : number, y : number) : void
+    {
+        this.setNpcEntry(address, SpriteId.ITEM_DISPLAY, flag, 0x1, x, z, y, 0, FacingType.FIXED);
     }
 
     /**

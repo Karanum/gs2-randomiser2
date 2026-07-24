@@ -1,6 +1,7 @@
 import { AbilityIconDefinition } from "$lib/definitions";
 import type { RomData } from "../../rom";
 import { GenericManager } from "../base";
+import { PseudoItem } from "../items/enums";
 import { ArchipelagoIcon_FillerItem, ArchipelagoIcon_KeyItem, ArchipelagoIcon_UsefulItem, CharacterIcon_Felix, CharacterIcon_Garet, CharacterIcon_Isaac, CharacterIcon_Ivan, CharacterIcon_Jenna, CharacterIcon_Mia, CharacterIcon_Piers, CharacterIcon_Sheba } from "./icons";
 
 /**
@@ -61,14 +62,14 @@ export class AbilityIconManager extends GenericManager<Uint8Array> {
      */
     registerCharacterIcons ()
     {
-        this.insertWithItemMapping(CharacterIcon_Isaac, 0xD00);
-        this.insertWithItemMapping(CharacterIcon_Garet, 0xD01);
-        this.insertWithItemMapping(CharacterIcon_Ivan, 0xD02);
-        this.insertWithItemMapping(CharacterIcon_Mia, 0xD03);
-        this.insertWithItemMapping(CharacterIcon_Felix, 0xD04);
-        this.insertWithItemMapping(CharacterIcon_Jenna, 0xD05);
-        this.insertWithItemMapping(CharacterIcon_Sheba, 0xD06);
-        this.insertWithItemMapping(CharacterIcon_Piers, 0xD07);
+        this.insertWithItemMapping(CharacterIcon_Isaac, PseudoItem.PC_ISAAC);
+        this.insertWithItemMapping(CharacterIcon_Garet, PseudoItem.PC_GARET);
+        this.insertWithItemMapping(CharacterIcon_Ivan, PseudoItem.PC_IVAN);
+        this.insertWithItemMapping(CharacterIcon_Mia, PseudoItem.PC_MIA);
+        this.insertWithItemMapping(CharacterIcon_Felix, PseudoItem.PC_FELIX);
+        this.insertWithItemMapping(CharacterIcon_Jenna, PseudoItem.PC_JENNA);
+        this.insertWithItemMapping(CharacterIcon_Sheba, PseudoItem.PC_SHEBA);
+        this.insertWithItemMapping(CharacterIcon_Piers, PseudoItem.PC_PIERS);
     }
 
     /**
@@ -76,9 +77,9 @@ export class AbilityIconManager extends GenericManager<Uint8Array> {
      */
     registerArchipelagoIcons ()
     {
-        this.insertWithItemMapping(ArchipelagoIcon_UsefulItem, 0xA00);
-        this.insertWithItemMapping(ArchipelagoIcon_KeyItem, 0xA0A);
-        this.insertWithItemMapping(ArchipelagoIcon_FillerItem, 0xA0B);
+        this.insertWithItemMapping(ArchipelagoIcon_UsefulItem, PseudoItem.AP_USEFUL_ITEM);
+        this.insertWithItemMapping(ArchipelagoIcon_KeyItem, PseudoItem.AP_KEY_ITEM);
+        this.insertWithItemMapping(ArchipelagoIcon_FillerItem, PseudoItem.AP_FILLER_ITEM);
     }
 
     /**
