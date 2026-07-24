@@ -90,6 +90,7 @@ function assembleMacro(parse : ParseLineResult, labels : Labels, errors : Assemb
                 errors.push([parse.lineNumber, `Unknown identifier "${label}"`]);
                 return [0, 0, 0, 0];
             }
+            return numberToByteArray(labels[label], 4);
         case Macro.TEXT:
             const text = getText(parse.params[0]);
             const textOutput = [];
