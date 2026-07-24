@@ -4,9 +4,14 @@ import type { RomData } from "../rom";
 import { END, LINE, Var } from "../data/text/control_characters";
 import { getAssemblyScript } from "../script_util";
 import { SpriteId } from "../data/enums";
+import { EventBuilder, NpcBuilder } from "../data/map_code/model";
 
 const patchInteractSign = getAssemblyScript('anemos/entrance_sign');
 const patchMapInit = getAssemblyScript('anemos/entrance_map_init');
+
+const npcSign = new NpcBuilder(SpriteId.SIGN).setPosition(0x200, 0x0, 0xE4).build();
+const eventSign = new EventBuilder().asNpc(8, 0x0200C485).build();
+
 
 /**
  * Changes the requirement for opening Anemos Inner Sanctum to a random 
@@ -31,10 +36,10 @@ export function applyRandomAnemosRequirement(rom : RomData, prng : PRNG)
 
     // Create a new NPC table for map 303 and add a sign object
     mapCode.data.writeHalfword(0x864, 0xC454);
-    mapCode.setSignlikeNpcEntry(0x4454, SpriteId.SIGN, -1, 0x200, 0x0, 0xE4);
+    mapCode.data.writeBlock(0x4454, npcSign);
     mapCode.setFinalNpcEntry(0x446C);
-    mapCode.setEventEntry(0x3DE4, EventType.NPC, 0, 0, 8, 0xFFFF, 0x0200C485);
-    mapCode.data.writeBlock(0x4484, patchInteractSign);
+    mapCode.data.writeBlock(0x3DE4, eventSign);
+    mapCode.data.writeBlock(0x4484, patchInteractSign);  
 
     // Override the init function for map 303
     mapCode.writeLinkedJump(0x1E94, 0x02008AC8);

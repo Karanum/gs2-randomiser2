@@ -175,9 +175,11 @@ export enum ItemID {
 }
 
 /**
- * User-friendly names for technical pseudo-items added by the randomiser.
+ * User-friendly names for technical pseudo-items, most of which are added by the randomiser.
  */
 export enum PseudoItem {
+    ITEM_ANY_EQUIPMENT = 0x1FE, ITEM_ANY = 0x1FF,
+
     AP_USEFUL_ITEM = 0xA00, AP_KEY_ITEM = 0xA0A, AP_FILLER_ITEM,
 
     PC_ISAAC = 0xD00, PC_GARET, PC_IVAN, PC_MIA, PC_FELIX, PC_JENNA, PC_SHEBA, PC_PIERS,

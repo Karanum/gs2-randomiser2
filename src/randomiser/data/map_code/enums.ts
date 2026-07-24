@@ -155,7 +155,7 @@ export enum FacingType {
  */
 export enum EventType {
     NPC,
-    DOOR,
+    WARP,
     COLLISION,
     INTERACT,
     ITEM_TILE,
@@ -166,4 +166,33 @@ export enum EventType {
     ITEM_OBJECT = 0x14,
     PSYNERGY_OBJECT = 0x15,
     PSYNERGY_STATE = 0x85
+}
+
+/**
+ * Represents different types of exit warp animations.
+ */
+export enum WarpAnimation {
+    DEFAULT,
+    NONE,
+    STAIRS_UP,
+    STAIRS_DOWN,
+    FALL,
+    DOOR
+}
+
+/**
+ * Represents different phases of the field Psynergy casting process.
+ * Used by Psynergy events to determine when in the lifecycle to trigger.
+ * The `DURING_*` phases are custom triggers that not all Psynergy will activate.
+ */
+export enum PsynergyPhase {
+    BEFORE_CAST,
+    AFTER_CAST,
+    AFTER_EXITING_STATE,
+    BEFORE_EXITING_STATE,
+    DURING_EXITING_STATE,
+    DURING_CAST_1,
+    DURING_CAST_2,
+    DURING_CAST_3,
+    SETUP
 }

@@ -157,3 +157,30 @@ export enum UtilityEffect {
     ARROW,
     TELEPORT
 }
+
+/**
+ * Represents the indices of various field Psynergy.
+ */
+export enum FieldPsynergy {
+    GROWTH      = 0x0C,
+    FROST       = 0x18,
+    DOUSE       = 0x21,
+    WHIRLWIND   = 0x4E,
+    LASH        = 0x85,
+    POUND       = 0x86,
+    TREMOR      = 0x87,
+    SCOOP       = 0x88,
+    CYCLONE     = 0x89,
+    PARCH       = 0x8A,
+    SAND        = 0x8B,
+    MIND_READ   = 0x8D,
+    FORCE       = 0x8E,
+    LIFT        = 0x8F,
+    REVEAL      = 0x90,
+    CARRY       = 0x93,
+    BURST       = 0x97,
+    GRIND       = 0x98,
+    HOVER       = 0x99,
+    BLAZE       = 0x9A,
+    TELEPORT    = 0x9C,
+}

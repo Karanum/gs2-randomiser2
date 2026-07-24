@@ -1,4 +1,6 @@
+import { SpriteId } from "../data/enums";
 import { EventType, MapCodeEntry } from "../data/map_code/enums";
+import { EventBuilder, NpcBuilder } from "../data/map_code/model";
 import { BOX, END, LINE } from "../data/text/control_characters";
 import type { RomData } from "../rom";
 import { getAssemblyExport, getAssemblyScript } from "../script_util";
@@ -17,6 +19,19 @@ const patchContigoGiveItem = getAssemblyScript('character_shuffle/contigo_give_i
 
 const exportShowShebaItem = getAssemblyExport('character_shuffle/idejima_show_sheba_item', 'inject_objectId') - 0x02008000;
 const exportGiveShebaItem = getAssemblyExport('character_shuffle/idejima_give_sheba_item', 'inject_objectId') - 0x02008000;
+
+const npcItemDisplayGeneric = new NpcBuilder(SpriteId.ITEM_DISPLAY);
+const npcItemDisplayIdejima = npcItemDisplayGeneric.setFlag(0xD06).setPosition(0x38, 0, 0x2C0).build();
+const npcItemDisplayKibombo = npcItemDisplayGeneric.setFlag(0xD07).setPosition(0x80, 0, 0x170).build();
+const npcItemDisplayContigo1 = npcItemDisplayGeneric.setFlag(0xD00).setPosition(0x78, 0, 0x160).build();
+const npcItemDisplayContigo2 = npcItemDisplayGeneric.setFlag(0xD01).setPosition(0x90, 0, 0x160).build();
+const npcItemDisplayContigo3 = npcItemDisplayGeneric.setFlag(0xD02).setPosition(0xA8, 0, 0x160).build();
+const npcItemDisplayContigo4 = npcItemDisplayGeneric.setFlag(0xD03).setPosition(0xC0, 0, 0x160).build();
+const eventItemDisplayKibombo = new EventBuilder().asNpc(0x1A, 0x02009319).setFlag(0xD07).build();
+const eventItemDisplayContigo1 = new EventBuilder().asNpc(8, 0x02009D98).setFlag(0xD00).build();
+const eventItemDisplayContigo2 = new EventBuilder().asNpc(8, 0x02009D98).setFlag(0xD01).build();
+const eventItemDisplayContigo3 = new EventBuilder().asNpc(8, 0x02009D98).setFlag(0xD02).build();
+const eventItemDisplayContigo4 = new EventBuilder().asNpc(8, 0x02009D98).setFlag(0xD03).build();
 
 
 export function applyCharacterShufflePatch(rom : RomData, settings : SettingsObject)
@@ -55,8 +70,10 @@ export function applyCharacterShufflePatch(rom : RomData, settings : SettingsObj
     const npcAddr = 0x3874 + 0x18 * (eventId - 10);
     const eventAddr = 0x394C + 0x18 * (eventId - 10);
     idejima.data.expandAt(eventAddr, 0xC);
-    idejima.setItemDisplayNpcEntry(npcAddr, 0xD06, 0x38, 0, 0x2C0);
-    idejima.setEventEntry(eventAddr, EventType.NPC, 0, 0, eventId, 0xD06, 0x020082B5);
+    idejima.data.writeBlock(npcAddr, npcItemDisplayIdejima);
+    idejima.data.writeBlock(eventAddr, 
+        new EventBuilder().asNpc(eventId, 0x020082B5).setFlag(0xD06).build()
+    );
 
     idejima.writeLinkedJump(0x2ECA, 0x020080F0);
     idejima.data.writeBlock(0xF0, patchIdejimaShowShebaItem);
@@ -65,8 +82,8 @@ export function applyCharacterShufflePatch(rom : RomData, settings : SettingsObj
     idejima.data.writeByte(exportGiveShebaItem, eventId);
 
     // Update Kibombo map code to replace Piers with an item
-    kibombo.setItemDisplayNpcEntry(0x6C48, 0xD07, 0x80, 0, 0x170);
-    kibombo.setEventEntry(0x7590, EventType.NPC, 0, 0, 0x1A, 0xD07, 0x02009319);
+    kibombo.data.writeBlock(0x6C48, npcItemDisplayKibombo);
+    kibombo.data.writeBlock(0x7590, eventItemDisplayKibombo);
 
     kibombo.data.writeBlock(0x7C8, patchKibomboShowPiersItem);
     kibombo.data.writeBlock(0x1318, patchKibomboGivePiersItem);
@@ -75,15 +92,15 @@ export function applyCharacterShufflePatch(rom : RomData, settings : SettingsObj
     kibombo.writeLinkedJump(0x55DE, 0x020087C8);
 
     // Update Contigo map code to replace Isaac's party with items
-    contigo.setItemDisplayNpcEntry(0x5228, 0xD00, 0x78, 0, 0x160);
-    contigo.setItemDisplayNpcEntry(0x5240, 0xD01, 0x90, 0, 0x160);
-    contigo.setItemDisplayNpcEntry(0x5258, 0xD02, 0xA8, 0, 0x160);
-    contigo.setItemDisplayNpcEntry(0x5270, 0xD03, 0xC0, 0, 0x160);
+    contigo.data.writeBlock(0x5228, npcItemDisplayContigo1);
+    contigo.data.writeBlock(0x5240, npcItemDisplayContigo2);
+    contigo.data.writeBlock(0x5258, npcItemDisplayContigo3);
+    contigo.data.writeBlock(0x5270, npcItemDisplayContigo4);
     contigo.setFinalNpcEntry(0x5288);
-    contigo.setEventEntry(0x5E7C, EventType.NPC, 0, 0, 8, 0xD00, 0x02009D98);
-    contigo.setEventEntry(0x5E88, EventType.NPC, 0, 0, 9, 0xD01, 0x02009D98);
-    contigo.setEventEntry(0x5E94, EventType.NPC, 0, 0, 10, 0xD02, 0x02009D98);
-    contigo.setEventEntry(0x5EA0, EventType.NPC, 0, 0, 11, 0xD03, 0x02009D98);
+    contigo.data.writeBlock(0x5E7C, eventItemDisplayContigo1);
+    contigo.data.writeBlock(0x5E88, eventItemDisplayContigo2);
+    contigo.data.writeBlock(0x5E94, eventItemDisplayContigo3);
+    contigo.data.writeBlock(0x5EA0, eventItemDisplayContigo4);
 
     contigo.data.writeHalfword(0x802, 0xE014);          // b #0x0200882E
     contigo.data.writeHalfword(0x1D50, 0x4770);         // bx lr
