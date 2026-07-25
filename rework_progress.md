@@ -67,6 +67,6 @@ This is a list of all the sections of the old randomiser that need to be reworke
 - [X] Overworld Retreat as Teleport (`innate/teleport.js`)
 - [X] Teleport to minor locations (`optional/teleport_everywhere.js`)
 - [X] Trial Road inventory fix (`innate/trial_road.js`)
-- [ ] Tutorial NPCs (`innate/tutorial_npcs.js`)
+- [X] Tutorial NPCs (`innate/tutorial_npcs.js`)
 - [X] Yallam forge QoL (`innate/fast_forging.js`)
 - [X] (miscellaneous smaller patches)
