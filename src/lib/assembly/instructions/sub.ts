@@ -2,9 +2,9 @@
  * Assembler for SUB instructions.
  */
 
-import { getNumber, getRegister, type AssemblyErrors } from "../assembler";
+import { getNumber, getRegister } from "../assembler";
 import { GuardBuilder } from "../guards";
-import { ParameterType, type ParseLineResult } from "../parser";
+import { type AssemblyErrors, ParameterType, type ParseLineResult } from "../types";
 
 export function assemble(parse : ParseLineResult, errors : AssemblyErrors) : number[] {
     if (parse.params.length == 3) {
@@ -26,7 +26,7 @@ function assembleRR(parse : ParseLineResult, errors : AssemblyErrors) : number[]
     const rd = getRegister(parse.params[0]);
     const rs = getRegister(parse.params[1]);
 
-    const guard = new GuardBuilder(parse.lineNumber, ['SUB', 'Rd', 'Rs'])
+    const guard = new GuardBuilder(parse, ['SUB', 'Rd', 'Rs'])
         .requireRegisterLower(0, rd).requireRegisterLower(1, rs);
     if (!guard.getResult(errors)) return [];
 
@@ -38,7 +38,7 @@ function assembleRN(parse : ParseLineResult, errors : AssemblyErrors) : number[]
     const nn = getNumber(parse.params[1]);
     if (rd == 13) return assembleSN(parse, errors, nn);
 
-    const guard = new GuardBuilder(parse.lineNumber, ['SUB', 'Rd', 'Imm8bit'])
+    const guard = new GuardBuilder(parse, ['SUB', 'Rd', 'Imm8bit'])
         .requireRegisterLower(0, rd)
         .requireNumberUnsigned(1, nn).requireNumberMax(1, nn, 255);
     if (!guard.getResult(errors)) return [];
@@ -51,7 +51,7 @@ function assembleRRR(parse : ParseLineResult, errors : AssemblyErrors) : number[
     const rs = getRegister(parse.params[1]);
     const rn = getRegister(parse.params[2]);
 
-    const guard = new GuardBuilder(parse.lineNumber, ['SUB', 'Rd', 'Rs', 'Rn'])
+    const guard = new GuardBuilder(parse, ['SUB', 'Rd', 'Rs', 'Rn'])
         .requireRegisterLower(0, rd).requireRegisterLower(1, rs).requireRegisterLower(2, rn);
     if (!guard.getResult(errors)) return [];
 
@@ -63,7 +63,7 @@ function assembleRRN(parse : ParseLineResult, errors : AssemblyErrors) : number[
     const rs = getRegister(parse.params[1]);
     const nn = getNumber(parse.params[2]);
 
-    const guard = new GuardBuilder(parse.lineNumber, ['SUB', 'Rd', 'Rs', 'Imm3bit'])
+    const guard = new GuardBuilder(parse, ['SUB', 'Rd', 'Rs', 'Imm3bit'])
         .requireRegisterLower(0, rd).requireRegisterLower(1, rs)
         .requireNumberUnsigned(2, nn).requireNumberMax(2, nn, 7);
     if (!guard.getResult(errors)) return [];
@@ -72,7 +72,7 @@ function assembleRRN(parse : ParseLineResult, errors : AssemblyErrors) : number[
 }
 
 function assembleSN(parse : ParseLineResult, errors : AssemblyErrors, nn : number) : number[] {
-    const guard = new GuardBuilder(parse.lineNumber, ['SUB', 'SP', '±Imm7bit*4'])
+    const guard = new GuardBuilder(parse, ['SUB', 'SP', '±Imm7bit*4'])
         .requireNumberAlignment(1, nn, 4).requireNumberMax(1, nn, 508);
     if (!guard.getResult(errors)) return [];
 

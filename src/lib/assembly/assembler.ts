@@ -1,5 +1,5 @@
 import { styleText } from "node:util";
-import { ParameterType, parseFile, type LabelParameter, type NumberParameter, type Parameter, type ParseLineResult, type RangeParameter, type RegisterParameter, type TextParameter } from "./parser";
+import { ParameterType, type AssemblyErrors, type AssemblyResult, type LabelParameter, type Labels, type NumberParameter, type Parameter, type ParseLineResult, type RangeParameter, type RegisterParameter, type TextParameter } from "./types";
 import { Macro, Instruction } from "./tokens";
 
 import * as instrADD from './instructions/add';
@@ -16,10 +16,7 @@ import * as instrMOV from './instructions/mov';
 import * as instrPUSHPOP from './instructions/pushpop';
 import * as instrSHIFTg from './instructions/shift_group';
 import * as instrSUB from './instructions/sub';
-
-export type AssemblyErrors = [number, string][];
-export type Labels = Record<string, number>;
-export type AssemblyResult = { data: Uint8Array, exports: Labels };
+import { parseFile } from "./parser";
 
 /**
  * Converts a number to a (little Endian) byte array.
@@ -87,7 +84,7 @@ function assembleMacro(parse : ParseLineResult, labels : Labels, errors : Assemb
             if (parse.params[0].type == ParameterType.NUMBER) return numberToByteArray(parse.params[0].value, 4);
             const label = getLabel(parse.params[0]);
             if (labels[label] == undefined) {
-                errors.push([parse.lineNumber, `Unknown identifier "${label}"`]);
+                errors.push([parse.source, parse.lineNumber, `Unknown identifier "${label}"`]);
                 return [0, 0, 0, 0];
             }
             return numberToByteArray(labels[label], 4);
@@ -98,6 +95,8 @@ function assembleMacro(parse : ParseLineResult, labels : Labels, errors : Assemb
                 textOutput.push(text.charCodeAt(i) & 0xFF);
             }
             return textOutput;
+        case Macro.RESERVE:
+            return (new Array(getNumber(parse.params[0]))).fill(0);
         case Macro.ALIGN:
             return (new Array(parse.extraData)).fill(0);
         case Macro.THUNK:
@@ -113,7 +112,7 @@ function assembleMacro(parse : ParseLineResult, labels : Labels, errors : Assemb
  */
 function assembleInstruction(parse : ParseLineResult, labels : Labels, errors : AssemblyErrors) : number[] {
     if (parse.address && parse.address % 2 != 0) {
-        errors.push([parse.lineNumber, 'Instruction maligned, use ".ALIGN 2" to reset proper THUMB alignment']);
+        errors.push([parse.source, parse.lineNumber, 'Instruction maligned, use ".ALIGN 2" to reset proper THUMB alignment']);
     }
 
     switch (parse.instruction) {
@@ -171,7 +170,7 @@ function assembleInstruction(parse : ParseLineResult, labels : Labels, errors : 
         case Instruction.TST: return instrALUg.assemble(parse, errors, 'TST');
     }
 
-    errors.push([parse.lineNumber, '[BUG] Unimplemented instruction']);
+    errors.push([parse.source, parse.lineNumber, '[BUG] Unimplemented instruction']);
     return [];
 }
 
@@ -180,7 +179,7 @@ function assembleInstruction(parse : ParseLineResult, labels : Labels, errors : 
  * @param file The full file in string format
  * @returns A `Uint8Array` containing the result, or `undefined` if any errors were raised
  */
-export function build(file : string) : AssemblyResult|undefined {
+export function build(file : ParseLineResult[]) : AssemblyResult|undefined {
     const result = parseFile(file);
     if (!result) return;
     
@@ -198,7 +197,10 @@ export function build(file : string) : AssemblyResult|undefined {
 
     if (errors.length > 0) {
         console.log(styleText('red', 'Build failed due to assembly errors:'));
-        errors.forEach(error => console.log(styleText('red', `    Line ${error[0]}: ${error[1]}`)));
+        errors.forEach(error => {
+            console.log(styleText('red', `> Line ${error[1]} in file ${error[0]}:`));
+            console.log(styleText('red', `    ${error[2]}`));
+        });
         return;
     }
 

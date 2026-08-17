@@ -1,70 +1,11 @@
-import { styleText } from "node:util";
 import { Instruction, Macro, Register } from "./tokens";
-import type { Labels } from "./assembler";
-
-/**
- * Represents all possible parameter types, laid out as bit flags to support binary operations.
- */
-export enum ParameterType { NONE = 0, NUMBER = 1, REGISTER = 2, LABEL = 4, RANGE = 8, OFFSET = 16, TEXT = 32 };
-
-// Type definitions for each of the different parameter types
-export type NumberParameter = {
-    type : ParameterType.NUMBER,
-    value : number
-};
-export type RegisterParameter = {
-    type : ParameterType.REGISTER,
-    value : Register
-};
-export type LabelParameter = {
-    type: ParameterType.LABEL,
-    value : string
-};
-export type RangeParameter = {
-    type : ParameterType.RANGE,
-    value : Register[]
-};
-export type OffsetParameter = {
-    type : ParameterType.OFFSET,
-    value : [RegisterParameter, (NumberParameter | RegisterParameter)]
-};
-export type TextParameter = {
-    type : ParameterType.TEXT,
-    value : string
-};
-
-export type Parameter = { type: ParameterType.NONE } 
-    | NumberParameter | RegisterParameter | LabelParameter | RangeParameter | OffsetParameter | TextParameter;
-
-// Type definition for the parse output of a single line
-export type ParseLineResult = {
-    line : string,
-    lineNumber : number,
-    label? : string
-    instruction? : Instruction,
-    macro? : Macro,
-    address? : number,
-    params : Parameter[],
-    error : string[],
-    extraData : number
-};
+import { type Labels, ParameterType, type LabelParameter, type NumberParameter, type OffsetParameter, type ParseLineResult, type RangeParameter, type RegisterParameter, type TextParameter } from "./types";
+import { printParsingErrors } from "./errors";
 
 // List of reserved identifiers, to prevent labels masquerading as registers
 const reservedIdentifiers = ['r0', 'r1', 'r2', 'r3', 'r4', 'r5', 'r6', 'r7', 'r8',
     'r9', 'r10', 'r11', 'r12', 'r13', 'r14', 'r15', 'lr', 'sp', 'pc'];
 
-
-/**
- * Applies pre-processing to a file. Splits the file into lines, then filters out comments and empty lines.
- * @param file The full file contents
- * @returns An array of empty `ParseLineResult` objects for each non-empty line
- */
-export function preprocessLines(file : string) : ParseLineResult[] {
-    return file.split('\n')
-        .map(line => line.split('@')[0].trim())
-        .map((line, i) => ({ line, lineNumber: (i + 1), error: [], params: [], extraData: 0 }))
-        .filter(obj => obj.line.length > 0);
-}
 
 /**
  * Parses a single line of source code.
@@ -373,6 +314,10 @@ function parseMacro(parseResult : ParseLineResult) : void {
             parseResult.macro = Macro.TEXT;
             parseResult.params = [{ type: ParameterType.TEXT, value: opSplit.slice(1).join(' ') }];
             break;
+        case 'reserve':
+            parseResult.macro = Macro.RESERVE;
+            parseParameterChain(params, parseResult, [ParameterType.NUMBER]);
+            break;
         case 'align':
             parseResult.macro = Macro.ALIGN;
             parseParameterChain(params, parseResult, [ParameterType.NUMBER]);
@@ -392,6 +337,13 @@ function parseMacro(parseResult : ParseLineResult) : void {
         case 'export':
             parseResult.macro = Macro.EXPORT;
             parseParameterChain(params, parseResult, [ParameterType.LABEL]);
+            break;
+        case 'set':
+            parseResult.macro = Macro.SET;
+            parseParameterChain(params, parseResult, [ParameterType.LABEL, ParameterType.NUMBER]);
+            break;
+        case 'include':
+            parseResult.macro = Macro.INCLUDE;
             break;
         default:
             parseResult.error.push(`Unknown macro: ${opSplit[0].toLowerCase()}`);
@@ -592,6 +544,9 @@ export function processParseResults(results : ParseLineResult[]) : Labels {
                     const param = (result.params[0] as TextParameter).value;
                     address += param.length + 1;
                     break;
+                case Macro.RESERVE:
+                    address += (result.params[0] as NumberParameter).value;
+                    break;
                 case Macro.ALIGN:
                     const align = (result.params[0] as NumberParameter).value;
                     if (address % align != 0) result.extraData = align - (address % align);
@@ -602,18 +557,26 @@ export function processParseResults(results : ParseLineResult[]) : Labels {
                     address = offset;
                     break;
                 case Macro.THUNK:
-                    const label = (result.params[0] as LabelParameter).value;
-                    if (labels[label] != undefined) result.error.push(`Duplicate assignment of label "${label}"`);
-
-                    
-                    if (address % 4 != 0) result.extraData = 4 - (address % 4);
-                    address += result.extraData;
-                    result.address = address;
-                    labels[label] = address;
-                    address += 8;
+                    {
+                        const label = (result.params[0] as LabelParameter).value;
+                        if (labels[label] != undefined) result.error.push(`Duplicate assignment of label "${label}"`);
+                        
+                        if (address % 4 != 0) result.extraData = 4 - (address % 4);
+                        address += result.extraData;
+                        result.address = address;
+                        labels[label] = address;
+                        address += 8;
+                    }
                     break;
                 case Macro.MAX_SIZE:
                     maxSize = (result.params[0] as NumberParameter).value;
+                    break;
+                case Macro.SET:
+                    {
+                        const label = (result.params[0] as LabelParameter).value;
+                        if (labels[label] != undefined) result.error.push(`Duplicate assignment of label "${label}"`);
+                        labels[label] = (result.params[1] as NumberParameter).value;
+                    }
                     break;
             }
         }
@@ -634,18 +597,18 @@ export function processParseResults(results : ParseLineResult[]) : Labels {
  * @param file The full file in string form
  * @returns An object containing the parse results for each line and a list of labels, or `undefined` if any errors were raised
  */
-export function parseFile(file : string) : { parseResults: ParseLineResult[], labels: Labels }|undefined {
-    const parseResults = preprocessLines(file);
-    parseResults.forEach(line => parseLine(line));
-
-    if (parseResults.some(line => line.error.length > 0)) {
-        console.log(styleText('red', 'Build failed due to parsing errors:'));
-        parseResults.forEach(line => {
-            line.error.forEach(error => console.log(styleText('red', `    Line ${line.lineNumber}: ${error}`)));
-        });
+export function parseFile(file : ParseLineResult[]) : { parseResults: ParseLineResult[], labels: Labels }|undefined {
+    file.forEach(line => parseLine(line));
+    if (file.some(line => line.error.length > 0)) {
+        printParsingErrors(file[0].source, file);
         return;
     }
 
-    const labels = processParseResults(parseResults);
-    return { parseResults, labels };
+    const labels = processParseResults(file);
+    if (file.some(line => line.error.length > 0)) {
+        printParsingErrors(file[0].source, file);
+        return;
+    }
+
+    return { parseResults: file, labels };
 }

@@ -3,10 +3,19 @@ import type { MapCodeManager } from "../data/map_code/manager";
 import type { RomData } from "../rom";
 import { applyEndgamePersistencePatch } from "./shortcuts";
 import { applyWorldMapRetreat } from "./retreat_teleport";
-import { getAssemblyScript } from "../script_util";
+import { getAssemblyExport, getAssemblyScript } from "../script_util";
 
+const patchRandomiserLogic = getAssemblyScript('legacy_randomiser_logic');
 const patchTaopoSwampAutorunFix = getAssemblyScript('taopo_swamp_autorun_fix');
 const patchCountDjinnFunction = getAssemblyScript('count_djinn');
+const patchHighestDjinnCountFunction = getAssemblyScript('get_highest_party_djinn_count');
+
+
+const addrDjinnMapping = 0xFA0000;
+const addrSpecialLocationMapping = 0xFA00A0;
+const addrInventoryMapping = 0xFA00E0;
+const addrRandomiserLogic = 0xFA2000;
+
 
 const locationMapping = [0xC6, 0xC7, 0xD1, 0xD2, 0xD7, 0xDE, 0xF2, 0x146, 0x1C4, 0x1C5, 0x1C6, 0x1C7, 0x1C9, 0x1CA, 
     0x1CC, 0xE90, 0xE8A, 0xE8B, 0xE9A, 0xF16, 0x1B9, 0x41, 0xE8D, 0xE4E, 0xE0C, 0xCE, 0xCB, 0xC8, 0xCF, 0xC9, 0xCA];
@@ -29,13 +38,12 @@ export function applyGeneralRomPatches(rom : RomData)
     rom.writeHalfword(0xB125A, 0x0000);     // nop
     rom.writeHalfword(0xB1264, 0x0000);     // nop
 
-    // ??? (This is in the function for sorting Djinn)
-    //TODO: Determine effect of legacy edit
-    rom.writeHalfword(0x101B12, 0x2800);    // cmp r0, #0
-    rom.writeHalfword(0x101B14, 0xDA0D);    // bge #0x08101B32
+    // Change the check for when the Djinn menu should go into compact mode
+    rom.writeLinkedJump(0x101AF8, 0x08131A00);
+    rom.writeHalfword(0x101AFC, 0xE009);    // b #0x08101B12
 
     // Prepare the Djinni mappings
-    for (let elem = 0, addr = 0xFA0000; elem < 4; ++elem) {
+    for (let elem = 0, addr = addrDjinnMapping; elem < 4; ++elem) {
         for (let id = 0; id < 18; ++id) {
             rom.writeByte(addr++, id);
             rom.writeByte(addr++, elem);
@@ -43,32 +51,56 @@ export function applyGeneralRomPatches(rom : RomData)
     }
 
     // Prepare the special location mappings
-    locationMapping.forEach((id, i) => rom.writeHalfword(0xFA00A0 + i * 2, id));
+    locationMapping.forEach((id, i) => rom.writeHalfword(addrSpecialLocationMapping + i * 2, id));
     startingInventoryMapping.forEach(([char, id], i) => {
-        rom.writeHalfword(0xFA00E0 + i * 4, char);
-        rom.writeHalfword(0xFA00E2 + i * 4, id);
+        rom.writeHalfword(addrInventoryMapping + i * 4, char);
+        rom.writeHalfword(addrInventoryMapping + i * 4 + 2, id);
     });
 
-    // ??? (Enumerates party members, but why?)
-    //TODO: Determine effect of legacy edit
-    rom.writeBlock(0xFA3000, Uint8Array.of(0, 1, 2, 3, 4, 5, 6, 7));
-
-    // Custom function for party member initialisation
-    rom.writeLongJump(0xADEF6, 0x09000801, 0);
-    // TODO: Inject script(s) at 0x1000800
-
-    //TODO: Check whether the edits starting at 0x09000154 should be included or dropped
-    //TODO: Check whether the edits starting at 0x09000300 should be included or dropped
-    //TODO: Check whether the edits starting at 0x090004A0 should be included or dropped
+    // Insert big block of custom randomiser logic code
+    insertRandomiserLogic(rom);
 
     // Apply external innate patches
     applyWorldMapRetreat(rom);
 
     // Insert common use functions
     rom.writeBlock(0x131900, patchCountDjinnFunction);
+    rom.writeBlock(0x131A00, patchHighestDjinnCountFunction);
 
     //TODO: Finish
 }
+
+
+function insertRandomiserLogic(rom : RomData)
+{
+    rom.writeBlock(addrRandomiserLogic, patchRandomiserLogic);
+
+    // Party initialisation injections
+    rom.writeLongJump(0xADEF6, getAssemblyExport('legacy_randomiser_logic', 'function_initStartingParty'));
+    rom.writeWord(0xAD22C, getAssemblyExport('legacy_randomiser_logic', 'function_initPiers'));
+    rom.writeWord(0xAD244, getAssemblyExport('legacy_randomiser_logic', 'function_initReunionParty'));
+
+    // Item handling injections
+    rom.writeWord(0xAD02C, getAssemblyExport('legacy_randomiser_logic', 'function_override_addItem'));
+
+    // Item sprite display injections
+    rom.writeWord(0xC8862, getAssemblyExport('legacy_randomiser_logic', 'injection_displayScoopItem_preCall'));
+    rom.writeWord(0x3824C, getAssemblyExport('legacy_randomiser_logic', 'function_loadItemIconMapped'));
+
+    // Injections requiring additional code
+    rom.writeLongJump(0xCD0E0, getAssemblyExport('legacy_randomiser_logic', 'injection_tabletInteraction'));
+    rom.writeLongJump(0xCD31A, getAssemblyExport('legacy_randomiser_logic', 'injection_chestInteraction'));
+    rom.writeLongJump(0xCF294, getAssemblyExport('legacy_randomiser_logic', 'injection_displayItemObject'));
+    rom.writeLongJump(0xD3B88, getAssemblyExport('legacy_randomiser_logic', 'injection_displayScoopItem'));
+
+    //TODO: Partially rewrite the edits starting at 0x090004A0 (0x090006BC specifically) (alternatively, put this into map code)
+    //TODO: Rewrite the edits starting at 0x09001828
+            // Map code injections for Djinn display, this should go into map code directly instead
+    //TODO: Rewrite the edits starting at 0x09005000
+    //TODO: Rewrite the edits starting at 0x09005F00
+    //TODO: Rewrite the edits starting at 0x09006D00
+}
+
 
 export function applyGeneralMapCodePatches(mapCode : MapCodeManager) 
 {

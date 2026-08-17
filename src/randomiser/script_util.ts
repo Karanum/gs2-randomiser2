@@ -1,6 +1,7 @@
 import { readFileSync } from "node:fs";
-import asmExports from "../assembly/out/exports.json";
-import { sep } from "node:path";
+
+const exportsCache : Record<string, Record<string, number>> = {};
+
 
 /**
  * Returns the compiled binary of an assembly script file.
@@ -24,14 +25,23 @@ export function getAssemblyScript(script : string) {
  * @param script The path of the script without file extension, relative to the assembly output folder
  * @param name The name of the exported label
  */
-export function getAssemblyExport(script : string, name : string) {
-    // Normalize the script name
-    if (sep == '\\') {
-        script = script.replaceAll('/', '\\') + '.bin';
-    } else {
-        script = script.replaceAll('\\', '/') + '.bin';
+export function getAssemblyExport(script : string, name : string) : number {
+    const cachedExports = exportsCache[script];
+    if (cachedExports !== undefined) {
+        return cachedExports[name] ?? 0;
     }
 
-    // Fetch the exported label if it exists, otherwise return 0
-    return (asmExports as Record<string, Record<string, number>>)[script]?.[name] ?? 0;
+    // Fetch from file if not cached yet
+    try {
+        const cacheFile = JSON.parse(readFileSync('../assembly/.cache/' + script + '.json', 'utf-8'));
+        if (cacheFile.exports === undefined) {
+            return 0;
+        }
+
+        exportsCache[script] = cacheFile.exports;
+        return cacheFile.exports[name] ?? 0;
+    } catch (err) {
+        console.error(err);
+        return 0;
+    }
 }

@@ -1,5 +1,6 @@
 import { AbilityIconDefinition } from "$lib/definitions";
 import type { RomData } from "../../rom";
+import { getAssemblyExport } from "../../script_util";
 import { GenericManager } from "../base";
 import { PseudoItem } from "../items/enums";
 import { ArchipelagoIcon_FillerItem, ArchipelagoIcon_KeyItem, ArchipelagoIcon_UsefulItem, CharacterIcon_Felix, CharacterIcon_Garet, CharacterIcon_Isaac, CharacterIcon_Ivan, CharacterIcon_Jenna, CharacterIcon_Mia, CharacterIcon_Piers, CharacterIcon_Sheba } from "./icons";
@@ -116,7 +117,7 @@ export class AbilityIconManager extends GenericManager<Uint8Array> {
         });
 
         // Write the established pseudo-item mappings
-        let addr = AbilityIconDefinition.ADDRESS_MAPPING;
+        let addr = getAssemblyExport("legacy_randomiser_logic", "data_iconMapping_dynamic");
         Object.entries(this.mappings).forEach(([itemId, iconId]) => {
             rom.writeHalfword(addr, Number(itemId));
             rom.writeHalfword(addr + 2, iconId);

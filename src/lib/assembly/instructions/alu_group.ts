@@ -2,9 +2,9 @@
  * Assembler for all instructions under group THUMB.4 (ALU operations)
  */
 
-import { getRegister, type AssemblyErrors } from "../assembler";
+import { getRegister } from "../assembler";
 import { GuardBuilder } from "../guards";
-import type { ParseLineResult } from "../parser";
+import type { AssemblyErrors, ParseLineResult } from "../types";
 
 const instructions : Record<string, number> = {
     'AND': 0, 'EOR': 1, 'LSL': 2, 'LSR': 3, 'ASR': 4, 'ADC': 5, 'SBC': 6, 'ROR': 7,
@@ -16,7 +16,7 @@ export function assemble(parse : ParseLineResult, errors : AssemblyErrors, instr
     const rs = getRegister(parse.params[1]);
     const op = instructions[instr] ?? 0;
 
-    const guard = new GuardBuilder(parse.lineNumber, [instr, 'Rd', 'Rs'])
+    const guard = new GuardBuilder(parse, [instr, 'Rd', 'Rs'])
         .requireRegisterLower(0, rd).requireRegisterLower(1, rs);
     if (!guard.getResult(errors)) return [];
 

@@ -2,9 +2,9 @@
  * Assembler for ADD instructions.
  */
 
-import { getNumber, getRegister, type AssemblyErrors } from "../assembler";
+import { getNumber, getRegister } from "../assembler";
 import { GuardBuilder } from "../guards";
-import { ParameterType, type ParseLineResult } from "../parser";
+import { type AssemblyErrors, ParameterType, type ParseLineResult } from "../types";
 import { Register } from "../tokens";
 
 export function assemble(parse : ParseLineResult, errors : AssemblyErrors) : number[] {
@@ -39,7 +39,7 @@ function assembleRN(parse : ParseLineResult, errors : AssemblyErrors) : number[]
 
     if (rd == Register.R13) return assembleSN(parse, errors, nn);
 
-    const guard = new GuardBuilder(parse.lineNumber, ['ADD', 'Rd', 'Imm8bit'])
+    const guard = new GuardBuilder(parse, ['ADD', 'Rd', 'Imm8bit'])
         .requireRegisterLower(0, rd)
         .requireNumberUnsigned(1, nn).requireNumberMax(1, nn, 255)
     if (!guard.getResult(errors)) return [];
@@ -52,7 +52,7 @@ function assembleRRR(parse : ParseLineResult, errors : AssemblyErrors) : number[
     const rs = getRegister(parse.params[1]);
     const rn = getRegister(parse.params[2]);
 
-    const guard = new GuardBuilder(parse.lineNumber, ['ADD', 'Rd', 'Rs', 'Rn'])
+    const guard = new GuardBuilder(parse, ['ADD', 'Rd', 'Rs', 'Rn'])
         .requireRegisterLower(0, rd).requireRegisterLower(1, rs).requireRegisterLower(2, rn);
     if (!guard.getResult(errors)) return [];
 
@@ -67,7 +67,7 @@ function assembleRRN(parse : ParseLineResult, errors : AssemblyErrors) : number[
     if (rs == Register.R13) return assembleRSN(parse, errors, rd, nn);
     if (rs == Register.R15) return assembleRPN(parse, errors, rd, nn);
 
-    const guard = new GuardBuilder(parse.lineNumber, ['ADD', 'Rd', 'Rs', 'Imm3bit'])
+    const guard = new GuardBuilder(parse, ['ADD', 'Rd', 'Rs', 'Imm3bit'])
         .requireRegisterLower(0, rd).requireRegisterLower(1, rs)
         .requireNumberUnsigned(2, nn).requireNumberMax(2, nn, 7);
     if (!guard.getResult(errors)) return [];
@@ -76,7 +76,7 @@ function assembleRRN(parse : ParseLineResult, errors : AssemblyErrors) : number[
 }
 
 function assembleSN(parse : ParseLineResult, errors : AssemblyErrors, nn : number) : number[] {
-    const guard = new GuardBuilder(parse.lineNumber, ['ADD', 'SP', '±Imm7bit*4'])
+    const guard = new GuardBuilder(parse, ['ADD', 'SP', '±Imm7bit*4'])
         .requireNumberAlignment(1, nn, 4).requireNumberMax(1, nn, 508);
     if (!guard.getResult(errors)) return [];
 
@@ -87,7 +87,7 @@ function assembleSN(parse : ParseLineResult, errors : AssemblyErrors, nn : numbe
 }
 
 function assembleRPN(parse : ParseLineResult, errors : AssemblyErrors, rd : Register, nn : number) : number[] {
-    const guard = new GuardBuilder(parse.lineNumber, ['ADD', 'Rd', 'PC', 'Imm8bit*4'])
+    const guard = new GuardBuilder(parse, ['ADD', 'Rd', 'PC', 'Imm8bit*4'])
         .requireRegisterLower(0, rd)
         .requireNumberUnsigned(2, nn).requireNumberAlignment(2, nn, 4).requireNumberMax(2, nn, 1020);
     if (!guard.getResult(errors)) return [];
@@ -96,7 +96,7 @@ function assembleRPN(parse : ParseLineResult, errors : AssemblyErrors, rd : Regi
 }
 
 function assembleRSN(parse : ParseLineResult, errors : AssemblyErrors, rd : Register, nn : number) : number[] {
-    const guard = new GuardBuilder(parse.lineNumber, ['ADD', 'Rd', 'SP', 'Imm8bit*4'])
+    const guard = new GuardBuilder(parse, ['ADD', 'Rd', 'SP', 'Imm8bit*4'])
         .requireRegisterLower(0, rd)
         .requireNumberUnsigned(2, nn).requireNumberAlignment(2, nn, 4).requireNumberMax(2, nn, 1020);
     if (!guard.getResult(errors)) return [];

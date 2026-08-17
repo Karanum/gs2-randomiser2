@@ -20,11 +20,14 @@ export enum Macro {
     WORD,
     POINTER,
     TEXT,
+    RESERVE,
     ALIGN,
     OFFSET,
     THUNK,
     MAX_SIZE,
-    EXPORT
+    EXPORT,
+    SET,
+    INCLUDE
 }
 
 /**

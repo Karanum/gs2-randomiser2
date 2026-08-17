@@ -3,9 +3,9 @@
  * including their variants in group THUMB.4 (ALU operations)
  */
 
-import { getNumber, getRegister, type AssemblyErrors } from "../assembler";
+import { getNumber, getRegister } from "../assembler";
 import { GuardBuilder } from "../guards";
-import type { ParseLineResult } from "../parser";
+import type { AssemblyErrors, ParseLineResult } from "../types";
 
 const instructions : Record<string, number> = {
     'LSL': 0, 'LSR': 1, 'ASR': 2
@@ -23,7 +23,7 @@ function assembleRR(parse : ParseLineResult, errors : AssemblyErrors, instr : st
     const rs = getRegister(parse.params[1]);
     const op = (instructions[instr] ?? 0) + 2;
 
-    const guard = new GuardBuilder(parse.lineNumber, [instr, 'Rd', 'Rs'])
+    const guard = new GuardBuilder(parse, [instr, 'Rd', 'Rs'])
         .requireRegisterLower(0, rd).requireRegisterLower(1, rs);
     if (!guard.getResult(errors)) return [];
 
@@ -36,7 +36,7 @@ function assembleRRN(parse : ParseLineResult, errors : AssemblyErrors, instr : s
     const nn = getNumber(parse.params[2]);
     const op = (instructions[instr] ?? 0);
 
-    const guard = new GuardBuilder(parse.lineNumber, [instr, 'Rd', 'Rs', 'Imm5bit'])
+    const guard = new GuardBuilder(parse, [instr, 'Rd', 'Rs', 'Imm5bit'])
         .requireRegisterLower(0, rd).requireRegisterLower(1, rs)
         .requireNumberUnsigned(2, nn).requireNumberMax(2, nn, 31);
     if (!guard.getResult(errors)) return [];

@@ -2,9 +2,9 @@
  * Assembler for BLX instructions.
  */
 
-import { getLabel, getNumber, getRegister, type AssemblyErrors, type Labels } from "../assembler";
+import { getLabel, getNumber, getRegister } from "../assembler";
 import { GuardBuilder } from "../guards";
-import { ParameterType, type ParseLineResult } from "../parser";
+import { type AssemblyErrors, type Labels, ParameterType, type ParseLineResult } from "../types";
 
 export function assemble(parse : ParseLineResult, labels : Labels, errors : AssemblyErrors) : number[] {
     if (parse.params[0].type == ParameterType.LABEL) {
@@ -18,7 +18,7 @@ export function assemble(parse : ParseLineResult, labels : Labels, errors : Asse
     const nn = getNumber(parse.params[0]);
     const addr = parse.address ?? 0;
 
-    const guard = new GuardBuilder(parse.lineNumber, ['BLX', 'Imm31bit*2'])
+    const guard = new GuardBuilder(parse, ['BLX', 'Imm31bit*2'])
         .requireAddress(parse.address)
         .requirePointerValid(nn).requirePointerRange(nn, addr + 4, [4194302, 4194300])
         .requireNumberAlignment(0, nn, 2);
@@ -35,7 +35,7 @@ function assembleFromLabel(parse : ParseLineResult, labels : Labels, errors : As
     const nn = labels[label] ?? 0;
     const addr = parse.address ?? 0;
 
-    const guard = new GuardBuilder(parse.lineNumber, ['BLX', 'label'], labels)
+    const guard = new GuardBuilder(parse, ['BLX', 'label'], labels)
         .requireAddress(parse.address).requireLabelExists(label)
         .requirePointerValid(nn).requirePointerRange(nn, addr + 4, [4194302, 4194300])
         .requireNumberAlignment(0, nn, 4);

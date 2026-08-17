@@ -2,9 +2,9 @@
  * Assembler for all instructions under groups THUMB.6 through THUMB.11
  */
 
-import { getLabel, getNumber, getRegister, type AssemblyErrors, type Labels } from "../assembler";
+import { getLabel, getNumber, getRegister } from "../assembler";
 import { GuardBuilder } from "../guards";
-import { ParameterType, type NumberParameter, type OffsetParameter, type ParseLineResult } from "../parser";
+import { type AssemblyErrors, type Labels, ParameterType, type OffsetParameter, type ParseLineResult } from "../types";
 import { Register } from "../tokens";
 
 const instructionsOffsetImm : Record<string, number> = { 'STR': 0, 'STRH': 0, 'LDR': 1, 'LDRH': 1, 'STRB': 2, 'LDRB': 3 };
@@ -22,26 +22,26 @@ export function assemble(parse : ParseLineResult, labels : Labels, errors : Asse
     const offset = (parse.params[1] as OffsetParameter).value;
 
     if (offset[1].type == ParameterType.REGISTER) {
-        return assembleOffsetReg(parse.lineNumber, errors, rd, offset, instr);
+        return assembleOffsetReg(parse, errors, rd, offset, instr);
     } else {
         if (instr == 'LDSB' || instr == 'LDSH') {
-            errors.push([parse.lineNumber, `Instruction "${instr} Rd,[Rb,Ro]" does not accept numeric values for parameter "Ro"`]);
+            errors.push([parse.source, parse.lineNumber, `Instruction "${instr} Rd,[Rb,Ro]" does not accept numeric values for parameter "Ro"`]);
             return [];
         }
 
-        if (offset[0].value == Register.R15 && instr == 'LDR') return assembleOffsetPC(parse.lineNumber, errors, rd, offset);
-        if (offset[0].value == Register.R13 && (instr == 'STR' || instr == 'LDR')) return assembleOffsetSP(parse.lineNumber, errors, rd, offset, instr);
-        return assembleOffsetImm(parse.lineNumber, errors, rd, offset, instr);
+        if (offset[0].value == Register.R15 && instr == 'LDR') return assembleOffsetPC(parse, errors, rd, offset);
+        if (offset[0].value == Register.R13 && (instr == 'STR' || instr == 'LDR')) return assembleOffsetSP(parse, errors, rd, offset, instr);
+        return assembleOffsetImm(parse, errors, rd, offset, instr);
     }
 }
 
-function assembleOffsetImm(line : number, errors : AssemblyErrors, rd : Register, offset : OffsetParameter['value'], instr : string) : number[] {
+function assembleOffsetImm(parse : ParseLineResult, errors : AssemblyErrors, rd : Register, offset : OffsetParameter['value'], instr : string) : number[] {
     const rb = getRegister(offset[0]);
     const nn = getNumber(offset[1]);
     const op = instructionsOffsetImm[instr] ?? 0;
     const size = instr.endsWith('B') ? 1 : (instr.endsWith('H') ? 2 : 4);
 
-    const guard = new GuardBuilder(line, [instr, 'Rd', '[Rb,#nn]'])
+    const guard = new GuardBuilder(parse, [instr, 'Rd', '[Rb,#nn]'])
         .requireRegisterLower(0, rd).requireRegisterLower(1, rb)
         .requireNumberUnsigned(1, nn).requireNumberAlignment(1, nn, size).requireNumberMax(1, nn, 61 * size);
     if (!guard.getResult(errors)) return [];
@@ -54,23 +54,23 @@ function assembleOffsetImm(line : number, errors : AssemblyErrors, rd : Register
     return [((nnNormal & 3) << 6) + (rb << 3) + rd, 0x60 + (op << 3) + (nnNormal >> 2)];
 }
 
-function assembleOffsetReg(line : number, errors : AssemblyErrors, rd : Register, offset : OffsetParameter['value'], instr : string) : number[] {
+function assembleOffsetReg(parse : ParseLineResult, errors : AssemblyErrors, rd : Register, offset : OffsetParameter['value'], instr : string) : number[] {
     const rb = getRegister(offset[0]);
     const ro = getRegister(offset[1]);
     const op = instructionsOffsetReg[instr] ?? 0;
 
-    const guard = new GuardBuilder(line, [instr, 'Rd', '[Rb,Ro]'])
+    const guard = new GuardBuilder(parse, [instr, 'Rd', '[Rb,Ro]'])
         .requireRegisterLower(0, rd).requireRegisterLower(1, rb).requireRegisterLower(1, ro);
     if (!guard.getResult(errors)) return [];
 
     return [((ro & 3) << 6) + (rb << 3) + rd, 0x50 + (op << 1) + (ro >> 2)];
 }
 
-function assembleOffsetSP(line : number, errors : AssemblyErrors, rd : Register, offset : OffsetParameter['value'], instr : string) : number[] {
+function assembleOffsetSP(parse : ParseLineResult, errors : AssemblyErrors, rd : Register, offset : OffsetParameter['value'], instr : string) : number[] {
     const nn = getNumber(offset[1]);
     const op = instructionsOffsetImm[instr];
 
-    const guard = new GuardBuilder(line, [instr, 'Rd', '[SP,#nn]'])
+    const guard = new GuardBuilder(parse, [instr, 'Rd', '[SP,#nn]'])
         .requireRegisterLower(0, rd)
         .requireNumberUnsigned(1, nn).requireNumberMax(1, nn, 1020).requireNumberAlignment(1, nn, 4);
     if (!guard.getResult(errors)) return [];
@@ -78,10 +78,10 @@ function assembleOffsetSP(line : number, errors : AssemblyErrors, rd : Register,
     return [nn >> 2, 0x90 + (op << 3) + rd];
 }
 
-function assembleOffsetPC(line : number, errors : AssemblyErrors, rd : Register, offset : OffsetParameter['value']) : number[] {
+function assembleOffsetPC(parse : ParseLineResult, errors : AssemblyErrors, rd : Register, offset : OffsetParameter['value']) : number[] {
     const nn = getNumber(offset[1]);
 
-    const guard = new GuardBuilder(line, ['LDR', 'Rd', '[PC,#nn]'])
+    const guard = new GuardBuilder(parse, ['LDR', 'Rd', '[PC,#nn]'])
         .requireRegisterLower(0, rd)
         .requireNumberUnsigned(1, nn).requireNumberMax(1, nn, 1020).requireNumberAlignment(1, nn, 4);
     if (!guard.getResult(errors)) return [];
@@ -94,7 +94,7 @@ function assembleImm(parse : ParseLineResult, errors : AssemblyErrors) : number[
     const nn = getNumber(parse.params[1]);
     const addr = parse.address ?? 0;
 
-    const guard = new GuardBuilder(parse.lineNumber, ['LDR', 'Rd', 'nn'])
+    const guard = new GuardBuilder(parse, ['LDR', 'Rd', 'nn'])
         .requireAddress(parse.address)
         .requireRegisterLower(0, rd).requireNumberAlignment(1, nn, 4)
         .requirePointerValid(nn).requirePointerRange(nn, addr + 4, [0, 1020]);
@@ -111,7 +111,7 @@ function assembleFromLabel(parse : ParseLineResult, labels : Labels, errors : As
     const nn = labels[label] ?? 0;
     const addr = parse.address ?? 0;
 
-    const guard = new GuardBuilder(parse.lineNumber, ['LDR', 'Rd', 'label'], labels)
+    const guard = new GuardBuilder(parse, ['LDR', 'Rd', 'label'], labels)
         .requireLabelExists(label)
         .requireRegisterLower(0, rd).requireNumberAlignment(1, nn, 4)
         .requirePointerValid(nn).requirePointerRange(nn, addr + 4, [0, 1020]);

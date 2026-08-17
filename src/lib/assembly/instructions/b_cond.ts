@@ -2,9 +2,9 @@
  * Assembler for all instructions under group THUMB.16 (Conditional branch)
  */
 
-import { getLabel, getNumber, type AssemblyErrors, type Labels } from "../assembler";
+import { getLabel, getNumber } from "../assembler";
 import { GuardBuilder } from "../guards";
-import { ParameterType, type ParseLineResult } from "../parser";
+import { type AssemblyErrors, type Labels, ParameterType, type ParseLineResult } from "../types";
 
 const instructions : Record<string, number> = {
     'BEQ': 0, 'BNE': 1, 'BCS': 2, 'BCC': 3, 'BMI': 4, 'BPL': 5, 'BVS': 6,
@@ -21,7 +21,7 @@ export function assemble(parse : ParseLineResult, labels : Labels, errors : Asse
     const addr = parse.address ?? 0;
     const cond = instructions[instr] ?? 0;
 
-    const guard = new GuardBuilder(parse.lineNumber, [instr, 'Imm31bit*2'])
+    const guard = new GuardBuilder(parse, [instr, 'Imm31bit*2'])
         .requireAddress(parse.address)
         .requirePointerValid(nn).requirePointerRange(nn, addr + 4, [256, 254])
         .requireNumberAlignment(0, nn, 2);
@@ -40,7 +40,7 @@ function assembleFromLabel(parse : ParseLineResult, labels : Labels, errors : As
     const addr = parse.address ?? 0;
     const cond = instructions[instr] ?? 0;
 
-    const guard = new GuardBuilder(parse.lineNumber, [instr, 'label'], labels)
+    const guard = new GuardBuilder(parse, [instr, 'label'], labels)
         .requireAddress(parse.address).requireLabelExists(label)
         .requirePointerValid(nn).requirePointerRange(nn, addr + 4, [256, 254])
         .requireNumberAlignment(0, nn, 2);

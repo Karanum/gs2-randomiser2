@@ -1,4 +1,4 @@
-import type { AssemblyErrors, Labels } from "./assembler";
+import type { AssemblyErrors, Labels, ParseLineResult } from "./types";
 import type { Register } from "./tokens";
 
 /**
@@ -6,6 +6,7 @@ import type { Register } from "./tokens";
  */
 export class GuardBuilder 
 {
+    source : string;
     line : number;
     instr : string[];
     labels : Labels | undefined;
@@ -14,13 +15,14 @@ export class GuardBuilder
     #instrStr : string;
 
     /**
-     * @param line The line in the source file this guard will be applied to
+     * @param parse The line parse that this guard will be applied to
      * @param instr An array of string parts that make up the instruction this guard will be applied to;
      *  index 0 must be the instruction name, and every parameter should be another entry, e.g. `['ADD', 'Rd', 'Rs']`
      * @param labels Optional; the labels identified by the parser (only required when using the relevant guards)
      */
-    constructor(line : number, instr : string[], labels? : Labels) {
-        this.line = line;
+    constructor(parse : ParseLineResult, instr : string[], labels? : Labels) {
+        this.source = parse.source;
+        this.line = parse.lineNumber;
         this.instr = instr;
         this.labels = labels;
         this.errors = [];
@@ -45,7 +47,7 @@ export class GuardBuilder
      * @param error The error text
      */
     #addError(error : string) : void {
-        this.errors.push([this.line, error]);
+        this.errors.push([this.source, this.line, error]);
     }
 
     /**
