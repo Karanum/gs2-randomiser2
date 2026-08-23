@@ -1,5 +1,5 @@
 import { SpriteId } from "../data/enums";
-import { EventType, MapCodeEntry } from "../data/map_code/enums";
+import { MapCodeEntry } from "../data/map_code/enums";
 import { EventBuilder, NpcBuilder } from "../data/map_code/model";
 import { BOX, END, LINE } from "../data/text/control_characters";
 import type { RomData } from "../rom";

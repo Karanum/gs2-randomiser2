@@ -13,7 +13,6 @@ export const AbilityDefinition = {
 export const AbilityIconDefinition = {
     ADDRESS: 0x3D4DC,
     ADDRESS_WRITE: 0xFFAA00,
-    ADDRESS_MAPPING: 0x100311C,
     COUNT: 260
 };
 

@@ -61,6 +61,55 @@ function_isSpecialItemIgnored:
         pop {pc}
 
 
+@ r0 = characterId, r1 = itemId
+function_addMappedItem:
+    push {r5, lr}
+    mov r5, r0
+    mov r0, r1
+    bl function_getSpecialItemMapped
+
+    lsr r1, r0, #0x8
+    cmp r1, #0xD
+    blt local_addMappedItem_isNormalItem
+    beq local_addMappedItem_isCharacter
+    cmp r1, #0xE
+    beq local_addMappedItem_isPsynergy
+    cmp r1, #0xF
+    beq local_addMappedItem_isSummon
+
+    mov r1, #0x80
+    lsl r1, r1, #0x8
+    sub r0, r0, r1
+    bl thunk_addCoins
+    b local_addMappedItem_end
+
+    local_addMappedItem_isCharacter:
+        lsl r0, r0, #0x1C
+        lsr r0, r0, #0x1C
+        mov r1, #0x1
+        bl thunk_addPartyMember
+        b local_addMappedItem_end
+
+    local_addMappedItem_isPsynergy:
+        lsl r0, r0, #0x18
+        lsr r0, r0, #0x18
+        bl thunk_addPsynergy
+        b local_addMappedItem_end
+
+    local_addMappedItem_isSummon:
+        mov r1, #0xFF
+        and r0, r1
+        bl thunk_unlockSummon
+        b local_addMappedItem_end
+
+    local_addMappedItem_isNormalItem:
+        mov r1, r5
+        bl thunk_addItemToCharacter
+
+    local_addMappedItem_end:
+        pop {r5, pc}
+
+
 @ r0 = listPointer
 function_addMappedItemList:
     push {r5, lr}
@@ -190,10 +239,11 @@ function_loadItemIcon:
 .thunk thunk_setFlag, #0x08016CFD
 .thunk thunk_loadItemIcon, #0x0803D92D
 .thunk thunk_loadAbilityIcon, #0x0803D9BD
+.thunk thunk_addItemToCharacter, #0x080AE6C9
+.thunk thunk_addPsynergy, #0x080AF6F5
+.thunk thunk_addCoins, #0x080AFEB1
 .thunk thunk_addDjinniToCharacter, #0x080B0B79
 .thunk thunk_setDjinniSet, #0x080B0C9D
-
-.thunk function_addMappedItem, #0x09005039         @ <-- Consolidate if possible
 
 ptr_djinnMapping:
     .pointer #0x08FA0000

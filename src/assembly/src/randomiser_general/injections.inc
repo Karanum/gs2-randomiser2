@@ -3,6 +3,9 @@
 .export injection_displayScoopItem_preCall
 .export injection_displayItemObject
 .export injection_displayScoopItem
+.export injection_addItem_preCall
+.export injection_addFoundItem_preCall
+.export injection_useFieldPsynergy_retreat
 
 
 injection_tabletInteraction:
@@ -63,11 +66,63 @@ injection_displayScoopItem:
     ldr r1, ptr_displayScoopItem_return
     bx r1
 
+
+injection_addCutsceneItem_preCall:
+    push {lr}
+    bl function_getSpecialItemMapped
+    bl thunk_addCutsceneItem
+    pop {pc}
+
+
+injection_addFoundItem_preCall:
+    push {r5-r6, lr}
+    mov r5, r0
+    mov r6, r2
+    mov r0, r1
+    bl function_getSpecialItemMapped
+
+    mov r1, r0
+    mov r2, r6
+    mov r0, r5
+    bl thunk_addFoundItem
+
+    pop {r5, pc}
+
+
+injection_useFieldPsynergy_retreat:
+    mov r0, #0x9F
+    lsl r0, r0, #0x4
+    add r0, #0xF
+    bl thunk_readFlag
+
+    cmp r0, #0x1
+    beq local_useFieldPsynergy_retreat_preventUse
+
+    ldr r0, ptr_areaNumber
+    ldrh r0, [r0, #0x0]
+    cmp r0, #0x36
+    beq local_useFieldPsynergy_retreat_preventUse
+
+    ldr r0, ptr_useFieldPsynergy_retreat_returnSuccess
+    bx r0
+
+    local_useFieldPsynergy_retreat_preventUse:
+        ldr r0, ptr_useFieldPsynergy_retreat_returnFail
+        bx r0
+
 @ =============================
 
 .thunk thunk_showTreasureAnimation, #0x080CF351
 .thunk thunk_playSound, #0x081C0CB1
+.thunk thunk_addCutsceneItem, #0x080D260D
+.thunk thunk_addFoundItem, #0x080D296D
 .thunk thunk_displayScoopItem, #0x080D3B29
+
+ptr_areaNumber:
+    .pointer #0x0200042C
+
+ptr_retreatPointer:
+    .pointer #0x02002950
 
 ptr_tabletInteraction_return:
     .pointer #0x080CD0ED
@@ -83,3 +138,9 @@ ptr_displayItemObject_return:
 
 ptr_displayScoopItem_return:
     .pointer #0x080D3B91
+
+ptr_useFieldPsynergy_retreat_returnSuccess:
+    .pointer #0x080CE795
+
+ptr_useFieldPsynergy_retreat_returnFail:
+    .pointer #0x080CE77B

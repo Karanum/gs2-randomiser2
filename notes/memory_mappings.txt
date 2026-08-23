@@ -4,4 +4,7 @@
 0xFA0130 - Starting Psynergy mappings
 0xFA0150 - Unknown (leftover artifact from old entrance randomiser?)
 0xFA0180 - Character location mappings
+0xFA0200 - External randomiser data [TENTATIVE]
+    - 0x00 = Taopo swamp autorun
+    - 0x02 = Anemos Djinn requirement
 0xFA2000 - Custom randomiser code, moved from the legacy 0x09000000 region

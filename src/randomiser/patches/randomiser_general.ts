@@ -66,8 +66,6 @@ export function applyGeneralRomPatches(rom : RomData)
     // Insert common use functions
     rom.writeBlock(0x131900, patchCountDjinnFunction);
     rom.writeBlock(0x131A00, patchHighestDjinnCountFunction);
-
-    //TODO: Finish
 }
 
 
@@ -82,6 +80,8 @@ function insertRandomiserLogic(rom : RomData)
 
     // Item handling injections
     rom.writeWord(0xAD02C, getAssemblyExport('legacy_randomiser_logic', 'function_override_addItem'));
+    rom.writeWord(0xC8064, getAssemblyExport('legacy_randomiser_logic', 'injection_addItem_preCall'));
+    rom.writeWord(0xC807C, getAssemblyExport('legacy_randomiser_logic', 'injection_addFoundItem_preCall'));
 
     // Item sprite display injections
     rom.writeWord(0xC8862, getAssemblyExport('legacy_randomiser_logic', 'injection_displayScoopItem_preCall'));
@@ -90,15 +90,21 @@ function insertRandomiserLogic(rom : RomData)
     // Injections requiring additional code
     rom.writeLongJump(0xCD0E0, getAssemblyExport('legacy_randomiser_logic', 'injection_tabletInteraction'));
     rom.writeLongJump(0xCD31A, getAssemblyExport('legacy_randomiser_logic', 'injection_chestInteraction'));
+    rom.writeLongJump(0xCE76E, getAssemblyExport('legacy_randomiser_logic', 'injection_useFieldPsynergy_retreat'));
     rom.writeLongJump(0xCF294, getAssemblyExport('legacy_randomiser_logic', 'injection_displayItemObject'));
     rom.writeLongJump(0xD3B88, getAssemblyExport('legacy_randomiser_logic', 'injection_displayScoopItem'));
 
     //TODO: Partially rewrite the edits starting at 0x090004A0 (0x090006BC specifically) (alternatively, put this into map code)
     //TODO: Rewrite the edits starting at 0x09001828
             // Map code injections for Djinn display, this should go into map code directly instead
-    //TODO: Rewrite the edits starting at 0x09005000
-    //TODO: Rewrite the edits starting at 0x09005F00
     //TODO: Rewrite the edits starting at 0x09006D00
+
+    //TODO: Things to move out of the old 0x09000000 region:
+	// - mimic disguises
+	// - anemos requirement
+	// - AP functions <-- multiple files!
+	// - character shuffle <-- multiple files!
+	// - taopo autorun flag
 }
 
 
