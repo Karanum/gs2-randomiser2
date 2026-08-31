@@ -1,8 +1,0 @@
-.offset #0x0200836C
-
-    mov r0, #0x80
-    lsl r0, r0, #0x4
-    add r0, #0xB6
-    bl #0x02009BBC
-    
-    b #0x0200837C
