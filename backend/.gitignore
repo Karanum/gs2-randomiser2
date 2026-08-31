@@ -1,0 +1,11 @@
+/node_modules
+/build
+
+.env
+.env.*
+!.env.example
+
+/generated/prisma
+
+# Don't upload any ROM files!
+*.gba

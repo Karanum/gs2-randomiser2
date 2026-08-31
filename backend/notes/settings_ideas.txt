@@ -1,0 +1,18 @@
+Ideas for extra settings:
+
+- Shuffle the effects of utility Psynergy (e.g. Whirlwind will act like Hover when cast)
+    * Note: this one's going to need some dark magic to make the logic work with this
+
+- Allow Lemurian Ship flight without Hover Psynergy
+
+- Preset character names (permalink seeds and plando seeds only)        <-- this one's a maybe
+
+- Multiple instances of progression items
+
+- Shuffle Move into the pool (making it non-default for I/G/F)
+
+- Custom goals
+    * Note: for this one, can I repurpose the Sleep menu command to show the goal(s) instead?
+
+- Convert progression flags into item checks 
+    * e.g.: Defeating Briggs gives an item check, but the flag for defeating Briggs will be elsewhere

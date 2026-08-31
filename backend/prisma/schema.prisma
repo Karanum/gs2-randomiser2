@@ -1,0 +1,63 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum GenerationType {
+  NORMAL
+  RACE
+  PERMALINK
+  ARCHIPELAGO
+}
+
+enum GenerationResult {
+  SUCCESS
+  FAIL
+}
+
+enum LoginStatus {
+  LOGGED_OUT
+  AWAITING_2FA
+  LOGGED_IN
+}
+
+model account {
+  id        String      @id @default(uuid()) @db.Uuid
+  email     String      @unique
+  password  Bytes
+  name      String
+
+  session   session[]
+}
+
+model generation_log {
+  id          Int             @id @default(autoincrement())
+  timestamp   DateTime        @db.Timestamp(3)
+  type        GenerationType
+  seed        String?
+  settings    String?
+  permalink   String?
+  result      GenerationResult
+}
+
+model permalink {
+  id          String      @id
+  timestamp   DateTime    @db.Timestamp(3)
+  seed        String
+  settings    String
+  comment     String?
+}
+
+model session {
+  id      String      @id @default(uuid()) @db.Uuid
+  user_id String?     @db.Uuid
+  expiry  DateTime    @db.Timestamp(6)
+  status  LoginStatus @default(LOGGED_OUT)
+
+  user    account?    @relation(fields: [user_id], references: [id], onDelete: SetNull, onUpdate: Restrict)
+}

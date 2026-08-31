@@ -1,0 +1,21 @@
+.offset #0x0200B770
+
+    mov r0, #0xA
+    mov r1, #0x0
+    mov r2, #0x0
+    bl #0x0200CEBC
+
+    mov r3, #0x1E
+    mov r2, #0x13
+    str r3, [sp, #0x0]
+    str r2, [sp, #0x4]
+
+    mov r0, #0x55
+    mov r1, #0x48
+    mov r2, #0x5
+    mov r3, #0x2
+    bl #0x0200CE04
+    bl #0x0200CFAC
+    bl #0x0200CFBC
+
+    b #0x0200BAE4

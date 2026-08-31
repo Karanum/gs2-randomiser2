@@ -1,0 +1,19 @@
+{
+  "name": "gs2-randomiser-backend",
+  "version": "2.0.0-dev",
+  "type": "module",
+  "scripts": {
+    "compile-asm": "npx tsx run/compile_asm.ts"
+  },
+  "dependencies": {
+    "@prisma/client": "^7.10.0",
+    "express": "^5.2.1",
+    "fast-mersenne-twister": "^1.0.3"
+  },
+  "devDependencies": {
+    "@types/node": "^26.4.0",
+    "prisma": "^7.10.0",
+    "tsx": "^4.23.13",
+    "typescript": "^7.0.2"
+  }
+}

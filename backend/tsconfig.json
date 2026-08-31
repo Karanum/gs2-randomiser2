@@ -1,0 +1,22 @@
+{
+	"compilerOptions": {
+		"allowJs": true,
+		"checkJs": true,
+		"esModuleInterop": true,
+		"forceConsistentCasingInFileNames": true,
+		"paths": {
+			"$src/*": ["./src/*"],
+			"$lib/*": ["./src/lib/*"]
+		},
+		"resolveJsonModule": true,
+		"skipLibCheck": true,
+		"sourceMap": true,
+		"strict": true,
+		"moduleResolution": "bundler",
+		"types": ["node"]
+	},
+	"include": [
+		"./src/**/*.ts",
+		"./run/**/*.ts",
+	]
+}
