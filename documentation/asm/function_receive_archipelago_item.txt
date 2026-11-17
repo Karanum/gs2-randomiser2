@@ -70,11 +70,11 @@ add r0, r1
 ldr r1, ptrEncounter
 strh r0, [r1, #0x0]
 ldr r1, ptrReceivedItemCount
-ldrb r0, [r1, #0x0]
+ldrh r0, [r1, #0x0]
 adds r0, #0x1
-strb r0, [r1, #0x0]
+strh r0, [r1, #0x0]
 movs r0, #0x0
-strb r0, [r1, #0x1]
+movs r0, #0x0
 ldr r1, ptrItemBuffer
 strh r0, [r1, #0x0]
 movs r0, 0x2
@@ -122,11 +122,11 @@ bl thunkForceAddItem
 
 skip:
 ldr r1, ptrReceivedItemCount
-ldrb r0, [r1, #0x0]
+ldrh r0, [r1, #0x0]
 adds r0, #0x1
-strb r0, [r1, #0x0]
+strh r0, [r1, #0x0]
 movs r0, #0x0
-strb r0, [r1, #0x1]
+movs r0, #0x0
 ldr r1, ptrItemBuffer
 strh r0, [r1, #0x0]
 bl thunkEndCutscene
@@ -136,6 +136,8 @@ movs r0, #0x1
 
 end:
 pop {r5, pc}
+
+.hword 0x0
 
 thunkStartCutscene:
 ldr r4, #0x0
