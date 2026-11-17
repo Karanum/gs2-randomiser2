@@ -55,6 +55,35 @@ adds r0, #0x38
 movs r1, #0x0
 bl thunkShowStatusBox
 
+@ starts at 0xB00 with elements in bits 5+6 and the index in 0-4
+movs r1, #0xB
+movs r0, r5
+lsrs r0, r0, #0x8
+cmp r0, r1
+bne notDjinn
+
+movs r0, r5
+lsrs r0, r0, #0x5
+movs r2, #0x3
+ands r0, r2
+movs r1, r5
+movs r2, #0x1F
+ands r1, r2
+bl thunkAddDjinn
+cmp r0, #0x0
+blt skip
+
+movs r1, r5
+lsrs r1, r1, #0x5
+movs r3, #0x3
+ands r1, r3
+movs r2, r5
+movs r3, #0x1F
+ands r2, r3
+bl thunkShowDjinnStatusBox
+b skip
+
+notDjinn:
 movs r1, #0xA
 movs r0, r5
 lsrs r0, r0, #0x8
@@ -73,7 +102,6 @@ ldr r1, ptrReceivedItemCount
 ldrh r0, [r1, #0x0]
 adds r0, #0x1
 strh r0, [r1, #0x0]
-movs r0, #0x0
 movs r0, #0x0
 ldr r1, ptrItemBuffer
 strh r0, [r1, #0x0]
@@ -126,7 +154,6 @@ ldrh r0, [r1, #0x0]
 adds r0, #0x1
 strh r0, [r1, #0x0]
 movs r0, #0x0
-movs r0, #0x0
 ldr r1, ptrItemBuffer
 strh r0, [r1, #0x0]
 bl thunkEndCutscene
@@ -159,6 +186,11 @@ ldr r4, #0x0
 bx r4
 .word 0x08038041
 
+thunkShowDjinnStatusBox:
+ldr r4, #0x0
+bx r4
+.word 0x08044A59
+
 thunkForceAddItem:
 ldr r4, #0x0
 bx r4
@@ -188,6 +220,11 @@ thunkAddCoins:
 ldr r4, #0x0
 bx r4
 .word 0x080AFEB1
+
+thunkAddDjinn:
+ldr r4, #0x0
+bx r4
+.word 0x080B0AB9
 
 ptrItemBuffer:
 .word 0x02000A96
